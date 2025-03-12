@@ -1,0 +1,361 @@
+{
+  "landing_page": {
+    "title": "マイシングル",
+    "description": "マイシングルへようこそ",
+    "get_started": "はじめる",
+    "login": "ログイン"
+  },
+  "sidebar": {
+    "dashboard": "ダッシュボード",
+    "posts": "投稿",
+    "users": "ユーザー",
+    "settings": "設定",
+    "logout": "ログアウト"
+  },
+  "user_button": {
+    "profile": "プロフィール",
+    "logout": "ログアウト"
+  },
+  "user": {
+    "email": "メールアドレス",
+    "fullname": "名前",
+    "password": "パスワード",
+    "provider": "アカウントプロバイダー",
+    "mobile_phone": "携帯電話",
+    "birthday": "生年月日",
+    "status": "状態",
+    "created_at": "登録日",
+    "confirm_password": "パスワード確認",
+    "is_superuser": "管理者権限",
+    "is_active": "有効化",
+    "is_verified": "認証済み",
+    "role": "役割"
+  },
+  "post": {
+    "title": "タイトル",
+    "content": "内容",
+    "author": "作成者",
+    "created_at": "作成日時",
+    "updated_at": "更新日時",
+    "public": "公開"
+  },
+  "pages": {
+    "admin": {
+      "page_title": "管理者",
+      "page_description": "管理者用ページです。",
+      "users": {
+        "title": "ユーザー管理",
+        "description": "ユーザー一覧を管理します",
+        "create": {
+          "title": "ユーザー作成",
+          "description": "新しいユーザーを登録します"
+        },
+        "edit": {
+          "title": "ユーザー編集",
+          "description": "ユーザー情報を編集します"
+        },
+        "delete": {
+          "title": "ユーザー削除",
+          "description": "登録済みのユーザーを削除します"
+        },
+        "docs": {
+          "title": "文書管理",
+          "description": "文書一覧を管理します"
+        },
+        "docs_cat": {
+          "title": "文書カテゴリ管理",
+          "description": "文書カテゴリ一覧を管理します"
+        }
+      }
+    },
+    "docs": {
+      "page_title": "文書",
+      "page_description": "文書のリストを管理します。",
+      "select_category": "カテゴリを選択",
+      "select_subcategory": "サブカテゴリを選択",
+      "docs_title_placeholder": "タイトルを入力してください",
+      "docs_content_placeholder": "内容を入力してください",
+      "public": "公開",
+      "private": "非公開",
+      "save": "保存",
+      "cancel": "キャンセル",
+      "edit_button": "編集",
+      "delete_button": "削除",
+      "create": {
+        "title": "新しい文書の作成",
+        "description": "新しい文書を作成します。"
+      },
+      "edit": {
+        "title": "文書の編集",
+        "description": "文書の情報を編集します。"
+      },
+      "delete": {
+        "title": "文書の削除",
+        "description": "文書を削除します。"
+      }
+    },
+    "settings": {
+      "page_title": "設定",
+      "page_description": "ユーザープロフィールの管理",
+      "my_profile": "マイプロフィール",
+      "change_password": "パスワード変更",
+      "language": "言語",
+      "appearance": "外観",
+      "dark_mode": "ダークモード",
+      "light_mode": "ライトモード",
+      "system_default": "システム標準",
+      "danger_zone": "危険区域",
+      "edit_profile": "プロフィール編集",
+      "save": "保存",
+      "saving": "保存中...",
+      "cancel": "キャンセル"
+    },
+    "posts": {
+      "page_title": "投稿",
+      "page_description": "投稿を管理します",
+      "select_category": "カテゴリ選択",
+      "select_subcategory": "サブカテゴリ選択",
+      "post_title_placeholder": "タイトルを入力してください",
+      "post_content_placeholder": "内容を入力してください",
+      "public": "公開",
+      "private": "非公開",
+      "save": "保存",
+      "cancel": "キャンセル",
+      "edit_button": "編集",
+      "delete_button": "削除",
+      "create": {
+        "title": "投稿作成",
+        "description": "新しい投稿を作成します"
+      },
+      "edit": {
+        "title": "投稿編集",
+        "description": "投稿内容を編集します"
+      },
+      "delete": {
+        "title": "投稿削除",
+        "description": "投稿を削除します"
+      }
+    }
+  },
+  "errors": {
+    "auth": {
+      "invalid_email": "メールアドレスの形式が無効です",
+      "invalid_name": "名前の形式が無効です",
+      "email_required": "メールアドレスを入力してください",
+      "fullname_required": "名前を入力してください",
+      "password_length": "パスワードは8文字以上である必要があります",
+      "password_required": "パスワードを入力してください",
+      "confirm_password_required": "パスワード確認を入力してください",
+      "password_mismatch": "パスワードが一致しません",
+      "failed_login": "ログインに失敗しました"
+    },
+    "post": {
+      "error_fetching_post": "投稿の取得中にエラーが発生しました"
+    },
+    "http": {
+      "default_title": "エラー",
+      "400_title": "不正なリクエスト",
+      "401_title": "認証されていません",
+      "403_title": "アクセス禁止",
+      "404_title": "ページが見つかりません",
+      "409_title": "競合エラー",
+      "422_title": "処理不能なエンティティ",
+      "500_title": "サーバーエラー",
+      "400": "リクエストが無効です。",
+      "401": "再ログインしてください。",
+      "403": "アクセス権限がありません。",
+      "404": "リクエストされたリソースが見つかりませんでした。",
+      "409": "すでに存在する項目です。",
+      "422": "バリデーションエラーが発生しました。",
+      "500": "サーバーエラーが発生しました。しばらくしてから再試行してください。",
+      "unexpected": "予期せぬエラーが発生しました。"
+    },
+    "required_field": {
+      "title": "必須フィールドが不足しています",
+      "description": "{field} は必須です。"
+    },
+    "unexpected": {
+      "title": "予期せぬエラー",
+      "description": "不明なエラーが発生しました。サポートにお問い合わせください。"
+    }
+  },
+  "forms": {
+    "login": {
+      "title": "ログイン",
+      "description": "メールアドレスとパスワードを入力してください",
+      "submit": "ログイン",
+      "no_account": "アカウントをお持ちではありませんか？",
+      "signup": "サインアップ",
+      "forgot_password": "パスワードをお忘れですか？",
+      "continue_with": "または以下で続ける",
+      "google": "Google ログイン",
+      "kakao": "Kakao ログイン",
+      "naver": "Naver ログイン",
+      "success": {
+        "title": "ログイン成功",
+        "description": "ダッシュボードにリダイレクトしています"
+      }
+    },
+    "user": {
+      "add_title": "アカウント作成",
+      "add_description": "新しいアカウントを追加します。",
+      "edit_title": "アカウント編集",
+      "edit_description": "アカウント情報を修正します。",
+      "email": "メールアドレス",
+      "fullname": "フルネーム",
+      "password": "パスワード",
+      "confirm_password": "パスワード確認",
+      "is_superuser": "スーパーユーザー？",
+      "is_active": "アクティブ？",
+      "save": "保存",
+      "cancel": "キャンセル",
+      "add_success": {
+        "title": "アカウント作成完了",
+        "description": "確認メールが送信されました。"
+      },
+      "edit_success": {
+        "title": "アカウント更新完了",
+        "description": "アカウント情報が更新されました。"
+      }
+    },
+    "signup": {
+      "title": "サインアップ",
+      "description": "メールアドレスとパスワードを入力してください",
+      "submit": "サインアップ",
+      "already_have_account": "すでにアカウントをお持ちですか？",
+      "login": "ログイン",
+      "success": {
+        "title": "アカウント作成完了",
+        "description": "確認メールが送信されました。"
+      }
+    },
+    "forgot_password": {
+      "title": "パスワード再設定",
+      "description": "登録済みのメールアドレスを入力してください",
+      "submit": "メール送信",
+      "back_to_login": "ログイン画面へ戻る",
+      "success": {
+        "title": "メール送信成功",
+        "description": "パスワード再設定メールが送信されました。"
+      }
+    },
+    "reset_password": {
+      "title": "パスワード再設定",
+      "description": "新しいパスワードを入力してください",
+      "submit": "パスワード再設定",
+      "success": {
+        "title": "パスワード再設定成功",
+        "description": "新しいパスワードでログインしてください。"
+      }
+    },
+    "change_password": {
+      "title": "パスワード変更",
+      "description": "現在のパスワードと新しいパスワードを入力してください",
+      "current_password": "現在のパスワード",
+      "new_password": "新しいパスワード",
+      "confirm_password": "パスワード確認",
+      "submit": "パスワード変更",
+      "success": {
+        "title": "パスワード変更成功",
+        "description": "新しいパスワードでログインしてください。"
+      }
+    },
+    "appearance": {
+      "title": "外観設定",
+      "description": "外観設定を変更します。",
+      "dark_mode": "ダークモード",
+      "light_mode": "ライトモード"
+    },
+    "delete_account": {
+      "title": "アカウント削除",
+      "description": "アカウントを削除します。",
+      "delete": "削除",
+      "success": {
+        "title": "アカウント削除成功",
+        "description": "アカウントが正常に削除されました。"
+      }
+    },
+    "delete_confirmation": {
+      "title": "削除確認",
+      "description": "本当に削除しますか？",
+      "confirm": "削除",
+      "cancel": "キャンセル"
+    },
+    "create_doc": {
+      "title": "新しい文書の作成",
+      "description": "新しい文書を作成します。",
+      "is_public": "公開",
+      "title_placeholder": "タイトルを入力してください。",
+      "content_placeholder": "内容を入力してください。",
+      "submit": "保存",
+      "cancel": "キャンセル",
+      "success": {
+        "title": "文書の作成成功",
+        "description": "文書が正常に作成されました。"
+      }
+    },
+    "edit_doc": {
+      "title": "文書の編集",
+      "description": "文書情報を編集します。",
+      "is_public": "公開",
+      "submit": "保存",
+      "cancel": "キャンセル",
+      "success": {
+        "title": "文書の更新成功",
+        "description": "文書が正常に更新されました。"
+      }
+    },
+    "create_post": {
+      "title": "投稿作成",
+      "description": "新しい投稿を作成します。",
+      "is_public": "公開",
+      "title_placeholder": "投稿タイトルを入力してください",
+      "content_placeholder": "内容を入力してください",
+      "submit": "保存",
+      "cancel": "キャンセル",
+      "success": {
+        "title": "投稿作成成功",
+        "description": "投稿が正常に作成されました。"
+      }
+    },
+    "edit_post": {
+      "title": "投稿編集",
+      "description": "投稿内容を編集します。",
+      "is_public": "公開",
+      "submit": "保存",
+      "cancel": "キャンセル",
+      "success": {
+        "title": "投稿更新成功",
+        "description": "投稿が正常に更新されました。"
+      }
+    },
+    "create_category": {
+      "title": "カテゴリ作成",
+      "description": "新しいカテゴリを作成します。",
+      "cat_lable": "カテゴリ",
+      "subcat_label": "サブカテゴリ",
+      "cat_placeholder": "カテゴリ名を入力してください",
+      "subcat_placeholder": "サブカテゴリ名を入力してください",
+      "submit": "保存",
+      "cancel": "キャンセル",
+      "success": {
+        "title": "カテゴリ作成成功",
+        "description": "カテゴリが正常に作成されました。"
+      }
+    },
+    "edit_category": {
+      "title": "カテゴリ編集",
+      "description": "カテゴリ情報を編集します。",
+      "cat_lable": "カテゴリ",
+      "subcat_label": "サブカテゴリ",
+      "cat_placeholder": "カテゴリ名を入力してください",
+      "subcat_placeholder": "サブカテゴリ名を入力してください",
+      "submit": "保存",
+      "cancel": "キャンセル",
+      "success": {
+        "title": "カテゴリ更新成功",
+        "description": "カテゴリが正常に更新されました。"
+      }
+    }
+  }
+}

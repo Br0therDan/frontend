@@ -1,0 +1,361 @@
+{
+  "landing_page": {
+    "title": "MySingle",
+    "description": "Welcome to MySingle",
+    "get_started": "Get Started",
+    "login": "Login"
+  },
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "posts": "Posts",
+    "users": "User Management",
+    "settings": "Settings",
+    "logout": "Logout"
+  },
+  "user_button": {
+    "profile": "My Profile",
+    "logout": "Logout"
+  },
+  "user": {
+    "email": "Email",
+    "fullname": "Full Name",
+    "password": "Password",
+    "provider": "Account Provider",
+    "mobile_phone": "Mobile Phone",
+    "birthday": "Date of Birth",
+    "status": "Status",
+    "created_at": "Registered Date",
+    "confirm_password": "Confirm Password",
+    "is_superuser": "Admin Role",
+    "is_active": "Active",
+    "is_verified": "Verified",
+    "role": "Role"
+  },
+  "post": {
+    "title": "Title",
+    "content": "Content",
+    "author": "Author",
+    "created_at": "Created At",
+    "updated_at": "Updated At",
+    "public": "Public"
+  },
+  "pages": {
+    "admin": {
+      "page_title": "Admin",
+      "page_description": "Admin-only page",
+      "users": {
+        "title": "User Management",
+        "description": "Manage registered user accounts",
+        "create": {
+          "title": "Add User",
+          "description": "Register a new user"
+        },
+        "edit": {
+          "title": "Edit User",
+          "description": "Modify user details"
+        },
+        "delete": {
+          "title": "Delete User",
+          "description": "Delete registered users"
+        }
+      },
+      "docs": {
+        "title": "Manage Documents",
+        "description": "Manage the list of documents"
+      },
+      "docs_cat": {
+        "title": "Manage Categories",
+        "description": "Manage document categories"
+      }
+    },
+    "docs": {
+      "page_title": "Documents",
+      "page_description": "Manage the list of documents.",
+      "select_category": "Select Category",
+      "select_subcategory": "Select Subcategory",
+      "docs_title_placeholder": "Enter the title",
+      "docs_content_placeholder": "Enter the content",
+      "public": "Public",
+      "private": "Private",
+      "save": "Save",
+      "cancel": "Cancel",
+      "edit_button": "Edit",
+      "delete_button": "Delete",
+      "create": {
+        "title": "Create New Document",
+        "description": "Create a new document."
+      },
+      "edit": {
+        "title": "Edit Document",
+        "description": "Edit document information."
+      },
+      "delete": {
+        "title": "Delete Document",
+        "description": "Delete the document."
+      }
+    },
+    "settings": {
+      "page_title": "Settings",
+      "page_description": "Manage your account settings",
+      "my_profile": "My Profile",
+      "change_password": "Change Password",
+      "language": "Language",
+      "appearance": "Appearance",
+      "dark_mode": "Dark Mode",
+      "light_mode": "Light Mode",
+      "system_default": "System Default",
+      "danger_zone": "Danger Zone",
+      "edit_profile": "Edit Profile",
+      "save": "Save",
+      "saving": "Saving...",
+      "cancel": "Cancel"
+    },
+    "posts": {
+      "page_title": "Posts",
+      "page_description": "Manage your posts",
+      "select_category": "Select Category",
+      "select_subcategory": "Select Subcategory",
+      "post_title_placeholder": "Enter a title",
+      "post_content_placeholder": "Enter content",
+      "public": "Public",
+      "private": "Private",
+      "save": "Save",
+      "cancel": "Cancel",
+      "edit_button": "Edit",
+      "delete_button": "Delete",
+      "create": {
+        "title": "Create New Post",
+        "description": "Write and publish a new post"
+      },
+      "edit": {
+        "title": "Edit Post",
+        "description": "Modify post details"
+      },
+      "delete": {
+        "title": "Delete Post",
+        "description": "Remove a post"
+      }
+    }
+  },
+  "errors": {
+    "auth": {
+      "invalid_email": "Invalid email format",
+      "invalid_name": "Invalid name format",
+      "email_required": "Please enter your email",
+      "fullname_required": "Please enter your full name",
+      "password_length": "Password must be at least 8 characters",
+      "password_required": "Please enter your password",
+      "confirm_password_required": "Please confirm your password",
+      "password_mismatch": "Passwords do not match",
+      "failed_login": "Login failed"
+    },
+    "post": {
+      "error_fetching_post": "An error occurred while fetching the post"
+    },
+    "http": {
+      "default_title": "Error",
+      "400_title": "Bad Request",
+      "401_title": "Unauthorized",
+      "403_title": "Forbidden",
+      "404_title": "Not Found",
+      "409_title": "Conflict",
+      "422_title": "Unprocessable Entity",
+      "500_title": "Server Error",
+      "400": "Invalid request.",
+      "401": "Please log in again.",
+      "403": "You don't have permission to access this.",
+      "404": "The requested resource could not be found.",
+      "409": "This item already exists.",
+      "422": "Validation error occurred.",
+      "500": "Internal server error. Please try again later.",
+      "unexpected": "An unexpected error occurred."
+    },
+    "required_field": {
+      "title": "Missing Required Field",
+      "description": "{field} is required."
+    },
+    "unexpected": {
+      "title": "Unexpected Error",
+      "description": "An unknown error occurred. Please contact support."
+    }
+  },
+  "forms": {
+    "login": {
+      "title": "Login",
+      "description": "Enter your email and password",
+      "submit": "Login",
+      "no_account": "Don't have an account?",
+      "signup": "Sign Up",
+      "forgot_password": "Forgot your password?",
+      "continue_with": "Or continue with",
+      "google": "Login with Google",
+      "kakao": "Login with Kakao",
+      "naver": "Login with Naver",
+      "success": {
+        "title": "Login Successful",
+        "description": "Redirecting to the dashboard"
+      }
+    },
+    "user": {
+      "add_title": "Create Account",
+      "add_description": "Add a new account.",
+      "edit_title": "Edit Account",
+      "edit_description": "Modify account details.",
+      "email": "Email",
+      "fullname": "Full Name",
+      "password": "Password",
+      "confirm_password": "Confirm Password",
+      "is_superuser": "Superuser?",
+      "is_active": "Activate?",
+      "save": "Save",
+      "cancel": "Cancel",
+      "add_success": {
+        "title": "Account Created",
+        "description": "Confirmation email has been sent."
+      },
+      "edit_success": {
+        "title": "Account Updated",
+        "description": "Account details have been updated."
+      }
+    },
+    "signup": {
+      "title": "Sign Up",
+      "description": "Enter your email and password",
+      "submit": "Sign Up",
+      "already_have_account": "Already have an account?",
+      "login": "Login",
+      "success": {
+        "title": "Account Created",
+        "description": "A verification email has been sent to your email address"
+      }
+    },
+    "forgot_password": {
+      "title": "Forgot Password",
+      "description": "Enter your registered email",
+      "submit": "Send Email",
+      "back_to_login": "Back to Login",
+      "success": {
+        "title": "Email Sent",
+        "description": "A password reset email has been sent."
+      }
+    },
+    "reset_password": {
+      "title": "Reset Password",
+      "description": "Enter your new password",
+      "submit": "Reset Password",
+      "success": {
+        "title": "Password Reset Successful",
+        "description": "Login with your new password"
+      }
+    },
+    "change_password": {
+      "title": "Change Password",
+      "description": "Enter your current and new password",
+      "current_password": "Current Password",
+      "new_password": "New Password",
+      "confirm_password": "Confirm Password",
+      "submit": "Change Password",
+      "success": {
+        "title": "Password Change Successful",
+        "description": "Login with your new password"
+      }
+    },
+    "create_post": {
+      "title": "Create Post",
+      "description": "Create a new post.",
+      "is_public": "Public",
+      "title_placeholder": "Enter post title",
+      "content_placeholder": "Enter content here",
+      "submit": "Save",
+      "cancel": "Cancel",
+      "success": {
+        "title": "Post Created",
+        "description": "The post has been successfully created."
+      }
+    },
+    "appearance": {
+      "title": "Appearance",
+      "description": "Change appearance settings.",
+      "dark_mode": "Dark Mode",
+      "light_mode": "Light Mode"
+    },
+    "delete_account": {
+      "title": "Delete Account",
+      "description": "Permanently delete your data and everything associated with your account.",
+      "delete": "Delete",
+      "success": {
+        "title": "Account Deleted",
+        "description": "Your account has been successfully deleted."
+      }
+    },
+    "delete_confirmation": {
+      "title": "Confirmation Required",
+      "description": " All your account data will be permanently deleted. This action cannot be undone.",
+      "confirm": "Confirm",
+      "cancel": "Cancel"
+    },
+    "create_doc": {
+      "title": "新しい文書の作成",
+      "description": "新しい文書を作成します。",
+      "is_public": "公開",
+      "title_placeholder": "タイトルを入力してください。",
+      "content_placeholder": "内容を入力してください。",
+      "submit": "保存",
+      "cancel": "キャンセル",
+      "success": {
+        "title": "文書の作成成功",
+        "description": "文書が正常に作成されました。"
+      }
+    },
+    "edit_doc": {
+      "title": "文書の編集",
+      "description": "文書情報を編集します。",
+      "is_public": "公開",
+      "submit": "保存",
+      "cancel": "キャンセル",
+      "success": {
+        "title": "文書の更新成功",
+        "description": "文書が正常に更新されました。"
+      }
+    },
+    "edit_post": {
+      "title": "Edit Post",
+      "description": "Edit post details.",
+      "is_public": "Public",
+      "submit": "Save",
+      "cancel": "Cancel",
+      "success": {
+        "title": "Post Updated",
+        "description": "The post has been successfully updated."
+      }
+    },
+    "create_category": {
+      "title": "Create Category",
+      "description": "Create a new category.",
+      "cat_lable": "Category",
+      "subcat_label": "Subcategory",
+      "cat_placeholder": "Enter category name",
+      "subcat_placeholder": "Enter subcategory name",
+      "submit": "Save",
+      "cancel": "Cancel",
+      "success": {
+        "title": "Category Created",
+        "description": "The category has been successfully created."
+      }
+    },
+    "edit_category": {
+      "title": "Edit Category",
+      "description": "Edit category details.",
+      "cat_lable": "Category",
+      "subcat_label": "Subcategory",
+      "cat_placeholder": "Enter category name",
+      "subcat_placeholder": "Enter subcategory name",
+      "submit": "Save",
+      "cancel": "Cancel",
+      "success": {
+        "title": "Category Updated",
+        "description": "The category has been successfully updated."
+      }
+    }
+  }
+}
