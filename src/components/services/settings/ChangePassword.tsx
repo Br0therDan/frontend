@@ -1,28 +1,28 @@
-'use client';
-import React from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
-import { toast } from 'sonner';
-import { confirmPasswordRules, passwordRules } from '@/utils/utils';
-import { Loader2 } from 'lucide-react';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { FormMessage } from '@/components/ui/form';
-import { MyButton } from '@/components/common/buttons/submit-button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { UsersService } from '@/lib/api';
-import { UpdatePassword } from '@/client/iam';
-import { useState } from 'react';
-import Loading from '@/components/common/Loading';
-import { handleApiError } from '@/lib/errorHandler';
-import { useTranslations } from 'next-intl';
+'use client'
+import React from 'react'
+import { useForm, SubmitHandler } from 'react-hook-form'
+import { toast } from 'sonner'
+import { confirmPasswordRules, passwordRules } from '@/utils/utils'
+import { Loader2 } from 'lucide-react'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { FormMessage } from '@/components/ui/form'
+import { MyButton } from '@/components/common/buttons/submit-button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { UsersService } from '@/lib/api'
+import { UpdatePassword } from '@/client/iam'
+import { useState } from 'react'
+import Loading from '@/components/common/Loading'
+import { handleApiError } from '@/lib/errorHandler'
+import { useTranslations } from 'next-intl'
 
 interface UpdatePasswordForm extends UpdatePassword {
-  confirm_password: string;
+  confirm_password: string
 }
 
 const ChangePassword = () => {
-  const t = useTranslations();
-  const [loading, setLoading] = useState(false);
+  const t = useTranslations()
+  const [loading, setLoading] = useState(false)
   const {
     register,
     handleSubmit,
@@ -32,50 +32,50 @@ const ChangePassword = () => {
   } = useForm<UpdatePasswordForm>({
     mode: 'onBlur',
     criteriaMode: 'all',
-  });
+  })
 
   const onSubmit: SubmitHandler<UpdatePasswordForm> = async (data) => {
     try {
-      setLoading(true);
+      setLoading(true)
       const userUpdateData: UpdatePassword = {
         new_password: data.new_password,
         current_password: data.current_password,
-      };
-      await UsersService.usersUpdatePassword(userUpdateData);
+      }
+      await UsersService.usersUpdatePassword(userUpdateData)
       toast.success(t('forms.change_password.success.title'), {
         description: t('forms.change_password.success.description'),
-      });
-      reset();
+      })
+      reset()
     } catch (err) {
-      handleApiError(err, (message) => toast.error(message.title));
+      handleApiError(err, (message) => toast.error(message.title))
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   if (loading) {
-    return <Loading />;
+    return <Loading />
   }
 
   return (
-    <div className="space-y-6">
-      <Card className="p-3 shadow-sm w-full space-y-2">
+    <div className='space-y-6'>
+      <Card className='p-3 shadow-sm w-full space-y-2'>
         <CardHeader>
-          <CardTitle className="text-xl">
+          <CardTitle className='text-xl'>
             {t('forms.change_password.title')}
           </CardTitle>
         </CardHeader>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <CardContent className="flex flex-col space-y-6">
+          <CardContent className='flex flex-col space-y-6'>
             {/* Current Password */}
-            <div className="flex flex-col gap-2 items-start">
-              <Label htmlFor="current_password">
+            <div className='flex flex-col gap-2 items-start'>
+              <Label htmlFor='current_password'>
                 {t('forms.change_password.current_password')}
               </Label>
               <Input
-                id="current_password"
-                type="password"
-                placeholder="Password"
+                id='current_password'
+                type='password'
+                placeholder='Password'
                 {...register('current_password', {
                   required: 'Current password is required.',
                 })}
@@ -85,14 +85,14 @@ const ChangePassword = () => {
               )}
             </div>
             {/* New Password */}
-            <div className="flex flex-col gap-2 items-start">
-              <Label htmlFor="new_password">
+            <div className='flex flex-col gap-2 items-start'>
+              <Label htmlFor='new_password'>
                 {t('forms.change_password.new_password')}
               </Label>
               <Input
-                id="new_password"
-                type="password"
-                placeholder="Password"
+                id='new_password'
+                type='password'
+                placeholder='Password'
                 {...register('new_password', passwordRules())}
               />
               {errors.new_password && (
@@ -100,17 +100,17 @@ const ChangePassword = () => {
               )}
             </div>
             {/* Confirm Password */}
-            <div className="flex flex-col gap-2 items-start">
-              <Label htmlFor="confirm_password">
+            <div className='flex flex-col gap-2 items-start'>
+              <Label htmlFor='confirm_password'>
                 {t('forms.change_password.confirm_password')}
               </Label>
               <Input
-                id="confirm_password"
-                type="password"
-                placeholder="Password"
+                id='confirm_password'
+                type='password'
+                placeholder='Password'
                 {...register(
                   'confirm_password',
-                  confirmPasswordRules(getValues),
+                  confirmPasswordRules(getValues)
                 )}
               />
               {errors.confirm_password && (
@@ -118,15 +118,15 @@ const ChangePassword = () => {
               )}
             </div>
             {/* Submit Button */}
-            <div className="flex flex-col gap-2 p-2 items-start">
+            <div className='flex flex-col gap-2 p-2 items-start'>
               <MyButton
-                type="submit"
-                className="w-full"
+                type='submit'
+                className='w-full'
                 isLoading={isSubmitting}
               >
                 {isSubmitting ? (
-                  <span className="flex items-center justify-center">
-                    <Loader2 className="animate-spin mr-2" size={20} />
+                  <span className='flex items-center justify-center'>
+                    <Loader2 className='animate-spin mr-2' size={20} />
                     Please wait...
                   </span>
                 ) : (
@@ -138,7 +138,7 @@ const ChangePassword = () => {
         </form>
       </Card>
     </div>
-  );
-};
+  )
+}
 
-export default ChangePassword;
+export default ChangePassword

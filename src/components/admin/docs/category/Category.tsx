@@ -1,100 +1,100 @@
-'use client';
-import React from 'react';
-import { useEffect, useState } from 'react';
-import EditCategory from './EditCategory';
-import AddCategory from './AddCategory';
-import { toast } from 'sonner';
-import { CatService } from '@/lib/api';
-import { handleApiError } from '@/lib/errorHandler';
-import { DocsCategoryPublic } from '@/client/docs';
-import { Trash2, UserRoundPen } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+'use client'
+import React from 'react'
+import { useEffect, useState } from 'react'
+import EditCategory from './EditCategory'
+import AddCategory from './AddCategory'
+import { toast } from 'sonner'
+import { CatService } from '@/lib/api'
+import { handleApiError } from '@/lib/errorHandler'
+import { DocsCategoryPublic } from '@/client/docs'
+import { Trash2, UserRoundPen } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 
 /**
  * 카테고리 목록과 서브카테고리를 트리 형태로 보여주는 컴포넌트
  */
 export default function DocsCategory() {
-  const [categories, setCategories] = useState<DocsCategoryPublic[]>([]);
+  const [categories, setCategories] = useState<DocsCategoryPublic[]>([])
   const [editingCategory, setEditingCategory] =
-    useState<DocsCategoryPublic | null>(null);
-  const [isAdding, setIsAdding] = useState(false);
+    useState<DocsCategoryPublic | null>(null)
+  const [isAdding, setIsAdding] = useState(false)
 
   // 카테고리 목록 가져오기
   const fetchCategories = async () => {
     try {
-      const response = await CatService.categoriesReadDocsCategory();
-      const categories = response.data;
+      const response = await CatService.categoriesReadDocsCategory()
+      const categories = response.data
       if (!categories) {
-        return;
+        return
       }
-      setCategories(categories);
+      setCategories(categories)
     } catch (err) {
-      handleApiError(err, (message) => toast.error(message.title));
+      handleApiError(err, (message) => toast.error(message.title))
     }
-  };
+  }
 
   useEffect(() => {
-    fetchCategories();
-  }, []);
+    fetchCategories()
+  }, [])
 
   // 카테고리 편집 버튼 클릭 핸들러
   const handleEditClick = (category: DocsCategoryPublic) => {
-    setEditingCategory(category);
-  };
+    setEditingCategory(category)
+  }
 
   // 카테고리 추가 버튼 클릭 핸들러
   const handleAddClick = () => {
-    setIsAdding(true);
-  };
+    setIsAdding(true)
+  }
 
   const handleDeleteClick = async (category: DocsCategoryPublic) => {
     try {
-      await CatService.categoriesDeleteCategory(category._id);
-      fetchCategories();
+      await CatService.categoriesDeleteCategory(category._id)
+      fetchCategories()
       toast.success('Category deleted successfully.', {
         description: `Category ${category.name} has been deleted.`,
-      });
+      })
     } catch (err) {
-      handleApiError(err, (message) => toast.error(message.title));
+      handleApiError(err, (message) => toast.error(message.title))
     }
-  };
+  }
 
   return (
-    <div className="space-y-6 mt-4">
+    <div className='space-y-6 mt-4'>
       {/* 상단 네비게이션 바 */}
 
       {/* 전체 카테고리 트리 */}
-      <div className=" shadow rounded py-4">
-        <ul className="space-y-3">
+      <div className=' shadow rounded py-4'>
+        <ul className='space-y-3'>
           {categories.map((category) => (
-            <li key={category._id} className="border-b pb-3 last:border-none">
+            <li key={category._id} className='border-b pb-3 last:border-none'>
               {/* 카테고리 항목 */}
-              <div className="flex items-center justify-between px-6">
-                <div className="font-bold">{category.name}</div>
-                <div className="space-x-2">
+              <div className='flex items-center justify-between px-6'>
+                <div className='font-bold'>{category.name}</div>
+                <div className='space-x-2'>
                   <Button
                     variant={'ghost'}
                     onClick={() => handleEditClick(category)}
-                    className="text-sm text-blue-500 hover:underline"
+                    className='text-sm text-blue-500 hover:underline'
                   >
-                    <UserRoundPen className="w-4 h-4" />
+                    <UserRoundPen className='w-4 h-4' />
                   </Button>
                   <Button
                     variant={'ghost'}
                     onClick={() => handleDeleteClick(category)}
-                    className="text-sm text-red-500 hover:underline"
+                    className='text-sm text-red-500 hover:underline'
                   >
-                    <Trash2 className="w-4 h-4" />
+                    <Trash2 className='w-4 h-4' />
                   </Button>
                 </div>
               </div>
               {/* 서브카테고리 목록 */}
               {category.subcategories && (
-                <ul className="mx-4 mt-2 px-4 py-2 space-y-1 border rounded">
+                <ul className='mx-4 mt-2 px-4 py-2 space-y-1 border rounded'>
                   {category.subcategories.map((subcat) => (
                     <li
                       key={subcat._id}
-                      className="flex items-center justify-between text-sm"
+                      className='flex items-center justify-between text-sm'
                     >
                       <span>{subcat.name}</span>
                       {/* 서브카테고리 수정/삭제 로직 추가 가능 */}
@@ -108,10 +108,10 @@ export default function DocsCategory() {
       </div>
 
       {/* 카테고리 추가 버튼 */}
-      <div className="flex justify-end">
+      <div className='flex justify-end'>
         <button
           onClick={handleAddClick}
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          className='bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600'
         >
           Add Category
         </button>
@@ -122,8 +122,8 @@ export default function DocsCategory() {
         <AddCategory
           isOpen={isAdding}
           onClose={() => {
-            setIsAdding(false);
-            fetchCategories(); // 새로 추가 후 목록 갱신
+            setIsAdding(false)
+            fetchCategories() // 새로 추가 후 목록 갱신
           }}
         />
       )}
@@ -131,12 +131,12 @@ export default function DocsCategory() {
         <EditCategory
           isOpen={!!editingCategory}
           onClose={() => {
-            setEditingCategory(null);
-            fetchCategories(); // 수정 후 목록 갱신
+            setEditingCategory(null)
+            fetchCategories() // 수정 후 목록 갱신
           }}
           category={editingCategory}
         />
       )}
     </div>
-  );
+  )
 }

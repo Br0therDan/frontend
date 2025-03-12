@@ -1,14 +1,14 @@
-'use client';
-import React from 'react';
+'use client'
+import React from 'react'
 import {
   useForm,
   SubmitHandler,
   FormProvider,
   // Controller,
   // set,
-} from 'react-hook-form';
+} from 'react-hook-form'
 
-import { toast } from 'sonner';
+import { toast } from 'sonner'
 import {
   Dialog,
   DialogContent,
@@ -18,31 +18,31 @@ import {
   DialogFooter,
   DialogOverlay,
   DialogClose,
-} from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { FormMessage } from '@/components/ui/form';
-import { MyButton } from '@/components/common/buttons/submit-button';
-import { PlusCircle, Trash2 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { CatService } from '@/lib/api';
-import { handleApiError } from '@/lib/errorHandler';
-import { useState } from 'react';
-import Loading from '@/components/common/Loading';
-import { DocsCategoryCreate } from '@/client/docs';
+} from '@/components/ui/dialog'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { FormMessage } from '@/components/ui/form'
+import { MyButton } from '@/components/common/buttons/submit-button'
+import { PlusCircle, Trash2 } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { CatService } from '@/lib/api'
+import { handleApiError } from '@/lib/errorHandler'
+import { useState } from 'react'
+import Loading from '@/components/common/Loading'
+import { DocsCategoryCreate } from '@/client/docs'
 // import { useAuth } from '@/contexts/AuthContext';
-import { useTranslations } from 'next-intl';
+import { useTranslations } from 'next-intl'
 
 interface AddCategoryProps {
-  isOpen: boolean;
-  onClose: () => void;
+  isOpen: boolean
+  onClose: () => void
 }
 
 export default function AddCategory({ isOpen, onClose }: AddCategoryProps) {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false)
   // const { user: currentUser } = useAuth();
   // const isAdmin = currentUser?.is_superuser === true;
-  const t = useTranslations();
+  const t = useTranslations()
   const methods = useForm<DocsCategoryCreate>({
     mode: 'onBlur',
     criteriaMode: 'all',
@@ -50,7 +50,7 @@ export default function AddCategory({ isOpen, onClose }: AddCategoryProps) {
       name: '',
       subcategories: [],
     },
-  });
+  })
 
   const {
     register,
@@ -59,55 +59,53 @@ export default function AddCategory({ isOpen, onClose }: AddCategoryProps) {
     setValue,
     watch,
     formState: { errors, isSubmitting, isDirty },
-  } = methods;
+  } = methods
 
-  const subcategories = watch('subcategories');
+  const subcategories = watch('subcategories')
 
   const onSubmit: SubmitHandler<DocsCategoryCreate> = async (data) => {
-    setLoading(true);
+    setLoading(true)
     try {
-      await CatService.categoriesCreateCategory(data);
+      await CatService.categoriesCreateCategory(data)
       toast.success(t('forms.create_category.success.title'), {
         description: t('forms.create_category.success.description'),
-      });
-      reset();
-      onClose();
+      })
+      reset()
+      onClose()
     } catch (err) {
-      handleApiError(err, (message) => toast.error(message.title));
+      handleApiError(err, (message) => toast.error(message.title))
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   const handleCancel = () => {
-    reset();
-    onClose();
-  };
+    reset()
+    onClose()
+  }
 
   const handleAddSubcategory = () => {
-    setValue('subcategories', [...(subcategories || []), '']);
-  };
+    setValue('subcategories', [...(subcategories || []), ''])
+  }
 
   const handleRemoveSubcategory = (index: number) => {
-    const newSubcategories = [...(subcategories || [])];
-    newSubcategories.splice(index, 1);
-    setValue('subcategories', newSubcategories);
-  };
-
-
+    const newSubcategories = [...(subcategories || [])]
+    newSubcategories.splice(index, 1)
+    setValue('subcategories', newSubcategories)
+  }
 
   if (loading) {
-    return <Loading />;
+    return <Loading />
   }
 
   return (
     <FormProvider {...methods}>
       <Dialog open={isOpen} onOpenChange={onClose}>
         <DialogOverlay />
-        <DialogContent className="max-w-md ">
+        <DialogContent className='max-w-md '>
           <form onSubmit={handleSubmit(onSubmit)}>
             <DialogHeader>
-              <DialogTitle className="text-2xl">
+              <DialogTitle className='text-2xl'>
                 {t('forms.create_category.title')}
               </DialogTitle>
               <DialogDescription>
@@ -115,19 +113,19 @@ export default function AddCategory({ isOpen, onClose }: AddCategoryProps) {
               </DialogDescription>
             </DialogHeader>
 
-            <div className="grid gap-4 py-4">
+            <div className='grid gap-4 py-4'>
               {/* Category Name */}
-              <div className="grid gap-2">
-                <Label htmlFor="name">
+              <div className='grid gap-2'>
+                <Label htmlFor='name'>
                   {t('forms.create_category.cat_lable')}
                 </Label>
                 <Input
-                  id="name"
+                  id='name'
                   {...register('name', {
                     required: '카테고리 이름은 필수입니다 ',
                   })}
                   placeholder={t('forms.create_category.cat_placeholder')}
-                  type="text"
+                  type='text'
                 />
                 {errors.name && (
                   <FormMessage>{errors.name.message}</FormMessage>
@@ -135,65 +133,65 @@ export default function AddCategory({ isOpen, onClose }: AddCategoryProps) {
               </div>
 
               {/* Subcategories */}
-              <div className="grid gap-2">
-                <Label htmlFor="subcategories">
+              <div className='grid gap-2'>
+                <Label htmlFor='subcategories'>
                   {t('forms.create_category.subcat_label')}
                 </Label>
                 {subcategories?.map((subcategory, index) => (
-                  <div key={index} className="flex items-center gap-2">
+                  <div key={index} className='flex items-center gap-2'>
                     <Input
                       {...register(`subcategories.${index}`)}
                       placeholder={t(
-                        'forms.create_category.subcat_placeholder',
+                        'forms.create_category.subcat_placeholder'
                       )}
-                      type="text"
+                      type='text'
                       value={subcategory}
                     />
                     <Button
-                      type="button"
+                      type='button'
                       variant={'outline'}
                       onClick={() => handleRemoveSubcategory(index)}
-                      className="text-sm"
+                      className='text-sm'
                     >
-                      <Trash2 className="h-5 w-5" />
+                      <Trash2 className='h-5 w-5' />
                     </Button>
                   </div>
                 ))}
                 <Button
-                  type="button"
+                  type='button'
                   variant={'outline'}
                   onClick={handleAddSubcategory}
-                  className="mt-2 text-sm"
+                  className='mt-2 text-sm'
                 >
-                  <PlusCircle className="h-5 w-5" />
+                  <PlusCircle className='h-5 w-5' />
                 </Button>
               </div>
             </div>
 
-            <DialogFooter className="flex justify-end gap-3 pt-2">
+            <DialogFooter className='flex justify-end gap-3 pt-2'>
               <MyButton
-                variant="outline"
+                variant='outline'
                 onClick={handleCancel}
                 disabled={isSubmitting}
-                className="w-full"
-                type="button"
+                className='w-full'
+                type='button'
               >
                 {t('forms.create_category.cancel')}
               </MyButton>
               <MyButton
-                variant="default"
-                type="submit"
+                variant='default'
+                type='submit'
                 isLoading={isSubmitting}
                 disabled={!isDirty}
-                className="w-full"
+                className='w-full'
               >
                 {t('forms.create_category.submit')}
               </MyButton>
             </DialogFooter>
           </form>
-          <DialogClose className="absolute top-4 right-4" />
+          <DialogClose className='absolute top-4 right-4' />
         </DialogContent>
       </Dialog>
     </FormProvider>
-  );
+  )
 }

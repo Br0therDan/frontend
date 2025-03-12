@@ -1,60 +1,66 @@
-'use client';
+'use client'
 
-import * as React from 'react';
-import { SquareTerminal } from 'lucide-react';
+import * as React from 'react'
+import { SquareTerminal } from 'lucide-react'
 
-import { NavMain } from './nav-main';
+import { NavMain } from './nav-main'
 import {
   Sidebar,
   SidebarContent,
   SidebarHeader,
   SidebarRail,
-} from '@/components/ui/sidebar';
-import { DocsService } from '@/lib/api';
-import { DocumentPublic } from '@/client/docs';
-import { VersionSwitcher } from './version-switcher';
-import { SearchForm } from './search-form';
-import { toast } from 'sonner';
-import { handleApiError } from '@/lib/errorHandler';
+} from '@/components/ui/sidebar'
+import { DocsService } from '@/lib/api'
+import { DocumentPublic } from '@/client/docs'
+import { VersionSwitcher } from './version-switcher'
+import { SearchForm } from './search-form'
+import { toast } from 'sonner'
+import { handleApiError } from '@/lib/errorHandler'
 
 const mockdata = {
   versions: ['1.0.1', '1.1.0-alpha', '2.0.0-beta1'],
-};
+}
 
 async function FetchDocs() {
-  let docs: DocumentPublic[] | null = null;
+  let docs: DocumentPublic[] | null = null
   try {
-    const response = await DocsService.docsReadPublicDocs();
-    docs = response.data;
+    const response = await DocsService.docsReadPublicDocs()
+    docs = response.data
   } catch (err) {
-    handleApiError(err, (message) => toast.error(message.title));
+    handleApiError(err, (message) => toast.error(message.title))
   }
-  return docs;
+  return docs
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const [docs, setDocs] = React.useState<DocumentPublic[] | null>(null);
+  const [docs, setDocs] = React.useState<DocumentPublic[] | null>(null)
 
   React.useEffect(() => {
     async function fetchData() {
-      const fetchedDocs = await FetchDocs();
-      setDocs(fetchedDocs);
+      const fetchedDocs = await FetchDocs()
+      setDocs(fetchedDocs)
     }
-    fetchData();
-  }, []);
+    fetchData()
+  }, [])
 
   const categorizedDocs =
-    docs?.reduce((acc: Record<string, Record<string, DocumentPublic[]>>, doc: DocumentPublic) => {
-      const category = doc.category?.name || 'Uncategorized';
-      const subcategory = doc.subcategory?.name || 'General';
+    docs?.reduce(
+      (
+        acc: Record<string, Record<string, DocumentPublic[]>>,
+        doc: DocumentPublic
+      ) => {
+        const category = doc.category?.name || 'Uncategorized'
+        const subcategory = doc.subcategory?.name || 'General'
 
-      if (!acc[category]) acc[category] = {};
-      if (!acc[category][subcategory]) acc[category][subcategory] = [];
+        if (!acc[category]) acc[category] = {}
+        if (!acc[category][subcategory]) acc[category][subcategory] = []
 
-      acc[category][subcategory].push(doc);
+        acc[category][subcategory].push(doc)
 
-      return acc;
-    }, {}) || {};
+        return acc
+      },
+      {}
+    ) || {}
 
   const data = {
     navMain: Object.keys(categorizedDocs).map((category) => ({
@@ -69,12 +75,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             (doc: DocumentPublic) => ({
               title: doc.title,
               url: `/docs?docId=${doc.title}`,
-            }),
+            })
           ),
-        }),
+        })
       ),
     })),
-  };
+  }
 
   return (
     <Sidebar {...props}>
@@ -85,10 +91,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         />
         <SearchForm />
       </SidebarHeader>
-      <SidebarContent className="gap-0">
+      <SidebarContent className='gap-0'>
         <NavMain categories={data.navMain} />
       </SidebarContent>
       <SidebarRail />
     </Sidebar>
-  );
+  )
 }

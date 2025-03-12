@@ -1,6 +1,6 @@
-import { cn } from '@/lib/utils';
-import React from 'react';
-import PropTypes from 'prop-types';
+import { cn } from '@/lib/utils'
+import React from 'react'
+import PropTypes from 'prop-types'
 
 export const MyLogo = ({
   alt = 'MyLogo',
@@ -9,17 +9,18 @@ export const MyLogo = ({
 }: React.ImgHTMLAttributes<HTMLImageElement>) => {
   return (
     <img
-      src="/images/logo_sq_light.png"
+      src='/images/logo_sq_light.png'
       alt={alt}
       className={cn('size-8 min-w-8 dark:hidden', className)} // Light 모드일 때
       {...props}
     />
-)};
+  )
+}
 
 MyLogo.propTypes = {
   alt: PropTypes.string,
   className: PropTypes.string,
-};
+}
 
 export const MyLogoDark = ({
   alt = 'MyLogo Dark',
@@ -28,18 +29,18 @@ export const MyLogoDark = ({
 }: React.ImgHTMLAttributes<HTMLImageElement>) => {
   return (
     <img
-      src="/images/logo_sq_dark.png"
+      src='/images/logo_sq_dark.png'
       alt={alt}
       className={cn('size-8 min-w-8 hidden dark:block', className)} // Dark 모드일 때
       {...props}
     />
-  );
-};
+  )
+}
 
 MyLogoDark.propTypes = {
   alt: PropTypes.string,
   className: PropTypes.string,
-};
+}
 
 // import { cn } from '@/lib/utils';
 // import * as React from 'react';

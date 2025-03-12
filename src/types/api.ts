@@ -1,6 +1,6 @@
 export interface ApiErrorResponse {
-  detail?: string;
-  message?: string;
+  detail?: string
+  message?: string
 }
 
-export type ToastType = (opts: { title: string; description: string }) => void;
+export type ToastType = (opts: { title: string; description: string }) => void

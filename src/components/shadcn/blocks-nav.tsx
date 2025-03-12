@@ -1,18 +1,18 @@
-'use client';
-import React from 'react';
-import { ScrollArea } from '@radix-ui/react-scroll-area';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { ScrollBar } from '../ui/scroll-area';
-import { registryCategories } from '@/config/registry-categories';
+'use client'
+import React from 'react'
+import { ScrollArea } from '@radix-ui/react-scroll-area'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { ScrollBar } from '../ui/scroll-area'
+import { registryCategories } from '@/config/registry-categories'
 
 export function BlocksNav() {
-  const pathname = usePathname();
+  const pathname = usePathname()
 
   return (
-    <div className="relative overflow-hidden">
-      <ScrollArea className="max-w-none">
-        <div className="flex items-center">
+    <div className='relative overflow-hidden'>
+      <ScrollArea className='max-w-none'>
+        <div className='flex items-center'>
           <BlocksNavLink
             category={{ name: 'Featured', slug: '', hidden: false }}
             isActive={pathname === '/blocks'}
@@ -25,31 +25,31 @@ export function BlocksNav() {
             />
           ))}
         </div>
-        <ScrollBar orientation="horizontal" className="invisible" />
+        <ScrollBar orientation='horizontal' className='invisible' />
       </ScrollArea>
     </div>
-  );
+  )
 }
 
 function BlocksNavLink({
   category,
   isActive,
 }: {
-  category: (typeof registryCategories)[number];
-  isActive: boolean;
+  category: (typeof registryCategories)[number]
+  isActive: boolean
 }) {
   if (category.hidden) {
-    return null;
+    return null
   }
 
   return (
     <Link
       href={`/blocks/${category.slug}`}
       key={category.slug}
-      className="flex h-7 shrink-0 items-center justify-center whitespace-nowrap rounded-full px-4 text-center text-sm font-medium text-muted-foreground transition-colors hover:text-foreground data-[active=true]:bg-muted data-[active=true]:text-foreground"
+      className='flex h-7 shrink-0 items-center justify-center whitespace-nowrap rounded-full px-4 text-center text-sm font-medium text-muted-foreground transition-colors hover:text-foreground data-[active=true]:bg-muted data-[active=true]:text-foreground'
       data-active={isActive}
     >
       {category.name}
     </Link>
-  );
+  )
 }

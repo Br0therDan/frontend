@@ -1,23 +1,23 @@
-import * as React from 'react';
-import { Loader2 } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import * as React from 'react'
+import { Loader2 } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 /**
  * Supported variants. Add more if your design calls for it,
  * e.g., "secondary", "ghost", etc.
  */
-type ButtonVariant = 'default' | 'destructive' | 'outline';
+type ButtonVariant = 'default' | 'destructive' | 'outline'
 
 /**
  * Button props extending the native HTML button plus our extra options.
  */
 interface MyButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /** Use one of the recognized variants for styling. */
-  variant?: ButtonVariant;
+  variant?: ButtonVariant
   /** True if the button is in a loading (spinner) state. */
-  isLoading?: boolean;
+  isLoading?: boolean
   /** Additional classes for styling. */
-  className?: string;
+  className?: string
 }
 
 /**
@@ -35,7 +35,7 @@ export const MyButton = React.forwardRef<HTMLButtonElement, MyButtonProps>(
       disabled,
       ...props
     },
-    ref,
+    ref
   ) => {
     // Base classes for all buttons (copied from a typical ShadCN button config).
     const baseClasses = cn(
@@ -50,8 +50,8 @@ export const MyButton = React.forwardRef<HTMLButtonElement, MyButtonProps>(
         'border border-input hover:bg-accent hover:text-accent-foreground':
           variant === 'outline',
       },
-      className,
-    );
+      className
+    )
 
     return (
       <button
@@ -62,19 +62,19 @@ export const MyButton = React.forwardRef<HTMLButtonElement, MyButtonProps>(
       >
         {isLoading ? (
           <>
-            <Loader2 className="h-4 w-4 animate-spin" />
+            <Loader2 className='h-4 w-4 animate-spin' />
             <span>Please wait...</span>
           </>
         ) : (
           children
         )}
       </button>
-    );
-  },
-);
+    )
+  }
+)
 
 /**
  * A displayName helps with debugging in React DevTools.
  * It's especially recommended for forwardRef components.
  */
-MyButton.displayName = 'MyButton';
+MyButton.displayName = 'MyButton'

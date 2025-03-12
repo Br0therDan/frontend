@@ -1,12 +1,12 @@
 // lib/errorHandler.ts
-import axios, { AxiosError } from 'axios';
-import * as Sentry from '@sentry/react';
-import type { ToastType } from '@/types/api';
-import { RequiredError } from '@/client/iam/base';
+import axios, { AxiosError } from 'axios'
+import * as Sentry from '@sentry/react'
+import type { ToastType } from '@/types/api'
+import { RequiredError } from '@/client/iam/base'
 
 export interface ApiErrorResponse {
-  detail?: string;
-  message?: string;
+  detail?: string
+  message?: string
 }
 
 const statusMessageMap: Record<number, string> = {
@@ -17,7 +17,7 @@ const statusMessageMap: Record<number, string> = {
   409: 'This item already exists.',
   422: 'Validation error occurred.',
   500: 'Internal server error. Please try again later.',
-};
+}
 
 export const handleApiError = (error: unknown, toast: ToastType) => {
   // Handle OpenAPI RequiredError
@@ -25,16 +25,16 @@ export const handleApiError = (error: unknown, toast: ToastType) => {
     toast({
       title: 'Missing Required Field',
       description: `${error.field} is required.`,
-    });
-    return;
+    })
+    return
   }
 
   // Handle Axios errors
   if (axios.isAxiosError(error)) {
-    const axiosError = error as AxiosError<ApiErrorResponse>;
-    const status = axiosError.response?.status;
+    const axiosError = error as AxiosError<ApiErrorResponse>
+    const status = axiosError.response?.status
     const apiDetail =
-      axiosError.response?.data.detail || axiosError.response?.data.message;
+      axiosError.response?.data.detail || axiosError.response?.data.message
 
     toast({
       title: status ? `Error ${status}` : 'Error',
@@ -42,27 +42,27 @@ export const handleApiError = (error: unknown, toast: ToastType) => {
         apiDetail ||
         statusMessageMap[status || 0] ||
         'An unexpected error occurred.',
-    });
+    })
 
     // Send to Sentry for monitoring (track errors >= 500)
     if (status && status >= 500) {
       Sentry.captureException(error, {
         extra: { responseData: axiosError.response?.data },
-      });
+      })
     }
 
-    return;
+    return
   }
 
   // Handle unknown errors
   toast({
     title: 'Unexpected Error',
     description: 'An unknown error occurred. Please contact support.',
-  });
+  })
 
   // Capture unknown errors in Sentry
-  Sentry.captureException(error);
-};
+  Sentry.captureException(error)
+}
 
 // "use client";
 // import axios, { AxiosError } from "axios";

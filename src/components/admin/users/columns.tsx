@@ -1,13 +1,13 @@
-import React from 'react';
-import { ColumnDef } from '@tanstack/react-table';
-import { ArrowUpDown } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { UserPublic } from '@/client/iam';
-import ActionsMenu from '@/components/common/ActionsMenu';
+import React from 'react'
+import { ColumnDef } from '@tanstack/react-table'
+import { ArrowUpDown } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { UserPublic } from '@/client/iam'
+import ActionsMenu from '@/components/common/ActionsMenu'
 
-import { Checkbox } from '@/components/ui/checkbox';
-import { useAuth } from '@/contexts/AuthContext';
-import { capitalizeFirstLetter } from '@/utils/formatName';
+import { Checkbox } from '@/components/ui/checkbox'
+import { useAuth } from '@/contexts/AuthContext'
+import { capitalizeFirstLetter } from '@/utils/formatName'
 
 export const columns: ColumnDef<UserPublic>[] = [
   {
@@ -19,14 +19,14 @@ export const columns: ColumnDef<UserPublic>[] = [
           (table.getIsSomePageRowsSelected() && 'indeterminate')
         }
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
+        aria-label='Select all'
       />
     ),
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
         onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
+        aria-label='Select row'
       />
     ),
     enableSorting: false,
@@ -37,13 +37,13 @@ export const columns: ColumnDef<UserPublic>[] = [
     header: ({ column }) => {
       return (
         <Button
-          variant="ghost"
+          variant='ghost'
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
           Name
-          <ArrowUpDown className="ml-2 h-4 w-4" />
+          <ArrowUpDown className='ml-2 h-4 w-4' />
         </Button>
-      );
+      )
     },
   },
   {
@@ -51,29 +51,29 @@ export const columns: ColumnDef<UserPublic>[] = [
     header: ({ column }) => {
       return (
         <Button
-          variant="ghost"
+          variant='ghost'
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
           Email
-          <ArrowUpDown className="ml-2 h-4 w-4" />
+          <ArrowUpDown className='ml-2 h-4 w-4' />
         </Button>
-      );
+      )
     },
   },
   {
     accessorKey: 'oauth_accounts',
     header: 'Provider',
     cell: ({ row }) => {
-      const user = row.original;
+      const user = row.original
       return (
-        <div className="flex items-center gap-2">
+        <div className='flex items-center gap-2'>
           {Array.isArray(user?.oauth_accounts)
             ? user.oauth_accounts
                 .map((account) => capitalizeFirstLetter(account.oauth_name))
                 .join(', ')
             : 'Local'}
         </div>
-      );
+      )
     },
   },
   {
@@ -88,8 +88,8 @@ export const columns: ColumnDef<UserPublic>[] = [
     accessorKey: 'role',
     header: 'Role',
     cell: ({ row }) => {
-      const user = row.original;
-      return user.is_superuser ? 'Admin' : 'User';
+      const user = row.original
+      return user.is_superuser ? 'Admin' : 'User'
     },
   },
   {
@@ -97,19 +97,19 @@ export const columns: ColumnDef<UserPublic>[] = [
     header: ({ column }) => {
       return (
         <Button
-          variant="ghost"
+          variant='ghost'
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
           Status
-          <ArrowUpDown className="ml-2 h-4 w-4" />
+          <ArrowUpDown className='ml-2 h-4 w-4' />
         </Button>
-      );
+      )
     },
     cell: ({ row }) => {
-      const user = row.original;
+      const user = row.original
 
       return (
-        <div className="flex items-center gap-2">
+        <div className='flex items-center gap-2'>
           <div
             className={`w-2 h-2 rounded-full ${
               user.is_active ? 'bg-green-500' : 'bg-red-500'
@@ -117,22 +117,22 @@ export const columns: ColumnDef<UserPublic>[] = [
           />
           {user.is_active ? 'Active' : 'Inactive'}
         </div>
-      );
+      )
     },
   },
   {
     id: 'actions',
     cell: ({ row }) => {
-      const user = row.original;
-      const { user: currentUser } = useAuth();
+      const user = row.original
+      const { user: currentUser } = useAuth()
 
       return (
         <ActionsMenu
-          type="User"
+          type='User'
           value={user}
           disabled={currentUser?._id === user._id}
         />
-      );
+      )
     },
   },
-];
+]

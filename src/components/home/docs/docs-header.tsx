@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -6,27 +6,26 @@ import {
   BreadcrumbLink,
   BreadcrumbSeparator,
   BreadcrumbPage,
-} from '@/components/ui/breadcrumb';
+} from '@/components/ui/breadcrumb'
 
-
-import { SidebarTrigger } from '@/components/ui/sidebar';
+import { SidebarTrigger } from '@/components/ui/sidebar'
 
 export default function DocsHeader() {
   return (
-    <header className="flex h-16 shrink-0 items-center gap-2  px-4">
+    <header className='flex h-16 shrink-0 items-center gap-2  px-4'>
       <SidebarTrigger />
       {/* <Separator orientation="vertical" className="mr-2 h-4" /> */}
       <Breadcrumb>
         <BreadcrumbList>
-          <BreadcrumbItem className="hidden md:block">
-            <BreadcrumbLink href="#">Building Your Application</BreadcrumbLink>
+          <BreadcrumbItem className='hidden md:block'>
+            <BreadcrumbLink href='#'>Building Your Application</BreadcrumbLink>
           </BreadcrumbItem>
-          <BreadcrumbSeparator className="hidden md:block" />
+          <BreadcrumbSeparator className='hidden md:block' />
           <BreadcrumbItem>
             <BreadcrumbPage>Data Fetching</BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
     </header>
-  );
+  )
 }

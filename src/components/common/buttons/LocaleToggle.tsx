@@ -1,35 +1,35 @@
-'use client';
+'use client'
 
-import React from 'react';
-import { usePathname, useRouter } from 'next/navigation';
+import React from 'react'
+import { usePathname, useRouter } from 'next/navigation'
 import Cookies from 'js-cookie'
 import {
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
-} from '@/components/ui/dropdown-menu';
-import { Button } from '@/components/ui/button';
+} from '@/components/ui/dropdown-menu'
+import { Button } from '@/components/ui/button'
 
 export default function LocaleSwitcher() {
-  const pathname = usePathname();
-  const router = useRouter();
-  const currentLocale = pathname.split('/')[1];
+  const pathname = usePathname()
+  const router = useRouter()
+  const currentLocale = pathname.split('/')[1]
 
   const handleLocaleChange = (locale: 'en' | 'ko' | 'ja') => {
-    const segments = pathname.split('/');
-    segments[1] = locale;
+    const segments = pathname.split('/')
+    segments[1] = locale
 
     // ✅ 쿠키에 로케일 저장 (쿠키 만료: 30일 설정 가능)
-    Cookies.set('NEXT_LOCALE', locale, { expires: 30 });
+    Cookies.set('NEXT_LOCALE', locale, { expires: 30 })
 
-    router.push(segments.join('/'));
-  };
+    router.push(segments.join('/'))
+  }
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline">
+        <Button variant='outline'>
           {currentLocale === 'ko'
             ? '한국어'
             : currentLocale === 'ja'
@@ -49,5 +49,5 @@ export default function LocaleSwitcher() {
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  );
+  )
 }

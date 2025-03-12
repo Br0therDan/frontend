@@ -1,12 +1,12 @@
-'use client';
-import React from 'react';
-import { ChevronRight, type LucideIcon } from 'lucide-react';
+'use client'
+import React from 'react'
+import { ChevronRight, type LucideIcon } from 'lucide-react'
 
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from '@/components/ui/collapsible';
+} from '@/components/ui/collapsible'
 import {
   SidebarGroup,
   SidebarGroupContent,
@@ -17,25 +17,25 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
-} from '@/components/ui/sidebar';
+} from '@/components/ui/sidebar'
 
 export interface NavMainProps {
   categories: {
-    title: string;
-    url: string;
-    icon?: LucideIcon;
-    isActive?: boolean;
+    title: string
+    url: string
+    icon?: LucideIcon
+    isActive?: boolean
     subcategories?: {
-      title: string;
-      url: string;
-      isActive?: boolean;
+      title: string
+      url: string
+      isActive?: boolean
       items?: {
-        title: string;
-        url: string;
-        isActive?: boolean;
-      }[];
-    }[];
-  }[];
+        title: string
+        url: string
+        isActive?: boolean
+      }[]
+    }[]
+  }[]
 }
 
 export function NavMain({ categories }: NavMainProps) {
@@ -46,16 +46,16 @@ export function NavMain({ categories }: NavMainProps) {
           key={category.title}
           title={category.title}
           defaultOpen
-          className="group/collapsible"
+          className='group/collapsible'
         >
           <SidebarGroup>
             <SidebarGroupLabel
               asChild
-              className="group/label text-sm font-bold text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+              className='group/label text-sm font-bold text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground'
             >
               <CollapsibleTrigger>
                 {category.title}{' '}
-                <ChevronRight className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-90" />
+                <ChevronRight className='ml-auto transition-transform group-data-[state=open]/collapsible:rotate-90' />
               </CollapsibleTrigger>
             </SidebarGroupLabel>
             <CollapsibleContent>
@@ -87,5 +87,5 @@ export function NavMain({ categories }: NavMainProps) {
         </Collapsible>
       ))}
     </div>
-  );
+  )
 }

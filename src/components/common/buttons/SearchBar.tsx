@@ -1,23 +1,23 @@
-import React from 'react';
-import { Search } from 'lucide-react';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
+import React from 'react'
+import { Search } from 'lucide-react'
+import { Label } from '@/components/ui/label'
+import { Input } from '@/components/ui/input'
 export function SearchForm({ ...props }: React.ComponentProps<'form'>) {
   return (
-    <div className="flex-1 flex items-center justify-end px-2 lg:ml-6">
+    <div className='flex-1 flex items-center justify-end px-2 lg:ml-6'>
       <form {...props}>
-        <div className="py-0">
-          <div className="relative">
-            <Label htmlFor="search" className="sr-only">
+        <div className='py-0'>
+          <div className='relative'>
+            <Label htmlFor='search' className='sr-only'>
               Search
             </Label>
-            <Input id="search" placeholder="Search.." className="pl-8" />
-            <Search className="pointer-events-none absolute left-2 top-1/2 size-4 -translate-y-1/2 select-none opacity-50" />
+            <Input id='search' placeholder='Search..' className='pl-8' />
+            <Search className='pointer-events-none absolute left-2 top-1/2 size-4 -translate-y-1/2 select-none opacity-50' />
           </div>
         </div>
       </form>
     </div>
-  );
+  )
 }
 // import { Search } from 'lucide-react'
 // import { Input } from '@/components/ui/input'

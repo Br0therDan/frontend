@@ -17,7 +17,7 @@ export const formats = [
   'image',
   'video',
   'code-block',
-];
+]
 
 export const toolbarOptions = [
   [{ header: [1, 2, 3, 4, 5] }],
@@ -29,4 +29,4 @@ export const toolbarOptions = [
   ['link', 'image', 'video'],
   ['clean'],
   ['code-block'],
-];
+]

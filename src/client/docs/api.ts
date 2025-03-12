@@ -12,32 +12,32 @@
  * Do not edit the class manually.
  */
 
-import type { Configuration } from "./configuration";
-import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from "axios";
-import globalAxios from "axios";
+import type { Configuration } from './configuration'
+import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from 'axios'
+import globalAxios from 'axios'
 // Some imports not used depending on template conditions
 // @ts-ignore
 import {
-	DUMMY_BASE_URL,
-	assertParamExists,
-	setApiKeyToObject,
-	setBasicAuthToObject,
-	setBearerAuthToObject,
-	setOAuthToObject,
-	setSearchParams,
-	serializeDataIfNeeded,
-	toPathString,
-	createRequestFunction,
-} from "./common";
-import type { RequestArgs } from "./base";
+  DUMMY_BASE_URL,
+  assertParamExists,
+  setApiKeyToObject,
+  setBasicAuthToObject,
+  setBearerAuthToObject,
+  setOAuthToObject,
+  setSearchParams,
+  serializeDataIfNeeded,
+  toPathString,
+  createRequestFunction,
+} from './common'
+import type { RequestArgs } from './base'
 // @ts-ignore
 import {
-	BASE_PATH,
-	COLLECTION_FORMATS,
-	BaseAPI,
-	RequiredError,
-	operationServerMap,
-} from "./base";
+  BASE_PATH,
+  COLLECTION_FORMATS,
+  BaseAPI,
+  RequiredError,
+  operationServerMap,
+} from './base'
 
 /**
  *
@@ -45,18 +45,18 @@ import {
  * @interface DocsCategoryCreate
  */
 export interface DocsCategoryCreate {
-	/**
-	 *
-	 * @type {string}
-	 * @memberof DocsCategoryCreate
-	 */
-	name: string;
-	/**
-	 *
-	 * @type {Array<string>}
-	 * @memberof DocsCategoryCreate
-	 */
-	subcategories?: Array<string>;
+  /**
+   *
+   * @type {string}
+   * @memberof DocsCategoryCreate
+   */
+  name: string
+  /**
+   *
+   * @type {Array<string>}
+   * @memberof DocsCategoryCreate
+   */
+  subcategories?: Array<string>
 }
 /**
  *
@@ -64,24 +64,24 @@ export interface DocsCategoryCreate {
  * @interface DocsCategoryPublic
  */
 export interface DocsCategoryPublic {
-	/**
-	 *
-	 * @type {string}
-	 * @memberof DocsCategoryPublic
-	 */
-	_id: string;
-	/**
-	 *
-	 * @type {string}
-	 * @memberof DocsCategoryPublic
-	 */
-	name: string;
-	/**
-	 *
-	 * @type {Array<DocsSubcategoryPublic>}
-	 * @memberof DocsCategoryPublic
-	 */
-	subcategories?: Array<DocsSubcategoryPublic>;
+  /**
+   *
+   * @type {string}
+   * @memberof DocsCategoryPublic
+   */
+  _id: string
+  /**
+   *
+   * @type {string}
+   * @memberof DocsCategoryPublic
+   */
+  name: string
+  /**
+   *
+   * @type {Array<DocsSubcategoryPublic>}
+   * @memberof DocsCategoryPublic
+   */
+  subcategories?: Array<DocsSubcategoryPublic>
 }
 /**
  *
@@ -89,24 +89,24 @@ export interface DocsCategoryPublic {
  * @interface DocsCategoryUpdate
  */
 export interface DocsCategoryUpdate {
-	/**
-	 *
-	 * @type {string}
-	 * @memberof DocsCategoryUpdate
-	 */
-	_id: string;
-	/**
-	 *
-	 * @type {string}
-	 * @memberof DocsCategoryUpdate
-	 */
-	name?: string | null;
-	/**
-	 *
-	 * @type {Array<string>}
-	 * @memberof DocsCategoryUpdate
-	 */
-	subcategories?: Array<string> | null;
+  /**
+   *
+   * @type {string}
+   * @memberof DocsCategoryUpdate
+   */
+  _id: string
+  /**
+   *
+   * @type {string}
+   * @memberof DocsCategoryUpdate
+   */
+  name?: string | null
+  /**
+   *
+   * @type {Array<string>}
+   * @memberof DocsCategoryUpdate
+   */
+  subcategories?: Array<string> | null
 }
 /**
  *
@@ -114,18 +114,18 @@ export interface DocsCategoryUpdate {
  * @interface DocsSubcategoryPublic
  */
 export interface DocsSubcategoryPublic {
-	/**
-	 *
-	 * @type {string}
-	 * @memberof DocsSubcategoryPublic
-	 */
-	_id: string;
-	/**
-	 *
-	 * @type {string}
-	 * @memberof DocsSubcategoryPublic
-	 */
-	name: string;
+  /**
+   *
+   * @type {string}
+   * @memberof DocsSubcategoryPublic
+   */
+  _id: string
+  /**
+   *
+   * @type {string}
+   * @memberof DocsSubcategoryPublic
+   */
+  name: string
 }
 /**
  *
@@ -133,36 +133,36 @@ export interface DocsSubcategoryPublic {
  * @interface DocumentCreate
  */
 export interface DocumentCreate {
-	/**
-	 *
-	 * @type {string}
-	 * @memberof DocumentCreate
-	 */
-	title?: string | null;
-	/**
-	 *
-	 * @type {string}
-	 * @memberof DocumentCreate
-	 */
-	content?: string | null;
-	/**
-	 *
-	 * @type {boolean}
-	 * @memberof DocumentCreate
-	 */
-	is_public?: boolean | null;
-	/**
-	 *
-	 * @type {string}
-	 * @memberof DocumentCreate
-	 */
-	category_id?: string | null;
-	/**
-	 *
-	 * @type {string}
-	 * @memberof DocumentCreate
-	 */
-	subcategory_id?: string | null;
+  /**
+   *
+   * @type {string}
+   * @memberof DocumentCreate
+   */
+  title?: string | null
+  /**
+   *
+   * @type {string}
+   * @memberof DocumentCreate
+   */
+  content?: string | null
+  /**
+   *
+   * @type {boolean}
+   * @memberof DocumentCreate
+   */
+  is_public?: boolean | null
+  /**
+   *
+   * @type {string}
+   * @memberof DocumentCreate
+   */
+  category_id?: string | null
+  /**
+   *
+   * @type {string}
+   * @memberof DocumentCreate
+   */
+  subcategory_id?: string | null
 }
 /**
  *
@@ -170,60 +170,60 @@ export interface DocumentCreate {
  * @interface DocumentPublic
  */
 export interface DocumentPublic {
-	/**
-	 *
-	 * @type {string}
-	 * @memberof DocumentPublic
-	 */
-	_id: string;
-	/**
-	 *
-	 * @type {string}
-	 * @memberof DocumentPublic
-	 */
-	title: string;
-	/**
-	 *
-	 * @type {string}
-	 * @memberof DocumentPublic
-	 */
-	content: string;
-	/**
-	 *
-	 * @type {boolean}
-	 * @memberof DocumentPublic
-	 */
-	is_public: boolean;
-	/**
-	 *
-	 * @type {DocsCategoryPublic}
-	 * @memberof DocumentPublic
-	 */
-	category?: DocsCategoryPublic | null;
-	/**
-	 *
-	 * @type {DocsSubcategoryPublic}
-	 * @memberof DocumentPublic
-	 */
-	subcategory?: DocsSubcategoryPublic | null;
-	/**
-	 *
-	 * @type {string}
-	 * @memberof DocumentPublic
-	 */
-	author: string;
-	/**
-	 *
-	 * @type {string}
-	 * @memberof DocumentPublic
-	 */
-	created_at?: string | null;
-	/**
-	 *
-	 * @type {string}
-	 * @memberof DocumentPublic
-	 */
-	updated_at?: string | null;
+  /**
+   *
+   * @type {string}
+   * @memberof DocumentPublic
+   */
+  _id: string
+  /**
+   *
+   * @type {string}
+   * @memberof DocumentPublic
+   */
+  title: string
+  /**
+   *
+   * @type {string}
+   * @memberof DocumentPublic
+   */
+  content: string
+  /**
+   *
+   * @type {boolean}
+   * @memberof DocumentPublic
+   */
+  is_public: boolean
+  /**
+   *
+   * @type {DocsCategoryPublic}
+   * @memberof DocumentPublic
+   */
+  category?: DocsCategoryPublic | null
+  /**
+   *
+   * @type {DocsSubcategoryPublic}
+   * @memberof DocumentPublic
+   */
+  subcategory?: DocsSubcategoryPublic | null
+  /**
+   *
+   * @type {string}
+   * @memberof DocumentPublic
+   */
+  author: string
+  /**
+   *
+   * @type {string}
+   * @memberof DocumentPublic
+   */
+  created_at?: string | null
+  /**
+   *
+   * @type {string}
+   * @memberof DocumentPublic
+   */
+  updated_at?: string | null
 }
 /**
  *
@@ -231,42 +231,42 @@ export interface DocumentPublic {
  * @interface DocumentUpdate
  */
 export interface DocumentUpdate {
-	/**
-	 *
-	 * @type {string}
-	 * @memberof DocumentUpdate
-	 */
-	_id: string;
-	/**
-	 *
-	 * @type {string}
-	 * @memberof DocumentUpdate
-	 */
-	title?: string | null;
-	/**
-	 *
-	 * @type {string}
-	 * @memberof DocumentUpdate
-	 */
-	content?: string | null;
-	/**
-	 *
-	 * @type {boolean}
-	 * @memberof DocumentUpdate
-	 */
-	is_public?: boolean | null;
-	/**
-	 *
-	 * @type {string}
-	 * @memberof DocumentUpdate
-	 */
-	category_id?: string | null;
-	/**
-	 *
-	 * @type {string}
-	 * @memberof DocumentUpdate
-	 */
-	subcategory_id?: string | null;
+  /**
+   *
+   * @type {string}
+   * @memberof DocumentUpdate
+   */
+  _id: string
+  /**
+   *
+   * @type {string}
+   * @memberof DocumentUpdate
+   */
+  title?: string | null
+  /**
+   *
+   * @type {string}
+   * @memberof DocumentUpdate
+   */
+  content?: string | null
+  /**
+   *
+   * @type {boolean}
+   * @memberof DocumentUpdate
+   */
+  is_public?: boolean | null
+  /**
+   *
+   * @type {string}
+   * @memberof DocumentUpdate
+   */
+  category_id?: string | null
+  /**
+   *
+   * @type {string}
+   * @memberof DocumentUpdate
+   */
+  subcategory_id?: string | null
 }
 /**
  *
@@ -274,12 +274,12 @@ export interface DocumentUpdate {
  * @interface HTTPValidationError
  */
 export interface HTTPValidationError {
-	/**
-	 *
-	 * @type {Array<ValidationError>}
-	 * @memberof HTTPValidationError
-	 */
-	detail?: Array<ValidationError>;
+  /**
+   *
+   * @type {Array<ValidationError>}
+   * @memberof HTTPValidationError
+   */
+  detail?: Array<ValidationError>
 }
 /**
  *
@@ -287,12 +287,12 @@ export interface HTTPValidationError {
  * @interface Message
  */
 export interface Message {
-	/**
-	 *
-	 * @type {string}
-	 * @memberof Message
-	 */
-	message: string;
+  /**
+   *
+   * @type {string}
+   * @memberof Message
+   */
+  message: string
 }
 /**
  *
@@ -300,24 +300,24 @@ export interface Message {
  * @interface ValidationError
  */
 export interface ValidationError {
-	/**
-	 *
-	 * @type {Array<ValidationErrorLocInner>}
-	 * @memberof ValidationError
-	 */
-	loc: Array<ValidationErrorLocInner>;
-	/**
-	 *
-	 * @type {string}
-	 * @memberof ValidationError
-	 */
-	msg: string;
-	/**
-	 *
-	 * @type {string}
-	 * @memberof ValidationError
-	 */
-	type: string;
+  /**
+   *
+   * @type {Array<ValidationErrorLocInner>}
+   * @memberof ValidationError
+   */
+  loc: Array<ValidationErrorLocInner>
+  /**
+   *
+   * @type {string}
+   * @memberof ValidationError
+   */
+  msg: string
+  /**
+   *
+   * @type {string}
+   * @memberof ValidationError
+   */
+  type: string
 }
 /**
  *
@@ -331,480 +331,480 @@ export interface ValidationErrorLocInner {}
  * @export
  */
 export const CategoriesApiAxiosParamCreator = function (
-	configuration?: Configuration,
+  configuration?: Configuration
 ) {
-	return {
-		/**
-		 *
-		 * @summary 새로운 카테고리(서브카테고리 포함) 생성
-		 * @param {DocsCategoryCreate} docsCategoryCreate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		categoriesCreateCategory: async (
-			docsCategoryCreate: DocsCategoryCreate,
-			accessToken?: string | null,
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			// verify required parameter 'docsCategoryCreate' is not null or undefined
-			assertParamExists(
-				"categoriesCreateCategory",
-				"docsCategoryCreate",
-				docsCategoryCreate,
-			);
-			const localVarPath = `/api/v1/categories/`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
+  return {
+    /**
+     *
+     * @summary 새로운 카테고리(서브카테고리 포함) 생성
+     * @param {DocsCategoryCreate} docsCategoryCreate
+     * @param {string | null} [accessToken]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    categoriesCreateCategory: async (
+      docsCategoryCreate: DocsCategoryCreate,
+      accessToken?: string | null,
+      options: RawAxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'docsCategoryCreate' is not null or undefined
+      assertParamExists(
+        'categoriesCreateCategory',
+        'docsCategoryCreate',
+        docsCategoryCreate
+      )
+      const localVarPath = `/api/v1/categories/`
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
 
-			const localVarRequestOptions = {
-				method: "POST",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
+      const localVarRequestOptions = {
+        method: 'POST',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
 
-			// authentication OAuth2PasswordBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				"OAuth2PasswordBearer",
-				[],
-				configuration,
-			);
+      // authentication OAuth2PasswordBearer required
+      // oauth required
+      await setOAuthToObject(
+        localVarHeaderParameter,
+        'OAuth2PasswordBearer',
+        [],
+        configuration
+      )
 
-			localVarHeaderParameter["Content-Type"] = "application/json";
+      localVarHeaderParameter['Content-Type'] = 'application/json'
 
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
-			localVarRequestOptions.data = serializeDataIfNeeded(
-				docsCategoryCreate,
-				localVarRequestOptions,
-				configuration,
-			);
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
+      localVarRequestOptions.data = serializeDataIfNeeded(
+        docsCategoryCreate,
+        localVarRequestOptions,
+        configuration
+      )
 
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 *
-		 * @summary 카테고리 및 해당 서브카테고리 삭제
-		 * @param {string} catId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		categoriesDeleteCategory: async (
-			catId: string,
-			accessToken?: string | null,
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			// verify required parameter 'catId' is not null or undefined
-			assertParamExists("categoriesDeleteCategory", "catId", catId);
-			const localVarPath = `/api/v1/categories/{cat_id}`.replace(
-				`{${"cat_id"}}`,
-				encodeURIComponent(String(catId)),
-			);
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+    /**
+     *
+     * @summary 카테고리 및 해당 서브카테고리 삭제
+     * @param {string} catId
+     * @param {string | null} [accessToken]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    categoriesDeleteCategory: async (
+      catId: string,
+      accessToken?: string | null,
+      options: RawAxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'catId' is not null or undefined
+      assertParamExists('categoriesDeleteCategory', 'catId', catId)
+      const localVarPath = `/api/v1/categories/{cat_id}`.replace(
+        `{${'cat_id'}}`,
+        encodeURIComponent(String(catId))
+      )
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
 
-			const localVarRequestOptions = {
-				method: "DELETE",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
+      const localVarRequestOptions = {
+        method: 'DELETE',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
 
-			// authentication OAuth2PasswordBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				"OAuth2PasswordBearer",
-				[],
-				configuration,
-			);
+      // authentication OAuth2PasswordBearer required
+      // oauth required
+      await setOAuthToObject(
+        localVarHeaderParameter,
+        'OAuth2PasswordBearer',
+        [],
+        configuration
+      )
 
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
 
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 *
-		 * @summary 전체 카테고리(서브카테고리 포함) 조회
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		categoriesReadDocsCategory: async (
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			const localVarPath = `/api/v1/categories/public`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+    /**
+     *
+     * @summary 전체 카테고리(서브카테고리 포함) 조회
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    categoriesReadDocsCategory: async (
+      options: RawAxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      const localVarPath = `/api/v1/categories/public`
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
 
-			const localVarRequestOptions = {
-				method: "GET",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
+      const localVarRequestOptions = {
+        method: 'GET',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
 
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
 
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 *
-		 * @summary 카테고리 정보 업데이트
-		 * @param {string} catId
-		 * @param {DocsCategoryUpdate} docsCategoryUpdate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		categoriesUpdateCategory: async (
-			catId: string,
-			docsCategoryUpdate: DocsCategoryUpdate,
-			accessToken?: string | null,
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			// verify required parameter 'catId' is not null or undefined
-			assertParamExists("categoriesUpdateCategory", "catId", catId);
-			// verify required parameter 'docsCategoryUpdate' is not null or undefined
-			assertParamExists(
-				"categoriesUpdateCategory",
-				"docsCategoryUpdate",
-				docsCategoryUpdate,
-			);
-			const localVarPath = `/api/v1/categories/{cat_id}`.replace(
-				`{${"cat_id"}}`,
-				encodeURIComponent(String(catId)),
-			);
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+    /**
+     *
+     * @summary 카테고리 정보 업데이트
+     * @param {string} catId
+     * @param {DocsCategoryUpdate} docsCategoryUpdate
+     * @param {string | null} [accessToken]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    categoriesUpdateCategory: async (
+      catId: string,
+      docsCategoryUpdate: DocsCategoryUpdate,
+      accessToken?: string | null,
+      options: RawAxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'catId' is not null or undefined
+      assertParamExists('categoriesUpdateCategory', 'catId', catId)
+      // verify required parameter 'docsCategoryUpdate' is not null or undefined
+      assertParamExists(
+        'categoriesUpdateCategory',
+        'docsCategoryUpdate',
+        docsCategoryUpdate
+      )
+      const localVarPath = `/api/v1/categories/{cat_id}`.replace(
+        `{${'cat_id'}}`,
+        encodeURIComponent(String(catId))
+      )
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
 
-			const localVarRequestOptions = {
-				method: "PATCH",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
+      const localVarRequestOptions = {
+        method: 'PATCH',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
 
-			// authentication OAuth2PasswordBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				"OAuth2PasswordBearer",
-				[],
-				configuration,
-			);
+      // authentication OAuth2PasswordBearer required
+      // oauth required
+      await setOAuthToObject(
+        localVarHeaderParameter,
+        'OAuth2PasswordBearer',
+        [],
+        configuration
+      )
 
-			localVarHeaderParameter["Content-Type"] = "application/json";
+      localVarHeaderParameter['Content-Type'] = 'application/json'
 
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
-			localVarRequestOptions.data = serializeDataIfNeeded(
-				docsCategoryUpdate,
-				localVarRequestOptions,
-				configuration,
-			);
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
+      localVarRequestOptions.data = serializeDataIfNeeded(
+        docsCategoryUpdate,
+        localVarRequestOptions,
+        configuration
+      )
 
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-	};
-};
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+  }
+}
 
 /**
  * CategoriesApi - functional programming interface
  * @export
  */
 export const CategoriesApiFp = function (configuration?: Configuration) {
-	const localVarAxiosParamCreator =
-		CategoriesApiAxiosParamCreator(configuration);
-	return {
-		/**
-		 *
-		 * @summary 새로운 카테고리(서브카테고리 포함) 생성
-		 * @param {DocsCategoryCreate} docsCategoryCreate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async categoriesCreateCategory(
-			docsCategoryCreate: DocsCategoryCreate,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(
-				axios?: AxiosInstance,
-				basePath?: string,
-			) => AxiosPromise<DocsCategoryPublic>
-		> {
-			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.categoriesCreateCategory(
-					docsCategoryCreate,
-					accessToken,
-					options,
-				);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["CategoriesApi.categoriesCreateCategory"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 *
-		 * @summary 카테고리 및 해당 서브카테고리 삭제
-		 * @param {string} catId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async categoriesDeleteCategory(
-			catId: string,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Message>
-		> {
-			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.categoriesDeleteCategory(
-					catId,
-					accessToken,
-					options,
-				);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["CategoriesApi.categoriesDeleteCategory"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 *
-		 * @summary 전체 카테고리(서브카테고리 포함) 조회
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async categoriesReadDocsCategory(
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(
-				axios?: AxiosInstance,
-				basePath?: string,
-			) => AxiosPromise<Array<DocsCategoryPublic>>
-		> {
-			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.categoriesReadDocsCategory(options);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["CategoriesApi.categoriesReadDocsCategory"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 *
-		 * @summary 카테고리 정보 업데이트
-		 * @param {string} catId
-		 * @param {DocsCategoryUpdate} docsCategoryUpdate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async categoriesUpdateCategory(
-			catId: string,
-			docsCategoryUpdate: DocsCategoryUpdate,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(
-				axios?: AxiosInstance,
-				basePath?: string,
-			) => AxiosPromise<DocsCategoryPublic>
-		> {
-			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.categoriesUpdateCategory(
-					catId,
-					docsCategoryUpdate,
-					accessToken,
-					options,
-				);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["CategoriesApi.categoriesUpdateCategory"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-	};
-};
+  const localVarAxiosParamCreator =
+    CategoriesApiAxiosParamCreator(configuration)
+  return {
+    /**
+     *
+     * @summary 새로운 카테고리(서브카테고리 포함) 생성
+     * @param {DocsCategoryCreate} docsCategoryCreate
+     * @param {string | null} [accessToken]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async categoriesCreateCategory(
+      docsCategoryCreate: DocsCategoryCreate,
+      accessToken?: string | null,
+      options?: RawAxiosRequestConfig
+    ): Promise<
+      (
+        axios?: AxiosInstance,
+        basePath?: string
+      ) => AxiosPromise<DocsCategoryPublic>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.categoriesCreateCategory(
+          docsCategoryCreate,
+          accessToken,
+          options
+        )
+      const localVarOperationServerIndex = configuration?.serverIndex ?? 0
+      const localVarOperationServerBasePath =
+        operationServerMap['CategoriesApi.categoriesCreateCategory']?.[
+          localVarOperationServerIndex
+        ]?.url
+      return (axios, basePath) =>
+        createRequestFunction(
+          localVarAxiosArgs,
+          globalAxios,
+          BASE_PATH,
+          configuration
+        )(axios, localVarOperationServerBasePath || basePath)
+    },
+    /**
+     *
+     * @summary 카테고리 및 해당 서브카테고리 삭제
+     * @param {string} catId
+     * @param {string | null} [accessToken]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async categoriesDeleteCategory(
+      catId: string,
+      accessToken?: string | null,
+      options?: RawAxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Message>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.categoriesDeleteCategory(
+          catId,
+          accessToken,
+          options
+        )
+      const localVarOperationServerIndex = configuration?.serverIndex ?? 0
+      const localVarOperationServerBasePath =
+        operationServerMap['CategoriesApi.categoriesDeleteCategory']?.[
+          localVarOperationServerIndex
+        ]?.url
+      return (axios, basePath) =>
+        createRequestFunction(
+          localVarAxiosArgs,
+          globalAxios,
+          BASE_PATH,
+          configuration
+        )(axios, localVarOperationServerBasePath || basePath)
+    },
+    /**
+     *
+     * @summary 전체 카테고리(서브카테고리 포함) 조회
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async categoriesReadDocsCategory(
+      options?: RawAxiosRequestConfig
+    ): Promise<
+      (
+        axios?: AxiosInstance,
+        basePath?: string
+      ) => AxiosPromise<Array<DocsCategoryPublic>>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.categoriesReadDocsCategory(options)
+      const localVarOperationServerIndex = configuration?.serverIndex ?? 0
+      const localVarOperationServerBasePath =
+        operationServerMap['CategoriesApi.categoriesReadDocsCategory']?.[
+          localVarOperationServerIndex
+        ]?.url
+      return (axios, basePath) =>
+        createRequestFunction(
+          localVarAxiosArgs,
+          globalAxios,
+          BASE_PATH,
+          configuration
+        )(axios, localVarOperationServerBasePath || basePath)
+    },
+    /**
+     *
+     * @summary 카테고리 정보 업데이트
+     * @param {string} catId
+     * @param {DocsCategoryUpdate} docsCategoryUpdate
+     * @param {string | null} [accessToken]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async categoriesUpdateCategory(
+      catId: string,
+      docsCategoryUpdate: DocsCategoryUpdate,
+      accessToken?: string | null,
+      options?: RawAxiosRequestConfig
+    ): Promise<
+      (
+        axios?: AxiosInstance,
+        basePath?: string
+      ) => AxiosPromise<DocsCategoryPublic>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.categoriesUpdateCategory(
+          catId,
+          docsCategoryUpdate,
+          accessToken,
+          options
+        )
+      const localVarOperationServerIndex = configuration?.serverIndex ?? 0
+      const localVarOperationServerBasePath =
+        operationServerMap['CategoriesApi.categoriesUpdateCategory']?.[
+          localVarOperationServerIndex
+        ]?.url
+      return (axios, basePath) =>
+        createRequestFunction(
+          localVarAxiosArgs,
+          globalAxios,
+          BASE_PATH,
+          configuration
+        )(axios, localVarOperationServerBasePath || basePath)
+    },
+  }
+}
 
 /**
  * CategoriesApi - factory interface
  * @export
  */
 export const CategoriesApiFactory = function (
-	configuration?: Configuration,
-	basePath?: string,
-	axios?: AxiosInstance,
+  configuration?: Configuration,
+  basePath?: string,
+  axios?: AxiosInstance
 ) {
-	const localVarFp = CategoriesApiFp(configuration);
-	return {
-		/**
-		 *
-		 * @summary 새로운 카테고리(서브카테고리 포함) 생성
-		 * @param {DocsCategoryCreate} docsCategoryCreate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		categoriesCreateCategory(
-			docsCategoryCreate: DocsCategoryCreate,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<DocsCategoryPublic> {
-			return localVarFp
-				.categoriesCreateCategory(docsCategoryCreate, accessToken, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 *
-		 * @summary 카테고리 및 해당 서브카테고리 삭제
-		 * @param {string} catId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		categoriesDeleteCategory(
-			catId: string,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<Message> {
-			return localVarFp
-				.categoriesDeleteCategory(catId, accessToken, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 *
-		 * @summary 전체 카테고리(서브카테고리 포함) 조회
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		categoriesReadDocsCategory(
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<Array<DocsCategoryPublic>> {
-			return localVarFp
-				.categoriesReadDocsCategory(options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 *
-		 * @summary 카테고리 정보 업데이트
-		 * @param {string} catId
-		 * @param {DocsCategoryUpdate} docsCategoryUpdate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		categoriesUpdateCategory(
-			catId: string,
-			docsCategoryUpdate: DocsCategoryUpdate,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<DocsCategoryPublic> {
-			return localVarFp
-				.categoriesUpdateCategory(
-					catId,
-					docsCategoryUpdate,
-					accessToken,
-					options,
-				)
-				.then((request) => request(axios, basePath));
-		},
-	};
-};
+  const localVarFp = CategoriesApiFp(configuration)
+  return {
+    /**
+     *
+     * @summary 새로운 카테고리(서브카테고리 포함) 생성
+     * @param {DocsCategoryCreate} docsCategoryCreate
+     * @param {string | null} [accessToken]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    categoriesCreateCategory(
+      docsCategoryCreate: DocsCategoryCreate,
+      accessToken?: string | null,
+      options?: RawAxiosRequestConfig
+    ): AxiosPromise<DocsCategoryPublic> {
+      return localVarFp
+        .categoriesCreateCategory(docsCategoryCreate, accessToken, options)
+        .then((request) => request(axios, basePath))
+    },
+    /**
+     *
+     * @summary 카테고리 및 해당 서브카테고리 삭제
+     * @param {string} catId
+     * @param {string | null} [accessToken]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    categoriesDeleteCategory(
+      catId: string,
+      accessToken?: string | null,
+      options?: RawAxiosRequestConfig
+    ): AxiosPromise<Message> {
+      return localVarFp
+        .categoriesDeleteCategory(catId, accessToken, options)
+        .then((request) => request(axios, basePath))
+    },
+    /**
+     *
+     * @summary 전체 카테고리(서브카테고리 포함) 조회
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    categoriesReadDocsCategory(
+      options?: RawAxiosRequestConfig
+    ): AxiosPromise<Array<DocsCategoryPublic>> {
+      return localVarFp
+        .categoriesReadDocsCategory(options)
+        .then((request) => request(axios, basePath))
+    },
+    /**
+     *
+     * @summary 카테고리 정보 업데이트
+     * @param {string} catId
+     * @param {DocsCategoryUpdate} docsCategoryUpdate
+     * @param {string | null} [accessToken]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    categoriesUpdateCategory(
+      catId: string,
+      docsCategoryUpdate: DocsCategoryUpdate,
+      accessToken?: string | null,
+      options?: RawAxiosRequestConfig
+    ): AxiosPromise<DocsCategoryPublic> {
+      return localVarFp
+        .categoriesUpdateCategory(
+          catId,
+          docsCategoryUpdate,
+          accessToken,
+          options
+        )
+        .then((request) => request(axios, basePath))
+    },
+  }
+}
 
 /**
  * CategoriesApi - object-oriented interface
@@ -813,77 +813,77 @@ export const CategoriesApiFactory = function (
  * @extends {BaseAPI}
  */
 export class CategoriesApi extends BaseAPI {
-	/**
-	 *
-	 * @summary 새로운 카테고리(서브카테고리 포함) 생성
-	 * @param {DocsCategoryCreate} docsCategoryCreate
-	 * @param {string | null} [accessToken]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof CategoriesApi
-	 */
-	public categoriesCreateCategory(
-		docsCategoryCreate: DocsCategoryCreate,
-		accessToken?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
-		return CategoriesApiFp(this.configuration)
-			.categoriesCreateCategory(docsCategoryCreate, accessToken, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
+  /**
+   *
+   * @summary 새로운 카테고리(서브카테고리 포함) 생성
+   * @param {DocsCategoryCreate} docsCategoryCreate
+   * @param {string | null} [accessToken]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof CategoriesApi
+   */
+  public categoriesCreateCategory(
+    docsCategoryCreate: DocsCategoryCreate,
+    accessToken?: string | null,
+    options?: RawAxiosRequestConfig
+  ) {
+    return CategoriesApiFp(this.configuration)
+      .categoriesCreateCategory(docsCategoryCreate, accessToken, options)
+      .then((request) => request(this.axios, this.basePath))
+  }
 
-	/**
-	 *
-	 * @summary 카테고리 및 해당 서브카테고리 삭제
-	 * @param {string} catId
-	 * @param {string | null} [accessToken]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof CategoriesApi
-	 */
-	public categoriesDeleteCategory(
-		catId: string,
-		accessToken?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
-		return CategoriesApiFp(this.configuration)
-			.categoriesDeleteCategory(catId, accessToken, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
+  /**
+   *
+   * @summary 카테고리 및 해당 서브카테고리 삭제
+   * @param {string} catId
+   * @param {string | null} [accessToken]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof CategoriesApi
+   */
+  public categoriesDeleteCategory(
+    catId: string,
+    accessToken?: string | null,
+    options?: RawAxiosRequestConfig
+  ) {
+    return CategoriesApiFp(this.configuration)
+      .categoriesDeleteCategory(catId, accessToken, options)
+      .then((request) => request(this.axios, this.basePath))
+  }
 
-	/**
-	 *
-	 * @summary 전체 카테고리(서브카테고리 포함) 조회
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof CategoriesApi
-	 */
-	public categoriesReadDocsCategory(options?: RawAxiosRequestConfig) {
-		return CategoriesApiFp(this.configuration)
-			.categoriesReadDocsCategory(options)
-			.then((request) => request(this.axios, this.basePath));
-	}
+  /**
+   *
+   * @summary 전체 카테고리(서브카테고리 포함) 조회
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof CategoriesApi
+   */
+  public categoriesReadDocsCategory(options?: RawAxiosRequestConfig) {
+    return CategoriesApiFp(this.configuration)
+      .categoriesReadDocsCategory(options)
+      .then((request) => request(this.axios, this.basePath))
+  }
 
-	/**
-	 *
-	 * @summary 카테고리 정보 업데이트
-	 * @param {string} catId
-	 * @param {DocsCategoryUpdate} docsCategoryUpdate
-	 * @param {string | null} [accessToken]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof CategoriesApi
-	 */
-	public categoriesUpdateCategory(
-		catId: string,
-		docsCategoryUpdate: DocsCategoryUpdate,
-		accessToken?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
-		return CategoriesApiFp(this.configuration)
-			.categoriesUpdateCategory(catId, docsCategoryUpdate, accessToken, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
+  /**
+   *
+   * @summary 카테고리 정보 업데이트
+   * @param {string} catId
+   * @param {DocsCategoryUpdate} docsCategoryUpdate
+   * @param {string | null} [accessToken]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof CategoriesApi
+   */
+  public categoriesUpdateCategory(
+    catId: string,
+    docsCategoryUpdate: DocsCategoryUpdate,
+    accessToken?: string | null,
+    options?: RawAxiosRequestConfig
+  ) {
+    return CategoriesApiFp(this.configuration)
+      .categoriesUpdateCategory(catId, docsCategoryUpdate, accessToken, options)
+      .then((request) => request(this.axios, this.basePath))
+  }
 }
 
 /**
@@ -891,647 +891,647 @@ export class CategoriesApi extends BaseAPI {
  * @export
  */
 export const DocsApiAxiosParamCreator = function (
-	configuration?: Configuration,
+  configuration?: Configuration
 ) {
-	return {
-		/**
-		 *
-		 * @summary 새로운 문서 생성
-		 * @param {DocumentCreate} documentCreate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		docsCreateDocument: async (
-			documentCreate: DocumentCreate,
-			accessToken?: string | null,
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			// verify required parameter 'documentCreate' is not null or undefined
-			assertParamExists("docsCreateDocument", "documentCreate", documentCreate);
-			const localVarPath = `/api/v1/docs/`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
+  return {
+    /**
+     *
+     * @summary 새로운 문서 생성
+     * @param {DocumentCreate} documentCreate
+     * @param {string | null} [accessToken]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    docsCreateDocument: async (
+      documentCreate: DocumentCreate,
+      accessToken?: string | null,
+      options: RawAxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'documentCreate' is not null or undefined
+      assertParamExists('docsCreateDocument', 'documentCreate', documentCreate)
+      const localVarPath = `/api/v1/docs/`
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
 
-			const localVarRequestOptions = {
-				method: "POST",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
+      const localVarRequestOptions = {
+        method: 'POST',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
 
-			// authentication OAuth2PasswordBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				"OAuth2PasswordBearer",
-				[],
-				configuration,
-			);
+      // authentication OAuth2PasswordBearer required
+      // oauth required
+      await setOAuthToObject(
+        localVarHeaderParameter,
+        'OAuth2PasswordBearer',
+        [],
+        configuration
+      )
 
-			localVarHeaderParameter["Content-Type"] = "application/json";
+      localVarHeaderParameter['Content-Type'] = 'application/json'
 
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
-			localVarRequestOptions.data = serializeDataIfNeeded(
-				documentCreate,
-				localVarRequestOptions,
-				configuration,
-			);
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
+      localVarRequestOptions.data = serializeDataIfNeeded(
+        documentCreate,
+        localVarRequestOptions,
+        configuration
+      )
 
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 *
-		 * @summary 문서 삭제
-		 * @param {string} docId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		docsDeleteDocument: async (
-			docId: string,
-			accessToken?: string | null,
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			// verify required parameter 'docId' is not null or undefined
-			assertParamExists("docsDeleteDocument", "docId", docId);
-			const localVarPath = `/api/v1/docs/{doc_id}`.replace(
-				`{${"doc_id"}}`,
-				encodeURIComponent(String(docId)),
-			);
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+    /**
+     *
+     * @summary 문서 삭제
+     * @param {string} docId
+     * @param {string | null} [accessToken]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    docsDeleteDocument: async (
+      docId: string,
+      accessToken?: string | null,
+      options: RawAxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'docId' is not null or undefined
+      assertParamExists('docsDeleteDocument', 'docId', docId)
+      const localVarPath = `/api/v1/docs/{doc_id}`.replace(
+        `{${'doc_id'}}`,
+        encodeURIComponent(String(docId))
+      )
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
 
-			const localVarRequestOptions = {
-				method: "DELETE",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
+      const localVarRequestOptions = {
+        method: 'DELETE',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
 
-			// authentication OAuth2PasswordBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				"OAuth2PasswordBearer",
-				[],
-				configuration,
-			);
+      // authentication OAuth2PasswordBearer required
+      // oauth required
+      await setOAuthToObject(
+        localVarHeaderParameter,
+        'OAuth2PasswordBearer',
+        [],
+        configuration
+      )
 
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
 
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 * 전체 Public 문서를 조회합니다.
-		 * @summary 관리자용 전체 문서를 조회
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		docsReadDocs: async (
-			accessToken?: string | null,
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			const localVarPath = `/api/v1/docs/`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+    /**
+     * 전체 Public 문서를 조회합니다.
+     * @summary 관리자용 전체 문서를 조회
+     * @param {string | null} [accessToken]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    docsReadDocs: async (
+      accessToken?: string | null,
+      options: RawAxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      const localVarPath = `/api/v1/docs/`
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
 
-			const localVarRequestOptions = {
-				method: "GET",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
+      const localVarRequestOptions = {
+        method: 'GET',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
 
-			// authentication OAuth2PasswordBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				"OAuth2PasswordBearer",
-				[],
-				configuration,
-			);
+      // authentication OAuth2PasswordBearer required
+      // oauth required
+      await setOAuthToObject(
+        localVarHeaderParameter,
+        'OAuth2PasswordBearer',
+        [],
+        configuration
+      )
 
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
 
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 *
-		 * @summary 특정 문서 조회
-		 * @param {string} docId
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		docsReadDocument: async (
-			docId: string,
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			// verify required parameter 'docId' is not null or undefined
-			assertParamExists("docsReadDocument", "docId", docId);
-			const localVarPath = `/api/v1/docs/{doc_id}`.replace(
-				`{${"doc_id"}}`,
-				encodeURIComponent(String(docId)),
-			);
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+    /**
+     *
+     * @summary 특정 문서 조회
+     * @param {string} docId
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    docsReadDocument: async (
+      docId: string,
+      options: RawAxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'docId' is not null or undefined
+      assertParamExists('docsReadDocument', 'docId', docId)
+      const localVarPath = `/api/v1/docs/{doc_id}`.replace(
+        `{${'doc_id'}}`,
+        encodeURIComponent(String(docId))
+      )
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
 
-			const localVarRequestOptions = {
-				method: "GET",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
+      const localVarRequestOptions = {
+        method: 'GET',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
 
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
 
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 * 전체 Public 문서를 조회합니다.
-		 * @summary 전체 공개 문서를 조회
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		docsReadPublicDocs: async (
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			const localVarPath = `/api/v1/docs/public`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+    /**
+     * 전체 Public 문서를 조회합니다.
+     * @summary 전체 공개 문서를 조회
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    docsReadPublicDocs: async (
+      options: RawAxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      const localVarPath = `/api/v1/docs/public`
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
 
-			const localVarRequestOptions = {
-				method: "GET",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
+      const localVarRequestOptions = {
+        method: 'GET',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
 
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
 
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 *
-		 * @summary 문서 정보 업데이트
-		 * @param {string} docId
-		 * @param {DocumentUpdate} documentUpdate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		docsUpdateDocument: async (
-			docId: string,
-			documentUpdate: DocumentUpdate,
-			accessToken?: string | null,
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			// verify required parameter 'docId' is not null or undefined
-			assertParamExists("docsUpdateDocument", "docId", docId);
-			// verify required parameter 'documentUpdate' is not null or undefined
-			assertParamExists("docsUpdateDocument", "documentUpdate", documentUpdate);
-			const localVarPath = `/api/v1/docs/{doc_id}`.replace(
-				`{${"doc_id"}}`,
-				encodeURIComponent(String(docId)),
-			);
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+    /**
+     *
+     * @summary 문서 정보 업데이트
+     * @param {string} docId
+     * @param {DocumentUpdate} documentUpdate
+     * @param {string | null} [accessToken]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    docsUpdateDocument: async (
+      docId: string,
+      documentUpdate: DocumentUpdate,
+      accessToken?: string | null,
+      options: RawAxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'docId' is not null or undefined
+      assertParamExists('docsUpdateDocument', 'docId', docId)
+      // verify required parameter 'documentUpdate' is not null or undefined
+      assertParamExists('docsUpdateDocument', 'documentUpdate', documentUpdate)
+      const localVarPath = `/api/v1/docs/{doc_id}`.replace(
+        `{${'doc_id'}}`,
+        encodeURIComponent(String(docId))
+      )
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
 
-			const localVarRequestOptions = {
-				method: "PATCH",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
+      const localVarRequestOptions = {
+        method: 'PATCH',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
 
-			// authentication OAuth2PasswordBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				"OAuth2PasswordBearer",
-				[],
-				configuration,
-			);
+      // authentication OAuth2PasswordBearer required
+      // oauth required
+      await setOAuthToObject(
+        localVarHeaderParameter,
+        'OAuth2PasswordBearer',
+        [],
+        configuration
+      )
 
-			localVarHeaderParameter["Content-Type"] = "application/json";
+      localVarHeaderParameter['Content-Type'] = 'application/json'
 
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
-			localVarRequestOptions.data = serializeDataIfNeeded(
-				documentUpdate,
-				localVarRequestOptions,
-				configuration,
-			);
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
+      localVarRequestOptions.data = serializeDataIfNeeded(
+        documentUpdate,
+        localVarRequestOptions,
+        configuration
+      )
 
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-	};
-};
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+  }
+}
 
 /**
  * DocsApi - functional programming interface
  * @export
  */
 export const DocsApiFp = function (configuration?: Configuration) {
-	const localVarAxiosParamCreator = DocsApiAxiosParamCreator(configuration);
-	return {
-		/**
-		 *
-		 * @summary 새로운 문서 생성
-		 * @param {DocumentCreate} documentCreate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async docsCreateDocument(
-			documentCreate: DocumentCreate,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DocumentPublic>
-		> {
-			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.docsCreateDocument(
-					documentCreate,
-					accessToken,
-					options,
-				);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["DocsApi.docsCreateDocument"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 *
-		 * @summary 문서 삭제
-		 * @param {string} docId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async docsDeleteDocument(
-			docId: string,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Message>
-		> {
-			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.docsDeleteDocument(
-					docId,
-					accessToken,
-					options,
-				);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["DocsApi.docsDeleteDocument"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 * 전체 Public 문서를 조회합니다.
-		 * @summary 관리자용 전체 문서를 조회
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async docsReadDocs(
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(
-				axios?: AxiosInstance,
-				basePath?: string,
-			) => AxiosPromise<Array<DocumentPublic>>
-		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.docsReadDocs(
-				accessToken,
-				options,
-			);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["DocsApi.docsReadDocs"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 *
-		 * @summary 특정 문서 조회
-		 * @param {string} docId
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async docsReadDocument(
-			docId: string,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DocumentPublic>
-		> {
-			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.docsReadDocument(docId, options);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["DocsApi.docsReadDocument"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 * 전체 Public 문서를 조회합니다.
-		 * @summary 전체 공개 문서를 조회
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async docsReadPublicDocs(
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(
-				axios?: AxiosInstance,
-				basePath?: string,
-			) => AxiosPromise<Array<DocumentPublic>>
-		> {
-			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.docsReadPublicDocs(options);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["DocsApi.docsReadPublicDocs"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 *
-		 * @summary 문서 정보 업데이트
-		 * @param {string} docId
-		 * @param {DocumentUpdate} documentUpdate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async docsUpdateDocument(
-			docId: string,
-			documentUpdate: DocumentUpdate,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DocumentPublic>
-		> {
-			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.docsUpdateDocument(
-					docId,
-					documentUpdate,
-					accessToken,
-					options,
-				);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["DocsApi.docsUpdateDocument"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-	};
-};
+  const localVarAxiosParamCreator = DocsApiAxiosParamCreator(configuration)
+  return {
+    /**
+     *
+     * @summary 새로운 문서 생성
+     * @param {DocumentCreate} documentCreate
+     * @param {string | null} [accessToken]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async docsCreateDocument(
+      documentCreate: DocumentCreate,
+      accessToken?: string | null,
+      options?: RawAxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<DocumentPublic>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.docsCreateDocument(
+          documentCreate,
+          accessToken,
+          options
+        )
+      const localVarOperationServerIndex = configuration?.serverIndex ?? 0
+      const localVarOperationServerBasePath =
+        operationServerMap['DocsApi.docsCreateDocument']?.[
+          localVarOperationServerIndex
+        ]?.url
+      return (axios, basePath) =>
+        createRequestFunction(
+          localVarAxiosArgs,
+          globalAxios,
+          BASE_PATH,
+          configuration
+        )(axios, localVarOperationServerBasePath || basePath)
+    },
+    /**
+     *
+     * @summary 문서 삭제
+     * @param {string} docId
+     * @param {string | null} [accessToken]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async docsDeleteDocument(
+      docId: string,
+      accessToken?: string | null,
+      options?: RawAxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Message>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.docsDeleteDocument(
+          docId,
+          accessToken,
+          options
+        )
+      const localVarOperationServerIndex = configuration?.serverIndex ?? 0
+      const localVarOperationServerBasePath =
+        operationServerMap['DocsApi.docsDeleteDocument']?.[
+          localVarOperationServerIndex
+        ]?.url
+      return (axios, basePath) =>
+        createRequestFunction(
+          localVarAxiosArgs,
+          globalAxios,
+          BASE_PATH,
+          configuration
+        )(axios, localVarOperationServerBasePath || basePath)
+    },
+    /**
+     * 전체 Public 문서를 조회합니다.
+     * @summary 관리자용 전체 문서를 조회
+     * @param {string | null} [accessToken]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async docsReadDocs(
+      accessToken?: string | null,
+      options?: RawAxiosRequestConfig
+    ): Promise<
+      (
+        axios?: AxiosInstance,
+        basePath?: string
+      ) => AxiosPromise<Array<DocumentPublic>>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.docsReadDocs(
+        accessToken,
+        options
+      )
+      const localVarOperationServerIndex = configuration?.serverIndex ?? 0
+      const localVarOperationServerBasePath =
+        operationServerMap['DocsApi.docsReadDocs']?.[
+          localVarOperationServerIndex
+        ]?.url
+      return (axios, basePath) =>
+        createRequestFunction(
+          localVarAxiosArgs,
+          globalAxios,
+          BASE_PATH,
+          configuration
+        )(axios, localVarOperationServerBasePath || basePath)
+    },
+    /**
+     *
+     * @summary 특정 문서 조회
+     * @param {string} docId
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async docsReadDocument(
+      docId: string,
+      options?: RawAxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<DocumentPublic>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.docsReadDocument(docId, options)
+      const localVarOperationServerIndex = configuration?.serverIndex ?? 0
+      const localVarOperationServerBasePath =
+        operationServerMap['DocsApi.docsReadDocument']?.[
+          localVarOperationServerIndex
+        ]?.url
+      return (axios, basePath) =>
+        createRequestFunction(
+          localVarAxiosArgs,
+          globalAxios,
+          BASE_PATH,
+          configuration
+        )(axios, localVarOperationServerBasePath || basePath)
+    },
+    /**
+     * 전체 Public 문서를 조회합니다.
+     * @summary 전체 공개 문서를 조회
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async docsReadPublicDocs(
+      options?: RawAxiosRequestConfig
+    ): Promise<
+      (
+        axios?: AxiosInstance,
+        basePath?: string
+      ) => AxiosPromise<Array<DocumentPublic>>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.docsReadPublicDocs(options)
+      const localVarOperationServerIndex = configuration?.serverIndex ?? 0
+      const localVarOperationServerBasePath =
+        operationServerMap['DocsApi.docsReadPublicDocs']?.[
+          localVarOperationServerIndex
+        ]?.url
+      return (axios, basePath) =>
+        createRequestFunction(
+          localVarAxiosArgs,
+          globalAxios,
+          BASE_PATH,
+          configuration
+        )(axios, localVarOperationServerBasePath || basePath)
+    },
+    /**
+     *
+     * @summary 문서 정보 업데이트
+     * @param {string} docId
+     * @param {DocumentUpdate} documentUpdate
+     * @param {string | null} [accessToken]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async docsUpdateDocument(
+      docId: string,
+      documentUpdate: DocumentUpdate,
+      accessToken?: string | null,
+      options?: RawAxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<DocumentPublic>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.docsUpdateDocument(
+          docId,
+          documentUpdate,
+          accessToken,
+          options
+        )
+      const localVarOperationServerIndex = configuration?.serverIndex ?? 0
+      const localVarOperationServerBasePath =
+        operationServerMap['DocsApi.docsUpdateDocument']?.[
+          localVarOperationServerIndex
+        ]?.url
+      return (axios, basePath) =>
+        createRequestFunction(
+          localVarAxiosArgs,
+          globalAxios,
+          BASE_PATH,
+          configuration
+        )(axios, localVarOperationServerBasePath || basePath)
+    },
+  }
+}
 
 /**
  * DocsApi - factory interface
  * @export
  */
 export const DocsApiFactory = function (
-	configuration?: Configuration,
-	basePath?: string,
-	axios?: AxiosInstance,
+  configuration?: Configuration,
+  basePath?: string,
+  axios?: AxiosInstance
 ) {
-	const localVarFp = DocsApiFp(configuration);
-	return {
-		/**
-		 *
-		 * @summary 새로운 문서 생성
-		 * @param {DocumentCreate} documentCreate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		docsCreateDocument(
-			documentCreate: DocumentCreate,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<DocumentPublic> {
-			return localVarFp
-				.docsCreateDocument(documentCreate, accessToken, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 *
-		 * @summary 문서 삭제
-		 * @param {string} docId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		docsDeleteDocument(
-			docId: string,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<Message> {
-			return localVarFp
-				.docsDeleteDocument(docId, accessToken, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 * 전체 Public 문서를 조회합니다.
-		 * @summary 관리자용 전체 문서를 조회
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		docsReadDocs(
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<Array<DocumentPublic>> {
-			return localVarFp
-				.docsReadDocs(accessToken, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 *
-		 * @summary 특정 문서 조회
-		 * @param {string} docId
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		docsReadDocument(
-			docId: string,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<DocumentPublic> {
-			return localVarFp
-				.docsReadDocument(docId, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 * 전체 Public 문서를 조회합니다.
-		 * @summary 전체 공개 문서를 조회
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		docsReadPublicDocs(
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<Array<DocumentPublic>> {
-			return localVarFp
-				.docsReadPublicDocs(options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 *
-		 * @summary 문서 정보 업데이트
-		 * @param {string} docId
-		 * @param {DocumentUpdate} documentUpdate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		docsUpdateDocument(
-			docId: string,
-			documentUpdate: DocumentUpdate,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<DocumentPublic> {
-			return localVarFp
-				.docsUpdateDocument(docId, documentUpdate, accessToken, options)
-				.then((request) => request(axios, basePath));
-		},
-	};
-};
+  const localVarFp = DocsApiFp(configuration)
+  return {
+    /**
+     *
+     * @summary 새로운 문서 생성
+     * @param {DocumentCreate} documentCreate
+     * @param {string | null} [accessToken]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    docsCreateDocument(
+      documentCreate: DocumentCreate,
+      accessToken?: string | null,
+      options?: RawAxiosRequestConfig
+    ): AxiosPromise<DocumentPublic> {
+      return localVarFp
+        .docsCreateDocument(documentCreate, accessToken, options)
+        .then((request) => request(axios, basePath))
+    },
+    /**
+     *
+     * @summary 문서 삭제
+     * @param {string} docId
+     * @param {string | null} [accessToken]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    docsDeleteDocument(
+      docId: string,
+      accessToken?: string | null,
+      options?: RawAxiosRequestConfig
+    ): AxiosPromise<Message> {
+      return localVarFp
+        .docsDeleteDocument(docId, accessToken, options)
+        .then((request) => request(axios, basePath))
+    },
+    /**
+     * 전체 Public 문서를 조회합니다.
+     * @summary 관리자용 전체 문서를 조회
+     * @param {string | null} [accessToken]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    docsReadDocs(
+      accessToken?: string | null,
+      options?: RawAxiosRequestConfig
+    ): AxiosPromise<Array<DocumentPublic>> {
+      return localVarFp
+        .docsReadDocs(accessToken, options)
+        .then((request) => request(axios, basePath))
+    },
+    /**
+     *
+     * @summary 특정 문서 조회
+     * @param {string} docId
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    docsReadDocument(
+      docId: string,
+      options?: RawAxiosRequestConfig
+    ): AxiosPromise<DocumentPublic> {
+      return localVarFp
+        .docsReadDocument(docId, options)
+        .then((request) => request(axios, basePath))
+    },
+    /**
+     * 전체 Public 문서를 조회합니다.
+     * @summary 전체 공개 문서를 조회
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    docsReadPublicDocs(
+      options?: RawAxiosRequestConfig
+    ): AxiosPromise<Array<DocumentPublic>> {
+      return localVarFp
+        .docsReadPublicDocs(options)
+        .then((request) => request(axios, basePath))
+    },
+    /**
+     *
+     * @summary 문서 정보 업데이트
+     * @param {string} docId
+     * @param {DocumentUpdate} documentUpdate
+     * @param {string | null} [accessToken]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    docsUpdateDocument(
+      docId: string,
+      documentUpdate: DocumentUpdate,
+      accessToken?: string | null,
+      options?: RawAxiosRequestConfig
+    ): AxiosPromise<DocumentPublic> {
+      return localVarFp
+        .docsUpdateDocument(docId, documentUpdate, accessToken, options)
+        .then((request) => request(axios, basePath))
+    },
+  }
+}
 
 /**
  * DocsApi - object-oriented interface
@@ -1540,106 +1540,106 @@ export const DocsApiFactory = function (
  * @extends {BaseAPI}
  */
 export class DocsApi extends BaseAPI {
-	/**
-	 *
-	 * @summary 새로운 문서 생성
-	 * @param {DocumentCreate} documentCreate
-	 * @param {string | null} [accessToken]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof DocsApi
-	 */
-	public docsCreateDocument(
-		documentCreate: DocumentCreate,
-		accessToken?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
-		return DocsApiFp(this.configuration)
-			.docsCreateDocument(documentCreate, accessToken, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
+  /**
+   *
+   * @summary 새로운 문서 생성
+   * @param {DocumentCreate} documentCreate
+   * @param {string | null} [accessToken]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DocsApi
+   */
+  public docsCreateDocument(
+    documentCreate: DocumentCreate,
+    accessToken?: string | null,
+    options?: RawAxiosRequestConfig
+  ) {
+    return DocsApiFp(this.configuration)
+      .docsCreateDocument(documentCreate, accessToken, options)
+      .then((request) => request(this.axios, this.basePath))
+  }
 
-	/**
-	 *
-	 * @summary 문서 삭제
-	 * @param {string} docId
-	 * @param {string | null} [accessToken]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof DocsApi
-	 */
-	public docsDeleteDocument(
-		docId: string,
-		accessToken?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
-		return DocsApiFp(this.configuration)
-			.docsDeleteDocument(docId, accessToken, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
+  /**
+   *
+   * @summary 문서 삭제
+   * @param {string} docId
+   * @param {string | null} [accessToken]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DocsApi
+   */
+  public docsDeleteDocument(
+    docId: string,
+    accessToken?: string | null,
+    options?: RawAxiosRequestConfig
+  ) {
+    return DocsApiFp(this.configuration)
+      .docsDeleteDocument(docId, accessToken, options)
+      .then((request) => request(this.axios, this.basePath))
+  }
 
-	/**
-	 * 전체 Public 문서를 조회합니다.
-	 * @summary 관리자용 전체 문서를 조회
-	 * @param {string | null} [accessToken]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof DocsApi
-	 */
-	public docsReadDocs(
-		accessToken?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
-		return DocsApiFp(this.configuration)
-			.docsReadDocs(accessToken, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
+  /**
+   * 전체 Public 문서를 조회합니다.
+   * @summary 관리자용 전체 문서를 조회
+   * @param {string | null} [accessToken]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DocsApi
+   */
+  public docsReadDocs(
+    accessToken?: string | null,
+    options?: RawAxiosRequestConfig
+  ) {
+    return DocsApiFp(this.configuration)
+      .docsReadDocs(accessToken, options)
+      .then((request) => request(this.axios, this.basePath))
+  }
 
-	/**
-	 *
-	 * @summary 특정 문서 조회
-	 * @param {string} docId
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof DocsApi
-	 */
-	public docsReadDocument(docId: string, options?: RawAxiosRequestConfig) {
-		return DocsApiFp(this.configuration)
-			.docsReadDocument(docId, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
+  /**
+   *
+   * @summary 특정 문서 조회
+   * @param {string} docId
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DocsApi
+   */
+  public docsReadDocument(docId: string, options?: RawAxiosRequestConfig) {
+    return DocsApiFp(this.configuration)
+      .docsReadDocument(docId, options)
+      .then((request) => request(this.axios, this.basePath))
+  }
 
-	/**
-	 * 전체 Public 문서를 조회합니다.
-	 * @summary 전체 공개 문서를 조회
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof DocsApi
-	 */
-	public docsReadPublicDocs(options?: RawAxiosRequestConfig) {
-		return DocsApiFp(this.configuration)
-			.docsReadPublicDocs(options)
-			.then((request) => request(this.axios, this.basePath));
-	}
+  /**
+   * 전체 Public 문서를 조회합니다.
+   * @summary 전체 공개 문서를 조회
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DocsApi
+   */
+  public docsReadPublicDocs(options?: RawAxiosRequestConfig) {
+    return DocsApiFp(this.configuration)
+      .docsReadPublicDocs(options)
+      .then((request) => request(this.axios, this.basePath))
+  }
 
-	/**
-	 *
-	 * @summary 문서 정보 업데이트
-	 * @param {string} docId
-	 * @param {DocumentUpdate} documentUpdate
-	 * @param {string | null} [accessToken]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof DocsApi
-	 */
-	public docsUpdateDocument(
-		docId: string,
-		documentUpdate: DocumentUpdate,
-		accessToken?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
-		return DocsApiFp(this.configuration)
-			.docsUpdateDocument(docId, documentUpdate, accessToken, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
+  /**
+   *
+   * @summary 문서 정보 업데이트
+   * @param {string} docId
+   * @param {DocumentUpdate} documentUpdate
+   * @param {string | null} [accessToken]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DocsApi
+   */
+  public docsUpdateDocument(
+    docId: string,
+    documentUpdate: DocumentUpdate,
+    accessToken?: string | null,
+    options?: RawAxiosRequestConfig
+  ) {
+    return DocsApiFp(this.configuration)
+      .docsUpdateDocument(docId, documentUpdate, accessToken, options)
+      .then((request) => request(this.axios, this.basePath))
+  }
 }

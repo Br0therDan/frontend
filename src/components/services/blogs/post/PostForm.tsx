@@ -1,11 +1,11 @@
-'use client';
-import React from 'react';
+'use client'
+import React from 'react'
 import {
   useForm,
   SubmitHandler,
   Controller,
   FormProvider,
-} from 'react-hook-form';
+} from 'react-hook-form'
 import {
   Select,
   SelectContent,
@@ -13,36 +13,36 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
+} from '@/components/ui/select'
 import {
   CategoryPublic,
   PostCreate,
   PostPublic,
   PostUpdate,
-} from '@/client/blog';
-import { toast } from 'sonner';
-import { Label } from '@/components/ui/label';
+} from '@/client/blog'
+import { toast } from 'sonner'
+import { Label } from '@/components/ui/label'
 // import { FormMessage } from '@/components/ui/form';
-import { MyButton } from '@/components/common/buttons/submit-button';
-import { CategoryService, PostService } from '@/lib/api';
-import QuillEditor from '@/components/common/editor/QuillEditor';
-import 'react-quill/dist/quill.snow.css';
-import { useRouter } from 'next/navigation';
-import { Button } from '@/components/ui/button';
-import { useEffect, useState } from 'react';
-import Loading from '@/components/common/Loading';
-import { handleApiError } from '@/lib/errorHandler';
-import { useTranslations } from 'next-intl';
+import { MyButton } from '@/components/common/buttons/submit-button'
+import { CategoryService, PostService } from '@/lib/api'
+import QuillEditor from '@/components/common/editor/QuillEditor'
+import 'react-quill/dist/quill.snow.css'
+import { useRouter } from 'next/navigation'
+import { Button } from '@/components/ui/button'
+import { useEffect, useState } from 'react'
+import Loading from '@/components/common/Loading'
+import { handleApiError } from '@/lib/errorHandler'
+import { useTranslations } from 'next-intl'
 
 interface PostFormProps {
-  mode: 'add' | 'edit';
-  initialData?: PostPublic;
+  mode: 'add' | 'edit'
+  initialData?: PostPublic
 }
 
 export default function PostForm({ mode, initialData }: PostFormProps) {
-  const [loading, setLoading] = useState(false);
-  const router = useRouter();
-  const t = useTranslations();
+  const [loading, setLoading] = useState(false)
+  const router = useRouter()
+  const t = useTranslations()
 
   const methods = useForm<PostUpdate>({
     mode: 'onBlur',
@@ -63,7 +63,7 @@ export default function PostForm({ mode, initialData }: PostFormProps) {
             category_id: '',
             subcategory_id: '',
           },
-  });
+  })
 
   const {
     register,
@@ -71,121 +71,121 @@ export default function PostForm({ mode, initialData }: PostFormProps) {
     control,
     reset,
     watch,
-    formState: {  isSubmitting, isDirty },
-  } = methods;
+    formState: { isSubmitting, isDirty },
+  } = methods
 
   // 카테고리 목록 상태 (CategoryPublic에는 id, name, subcat 필드가 있음)
-  const [categories, setCategories] = useState<CategoryPublic[]>([]);
+  const [categories, setCategories] = useState<CategoryPublic[]>([])
 
   const fetchCategories = async () => {
-    setLoading(true);
+    setLoading(true)
     try {
-      const response = await CategoryService.categoriesReadCategories();
-      const categories = response.data;
+      const response = await CategoryService.categoriesReadCategories()
+      const categories = response.data
       // toast({
       //   title: "Success!",
       //   description: "Categories fetched successfully.",
       // });
       toast.success('Success!', {
         description: 'Categories fetched successfully.',
-      });
-      return categories;
+      })
+      return categories
     } catch (err) {
-      handleApiError(err, (message) => toast.error(message.title));
+      handleApiError(err, (message) => toast.error(message.title))
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   useEffect(() => {
     const fetchCategoriesData = async () => {
-      const res = await fetchCategories();
+      const res = await fetchCategories()
       if (res) {
-        setCategories(res);
+        setCategories(res)
       }
-    };
-    fetchCategoriesData();
-  }, []);
+    }
+    fetchCategoriesData()
+  }, [])
 
-  const selectedCategoryId = watch('category_id');
+  const selectedCategoryId = watch('category_id')
   const selectedCategory = categories.find(
-    (cat) => cat._id === selectedCategoryId,
-  );
-  const subcategories = selectedCategory?.subcategories || [];
+    (cat) => cat._id === selectedCategoryId
+  )
+  const subcategories = selectedCategory?.subcategories || []
 
   const onSubmit: SubmitHandler<PostUpdate> = async (data) => {
     try {
       if (mode === 'add') {
-        add(data as PostCreate);
-        router.push('/main/posts');
+        add(data as PostCreate)
+        router.push('/main/posts')
       } else {
-        update(data as PostUpdate);
-        router.push(`/main/posts/${data.id}`);
+        update(data as PostUpdate)
+        router.push(`/main/posts/${data.id}`)
       }
     } catch (err) {
-      handleApiError(err, (message) => toast.error(message.title));
+      handleApiError(err, (message) => toast.error(message.title))
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   const add = async (post: PostCreate) => {
     try {
-      await PostService.postsCreatePost(post);
+      await PostService.postsCreatePost(post)
       toast.success('forms.create_post.success.title', {
         description: 'forms.create_post.success.description',
-      });
-      reset();
+      })
+      reset()
     } catch (err) {
-      handleApiError(err, (message) => toast.error(message.title));
+      handleApiError(err, (message) => toast.error(message.title))
     }
-  };
+  }
 
   const update = async (post: PostUpdate) => {
     try {
-      await PostService.postsUpdatePost(post.id, post);
+      await PostService.postsUpdatePost(post.id, post)
       // toast({
       //   title: "forms.edit_post.success.title",
       //   description: "forms.edit_post.success.description",
       // });
       toast.success(t('forms.edit_post.success.title'), {
         description: t('forms.edit_post.success.description'),
-      });
-      reset();
+      })
+      reset()
     } catch (err) {
-      handleApiError(err, (message) => toast.error(message.title));
+      handleApiError(err, (message) => toast.error(message.title))
     }
-  };
+  }
 
   const onCancel = () => {
     if (mode === 'edit' && initialData) {
-      router.push(`/main/posts/${initialData?._id}`);
+      router.push(`/main/posts/${initialData?._id}`)
     } else {
-      router.push('/main/posts');
+      router.push('/main/posts')
     }
-  };
+  }
 
   if (loading) {
-    return <Loading />;
+    return <Loading />
   }
 
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex flex-col gap-2">
+        <div className='flex flex-col gap-2'>
           {/* 하나의 셀렉트에서 중첩 형태로 카테고리/서브카테고리 선택 */}
-          <div className="flex gap-1.5">
+          <div className='flex gap-1.5'>
             <Controller
               control={control}
-              name="category_id"
+              name='category_id'
               rules={{ required: 'Category selection is required.' }}
               render={({ field }) => (
                 <Select
                   onValueChange={field.onChange}
                   value={field.value || ''}
                 >
-                  <SelectTrigger className="text-xs w-[150px] dark:border-gray-500">
-                    <SelectValue placeholder="카테고리 선택" />
+                  <SelectTrigger className='text-xs w-[150px] dark:border-gray-500'>
+                    <SelectValue placeholder='카테고리 선택' />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectGroup>
@@ -193,7 +193,7 @@ export default function PostForm({ mode, initialData }: PostFormProps) {
                         <SelectItem
                           key={cat._id}
                           value={cat._id}
-                          className="px-4 text-xs"
+                          className='px-4 text-xs'
                         >
                           {cat.name || '카테고리 없음'}
                         </SelectItem>
@@ -209,7 +209,7 @@ export default function PostForm({ mode, initialData }: PostFormProps) {
 
             <Controller
               control={control}
-              name="subcategory_id"
+              name='subcategory_id'
               rules={{ required: 'Subcategory selection is required.' }}
               render={({ field }) => (
                 <Select
@@ -217,8 +217,8 @@ export default function PostForm({ mode, initialData }: PostFormProps) {
                   value={field.value || ''}
                   disabled={!selectedCategoryId}
                 >
-                  <SelectTrigger className="text-xs w-[150px] dark:border-gray-500">
-                    <SelectValue placeholder="서브카테고리 선택" />
+                  <SelectTrigger className='text-xs w-[150px] dark:border-gray-500'>
+                    <SelectValue placeholder='서브카테고리 선택' />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectGroup>
@@ -226,7 +226,7 @@ export default function PostForm({ mode, initialData }: PostFormProps) {
                         <SelectItem
                           key={sub._id}
                           value={sub._id}
-                          className="px-4 text-xs"
+                          className='px-4 text-xs'
                         >
                           {sub.name.length > 0 ? sub.name : '서브카테고리 없음'}
                         </SelectItem>
@@ -243,35 +243,35 @@ export default function PostForm({ mode, initialData }: PostFormProps) {
             )} */}
           </div>
 
-          <div className="flex gap-3">
-            <div className="grid flex-1 items-center gap-1.5 border-b dark:border-gray-500">
+          <div className='flex gap-3'>
+            <div className='grid flex-1 items-center gap-1.5 border-b dark:border-gray-500'>
               <input
-                id="title"
+                id='title'
                 {...register('title', {
                   required: 'Blog title is required.',
                 })}
                 placeholder={t('forms.create_post.title_placeholder')}
-                className="border-none text-3xl bg-transparent px-2 placeholder:text-3xl h-14 focus-visible:outline-none"
+                className='border-none text-3xl bg-transparent px-2 placeholder:text-3xl h-14 focus-visible:outline-none'
               />
             </div>
-            <div className="flex items-center gap-1.5">
-              <Label htmlFor="is_public">
+            <div className='flex items-center gap-1.5'>
+              <Label htmlFor='is_public'>
                 {t('forms.create_post.is_public')}
               </Label>
               <input
-                id="is_public"
+                id='is_public'
                 {...register('is_public')}
-                type="checkbox"
-                className="form-checkbox px-2 h-5 w-5 text-indigo-600"
+                type='checkbox'
+                className='form-checkbox px-2 h-5 w-5 text-indigo-600'
               />
             </div>
           </div>
 
           {/* 내용 필드 */}
-          <div className="grid gap-2 py-2">
+          <div className='grid gap-2 py-2'>
             <Controller
               control={control}
-              name="content"
+              name='content'
               rules={{ required: 'Content is required.' }}
               render={({ field }) => (
                 <QuillEditor
@@ -285,23 +285,23 @@ export default function PostForm({ mode, initialData }: PostFormProps) {
             )} */}
           </div>
 
-          <div className="relative bottom-10">
-            <div className="flex justify-center gap-4">
+          <div className='relative bottom-10'>
+            <div className='flex justify-center gap-4'>
               <Button
-                variant="outline"
+                variant='outline'
                 onClick={onCancel}
                 disabled={isSubmitting}
-                type="button"
-                className="w-20"
+                type='button'
+                className='w-20'
               >
                 {t('forms.create_post.cancel')}
               </Button>
               <MyButton
-                variant="default"
-                type="submit"
+                variant='default'
+                type='submit'
                 isLoading={isSubmitting}
                 disabled={!isDirty}
-                className="w-20"
+                className='w-20'
               >
                 {t('forms.create_post.submit')}
               </MyButton>
@@ -310,5 +310,5 @@ export default function PostForm({ mode, initialData }: PostFormProps) {
         </div>
       </form>
     </FormProvider>
-  );
+  )
 }

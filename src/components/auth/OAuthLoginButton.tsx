@@ -1,22 +1,28 @@
 // path: src/components/auth/OAuthLoginButton.tsx
 
-'use client';
+'use client'
 
-import * as React from 'react';
-import { Button } from '@/components/ui/button';
-import { Loader2 } from 'lucide-react';
-import { OAuthService } from '@/lib/api';
-import { usePathname } from 'next/navigation';
-import { handleApiError } from '@/lib/errorHandler';
-import { toast } from 'sonner';
-import { useTranslations } from 'next-intl';
-import { ButtonProps } from 'react-day-picker';
+import * as React from 'react'
+import { Button } from '@/components/ui/button'
+import { Loader2 } from 'lucide-react'
+import { OAuthService } from '@/lib/api'
+import { usePathname } from 'next/navigation'
+import { handleApiError } from '@/lib/errorHandler'
+import { toast } from 'sonner'
+import { useTranslations } from 'next-intl'
+import { ButtonProps } from 'react-day-picker'
 
 interface OAuthLoginButtonProps
   extends ButtonProps,
     Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'onClick'> {
-  provider: 'google' | 'kakao' | 'naver';
-  variant?: 'link' | 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost';
+  provider: 'google' | 'kakao' | 'naver'
+  variant?:
+    | 'link'
+    | 'default'
+    | 'destructive'
+    | 'outline'
+    | 'secondary'
+    | 'ghost'
 }
 
 const providerConfigs = {
@@ -44,63 +50,63 @@ const providerConfigs = {
     logo_height: '30',
     logo_width: '30',
   },
-};
+}
 
 export function OAuthLoginButton({
   provider,
   variant = 'link',
   ...props
 }: OAuthLoginButtonProps) {
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
-  const pathname = usePathname();
+  const [isLoading, setIsLoading] = React.useState<boolean>(false)
+  const pathname = usePathname()
 
-  const t = useTranslations();
+  const t = useTranslations()
 
   const oAuth2LoginHandler = async () => {
-    setIsLoading(true);
+    setIsLoading(true)
     try {
-      const redirectPath = encodeURIComponent(pathname);
+      const redirectPath = encodeURIComponent(pathname)
       const res = await OAuthService.oAuth2OauthAuthorize(
         provider,
         null,
-        redirectPath,
-      );
+        redirectPath
+      )
       toast.success('로그인 중', {
         description: '잠시만 기다려주세요.',
-      });
+      })
       if (res?.data) {
         // ('use server');
-        window.location.href = res.data; // 외부 OAuth URL로 이동
+        window.location.href = res.data // 외부 OAuth URL로 이동
       }
     } catch (err) {
-      handleApiError(err, (message) => toast.error(message.title));
+      handleApiError(err, (message) => toast.error(message.title))
     } finally {
-      setIsLoading(false);
+      setIsLoading(false)
     }
-  };
+  }
 
   const { label, bgColor, textColor, logo, logo_height, logo_width } =
-    providerConfigs[provider];
+    providerConfigs[provider]
 
   return (
     <Button
-      type="button"
+      type='button'
       variant={variant}
       onClick={oAuth2LoginHandler}
       className={`flex justify-start p-[2px] w-full ${bgColor}`}
       disabled={isLoading} // 로딩 중 중복 클릭 방지
       {...props}
     >
-      <div className="flex justify-center items-center w-9 h-9">
+      <div className='flex justify-center items-center w-9 h-9'>
         {isLoading ? (
-          <Loader2 className="animate-spin" />
+          <Loader2 className='animate-spin' />
         ) : (
           <img
             src={logo}
             alt={provider}
             width={logo_width}
             height={logo_height}
-            className="rounded-[5px]"
+            className='rounded-[5px]'
           />
         )}
       </div>
@@ -108,5 +114,5 @@ export function OAuthLoginButton({
         <h1>{t(label)}</h1>
       </div>
     </Button>
-  );
+  )
 }

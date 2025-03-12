@@ -1,5 +1,5 @@
-'use client';
-import React from 'react';
+'use client'
+import React from 'react'
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -11,7 +11,7 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-} from '@tanstack/react-table';
+} from '@tanstack/react-table'
 
 import {
   Table,
@@ -20,20 +20,20 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import { Button } from '@/components/ui/button';
+} from '@/components/ui/table'
+import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { useState } from 'react';
-import { CheckSquare } from 'lucide-react';
+} from '@/components/ui/dropdown-menu'
+import { useState } from 'react'
+import { CheckSquare } from 'lucide-react'
 
 interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
-  data: TData[];
+  columns: ColumnDef<TData, TValue>[]
+  data: TData[]
 }
 
 export default function DataTable<TData extends { _id: string }, TValue>({
@@ -41,10 +41,10 @@ export default function DataTable<TData extends { _id: string }, TValue>({
   data,
 }: DataTableProps<TData, TValue>) {
   // const [data, setData] = useState<TData[]>(initialData);
-  const [sorting, setSorting] = useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
-  const [rowSelection, setRowSelection] = useState({});
+  const [sorting, setSorting] = useState<SortingState>([])
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
+  const [rowSelection, setRowSelection] = useState({})
 
   const table = useReactTable({
     data,
@@ -63,7 +63,7 @@ export default function DataTable<TData extends { _id: string }, TValue>({
       columnVisibility,
       rowSelection,
     },
-  });
+  })
 
   // const handleDeleteSelected = () => {
   //   const selectedIds = table.getSelectedRowModel().rows.map((row) => row.original._id);
@@ -73,7 +73,7 @@ export default function DataTable<TData extends { _id: string }, TValue>({
 
   return (
     <div>
-      <div className="flex items-center py-2 gap-2">
+      <div className='flex items-center py-2 gap-2'>
         {/* <Input
           placeholder="Filter emails..."
           value={table.getColumn("email")?.getFilterValue() as string}
@@ -85,12 +85,12 @@ export default function DataTable<TData extends { _id: string }, TValue>({
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
-              <CheckSquare className="h-4 w-4 mr-2" />
+            <Button variant='outline' className='ml-auto'>
+              <CheckSquare className='h-4 w-4 mr-2' />
               Columns
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
+          <DropdownMenuContent align='end'>
             {table
               .getAllColumns()
               .filter((column) => column.getCanHide())
@@ -98,7 +98,7 @@ export default function DataTable<TData extends { _id: string }, TValue>({
                 return (
                   <DropdownMenuCheckboxItem
                     key={column.id}
-                    className="capitalize"
+                    className='capitalize'
                     checked={column.getIsVisible()}
                     onCheckedChange={(value) =>
                       column.toggleVisibility(!!value)
@@ -106,13 +106,13 @@ export default function DataTable<TData extends { _id: string }, TValue>({
                   >
                     {column.id}
                   </DropdownMenuCheckboxItem>
-                );
+                )
               })}
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
 
-      <div className="rounded-md border">
+      <div className='rounded-md border'>
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -124,10 +124,10 @@ export default function DataTable<TData extends { _id: string }, TValue>({
                         ? null
                         : flexRender(
                             header.column.columnDef.header,
-                            header.getContext(),
+                            header.getContext()
                           )}
                     </TableHead>
-                  );
+                  )
                 })}
               </TableRow>
             ))}
@@ -143,7 +143,7 @@ export default function DataTable<TData extends { _id: string }, TValue>({
                     <TableCell key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
-                        cell.getContext(),
+                        cell.getContext()
                       )}
                     </TableCell>
                   ))}
@@ -153,7 +153,7 @@ export default function DataTable<TData extends { _id: string }, TValue>({
               <TableRow>
                 <TableCell
                   colSpan={columns.length}
-                  className="h-24 text-center"
+                  className='h-24 text-center'
                 >
                   No results.
                 </TableCell>
@@ -163,23 +163,23 @@ export default function DataTable<TData extends { _id: string }, TValue>({
         </Table>
       </div>
 
-      <div className="flex items-center justify-end space-x-2 py-4">
-        <div className="flex-1 text-sm text-muted-foreground">
+      <div className='flex items-center justify-end space-x-2 py-4'>
+        <div className='flex-1 text-sm text-muted-foreground'>
           {Object.keys(rowSelection).length} of{' '}
           {table.getFilteredRowModel().rows.length} row(s) selected.
         </div>
 
         <Button
-          variant="outline"
-          size="sm"
+          variant='outline'
+          size='sm'
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
         >
           Previous
         </Button>
         <Button
-          variant="outline"
-          size="sm"
+          variant='outline'
+          size='sm'
           onClick={() => table.nextPage()}
           disabled={!table.getCanNextPage()}
         >
@@ -187,5 +187,5 @@ export default function DataTable<TData extends { _id: string }, TValue>({
         </Button>
       </div>
     </div>
-  );
+  )
 }

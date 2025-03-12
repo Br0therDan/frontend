@@ -1,10 +1,10 @@
-import { MenuItem } from '@/types/ui';
+import { MenuItem } from '@/types/ui'
 import {
   Home,
   // UsersRound,
   Settings,
   NotebookPen,
-} from 'lucide-react';
+} from 'lucide-react'
 
 export const menuItems: MenuItem[] = [
   {
@@ -25,4 +25,4 @@ export const menuItems: MenuItem[] = [
     href: '/main//settings',
     roles: ['admin', 'user'],
   },
-];
+]
