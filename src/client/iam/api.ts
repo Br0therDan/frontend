@@ -12,32 +12,32 @@
  * Do not edit the class manually.
  */
 
-import type { Configuration } from './configuration'
-import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from 'axios'
-import globalAxios from 'axios'
+import type { Configuration } from "./configuration";
+import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from "axios";
+import globalAxios from "axios";
 // Some imports not used depending on template conditions
 // @ts-ignore
 import {
-  DUMMY_BASE_URL,
-  assertParamExists,
-  setApiKeyToObject,
-  setBasicAuthToObject,
-  setBearerAuthToObject,
-  setOAuthToObject,
-  setSearchParams,
-  serializeDataIfNeeded,
-  toPathString,
-  createRequestFunction,
-} from './common'
-import type { RequestArgs } from './base'
+	DUMMY_BASE_URL,
+	assertParamExists,
+	setApiKeyToObject,
+	setBasicAuthToObject,
+	setBearerAuthToObject,
+	setOAuthToObject,
+	setSearchParams,
+	serializeDataIfNeeded,
+	toPathString,
+	createRequestFunction,
+} from "./common";
+import type { RequestArgs } from "./base";
 // @ts-ignore
 import {
-  BASE_PATH,
-  COLLECTION_FORMATS,
-  BaseAPI,
-  RequiredError,
-  operationServerMap,
-} from './base'
+	BASE_PATH,
+	COLLECTION_FORMATS,
+	BaseAPI,
+	RequiredError,
+	operationServerMap,
+} from "./base";
 
 /**
  *
@@ -45,42 +45,48 @@ import {
  * @interface AdminUserCreate
  */
 export interface AdminUserCreate {
-  /**
-   *
-   * @type {string}
-   * @memberof AdminUserCreate
-   */
-  email: string
-  /**
-   *
-   * @type {string}
-   * @memberof AdminUserCreate
-   */
-  fullname?: string | null
-  /**
-   *
-   * @type {string}
-   * @memberof AdminUserCreate
-   */
-  password: string
-  /**
-   *
-   * @type {string}
-   * @memberof AdminUserCreate
-   */
-  provider?: string
-  /**
-   *
-   * @type {boolean}
-   * @memberof AdminUserCreate
-   */
-  is_active?: boolean
-  /**
-   *
-   * @type {boolean}
-   * @memberof AdminUserCreate
-   */
-  is_superuser?: boolean
+	/**
+	 *
+	 * @type {string}
+	 * @memberof AdminUserCreate
+	 */
+	email: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof AdminUserCreate
+	 */
+	fullname?: string | null;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof AdminUserCreate
+	 */
+	password: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof AdminUserCreate
+	 */
+	provider?: string;
+	/**
+	 *
+	 * @type {Array<string>}
+	 * @memberof AdminUserCreate
+	 */
+	allow_services?: Array<string> | null;
+	/**
+	 *
+	 * @type {boolean}
+	 * @memberof AdminUserCreate
+	 */
+	is_active?: boolean;
+	/**
+	 *
+	 * @type {boolean}
+	 * @memberof AdminUserCreate
+	 */
+	is_superuser?: boolean;
 }
 /**
  *
@@ -88,36 +94,42 @@ export interface AdminUserCreate {
  * @interface AdminUserUpdate
  */
 export interface AdminUserUpdate {
-  /**
-   *
-   * @type {string}
-   * @memberof AdminUserUpdate
-   */
-  email?: string | null
-  /**
-   *
-   * @type {string}
-   * @memberof AdminUserUpdate
-   */
-  fullname?: string | null
-  /**
-   *
-   * @type {string}
-   * @memberof AdminUserUpdate
-   */
-  password?: string | null
-  /**
-   *
-   * @type {boolean}
-   * @memberof AdminUserUpdate
-   */
-  is_active?: boolean | null
-  /**
-   *
-   * @type {boolean}
-   * @memberof AdminUserUpdate
-   */
-  is_superuser?: boolean | null
+	/**
+	 *
+	 * @type {string}
+	 * @memberof AdminUserUpdate
+	 */
+	email?: string | null;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof AdminUserUpdate
+	 */
+	fullname?: string | null;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof AdminUserUpdate
+	 */
+	password?: string | null;
+	/**
+	 *
+	 * @type {Array<string>}
+	 * @memberof AdminUserUpdate
+	 */
+	allow_services?: Array<string> | null;
+	/**
+	 *
+	 * @type {boolean}
+	 * @memberof AdminUserUpdate
+	 */
+	is_active?: boolean | null;
+	/**
+	 *
+	 * @type {boolean}
+	 * @memberof AdminUserUpdate
+	 */
+	is_superuser?: boolean | null;
 }
 /**
  *
@@ -125,12 +137,12 @@ export interface AdminUserUpdate {
  * @interface HTTPValidationError
  */
 export interface HTTPValidationError {
-  /**
-   *
-   * @type {Array<ValidationError>}
-   * @memberof HTTPValidationError
-   */
-  detail?: Array<ValidationError>
+	/**
+	 *
+	 * @type {Array<ValidationError>}
+	 * @memberof HTTPValidationError
+	 */
+	detail?: Array<ValidationError>;
 }
 /**
  *
@@ -138,12 +150,12 @@ export interface HTTPValidationError {
  * @interface Message
  */
 export interface Message {
-  /**
-   *
-   * @type {string}
-   * @memberof Message
-   */
-  message: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof Message
+	 */
+	message: string;
 }
 /**
  *
@@ -151,18 +163,18 @@ export interface Message {
  * @interface NewPassword
  */
 export interface NewPassword {
-  /**
-   *
-   * @type {string}
-   * @memberof NewPassword
-   */
-  token: string
-  /**
-   *
-   * @type {string}
-   * @memberof NewPassword
-   */
-  new_password: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof NewPassword
+	 */
+	token: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof NewPassword
+	 */
+	new_password: string;
 }
 /**
  *
@@ -170,91 +182,301 @@ export interface NewPassword {
  * @interface OAuthAccount
  */
 export interface OAuthAccount {
-  /**
-   *
-   * @type {string}
-   * @memberof OAuthAccount
-   */
-  _id?: string
-  /**
-   *
-   * @type {string}
-   * @memberof OAuthAccount
-   */
-  created_at?: string
-  /**
-   *
-   * @type {string}
-   * @memberof OAuthAccount
-   */
-  updated_at?: string
-  /**
-   *
-   * @type {string}
-   * @memberof OAuthAccount
-   */
-  oauth_name: string
-  /**
-   *
-   * @type {string}
-   * @memberof OAuthAccount
-   */
-  access_token: string
-  /**
-   *
-   * @type {string}
-   * @memberof OAuthAccount
-   */
-  account_id: string
-  /**
-   *
-   * @type {string}
-   * @memberof OAuthAccount
-   */
-  account_email: string
-  /**
-   *
-   * @type {number}
-   * @memberof OAuthAccount
-   */
-  expired_in?: number | null
-  /**
-   *
-   * @type {number}
-   * @memberof OAuthAccount
-   */
-  expires_at?: number | null
-  /**
-   *
-   * @type {string}
-   * @memberof OAuthAccount
-   */
-  refresh_token?: string | null
+	/**
+	 *
+	 * @type {string}
+	 * @memberof OAuthAccount
+	 */
+	_id?: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof OAuthAccount
+	 */
+	created_at?: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof OAuthAccount
+	 */
+	updated_at?: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof OAuthAccount
+	 */
+	oauth_name: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof OAuthAccount
+	 */
+	access_token: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof OAuthAccount
+	 */
+	account_id: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof OAuthAccount
+	 */
+	account_email: string;
+	/**
+	 *
+	 * @type {number}
+	 * @memberof OAuthAccount
+	 */
+	expired_in?: number | null;
+	/**
+	 *
+	 * @type {number}
+	 * @memberof OAuthAccount
+	 */
+	expires_at?: number | null;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof OAuthAccount
+	 */
+	refresh_token?: string | null;
 }
+/**
+ * 서비스 생성 요청
+ * @export
+ * @interface ServiceCreate
+ */
+export interface ServiceCreate {
+	/**
+	 *
+	 * @type {string}
+	 * @memberof ServiceCreate
+	 */
+	name: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof ServiceCreate
+	 */
+	description?: string | null;
+}
+/**
+ *
+ * @export
+ * @interface ServicePublic
+ */
+export interface ServicePublic {
+	/**
+	 *
+	 * @type {string}
+	 * @memberof ServicePublic
+	 */
+	_id: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof ServicePublic
+	 */
+	name: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof ServicePublic
+	 */
+	description?: string | null;
+}
+/**
+ * 서비스 업데이트 요청
+ * @export
+ * @interface ServiceUpdate
+ */
+export interface ServiceUpdate {
+	/**
+	 *
+	 * @type {string}
+	 * @memberof ServiceUpdate
+	 */
+	name?: string | null;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof ServiceUpdate
+	 */
+	description?: string | null;
+}
+/**
+ * 구독 생성 요청
+ * @export
+ * @interface SubscriptionCreate
+ */
+export interface SubscriptionCreate {
+	/**
+	 *
+	 * @type {string}
+	 * @memberof SubscriptionCreate
+	 */
+	user_id: string;
+	/**
+	 *
+	 * @type {Array<string>}
+	 * @memberof SubscriptionCreate
+	 */
+	services: Array<string>;
+	/**
+	 *
+	 * @type {number}
+	 * @memberof SubscriptionCreate
+	 */
+	duration_days: number;
+	/**
+	 *
+	 * @type {SubscriptionTier}
+	 * @memberof SubscriptionCreate
+	 */
+	tier: SubscriptionTier;
+}
+
+/**
+ * 구독 정보 응답
+ * @export
+ * @interface SubscriptionPublic
+ */
+export interface SubscriptionPublic {
+	/**
+	 *
+	 * @type {string}
+	 * @memberof SubscriptionPublic
+	 */
+	_id: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof SubscriptionPublic
+	 */
+	user_id: string;
+	/**
+	 *
+	 * @type {Array<ServicePublic>}
+	 * @memberof SubscriptionPublic
+	 */
+	services: Array<ServicePublic>;
+	/**
+	 *
+	 * @type {SubscriptionStatus}
+	 * @memberof SubscriptionPublic
+	 */
+	status: SubscriptionStatus;
+	/**
+	 *
+	 * @type {SubscriptionTier}
+	 * @memberof SubscriptionPublic
+	 */
+	tier: SubscriptionTier;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof SubscriptionPublic
+	 */
+	expires_at: string;
+}
+
+/**
+ *
+ * @export
+ * @enum {string}
+ */
+
+export const SubscriptionStatus = {
+	Active: "active",
+	Trial: "trial",
+	Canceled: "canceled",
+	Expired: "expired",
+	None: "none",
+} as const;
+
+export type SubscriptionStatus =
+	(typeof SubscriptionStatus)[keyof typeof SubscriptionStatus];
+
+/**
+ *
+ * @export
+ * @enum {string}
+ */
+
+export const SubscriptionTier = {
+	Free: "free",
+	Basic: "basic",
+	Premium: "premium",
+	Enterprise: "enterprise",
+} as const;
+
+export type SubscriptionTier =
+	(typeof SubscriptionTier)[keyof typeof SubscriptionTier];
+
+/**
+ * 구독 업데이트 요청
+ * @export
+ * @interface SubscriptionUpdate
+ */
+export interface SubscriptionUpdate {
+	/**
+	 *
+	 * @type {string}
+	 * @memberof SubscriptionUpdate
+	 */
+	user_id: string;
+	/**
+	 *
+	 * @type {Array<string>}
+	 * @memberof SubscriptionUpdate
+	 */
+	services?: Array<string> | null;
+	/**
+	 *
+	 * @type {SubscriptionStatus}
+	 * @memberof SubscriptionUpdate
+	 */
+	status: SubscriptionStatus;
+	/**
+	 *
+	 * @type {SubscriptionTier}
+	 * @memberof SubscriptionUpdate
+	 */
+	tier: SubscriptionTier;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof SubscriptionUpdate
+	 */
+	expires_at: string;
+}
+
 /**
  *
  * @export
  * @interface Token
  */
 export interface Token {
-  /**
-   *
-   * @type {string}
-   * @memberof Token
-   */
-  access_token: string
-  /**
-   *
-   * @type {string}
-   * @memberof Token
-   */
-  refresh_token: string | null
-  /**
-   *
-   * @type {string}
-   * @memberof Token
-   */
-  token_type: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof Token
+	 */
+	access_token: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof Token
+	 */
+	refresh_token: string | null;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof Token
+	 */
+	token_type: string;
 }
 /**
  * 본인 비밀번호 변경을 위한 모델
@@ -262,18 +484,18 @@ export interface Token {
  * @interface UpdatePassword
  */
 export interface UpdatePassword {
-  /**
-   *
-   * @type {string}
-   * @memberof UpdatePassword
-   */
-  current_password: string
-  /**
-   *
-   * @type {string}
-   * @memberof UpdatePassword
-   */
-  new_password: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof UpdatePassword
+	 */
+	current_password: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof UpdatePassword
+	 */
+	new_password: string;
 }
 /**
  *
@@ -281,90 +503,90 @@ export interface UpdatePassword {
  * @interface UserPublic
  */
 export interface UserPublic {
-  /**
-   *
-   * @type {string}
-   * @memberof UserPublic
-   */
-  _id: string
-  /**
-   *
-   * @type {string}
-   * @memberof UserPublic
-   */
-  fullname?: string | null
-  /**
-   *
-   * @type {string}
-   * @memberof UserPublic
-   */
-  email: string
-  /**
-   *
-   * @type {string}
-   * @memberof UserPublic
-   */
-  provider?: string | null
-  /**
-   *
-   * @type {string}
-   * @memberof UserPublic
-   */
-  avatar_url?: string | null
-  /**
-   *
-   * @type {string}
-   * @memberof UserPublic
-   */
-  mobile_phone?: string | null
-  /**
-   *
-   * @type {string}
-   * @memberof UserPublic
-   */
-  birthday?: string | null
-  /**
-   *
-   * @type {boolean}
-   * @memberof UserPublic
-   */
-  is_active?: boolean
-  /**
-   *
-   * @type {boolean}
-   * @memberof UserPublic
-   */
-  is_superuser?: boolean
-  /**
-   *
-   * @type {boolean}
-   * @memberof UserPublic
-   */
-  is_verified?: boolean
-  /**
-   *
-   * @type {string}
-   * @memberof UserPublic
-   */
-  created_at: string
-  /**
-   *
-   * @type {string}
-   * @memberof UserPublic
-   */
-  updated_at: string
-  /**
-   *
-   * @type {Array<OAuthAccount>}
-   * @memberof UserPublic
-   */
-  oauth_accounts?: Array<OAuthAccount> | null
-  /**
-   *
-   * @type {Array<string>}
-   * @memberof UserPublic
-   */
-  subscriptions?: Array<string> | null
+	/**
+	 *
+	 * @type {string}
+	 * @memberof UserPublic
+	 */
+	_id: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof UserPublic
+	 */
+	fullname?: string | null;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof UserPublic
+	 */
+	email: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof UserPublic
+	 */
+	provider?: string | null;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof UserPublic
+	 */
+	avatar_url?: string | null;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof UserPublic
+	 */
+	mobile_phone?: string | null;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof UserPublic
+	 */
+	birthday?: string | null;
+	/**
+	 *
+	 * @type {boolean}
+	 * @memberof UserPublic
+	 */
+	is_active?: boolean;
+	/**
+	 *
+	 * @type {boolean}
+	 * @memberof UserPublic
+	 */
+	is_superuser?: boolean;
+	/**
+	 *
+	 * @type {boolean}
+	 * @memberof UserPublic
+	 */
+	is_verified?: boolean;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof UserPublic
+	 */
+	last_login_at: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof UserPublic
+	 */
+	created_at: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof UserPublic
+	 */
+	updated_at: string;
+	/**
+	 *
+	 * @type {Array<OAuthAccount>}
+	 * @memberof UserPublic
+	 */
+	oauth_accounts?: Array<OAuthAccount> | null;
 }
 /**
  *
@@ -372,36 +594,36 @@ export interface UserPublic {
  * @interface UserRegister
  */
 export interface UserRegister {
-  /**
-   *
-   * @type {string}
-   * @memberof UserRegister
-   */
-  fullname?: string | null
-  /**
-   *
-   * @type {string}
-   * @memberof UserRegister
-   */
-  email: string
-  /**
-   *
-   * @type {string}
-   * @memberof UserRegister
-   */
-  password: string
-  /**
-   *
-   * @type {boolean}
-   * @memberof UserRegister
-   */
-  is_active?: boolean
-  /**
-   *
-   * @type {boolean}
-   * @memberof UserRegister
-   */
-  is_superuser?: boolean
+	/**
+	 *
+	 * @type {string}
+	 * @memberof UserRegister
+	 */
+	fullname?: string | null;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof UserRegister
+	 */
+	email: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof UserRegister
+	 */
+	password: string;
+	/**
+	 *
+	 * @type {boolean}
+	 * @memberof UserRegister
+	 */
+	is_active?: boolean;
+	/**
+	 *
+	 * @type {boolean}
+	 * @memberof UserRegister
+	 */
+	is_superuser?: boolean;
 }
 /**
  *
@@ -409,30 +631,30 @@ export interface UserRegister {
  * @interface UserUpdateMe
  */
 export interface UserUpdateMe {
-  /**
-   *
-   * @type {string}
-   * @memberof UserUpdateMe
-   */
-  fullname?: string | null
-  /**
-   *
-   * @type {string}
-   * @memberof UserUpdateMe
-   */
-  avatar_url?: string | null
-  /**
-   *
-   * @type {string}
-   * @memberof UserUpdateMe
-   */
-  mobile_phone?: string | null
-  /**
-   *
-   * @type {string}
-   * @memberof UserUpdateMe
-   */
-  birthday?: string | null
+	/**
+	 *
+	 * @type {string}
+	 * @memberof UserUpdateMe
+	 */
+	fullname?: string | null;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof UserUpdateMe
+	 */
+	avatar_url?: string | null;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof UserUpdateMe
+	 */
+	mobile_phone?: string | null;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof UserUpdateMe
+	 */
+	birthday?: string | null;
 }
 /**
  *
@@ -440,24 +662,24 @@ export interface UserUpdateMe {
  * @interface ValidationError
  */
 export interface ValidationError {
-  /**
-   *
-   * @type {Array<ValidationErrorLocInner>}
-   * @memberof ValidationError
-   */
-  loc: Array<ValidationErrorLocInner>
-  /**
-   *
-   * @type {string}
-   * @memberof ValidationError
-   */
-  msg: string
-  /**
-   *
-   * @type {string}
-   * @memberof ValidationError
-   */
-  type: string
+	/**
+	 *
+	 * @type {Array<ValidationErrorLocInner>}
+	 * @memberof ValidationError
+	 */
+	loc: Array<ValidationErrorLocInner>;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof ValidationError
+	 */
+	msg: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof ValidationError
+	 */
+	type: string;
 }
 /**
  *
@@ -471,582 +693,1133 @@ export interface ValidationErrorLocInner {}
  * @export
  */
 export const AdminApiAxiosParamCreator = function (
-  configuration?: Configuration
+	configuration?: Configuration,
 ) {
-  return {
-    /**
-     * [관리자 전용] 사용자 생성
-     * @summary Create User
-     * @param {AdminUserCreate} adminUserCreate
-     * @param {string | null} [tokenFromCookie]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    adminCreateUser: async (
-      adminUserCreate: AdminUserCreate,
-      tokenFromCookie?: string | null,
-      options: RawAxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'adminUserCreate' is not null or undefined
-      assertParamExists('adminCreateUser', 'adminUserCreate', adminUserCreate)
-      const localVarPath = `/api/v1/admin/user`
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
+	return {
+		/**
+		 * [관리자 전용] 서비스 생성
+		 * @summary Create Service
+		 * @param {ServiceCreate} serviceCreate
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		adminCreateService: async (
+			serviceCreate: ServiceCreate,
+			tokenFromCookie?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'serviceCreate' is not null or undefined
+			assertParamExists("adminCreateService", "serviceCreate", serviceCreate);
+			const localVarPath = `/api/v1/admin/services/`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
 
-      const localVarRequestOptions = {
-        method: 'POST',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
+			const localVarRequestOptions = {
+				method: "POST",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
 
-      // authentication OAuth2PasswordBearer required
-      // oauth required
-      await setOAuthToObject(
-        localVarHeaderParameter,
-        'OAuth2PasswordBearer',
-        [],
-        configuration
-      )
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
 
-      localVarHeaderParameter['Content-Type'] = 'application/json'
+			localVarHeaderParameter["Content-Type"] = "application/json";
 
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
-      localVarRequestOptions.data = serializeDataIfNeeded(
-        adminUserCreate,
-        localVarRequestOptions,
-        configuration
-      )
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				serviceCreate,
+				localVarRequestOptions,
+				configuration,
+			);
 
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-    /**
-     * 사용자 삭제
-     * @summary Delete User
-     * @param {string} userId
-     * @param {string | null} [tokenFromCookie]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    adminDeleteUser: async (
-      userId: string,
-      tokenFromCookie?: string | null,
-      options: RawAxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'userId' is not null or undefined
-      assertParamExists('adminDeleteUser', 'userId', userId)
-      const localVarPath = `/api/v1/admin/user/{user_id}`.replace(
-        `{${'user_id'}}`,
-        encodeURIComponent(String(userId))
-      )
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * [관리자 전용] 사용자 생성
+		 * @summary Create User
+		 * @param {AdminUserCreate} adminUserCreate
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		adminCreateUser: async (
+			adminUserCreate: AdminUserCreate,
+			tokenFromCookie?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'adminUserCreate' is not null or undefined
+			assertParamExists("adminCreateUser", "adminUserCreate", adminUserCreate);
+			const localVarPath = `/api/v1/admin/user`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
 
-      const localVarRequestOptions = {
-        method: 'DELETE',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
+			const localVarRequestOptions = {
+				method: "POST",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
 
-      // authentication OAuth2PasswordBearer required
-      // oauth required
-      await setOAuthToObject(
-        localVarHeaderParameter,
-        'OAuth2PasswordBearer',
-        [],
-        configuration
-      )
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
 
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
+			localVarHeaderParameter["Content-Type"] = "application/json";
 
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-    /**
-     * 특정 사용자 정보 조회
-     * @summary Read User By Id
-     * @param {string} userId
-     * @param {string | null} [tokenFromCookie]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    adminReadUserById: async (
-      userId: string,
-      tokenFromCookie?: string | null,
-      options: RawAxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'userId' is not null or undefined
-      assertParamExists('adminReadUserById', 'userId', userId)
-      const localVarPath = `/api/v1/admin/user/{user_id}`.replace(
-        `{${'user_id'}}`,
-        encodeURIComponent(String(userId))
-      )
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				adminUserCreate,
+				localVarRequestOptions,
+				configuration,
+			);
 
-      const localVarRequestOptions = {
-        method: 'GET',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * [관리자 전용] 서비스 삭제
+		 * @summary Delete Service
+		 * @param {string} serviceId
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		adminDeleteService: async (
+			serviceId: string,
+			tokenFromCookie?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'serviceId' is not null or undefined
+			assertParamExists("adminDeleteService", "serviceId", serviceId);
+			const localVarPath = `/api/v1/admin/services/{service_id}`.replace(
+				`{${"service_id"}}`,
+				encodeURIComponent(String(serviceId)),
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
 
-      // authentication OAuth2PasswordBearer required
-      // oauth required
-      await setOAuthToObject(
-        localVarHeaderParameter,
-        'OAuth2PasswordBearer',
-        [],
-        configuration
-      )
+			const localVarRequestOptions = {
+				method: "DELETE",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
 
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
 
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-    /**
-     * [관리자 전용] 사용자 조회
-     * @summary Read Users
-     * @param {string | null} [tokenFromCookie]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    adminReadUsers: async (
-      tokenFromCookie?: string | null,
-      options: RawAxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      const localVarPath = `/api/v1/admin/user`
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
 
-      const localVarRequestOptions = {
-        method: 'GET',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * 사용자 삭제
+		 * @summary Delete User
+		 * @param {string} userId
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		adminDeleteUser: async (
+			userId: string,
+			tokenFromCookie?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'userId' is not null or undefined
+			assertParamExists("adminDeleteUser", "userId", userId);
+			const localVarPath = `/api/v1/admin/user/{user_id}`.replace(
+				`{${"user_id"}}`,
+				encodeURIComponent(String(userId)),
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
 
-      // authentication OAuth2PasswordBearer required
-      // oauth required
-      await setOAuthToObject(
-        localVarHeaderParameter,
-        'OAuth2PasswordBearer',
-        [],
-        configuration
-      )
+			const localVarRequestOptions = {
+				method: "DELETE",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
 
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
 
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-    /**
-     * 사용자 정보 업데이트
-     * @summary Update User
-     * @param {string} userId
-     * @param {AdminUserUpdate} adminUserUpdate
-     * @param {string | null} [tokenFromCookie]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    adminUpdateUser: async (
-      userId: string,
-      adminUserUpdate: AdminUserUpdate,
-      tokenFromCookie?: string | null,
-      options: RawAxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'userId' is not null or undefined
-      assertParamExists('adminUpdateUser', 'userId', userId)
-      // verify required parameter 'adminUserUpdate' is not null or undefined
-      assertParamExists('adminUpdateUser', 'adminUserUpdate', adminUserUpdate)
-      const localVarPath = `/api/v1/admin/user/{user_id}`.replace(
-        `{${'user_id'}}`,
-        encodeURIComponent(String(userId))
-      )
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
 
-      const localVarRequestOptions = {
-        method: 'PATCH',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * 특정 서비스 정보 조회
+		 * @summary Read Service By Id
+		 * @param {string} serviceId
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		adminReadServiceById: async (
+			serviceId: string,
+			tokenFromCookie?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'serviceId' is not null or undefined
+			assertParamExists("adminReadServiceById", "serviceId", serviceId);
+			const localVarPath = `/api/v1/admin/services/{service_id}`.replace(
+				`{${"service_id"}}`,
+				encodeURIComponent(String(serviceId)),
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
 
-      // authentication OAuth2PasswordBearer required
-      // oauth required
-      await setOAuthToObject(
-        localVarHeaderParameter,
-        'OAuth2PasswordBearer',
-        [],
-        configuration
-      )
+			const localVarRequestOptions = {
+				method: "GET",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
 
-      localVarHeaderParameter['Content-Type'] = 'application/json'
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
 
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
-      localVarRequestOptions.data = serializeDataIfNeeded(
-        adminUserUpdate,
-        localVarRequestOptions,
-        configuration
-      )
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
 
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-  }
-}
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * [관리자 전용] 서비스 조회
+		 * @summary Read Services
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		adminReadServices: async (
+			tokenFromCookie?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			const localVarPath = `/api/v1/admin/services/`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = {
+				method: "GET",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * 특정 사용자 정보 조회
+		 * @summary Read User By Id
+		 * @param {string} userId
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		adminReadUserById: async (
+			userId: string,
+			tokenFromCookie?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'userId' is not null or undefined
+			assertParamExists("adminReadUserById", "userId", userId);
+			const localVarPath = `/api/v1/admin/user/{user_id}`.replace(
+				`{${"user_id"}}`,
+				encodeURIComponent(String(userId)),
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = {
+				method: "GET",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * [관리자 전용] 사용자 조회
+		 * @summary Read Users
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		adminReadUsers: async (
+			tokenFromCookie?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			const localVarPath = `/api/v1/admin/user`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = {
+				method: "GET",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * [관리자 전용] 서비스 정보 수정
+		 * @summary Update Service
+		 * @param {string} serviceId
+		 * @param {ServiceUpdate} serviceUpdate
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		adminUpdateService: async (
+			serviceId: string,
+			serviceUpdate: ServiceUpdate,
+			tokenFromCookie?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'serviceId' is not null or undefined
+			assertParamExists("adminUpdateService", "serviceId", serviceId);
+			// verify required parameter 'serviceUpdate' is not null or undefined
+			assertParamExists("adminUpdateService", "serviceUpdate", serviceUpdate);
+			const localVarPath = `/api/v1/admin/services/{service_id}`.replace(
+				`{${"service_id"}}`,
+				encodeURIComponent(String(serviceId)),
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = {
+				method: "PATCH",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
+
+			localVarHeaderParameter["Content-Type"] = "application/json";
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				serviceUpdate,
+				localVarRequestOptions,
+				configuration,
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * 사용자 정보 업데이트
+		 * @summary Update User
+		 * @param {string} userId
+		 * @param {AdminUserUpdate} adminUserUpdate
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		adminUpdateUser: async (
+			userId: string,
+			adminUserUpdate: AdminUserUpdate,
+			tokenFromCookie?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'userId' is not null or undefined
+			assertParamExists("adminUpdateUser", "userId", userId);
+			// verify required parameter 'adminUserUpdate' is not null or undefined
+			assertParamExists("adminUpdateUser", "adminUserUpdate", adminUserUpdate);
+			const localVarPath = `/api/v1/admin/user/{user_id}`.replace(
+				`{${"user_id"}}`,
+				encodeURIComponent(String(userId)),
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = {
+				method: "PATCH",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
+
+			localVarHeaderParameter["Content-Type"] = "application/json";
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				adminUserUpdate,
+				localVarRequestOptions,
+				configuration,
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+	};
+};
 
 /**
  * AdminApi - functional programming interface
  * @export
  */
 export const AdminApiFp = function (configuration?: Configuration) {
-  const localVarAxiosParamCreator = AdminApiAxiosParamCreator(configuration)
-  return {
-    /**
-     * [관리자 전용] 사용자 생성
-     * @summary Create User
-     * @param {AdminUserCreate} adminUserCreate
-     * @param {string | null} [tokenFromCookie]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async adminCreateUser(
-      adminUserCreate: AdminUserCreate,
-      tokenFromCookie?: string | null,
-      options?: RawAxiosRequestConfig
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserPublic>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.adminCreateUser(
-        adminUserCreate,
-        tokenFromCookie,
-        options
-      )
-      const localVarOperationServerIndex = configuration?.serverIndex ?? 0
-      const localVarOperationServerBasePath =
-        operationServerMap['AdminApi.adminCreateUser']?.[
-          localVarOperationServerIndex
-        ]?.url
-      return (axios, basePath) =>
-        createRequestFunction(
-          localVarAxiosArgs,
-          globalAxios,
-          BASE_PATH,
-          configuration
-        )(axios, localVarOperationServerBasePath || basePath)
-    },
-    /**
-     * 사용자 삭제
-     * @summary Delete User
-     * @param {string} userId
-     * @param {string | null} [tokenFromCookie]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async adminDeleteUser(
-      userId: string,
-      tokenFromCookie?: string | null,
-      options?: RawAxiosRequestConfig
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Message>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.adminDeleteUser(
-        userId,
-        tokenFromCookie,
-        options
-      )
-      const localVarOperationServerIndex = configuration?.serverIndex ?? 0
-      const localVarOperationServerBasePath =
-        operationServerMap['AdminApi.adminDeleteUser']?.[
-          localVarOperationServerIndex
-        ]?.url
-      return (axios, basePath) =>
-        createRequestFunction(
-          localVarAxiosArgs,
-          globalAxios,
-          BASE_PATH,
-          configuration
-        )(axios, localVarOperationServerBasePath || basePath)
-    },
-    /**
-     * 특정 사용자 정보 조회
-     * @summary Read User By Id
-     * @param {string} userId
-     * @param {string | null} [tokenFromCookie]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async adminReadUserById(
-      userId: string,
-      tokenFromCookie?: string | null,
-      options?: RawAxiosRequestConfig
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserPublic>
-    > {
-      const localVarAxiosArgs =
-        await localVarAxiosParamCreator.adminReadUserById(
-          userId,
-          tokenFromCookie,
-          options
-        )
-      const localVarOperationServerIndex = configuration?.serverIndex ?? 0
-      const localVarOperationServerBasePath =
-        operationServerMap['AdminApi.adminReadUserById']?.[
-          localVarOperationServerIndex
-        ]?.url
-      return (axios, basePath) =>
-        createRequestFunction(
-          localVarAxiosArgs,
-          globalAxios,
-          BASE_PATH,
-          configuration
-        )(axios, localVarOperationServerBasePath || basePath)
-    },
-    /**
-     * [관리자 전용] 사용자 조회
-     * @summary Read Users
-     * @param {string | null} [tokenFromCookie]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async adminReadUsers(
-      tokenFromCookie?: string | null,
-      options?: RawAxiosRequestConfig
-    ): Promise<
-      (
-        axios?: AxiosInstance,
-        basePath?: string
-      ) => AxiosPromise<Array<UserPublic>>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.adminReadUsers(
-        tokenFromCookie,
-        options
-      )
-      const localVarOperationServerIndex = configuration?.serverIndex ?? 0
-      const localVarOperationServerBasePath =
-        operationServerMap['AdminApi.adminReadUsers']?.[
-          localVarOperationServerIndex
-        ]?.url
-      return (axios, basePath) =>
-        createRequestFunction(
-          localVarAxiosArgs,
-          globalAxios,
-          BASE_PATH,
-          configuration
-        )(axios, localVarOperationServerBasePath || basePath)
-    },
-    /**
-     * 사용자 정보 업데이트
-     * @summary Update User
-     * @param {string} userId
-     * @param {AdminUserUpdate} adminUserUpdate
-     * @param {string | null} [tokenFromCookie]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async adminUpdateUser(
-      userId: string,
-      adminUserUpdate: AdminUserUpdate,
-      tokenFromCookie?: string | null,
-      options?: RawAxiosRequestConfig
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserPublic>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.adminUpdateUser(
-        userId,
-        adminUserUpdate,
-        tokenFromCookie,
-        options
-      )
-      const localVarOperationServerIndex = configuration?.serverIndex ?? 0
-      const localVarOperationServerBasePath =
-        operationServerMap['AdminApi.adminUpdateUser']?.[
-          localVarOperationServerIndex
-        ]?.url
-      return (axios, basePath) =>
-        createRequestFunction(
-          localVarAxiosArgs,
-          globalAxios,
-          BASE_PATH,
-          configuration
-        )(axios, localVarOperationServerBasePath || basePath)
-    },
-  }
-}
+	const localVarAxiosParamCreator = AdminApiAxiosParamCreator(configuration);
+	return {
+		/**
+		 * [관리자 전용] 서비스 생성
+		 * @summary Create Service
+		 * @param {ServiceCreate} serviceCreate
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async adminCreateService(
+			serviceCreate: ServiceCreate,
+			tokenFromCookie?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ServicePublic>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.adminCreateService(
+					serviceCreate,
+					tokenFromCookie,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["AdminApi.adminCreateService"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * [관리자 전용] 사용자 생성
+		 * @summary Create User
+		 * @param {AdminUserCreate} adminUserCreate
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async adminCreateUser(
+			adminUserCreate: AdminUserCreate,
+			tokenFromCookie?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserPublic>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.adminCreateUser(
+				adminUserCreate,
+				tokenFromCookie,
+				options,
+			);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["AdminApi.adminCreateUser"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * [관리자 전용] 서비스 삭제
+		 * @summary Delete Service
+		 * @param {string} serviceId
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async adminDeleteService(
+			serviceId: string,
+			tokenFromCookie?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Message>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.adminDeleteService(
+					serviceId,
+					tokenFromCookie,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["AdminApi.adminDeleteService"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 사용자 삭제
+		 * @summary Delete User
+		 * @param {string} userId
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async adminDeleteUser(
+			userId: string,
+			tokenFromCookie?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Message>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.adminDeleteUser(
+				userId,
+				tokenFromCookie,
+				options,
+			);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["AdminApi.adminDeleteUser"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 특정 서비스 정보 조회
+		 * @summary Read Service By Id
+		 * @param {string} serviceId
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async adminReadServiceById(
+			serviceId: string,
+			tokenFromCookie?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ServicePublic>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.adminReadServiceById(
+					serviceId,
+					tokenFromCookie,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["AdminApi.adminReadServiceById"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * [관리자 전용] 서비스 조회
+		 * @summary Read Services
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async adminReadServices(
+			tokenFromCookie?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(
+				axios?: AxiosInstance,
+				basePath?: string,
+			) => AxiosPromise<Array<ServicePublic>>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.adminReadServices(
+					tokenFromCookie,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["AdminApi.adminReadServices"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 특정 사용자 정보 조회
+		 * @summary Read User By Id
+		 * @param {string} userId
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async adminReadUserById(
+			userId: string,
+			tokenFromCookie?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserPublic>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.adminReadUserById(
+					userId,
+					tokenFromCookie,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["AdminApi.adminReadUserById"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * [관리자 전용] 사용자 조회
+		 * @summary Read Users
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async adminReadUsers(
+			tokenFromCookie?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(
+				axios?: AxiosInstance,
+				basePath?: string,
+			) => AxiosPromise<Array<UserPublic>>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.adminReadUsers(
+				tokenFromCookie,
+				options,
+			);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["AdminApi.adminReadUsers"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * [관리자 전용] 서비스 정보 수정
+		 * @summary Update Service
+		 * @param {string} serviceId
+		 * @param {ServiceUpdate} serviceUpdate
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async adminUpdateService(
+			serviceId: string,
+			serviceUpdate: ServiceUpdate,
+			tokenFromCookie?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ServicePublic>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.adminUpdateService(
+					serviceId,
+					serviceUpdate,
+					tokenFromCookie,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["AdminApi.adminUpdateService"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 사용자 정보 업데이트
+		 * @summary Update User
+		 * @param {string} userId
+		 * @param {AdminUserUpdate} adminUserUpdate
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async adminUpdateUser(
+			userId: string,
+			adminUserUpdate: AdminUserUpdate,
+			tokenFromCookie?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserPublic>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.adminUpdateUser(
+				userId,
+				adminUserUpdate,
+				tokenFromCookie,
+				options,
+			);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["AdminApi.adminUpdateUser"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+	};
+};
 
 /**
  * AdminApi - factory interface
  * @export
  */
 export const AdminApiFactory = function (
-  configuration?: Configuration,
-  basePath?: string,
-  axios?: AxiosInstance
+	configuration?: Configuration,
+	basePath?: string,
+	axios?: AxiosInstance,
 ) {
-  const localVarFp = AdminApiFp(configuration)
-  return {
-    /**
-     * [관리자 전용] 사용자 생성
-     * @summary Create User
-     * @param {AdminUserCreate} adminUserCreate
-     * @param {string | null} [tokenFromCookie]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    adminCreateUser(
-      adminUserCreate: AdminUserCreate,
-      tokenFromCookie?: string | null,
-      options?: RawAxiosRequestConfig
-    ): AxiosPromise<UserPublic> {
-      return localVarFp
-        .adminCreateUser(adminUserCreate, tokenFromCookie, options)
-        .then((request) => request(axios, basePath))
-    },
-    /**
-     * 사용자 삭제
-     * @summary Delete User
-     * @param {string} userId
-     * @param {string | null} [tokenFromCookie]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    adminDeleteUser(
-      userId: string,
-      tokenFromCookie?: string | null,
-      options?: RawAxiosRequestConfig
-    ): AxiosPromise<Message> {
-      return localVarFp
-        .adminDeleteUser(userId, tokenFromCookie, options)
-        .then((request) => request(axios, basePath))
-    },
-    /**
-     * 특정 사용자 정보 조회
-     * @summary Read User By Id
-     * @param {string} userId
-     * @param {string | null} [tokenFromCookie]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    adminReadUserById(
-      userId: string,
-      tokenFromCookie?: string | null,
-      options?: RawAxiosRequestConfig
-    ): AxiosPromise<UserPublic> {
-      return localVarFp
-        .adminReadUserById(userId, tokenFromCookie, options)
-        .then((request) => request(axios, basePath))
-    },
-    /**
-     * [관리자 전용] 사용자 조회
-     * @summary Read Users
-     * @param {string | null} [tokenFromCookie]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    adminReadUsers(
-      tokenFromCookie?: string | null,
-      options?: RawAxiosRequestConfig
-    ): AxiosPromise<Array<UserPublic>> {
-      return localVarFp
-        .adminReadUsers(tokenFromCookie, options)
-        .then((request) => request(axios, basePath))
-    },
-    /**
-     * 사용자 정보 업데이트
-     * @summary Update User
-     * @param {string} userId
-     * @param {AdminUserUpdate} adminUserUpdate
-     * @param {string | null} [tokenFromCookie]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    adminUpdateUser(
-      userId: string,
-      adminUserUpdate: AdminUserUpdate,
-      tokenFromCookie?: string | null,
-      options?: RawAxiosRequestConfig
-    ): AxiosPromise<UserPublic> {
-      return localVarFp
-        .adminUpdateUser(userId, adminUserUpdate, tokenFromCookie, options)
-        .then((request) => request(axios, basePath))
-    },
-  }
-}
+	const localVarFp = AdminApiFp(configuration);
+	return {
+		/**
+		 * [관리자 전용] 서비스 생성
+		 * @summary Create Service
+		 * @param {ServiceCreate} serviceCreate
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		adminCreateService(
+			serviceCreate: ServiceCreate,
+			tokenFromCookie?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<ServicePublic> {
+			return localVarFp
+				.adminCreateService(serviceCreate, tokenFromCookie, options)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * [관리자 전용] 사용자 생성
+		 * @summary Create User
+		 * @param {AdminUserCreate} adminUserCreate
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		adminCreateUser(
+			adminUserCreate: AdminUserCreate,
+			tokenFromCookie?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<UserPublic> {
+			return localVarFp
+				.adminCreateUser(adminUserCreate, tokenFromCookie, options)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * [관리자 전용] 서비스 삭제
+		 * @summary Delete Service
+		 * @param {string} serviceId
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		adminDeleteService(
+			serviceId: string,
+			tokenFromCookie?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<Message> {
+			return localVarFp
+				.adminDeleteService(serviceId, tokenFromCookie, options)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 사용자 삭제
+		 * @summary Delete User
+		 * @param {string} userId
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		adminDeleteUser(
+			userId: string,
+			tokenFromCookie?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<Message> {
+			return localVarFp
+				.adminDeleteUser(userId, tokenFromCookie, options)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 특정 서비스 정보 조회
+		 * @summary Read Service By Id
+		 * @param {string} serviceId
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		adminReadServiceById(
+			serviceId: string,
+			tokenFromCookie?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<ServicePublic> {
+			return localVarFp
+				.adminReadServiceById(serviceId, tokenFromCookie, options)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * [관리자 전용] 서비스 조회
+		 * @summary Read Services
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		adminReadServices(
+			tokenFromCookie?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<Array<ServicePublic>> {
+			return localVarFp
+				.adminReadServices(tokenFromCookie, options)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 특정 사용자 정보 조회
+		 * @summary Read User By Id
+		 * @param {string} userId
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		adminReadUserById(
+			userId: string,
+			tokenFromCookie?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<UserPublic> {
+			return localVarFp
+				.adminReadUserById(userId, tokenFromCookie, options)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * [관리자 전용] 사용자 조회
+		 * @summary Read Users
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		adminReadUsers(
+			tokenFromCookie?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<Array<UserPublic>> {
+			return localVarFp
+				.adminReadUsers(tokenFromCookie, options)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * [관리자 전용] 서비스 정보 수정
+		 * @summary Update Service
+		 * @param {string} serviceId
+		 * @param {ServiceUpdate} serviceUpdate
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		adminUpdateService(
+			serviceId: string,
+			serviceUpdate: ServiceUpdate,
+			tokenFromCookie?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<ServicePublic> {
+			return localVarFp
+				.adminUpdateService(serviceId, serviceUpdate, tokenFromCookie, options)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 사용자 정보 업데이트
+		 * @summary Update User
+		 * @param {string} userId
+		 * @param {AdminUserUpdate} adminUserUpdate
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		adminUpdateUser(
+			userId: string,
+			adminUserUpdate: AdminUserUpdate,
+			tokenFromCookie?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<UserPublic> {
+			return localVarFp
+				.adminUpdateUser(userId, adminUserUpdate, tokenFromCookie, options)
+				.then((request) => request(axios, basePath));
+		},
+	};
+};
 
 /**
  * AdminApi - object-oriented interface
@@ -1055,100 +1828,195 @@ export const AdminApiFactory = function (
  * @extends {BaseAPI}
  */
 export class AdminApi extends BaseAPI {
-  /**
-   * [관리자 전용] 사용자 생성
-   * @summary Create User
-   * @param {AdminUserCreate} adminUserCreate
-   * @param {string | null} [tokenFromCookie]
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof AdminApi
-   */
-  public adminCreateUser(
-    adminUserCreate: AdminUserCreate,
-    tokenFromCookie?: string | null,
-    options?: RawAxiosRequestConfig
-  ) {
-    return AdminApiFp(this.configuration)
-      .adminCreateUser(adminUserCreate, tokenFromCookie, options)
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * [관리자 전용] 서비스 생성
+	 * @summary Create Service
+	 * @param {ServiceCreate} serviceCreate
+	 * @param {string | null} [tokenFromCookie]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AdminApi
+	 */
+	public adminCreateService(
+		serviceCreate: ServiceCreate,
+		tokenFromCookie?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return AdminApiFp(this.configuration)
+			.adminCreateService(serviceCreate, tokenFromCookie, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
 
-  /**
-   * 사용자 삭제
-   * @summary Delete User
-   * @param {string} userId
-   * @param {string | null} [tokenFromCookie]
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof AdminApi
-   */
-  public adminDeleteUser(
-    userId: string,
-    tokenFromCookie?: string | null,
-    options?: RawAxiosRequestConfig
-  ) {
-    return AdminApiFp(this.configuration)
-      .adminDeleteUser(userId, tokenFromCookie, options)
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * [관리자 전용] 사용자 생성
+	 * @summary Create User
+	 * @param {AdminUserCreate} adminUserCreate
+	 * @param {string | null} [tokenFromCookie]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AdminApi
+	 */
+	public adminCreateUser(
+		adminUserCreate: AdminUserCreate,
+		tokenFromCookie?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return AdminApiFp(this.configuration)
+			.adminCreateUser(adminUserCreate, tokenFromCookie, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
 
-  /**
-   * 특정 사용자 정보 조회
-   * @summary Read User By Id
-   * @param {string} userId
-   * @param {string | null} [tokenFromCookie]
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof AdminApi
-   */
-  public adminReadUserById(
-    userId: string,
-    tokenFromCookie?: string | null,
-    options?: RawAxiosRequestConfig
-  ) {
-    return AdminApiFp(this.configuration)
-      .adminReadUserById(userId, tokenFromCookie, options)
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * [관리자 전용] 서비스 삭제
+	 * @summary Delete Service
+	 * @param {string} serviceId
+	 * @param {string | null} [tokenFromCookie]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AdminApi
+	 */
+	public adminDeleteService(
+		serviceId: string,
+		tokenFromCookie?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return AdminApiFp(this.configuration)
+			.adminDeleteService(serviceId, tokenFromCookie, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
 
-  /**
-   * [관리자 전용] 사용자 조회
-   * @summary Read Users
-   * @param {string | null} [tokenFromCookie]
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof AdminApi
-   */
-  public adminReadUsers(
-    tokenFromCookie?: string | null,
-    options?: RawAxiosRequestConfig
-  ) {
-    return AdminApiFp(this.configuration)
-      .adminReadUsers(tokenFromCookie, options)
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * 사용자 삭제
+	 * @summary Delete User
+	 * @param {string} userId
+	 * @param {string | null} [tokenFromCookie]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AdminApi
+	 */
+	public adminDeleteUser(
+		userId: string,
+		tokenFromCookie?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return AdminApiFp(this.configuration)
+			.adminDeleteUser(userId, tokenFromCookie, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
 
-  /**
-   * 사용자 정보 업데이트
-   * @summary Update User
-   * @param {string} userId
-   * @param {AdminUserUpdate} adminUserUpdate
-   * @param {string | null} [tokenFromCookie]
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof AdminApi
-   */
-  public adminUpdateUser(
-    userId: string,
-    adminUserUpdate: AdminUserUpdate,
-    tokenFromCookie?: string | null,
-    options?: RawAxiosRequestConfig
-  ) {
-    return AdminApiFp(this.configuration)
-      .adminUpdateUser(userId, adminUserUpdate, tokenFromCookie, options)
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * 특정 서비스 정보 조회
+	 * @summary Read Service By Id
+	 * @param {string} serviceId
+	 * @param {string | null} [tokenFromCookie]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AdminApi
+	 */
+	public adminReadServiceById(
+		serviceId: string,
+		tokenFromCookie?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return AdminApiFp(this.configuration)
+			.adminReadServiceById(serviceId, tokenFromCookie, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
+
+	/**
+	 * [관리자 전용] 서비스 조회
+	 * @summary Read Services
+	 * @param {string | null} [tokenFromCookie]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AdminApi
+	 */
+	public adminReadServices(
+		tokenFromCookie?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return AdminApiFp(this.configuration)
+			.adminReadServices(tokenFromCookie, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
+
+	/**
+	 * 특정 사용자 정보 조회
+	 * @summary Read User By Id
+	 * @param {string} userId
+	 * @param {string | null} [tokenFromCookie]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AdminApi
+	 */
+	public adminReadUserById(
+		userId: string,
+		tokenFromCookie?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return AdminApiFp(this.configuration)
+			.adminReadUserById(userId, tokenFromCookie, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
+
+	/**
+	 * [관리자 전용] 사용자 조회
+	 * @summary Read Users
+	 * @param {string | null} [tokenFromCookie]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AdminApi
+	 */
+	public adminReadUsers(
+		tokenFromCookie?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return AdminApiFp(this.configuration)
+			.adminReadUsers(tokenFromCookie, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
+
+	/**
+	 * [관리자 전용] 서비스 정보 수정
+	 * @summary Update Service
+	 * @param {string} serviceId
+	 * @param {ServiceUpdate} serviceUpdate
+	 * @param {string | null} [tokenFromCookie]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AdminApi
+	 */
+	public adminUpdateService(
+		serviceId: string,
+		serviceUpdate: ServiceUpdate,
+		tokenFromCookie?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return AdminApiFp(this.configuration)
+			.adminUpdateService(serviceId, serviceUpdate, tokenFromCookie, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
+
+	/**
+	 * 사용자 정보 업데이트
+	 * @summary Update User
+	 * @param {string} userId
+	 * @param {AdminUserUpdate} adminUserUpdate
+	 * @param {string | null} [tokenFromCookie]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AdminApi
+	 */
+	public adminUpdateUser(
+		userId: string,
+		adminUserUpdate: AdminUserUpdate,
+		tokenFromCookie?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return AdminApiFp(this.configuration)
+			.adminUpdateUser(userId, adminUserUpdate, tokenFromCookie, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
 }
 
 /**
@@ -1156,838 +2024,838 @@ export class AdminApi extends BaseAPI {
  * @export
  */
 export const AuthApiAxiosParamCreator = function (
-  configuration?: Configuration
+	configuration?: Configuration,
 ) {
-  return {
-    /**
-     * OAuth2 호환 토큰 로그인, 향후 요청을 위한 액세스 토큰 받기 :param form_data: OAuth2PasswordRequestForm :return: Token
-     * @summary OAuth2 호환 토큰 로그인, 향후 요청을 위한 액세스 토큰 받기
-     * @param {string} username
-     * @param {string} password
-     * @param {string | null} [grantType]
-     * @param {string} [scope]
-     * @param {string | null} [clientId]
-     * @param {string | null} [clientSecret]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    authLoginAccessToken: async (
-      username: string,
-      password: string,
-      grantType?: string | null,
-      scope?: string,
-      clientId?: string | null,
-      clientSecret?: string | null,
-      options: RawAxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'username' is not null or undefined
-      assertParamExists('authLoginAccessToken', 'username', username)
-      // verify required parameter 'password' is not null or undefined
-      assertParamExists('authLoginAccessToken', 'password', password)
-      const localVarPath = `/api/v1/auth/login/access-token`
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
+	return {
+		/**
+		 * OAuth2 호환 토큰 로그인, 향후 요청을 위한 액세스 토큰 받기 :param form_data: OAuth2PasswordRequestForm :return: Token
+		 * @summary OAuth2 호환 토큰 로그인, 향후 요청을 위한 액세스 토큰 받기
+		 * @param {string} username
+		 * @param {string} password
+		 * @param {string | null} [grantType]
+		 * @param {string} [scope]
+		 * @param {string | null} [clientId]
+		 * @param {string | null} [clientSecret]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		authLoginAccessToken: async (
+			username: string,
+			password: string,
+			grantType?: string | null,
+			scope?: string,
+			clientId?: string | null,
+			clientSecret?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'username' is not null or undefined
+			assertParamExists("authLoginAccessToken", "username", username);
+			// verify required parameter 'password' is not null or undefined
+			assertParamExists("authLoginAccessToken", "password", password);
+			const localVarPath = `/api/v1/auth/login/access-token`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
 
-      const localVarRequestOptions = {
-        method: 'POST',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
-      const localVarFormParams = new URLSearchParams()
+			const localVarRequestOptions = {
+				method: "POST",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+			const localVarFormParams = new URLSearchParams();
 
-      if (grantType !== undefined) {
-        localVarFormParams.set('grant_type', grantType as any)
-      }
+			if (grantType !== undefined) {
+				localVarFormParams.set("grant_type", grantType as any);
+			}
 
-      if (username !== undefined) {
-        localVarFormParams.set('username', username as any)
-      }
+			if (username !== undefined) {
+				localVarFormParams.set("username", username as any);
+			}
 
-      if (password !== undefined) {
-        localVarFormParams.set('password', password as any)
-      }
+			if (password !== undefined) {
+				localVarFormParams.set("password", password as any);
+			}
 
-      if (scope !== undefined) {
-        localVarFormParams.set('scope', scope as any)
-      }
+			if (scope !== undefined) {
+				localVarFormParams.set("scope", scope as any);
+			}
 
-      if (clientId !== undefined) {
-        localVarFormParams.set('client_id', clientId as any)
-      }
+			if (clientId !== undefined) {
+				localVarFormParams.set("client_id", clientId as any);
+			}
 
-      if (clientSecret !== undefined) {
-        localVarFormParams.set('client_secret', clientSecret as any)
-      }
+			if (clientSecret !== undefined) {
+				localVarFormParams.set("client_secret", clientSecret as any);
+			}
 
-      localVarHeaderParameter['Content-Type'] =
-        'application/x-www-form-urlencoded'
+			localVarHeaderParameter["Content-Type"] =
+				"application/x-www-form-urlencoded";
 
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
-      localVarRequestOptions.data = localVarFormParams.toString()
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+			localVarRequestOptions.data = localVarFormParams.toString();
 
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-    /**
-     * 로그아웃
-     * @summary Logout
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    authLogout: async (
-      options: RawAxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      const localVarPath = `/api/v1/auth/logout`
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * 로그아웃
+		 * @summary Logout
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		authLogout: async (
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			const localVarPath = `/api/v1/auth/logout`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
 
-      const localVarRequestOptions = {
-        method: 'POST',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
+			const localVarRequestOptions = {
+				method: "POST",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
 
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
 
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-    /**
-     * 비밀번호 복구
-     * @summary Recover Password
-     * @param {string} email
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    authRecoverPassword: async (
-      email: string,
-      options: RawAxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'email' is not null or undefined
-      assertParamExists('authRecoverPassword', 'email', email)
-      const localVarPath = `/api/v1/auth/password-recovery/{email}`.replace(
-        `{${'email'}}`,
-        encodeURIComponent(String(email))
-      )
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * 비밀번호 복구
+		 * @summary Recover Password
+		 * @param {string} email
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		authRecoverPassword: async (
+			email: string,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'email' is not null or undefined
+			assertParamExists("authRecoverPassword", "email", email);
+			const localVarPath = `/api/v1/auth/password-recovery/{email}`.replace(
+				`{${"email"}}`,
+				encodeURIComponent(String(email)),
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
 
-      const localVarRequestOptions = {
-        method: 'POST',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
+			const localVarRequestOptions = {
+				method: "POST",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
 
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
 
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-    /**
-     * 비밀번호 복구용 HTML 콘텐츠 :param email: 이메일 :return: HTMLResponse
-     * @summary Recover Password Html Content
-     * @param {string} email
-     * @param {string | null} [tokenFromCookie]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    authRecoverPasswordHtmlContent: async (
-      email: string,
-      tokenFromCookie?: string | null,
-      options: RawAxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'email' is not null or undefined
-      assertParamExists('authRecoverPasswordHtmlContent', 'email', email)
-      const localVarPath =
-        `/api/v1/auth/password-recovery-html-content/{email}`.replace(
-          `{${'email'}}`,
-          encodeURIComponent(String(email))
-        )
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * 비밀번호 복구용 HTML 콘텐츠 :param email: 이메일 :return: HTMLResponse
+		 * @summary Recover Password Html Content
+		 * @param {string} email
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		authRecoverPasswordHtmlContent: async (
+			email: string,
+			tokenFromCookie?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'email' is not null or undefined
+			assertParamExists("authRecoverPasswordHtmlContent", "email", email);
+			const localVarPath =
+				`/api/v1/auth/password-recovery-html-content/{email}`.replace(
+					`{${"email"}}`,
+					encodeURIComponent(String(email)),
+				);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
 
-      const localVarRequestOptions = {
-        method: 'POST',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
+			const localVarRequestOptions = {
+				method: "POST",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
 
-      // authentication OAuth2PasswordBearer required
-      // oauth required
-      await setOAuthToObject(
-        localVarHeaderParameter,
-        'OAuth2PasswordBearer',
-        [],
-        configuration
-      )
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
 
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
 
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-    /**
-     * Refresh token을 사용하여 새 Access Token을 발급하는 API 엔드포인트.
-     * @summary Refresh Token
-     * @param {string} refreshToken
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    authRefreshToken: async (
-      refreshToken: string,
-      options: RawAxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'refreshToken' is not null or undefined
-      assertParamExists('authRefreshToken', 'refreshToken', refreshToken)
-      const localVarPath = `/api/v1/auth/refresh-token`
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * Refresh token을 사용하여 새 Access Token을 발급하는 API 엔드포인트.
+		 * @summary Refresh Token
+		 * @param {string} refreshToken
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		authRefreshToken: async (
+			refreshToken: string,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'refreshToken' is not null or undefined
+			assertParamExists("authRefreshToken", "refreshToken", refreshToken);
+			const localVarPath = `/api/v1/auth/refresh-token`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
 
-      const localVarRequestOptions = {
-        method: 'POST',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
+			const localVarRequestOptions = {
+				method: "POST",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
 
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
 
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-    /**
-     * 사용자 신규 가입
-     * @summary Register User
-     * @param {UserRegister} userRegister
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    authRegisterUser: async (
-      userRegister: UserRegister,
-      options: RawAxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'userRegister' is not null or undefined
-      assertParamExists('authRegisterUser', 'userRegister', userRegister)
-      const localVarPath = `/api/v1/auth/signup`
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * 사용자 신규 가입
+		 * @summary Register User
+		 * @param {UserRegister} userRegister
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		authRegisterUser: async (
+			userRegister: UserRegister,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'userRegister' is not null or undefined
+			assertParamExists("authRegisterUser", "userRegister", userRegister);
+			const localVarPath = `/api/v1/auth/signup`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
 
-      const localVarRequestOptions = {
-        method: 'POST',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
+			const localVarRequestOptions = {
+				method: "POST",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
 
-      localVarHeaderParameter['Content-Type'] = 'application/json'
+			localVarHeaderParameter["Content-Type"] = "application/json";
 
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
-      localVarRequestOptions.data = serializeDataIfNeeded(
-        userRegister,
-        localVarRequestOptions,
-        configuration
-      )
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				userRegister,
+				localVarRequestOptions,
+				configuration,
+			);
 
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-    /**
-     * 비밀번호 재설정
-     * @summary Reset Password
-     * @param {NewPassword} newPassword
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    authResetPassword: async (
-      newPassword: NewPassword,
-      options: RawAxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'newPassword' is not null or undefined
-      assertParamExists('authResetPassword', 'newPassword', newPassword)
-      const localVarPath = `/api/v1/auth/reset-password/`
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * 비밀번호 재설정
+		 * @summary Reset Password
+		 * @param {NewPassword} newPassword
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		authResetPassword: async (
+			newPassword: NewPassword,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'newPassword' is not null or undefined
+			assertParamExists("authResetPassword", "newPassword", newPassword);
+			const localVarPath = `/api/v1/auth/reset-password/`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
 
-      const localVarRequestOptions = {
-        method: 'POST',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
+			const localVarRequestOptions = {
+				method: "POST",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
 
-      localVarHeaderParameter['Content-Type'] = 'application/json'
+			localVarHeaderParameter["Content-Type"] = "application/json";
 
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
-      localVarRequestOptions.data = serializeDataIfNeeded(
-        newPassword,
-        localVarRequestOptions,
-        configuration
-      )
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				newPassword,
+				localVarRequestOptions,
+				configuration,
+			);
 
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-    /**
-     * 이메일 인증
-     * @summary Verify Email
-     * @param {string} body
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    authVerifyEmail: async (
-      body: string,
-      options: RawAxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'body' is not null or undefined
-      assertParamExists('authVerifyEmail', 'body', body)
-      const localVarPath = `/api/v1/auth/verify-email`
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * 이메일 인증
+		 * @summary Verify Email
+		 * @param {string} body
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		authVerifyEmail: async (
+			body: string,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'body' is not null or undefined
+			assertParamExists("authVerifyEmail", "body", body);
+			const localVarPath = `/api/v1/auth/verify-email`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
 
-      const localVarRequestOptions = {
-        method: 'POST',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
+			const localVarRequestOptions = {
+				method: "POST",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
 
-      localVarHeaderParameter['Content-Type'] = 'application/json'
+			localVarHeaderParameter["Content-Type"] = "application/json";
 
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
-      localVarRequestOptions.data = serializeDataIfNeeded(
-        body,
-        localVarRequestOptions,
-        configuration
-      )
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				body,
+				localVarRequestOptions,
+				configuration,
+			);
 
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-  }
-}
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+	};
+};
 
 /**
  * AuthApi - functional programming interface
  * @export
  */
 export const AuthApiFp = function (configuration?: Configuration) {
-  const localVarAxiosParamCreator = AuthApiAxiosParamCreator(configuration)
-  return {
-    /**
-     * OAuth2 호환 토큰 로그인, 향후 요청을 위한 액세스 토큰 받기 :param form_data: OAuth2PasswordRequestForm :return: Token
-     * @summary OAuth2 호환 토큰 로그인, 향후 요청을 위한 액세스 토큰 받기
-     * @param {string} username
-     * @param {string} password
-     * @param {string | null} [grantType]
-     * @param {string} [scope]
-     * @param {string | null} [clientId]
-     * @param {string | null} [clientSecret]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async authLoginAccessToken(
-      username: string,
-      password: string,
-      grantType?: string | null,
-      scope?: string,
-      clientId?: string | null,
-      clientSecret?: string | null,
-      options?: RawAxiosRequestConfig
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Token>
-    > {
-      const localVarAxiosArgs =
-        await localVarAxiosParamCreator.authLoginAccessToken(
-          username,
-          password,
-          grantType,
-          scope,
-          clientId,
-          clientSecret,
-          options
-        )
-      const localVarOperationServerIndex = configuration?.serverIndex ?? 0
-      const localVarOperationServerBasePath =
-        operationServerMap['AuthApi.authLoginAccessToken']?.[
-          localVarOperationServerIndex
-        ]?.url
-      return (axios, basePath) =>
-        createRequestFunction(
-          localVarAxiosArgs,
-          globalAxios,
-          BASE_PATH,
-          configuration
-        )(axios, localVarOperationServerBasePath || basePath)
-    },
-    /**
-     * 로그아웃
-     * @summary Logout
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async authLogout(
-      options?: RawAxiosRequestConfig
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>
-    > {
-      const localVarAxiosArgs =
-        await localVarAxiosParamCreator.authLogout(options)
-      const localVarOperationServerIndex = configuration?.serverIndex ?? 0
-      const localVarOperationServerBasePath =
-        operationServerMap['AuthApi.authLogout']?.[localVarOperationServerIndex]
-          ?.url
-      return (axios, basePath) =>
-        createRequestFunction(
-          localVarAxiosArgs,
-          globalAxios,
-          BASE_PATH,
-          configuration
-        )(axios, localVarOperationServerBasePath || basePath)
-    },
-    /**
-     * 비밀번호 복구
-     * @summary Recover Password
-     * @param {string} email
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async authRecoverPassword(
-      email: string,
-      options?: RawAxiosRequestConfig
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Message>
-    > {
-      const localVarAxiosArgs =
-        await localVarAxiosParamCreator.authRecoverPassword(email, options)
-      const localVarOperationServerIndex = configuration?.serverIndex ?? 0
-      const localVarOperationServerBasePath =
-        operationServerMap['AuthApi.authRecoverPassword']?.[
-          localVarOperationServerIndex
-        ]?.url
-      return (axios, basePath) =>
-        createRequestFunction(
-          localVarAxiosArgs,
-          globalAxios,
-          BASE_PATH,
-          configuration
-        )(axios, localVarOperationServerBasePath || basePath)
-    },
-    /**
-     * 비밀번호 복구용 HTML 콘텐츠 :param email: 이메일 :return: HTMLResponse
-     * @summary Recover Password Html Content
-     * @param {string} email
-     * @param {string | null} [tokenFromCookie]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async authRecoverPasswordHtmlContent(
-      email: string,
-      tokenFromCookie?: string | null,
-      options?: RawAxiosRequestConfig
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>
-    > {
-      const localVarAxiosArgs =
-        await localVarAxiosParamCreator.authRecoverPasswordHtmlContent(
-          email,
-          tokenFromCookie,
-          options
-        )
-      const localVarOperationServerIndex = configuration?.serverIndex ?? 0
-      const localVarOperationServerBasePath =
-        operationServerMap['AuthApi.authRecoverPasswordHtmlContent']?.[
-          localVarOperationServerIndex
-        ]?.url
-      return (axios, basePath) =>
-        createRequestFunction(
-          localVarAxiosArgs,
-          globalAxios,
-          BASE_PATH,
-          configuration
-        )(axios, localVarOperationServerBasePath || basePath)
-    },
-    /**
-     * Refresh token을 사용하여 새 Access Token을 발급하는 API 엔드포인트.
-     * @summary Refresh Token
-     * @param {string} refreshToken
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async authRefreshToken(
-      refreshToken: string,
-      options?: RawAxiosRequestConfig
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Token>
-    > {
-      const localVarAxiosArgs =
-        await localVarAxiosParamCreator.authRefreshToken(refreshToken, options)
-      const localVarOperationServerIndex = configuration?.serverIndex ?? 0
-      const localVarOperationServerBasePath =
-        operationServerMap['AuthApi.authRefreshToken']?.[
-          localVarOperationServerIndex
-        ]?.url
-      return (axios, basePath) =>
-        createRequestFunction(
-          localVarAxiosArgs,
-          globalAxios,
-          BASE_PATH,
-          configuration
-        )(axios, localVarOperationServerBasePath || basePath)
-    },
-    /**
-     * 사용자 신규 가입
-     * @summary Register User
-     * @param {UserRegister} userRegister
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async authRegisterUser(
-      userRegister: UserRegister,
-      options?: RawAxiosRequestConfig
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserPublic>
-    > {
-      const localVarAxiosArgs =
-        await localVarAxiosParamCreator.authRegisterUser(userRegister, options)
-      const localVarOperationServerIndex = configuration?.serverIndex ?? 0
-      const localVarOperationServerBasePath =
-        operationServerMap['AuthApi.authRegisterUser']?.[
-          localVarOperationServerIndex
-        ]?.url
-      return (axios, basePath) =>
-        createRequestFunction(
-          localVarAxiosArgs,
-          globalAxios,
-          BASE_PATH,
-          configuration
-        )(axios, localVarOperationServerBasePath || basePath)
-    },
-    /**
-     * 비밀번호 재설정
-     * @summary Reset Password
-     * @param {NewPassword} newPassword
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async authResetPassword(
-      newPassword: NewPassword,
-      options?: RawAxiosRequestConfig
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Message>
-    > {
-      const localVarAxiosArgs =
-        await localVarAxiosParamCreator.authResetPassword(newPassword, options)
-      const localVarOperationServerIndex = configuration?.serverIndex ?? 0
-      const localVarOperationServerBasePath =
-        operationServerMap['AuthApi.authResetPassword']?.[
-          localVarOperationServerIndex
-        ]?.url
-      return (axios, basePath) =>
-        createRequestFunction(
-          localVarAxiosArgs,
-          globalAxios,
-          BASE_PATH,
-          configuration
-        )(axios, localVarOperationServerBasePath || basePath)
-    },
-    /**
-     * 이메일 인증
-     * @summary Verify Email
-     * @param {string} body
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async authVerifyEmail(
-      body: string,
-      options?: RawAxiosRequestConfig
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.authVerifyEmail(
-        body,
-        options
-      )
-      const localVarOperationServerIndex = configuration?.serverIndex ?? 0
-      const localVarOperationServerBasePath =
-        operationServerMap['AuthApi.authVerifyEmail']?.[
-          localVarOperationServerIndex
-        ]?.url
-      return (axios, basePath) =>
-        createRequestFunction(
-          localVarAxiosArgs,
-          globalAxios,
-          BASE_PATH,
-          configuration
-        )(axios, localVarOperationServerBasePath || basePath)
-    },
-  }
-}
+	const localVarAxiosParamCreator = AuthApiAxiosParamCreator(configuration);
+	return {
+		/**
+		 * OAuth2 호환 토큰 로그인, 향후 요청을 위한 액세스 토큰 받기 :param form_data: OAuth2PasswordRequestForm :return: Token
+		 * @summary OAuth2 호환 토큰 로그인, 향후 요청을 위한 액세스 토큰 받기
+		 * @param {string} username
+		 * @param {string} password
+		 * @param {string | null} [grantType]
+		 * @param {string} [scope]
+		 * @param {string | null} [clientId]
+		 * @param {string | null} [clientSecret]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async authLoginAccessToken(
+			username: string,
+			password: string,
+			grantType?: string | null,
+			scope?: string,
+			clientId?: string | null,
+			clientSecret?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Token>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.authLoginAccessToken(
+					username,
+					password,
+					grantType,
+					scope,
+					clientId,
+					clientSecret,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["AuthApi.authLoginAccessToken"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 로그아웃
+		 * @summary Logout
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async authLogout(
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.authLogout(options);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["AuthApi.authLogout"]?.[localVarOperationServerIndex]
+					?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 비밀번호 복구
+		 * @summary Recover Password
+		 * @param {string} email
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async authRecoverPassword(
+			email: string,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Message>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.authRecoverPassword(email, options);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["AuthApi.authRecoverPassword"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 비밀번호 복구용 HTML 콘텐츠 :param email: 이메일 :return: HTMLResponse
+		 * @summary Recover Password Html Content
+		 * @param {string} email
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async authRecoverPasswordHtmlContent(
+			email: string,
+			tokenFromCookie?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.authRecoverPasswordHtmlContent(
+					email,
+					tokenFromCookie,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["AuthApi.authRecoverPasswordHtmlContent"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * Refresh token을 사용하여 새 Access Token을 발급하는 API 엔드포인트.
+		 * @summary Refresh Token
+		 * @param {string} refreshToken
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async authRefreshToken(
+			refreshToken: string,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Token>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.authRefreshToken(refreshToken, options);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["AuthApi.authRefreshToken"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 사용자 신규 가입
+		 * @summary Register User
+		 * @param {UserRegister} userRegister
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async authRegisterUser(
+			userRegister: UserRegister,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserPublic>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.authRegisterUser(userRegister, options);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["AuthApi.authRegisterUser"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 비밀번호 재설정
+		 * @summary Reset Password
+		 * @param {NewPassword} newPassword
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async authResetPassword(
+			newPassword: NewPassword,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Message>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.authResetPassword(newPassword, options);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["AuthApi.authResetPassword"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 이메일 인증
+		 * @summary Verify Email
+		 * @param {string} body
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async authVerifyEmail(
+			body: string,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.authVerifyEmail(
+				body,
+				options,
+			);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["AuthApi.authVerifyEmail"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+	};
+};
 
 /**
  * AuthApi - factory interface
  * @export
  */
 export const AuthApiFactory = function (
-  configuration?: Configuration,
-  basePath?: string,
-  axios?: AxiosInstance
+	configuration?: Configuration,
+	basePath?: string,
+	axios?: AxiosInstance,
 ) {
-  const localVarFp = AuthApiFp(configuration)
-  return {
-    /**
-     * OAuth2 호환 토큰 로그인, 향후 요청을 위한 액세스 토큰 받기 :param form_data: OAuth2PasswordRequestForm :return: Token
-     * @summary OAuth2 호환 토큰 로그인, 향후 요청을 위한 액세스 토큰 받기
-     * @param {string} username
-     * @param {string} password
-     * @param {string | null} [grantType]
-     * @param {string} [scope]
-     * @param {string | null} [clientId]
-     * @param {string | null} [clientSecret]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    authLoginAccessToken(
-      username: string,
-      password: string,
-      grantType?: string | null,
-      scope?: string,
-      clientId?: string | null,
-      clientSecret?: string | null,
-      options?: RawAxiosRequestConfig
-    ): AxiosPromise<Token> {
-      return localVarFp
-        .authLoginAccessToken(
-          username,
-          password,
-          grantType,
-          scope,
-          clientId,
-          clientSecret,
-          options
-        )
-        .then((request) => request(axios, basePath))
-    },
-    /**
-     * 로그아웃
-     * @summary Logout
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    authLogout(options?: RawAxiosRequestConfig): AxiosPromise<any> {
-      return localVarFp
-        .authLogout(options)
-        .then((request) => request(axios, basePath))
-    },
-    /**
-     * 비밀번호 복구
-     * @summary Recover Password
-     * @param {string} email
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    authRecoverPassword(
-      email: string,
-      options?: RawAxiosRequestConfig
-    ): AxiosPromise<Message> {
-      return localVarFp
-        .authRecoverPassword(email, options)
-        .then((request) => request(axios, basePath))
-    },
-    /**
-     * 비밀번호 복구용 HTML 콘텐츠 :param email: 이메일 :return: HTMLResponse
-     * @summary Recover Password Html Content
-     * @param {string} email
-     * @param {string | null} [tokenFromCookie]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    authRecoverPasswordHtmlContent(
-      email: string,
-      tokenFromCookie?: string | null,
-      options?: RawAxiosRequestConfig
-    ): AxiosPromise<string> {
-      return localVarFp
-        .authRecoverPasswordHtmlContent(email, tokenFromCookie, options)
-        .then((request) => request(axios, basePath))
-    },
-    /**
-     * Refresh token을 사용하여 새 Access Token을 발급하는 API 엔드포인트.
-     * @summary Refresh Token
-     * @param {string} refreshToken
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    authRefreshToken(
-      refreshToken: string,
-      options?: RawAxiosRequestConfig
-    ): AxiosPromise<Token> {
-      return localVarFp
-        .authRefreshToken(refreshToken, options)
-        .then((request) => request(axios, basePath))
-    },
-    /**
-     * 사용자 신규 가입
-     * @summary Register User
-     * @param {UserRegister} userRegister
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    authRegisterUser(
-      userRegister: UserRegister,
-      options?: RawAxiosRequestConfig
-    ): AxiosPromise<UserPublic> {
-      return localVarFp
-        .authRegisterUser(userRegister, options)
-        .then((request) => request(axios, basePath))
-    },
-    /**
-     * 비밀번호 재설정
-     * @summary Reset Password
-     * @param {NewPassword} newPassword
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    authResetPassword(
-      newPassword: NewPassword,
-      options?: RawAxiosRequestConfig
-    ): AxiosPromise<Message> {
-      return localVarFp
-        .authResetPassword(newPassword, options)
-        .then((request) => request(axios, basePath))
-    },
-    /**
-     * 이메일 인증
-     * @summary Verify Email
-     * @param {string} body
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    authVerifyEmail(
-      body: string,
-      options?: RawAxiosRequestConfig
-    ): AxiosPromise<any> {
-      return localVarFp
-        .authVerifyEmail(body, options)
-        .then((request) => request(axios, basePath))
-    },
-  }
-}
+	const localVarFp = AuthApiFp(configuration);
+	return {
+		/**
+		 * OAuth2 호환 토큰 로그인, 향후 요청을 위한 액세스 토큰 받기 :param form_data: OAuth2PasswordRequestForm :return: Token
+		 * @summary OAuth2 호환 토큰 로그인, 향후 요청을 위한 액세스 토큰 받기
+		 * @param {string} username
+		 * @param {string} password
+		 * @param {string | null} [grantType]
+		 * @param {string} [scope]
+		 * @param {string | null} [clientId]
+		 * @param {string | null} [clientSecret]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		authLoginAccessToken(
+			username: string,
+			password: string,
+			grantType?: string | null,
+			scope?: string,
+			clientId?: string | null,
+			clientSecret?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<Token> {
+			return localVarFp
+				.authLoginAccessToken(
+					username,
+					password,
+					grantType,
+					scope,
+					clientId,
+					clientSecret,
+					options,
+				)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 로그아웃
+		 * @summary Logout
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		authLogout(options?: RawAxiosRequestConfig): AxiosPromise<any> {
+			return localVarFp
+				.authLogout(options)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 비밀번호 복구
+		 * @summary Recover Password
+		 * @param {string} email
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		authRecoverPassword(
+			email: string,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<Message> {
+			return localVarFp
+				.authRecoverPassword(email, options)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 비밀번호 복구용 HTML 콘텐츠 :param email: 이메일 :return: HTMLResponse
+		 * @summary Recover Password Html Content
+		 * @param {string} email
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		authRecoverPasswordHtmlContent(
+			email: string,
+			tokenFromCookie?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<string> {
+			return localVarFp
+				.authRecoverPasswordHtmlContent(email, tokenFromCookie, options)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * Refresh token을 사용하여 새 Access Token을 발급하는 API 엔드포인트.
+		 * @summary Refresh Token
+		 * @param {string} refreshToken
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		authRefreshToken(
+			refreshToken: string,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<Token> {
+			return localVarFp
+				.authRefreshToken(refreshToken, options)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 사용자 신규 가입
+		 * @summary Register User
+		 * @param {UserRegister} userRegister
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		authRegisterUser(
+			userRegister: UserRegister,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<UserPublic> {
+			return localVarFp
+				.authRegisterUser(userRegister, options)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 비밀번호 재설정
+		 * @summary Reset Password
+		 * @param {NewPassword} newPassword
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		authResetPassword(
+			newPassword: NewPassword,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<Message> {
+			return localVarFp
+				.authResetPassword(newPassword, options)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 이메일 인증
+		 * @summary Verify Email
+		 * @param {string} body
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		authVerifyEmail(
+			body: string,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<any> {
+			return localVarFp
+				.authVerifyEmail(body, options)
+				.then((request) => request(axios, basePath));
+		},
+	};
+};
 
 /**
  * AuthApi - object-oriented interface
@@ -1996,151 +2864,151 @@ export const AuthApiFactory = function (
  * @extends {BaseAPI}
  */
 export class AuthApi extends BaseAPI {
-  /**
-   * OAuth2 호환 토큰 로그인, 향후 요청을 위한 액세스 토큰 받기 :param form_data: OAuth2PasswordRequestForm :return: Token
-   * @summary OAuth2 호환 토큰 로그인, 향후 요청을 위한 액세스 토큰 받기
-   * @param {string} username
-   * @param {string} password
-   * @param {string | null} [grantType]
-   * @param {string} [scope]
-   * @param {string | null} [clientId]
-   * @param {string | null} [clientSecret]
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof AuthApi
-   */
-  public authLoginAccessToken(
-    username: string,
-    password: string,
-    grantType?: string | null,
-    scope?: string,
-    clientId?: string | null,
-    clientSecret?: string | null,
-    options?: RawAxiosRequestConfig
-  ) {
-    return AuthApiFp(this.configuration)
-      .authLoginAccessToken(
-        username,
-        password,
-        grantType,
-        scope,
-        clientId,
-        clientSecret,
-        options
-      )
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * OAuth2 호환 토큰 로그인, 향후 요청을 위한 액세스 토큰 받기 :param form_data: OAuth2PasswordRequestForm :return: Token
+	 * @summary OAuth2 호환 토큰 로그인, 향후 요청을 위한 액세스 토큰 받기
+	 * @param {string} username
+	 * @param {string} password
+	 * @param {string | null} [grantType]
+	 * @param {string} [scope]
+	 * @param {string | null} [clientId]
+	 * @param {string | null} [clientSecret]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AuthApi
+	 */
+	public authLoginAccessToken(
+		username: string,
+		password: string,
+		grantType?: string | null,
+		scope?: string,
+		clientId?: string | null,
+		clientSecret?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return AuthApiFp(this.configuration)
+			.authLoginAccessToken(
+				username,
+				password,
+				grantType,
+				scope,
+				clientId,
+				clientSecret,
+				options,
+			)
+			.then((request) => request(this.axios, this.basePath));
+	}
 
-  /**
-   * 로그아웃
-   * @summary Logout
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof AuthApi
-   */
-  public authLogout(options?: RawAxiosRequestConfig) {
-    return AuthApiFp(this.configuration)
-      .authLogout(options)
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * 로그아웃
+	 * @summary Logout
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AuthApi
+	 */
+	public authLogout(options?: RawAxiosRequestConfig) {
+		return AuthApiFp(this.configuration)
+			.authLogout(options)
+			.then((request) => request(this.axios, this.basePath));
+	}
 
-  /**
-   * 비밀번호 복구
-   * @summary Recover Password
-   * @param {string} email
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof AuthApi
-   */
-  public authRecoverPassword(email: string, options?: RawAxiosRequestConfig) {
-    return AuthApiFp(this.configuration)
-      .authRecoverPassword(email, options)
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * 비밀번호 복구
+	 * @summary Recover Password
+	 * @param {string} email
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AuthApi
+	 */
+	public authRecoverPassword(email: string, options?: RawAxiosRequestConfig) {
+		return AuthApiFp(this.configuration)
+			.authRecoverPassword(email, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
 
-  /**
-   * 비밀번호 복구용 HTML 콘텐츠 :param email: 이메일 :return: HTMLResponse
-   * @summary Recover Password Html Content
-   * @param {string} email
-   * @param {string | null} [tokenFromCookie]
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof AuthApi
-   */
-  public authRecoverPasswordHtmlContent(
-    email: string,
-    tokenFromCookie?: string | null,
-    options?: RawAxiosRequestConfig
-  ) {
-    return AuthApiFp(this.configuration)
-      .authRecoverPasswordHtmlContent(email, tokenFromCookie, options)
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * 비밀번호 복구용 HTML 콘텐츠 :param email: 이메일 :return: HTMLResponse
+	 * @summary Recover Password Html Content
+	 * @param {string} email
+	 * @param {string | null} [tokenFromCookie]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AuthApi
+	 */
+	public authRecoverPasswordHtmlContent(
+		email: string,
+		tokenFromCookie?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return AuthApiFp(this.configuration)
+			.authRecoverPasswordHtmlContent(email, tokenFromCookie, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
 
-  /**
-   * Refresh token을 사용하여 새 Access Token을 발급하는 API 엔드포인트.
-   * @summary Refresh Token
-   * @param {string} refreshToken
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof AuthApi
-   */
-  public authRefreshToken(
-    refreshToken: string,
-    options?: RawAxiosRequestConfig
-  ) {
-    return AuthApiFp(this.configuration)
-      .authRefreshToken(refreshToken, options)
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * Refresh token을 사용하여 새 Access Token을 발급하는 API 엔드포인트.
+	 * @summary Refresh Token
+	 * @param {string} refreshToken
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AuthApi
+	 */
+	public authRefreshToken(
+		refreshToken: string,
+		options?: RawAxiosRequestConfig,
+	) {
+		return AuthApiFp(this.configuration)
+			.authRefreshToken(refreshToken, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
 
-  /**
-   * 사용자 신규 가입
-   * @summary Register User
-   * @param {UserRegister} userRegister
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof AuthApi
-   */
-  public authRegisterUser(
-    userRegister: UserRegister,
-    options?: RawAxiosRequestConfig
-  ) {
-    return AuthApiFp(this.configuration)
-      .authRegisterUser(userRegister, options)
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * 사용자 신규 가입
+	 * @summary Register User
+	 * @param {UserRegister} userRegister
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AuthApi
+	 */
+	public authRegisterUser(
+		userRegister: UserRegister,
+		options?: RawAxiosRequestConfig,
+	) {
+		return AuthApiFp(this.configuration)
+			.authRegisterUser(userRegister, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
 
-  /**
-   * 비밀번호 재설정
-   * @summary Reset Password
-   * @param {NewPassword} newPassword
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof AuthApi
-   */
-  public authResetPassword(
-    newPassword: NewPassword,
-    options?: RawAxiosRequestConfig
-  ) {
-    return AuthApiFp(this.configuration)
-      .authResetPassword(newPassword, options)
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * 비밀번호 재설정
+	 * @summary Reset Password
+	 * @param {NewPassword} newPassword
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AuthApi
+	 */
+	public authResetPassword(
+		newPassword: NewPassword,
+		options?: RawAxiosRequestConfig,
+	) {
+		return AuthApiFp(this.configuration)
+			.authResetPassword(newPassword, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
 
-  /**
-   * 이메일 인증
-   * @summary Verify Email
-   * @param {string} body
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof AuthApi
-   */
-  public authVerifyEmail(body: string, options?: RawAxiosRequestConfig) {
-    return AuthApiFp(this.configuration)
-      .authVerifyEmail(body, options)
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * 이메일 인증
+	 * @summary Verify Email
+	 * @param {string} body
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AuthApi
+	 */
+	public authVerifyEmail(body: string, options?: RawAxiosRequestConfig) {
+		return AuthApiFp(this.configuration)
+			.authVerifyEmail(body, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
 }
 
 /**
@@ -2148,265 +3016,265 @@ export class AuthApi extends BaseAPI {
  * @export
  */
 export const OAuth2ApiAxiosParamCreator = function (
-  configuration?: Configuration
+	configuration?: Configuration,
 ) {
-  return {
-    /**
-     * e.g. /api/auth/google/authorize
-     * @summary Oauth Authorize
-     * @param {string} provider
-     * @param {string | null} [redirectUri]
-     * @param {string | null} [state]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    oAuth2OauthAuthorize: async (
-      provider: string,
-      redirectUri?: string | null,
-      state?: string | null,
-      options: RawAxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'provider' is not null or undefined
-      assertParamExists('oAuth2OauthAuthorize', 'provider', provider)
-      const localVarPath = `/api/v1/auth/{provider}/authorize`.replace(
-        `{${'provider'}}`,
-        encodeURIComponent(String(provider))
-      )
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
+	return {
+		/**
+		 * e.g. /api/auth/google/authorize
+		 * @summary Oauth Authorize
+		 * @param {string} provider
+		 * @param {string | null} [redirectUri]
+		 * @param {string | null} [state]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		oAuth2OauthAuthorize: async (
+			provider: string,
+			redirectUri?: string | null,
+			state?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'provider' is not null or undefined
+			assertParamExists("oAuth2OauthAuthorize", "provider", provider);
+			const localVarPath = `/api/v1/auth/{provider}/authorize`.replace(
+				`{${"provider"}}`,
+				encodeURIComponent(String(provider)),
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
 
-      const localVarRequestOptions = {
-        method: 'GET',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
+			const localVarRequestOptions = {
+				method: "GET",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
 
-      if (redirectUri !== undefined) {
-        localVarQueryParameter['redirect_uri'] = redirectUri
-      }
+			if (redirectUri !== undefined) {
+				localVarQueryParameter["redirect_uri"] = redirectUri;
+			}
 
-      if (state !== undefined) {
-        localVarQueryParameter['state'] = state
-      }
+			if (state !== undefined) {
+				localVarQueryParameter["state"] = state;
+			}
 
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
 
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-    /**
-     * e.g. /api/auth/google/callback
-     * @summary Oauth Callback
-     * @param {string} provider
-     * @param {string} code
-     * @param {string | null} [state]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    oAuth2OauthCallback: async (
-      provider: string,
-      code: string,
-      state?: string | null,
-      options: RawAxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'provider' is not null or undefined
-      assertParamExists('oAuth2OauthCallback', 'provider', provider)
-      // verify required parameter 'code' is not null or undefined
-      assertParamExists('oAuth2OauthCallback', 'code', code)
-      const localVarPath = `/api/v1/auth/{provider}/callback`.replace(
-        `{${'provider'}}`,
-        encodeURIComponent(String(provider))
-      )
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * e.g. /api/auth/google/callback
+		 * @summary Oauth Callback
+		 * @param {string} provider
+		 * @param {string} code
+		 * @param {string | null} [state]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		oAuth2OauthCallback: async (
+			provider: string,
+			code: string,
+			state?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'provider' is not null or undefined
+			assertParamExists("oAuth2OauthCallback", "provider", provider);
+			// verify required parameter 'code' is not null or undefined
+			assertParamExists("oAuth2OauthCallback", "code", code);
+			const localVarPath = `/api/v1/auth/{provider}/callback`.replace(
+				`{${"provider"}}`,
+				encodeURIComponent(String(provider)),
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
 
-      const localVarRequestOptions = {
-        method: 'GET',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
+			const localVarRequestOptions = {
+				method: "GET",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
 
-      if (code !== undefined) {
-        localVarQueryParameter['code'] = code
-      }
+			if (code !== undefined) {
+				localVarQueryParameter["code"] = code;
+			}
 
-      if (state !== undefined) {
-        localVarQueryParameter['state'] = state
-      }
+			if (state !== undefined) {
+				localVarQueryParameter["state"] = state;
+			}
 
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
 
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-  }
-}
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+	};
+};
 
 /**
  * OAuth2Api - functional programming interface
  * @export
  */
 export const OAuth2ApiFp = function (configuration?: Configuration) {
-  const localVarAxiosParamCreator = OAuth2ApiAxiosParamCreator(configuration)
-  return {
-    /**
-     * e.g. /api/auth/google/authorize
-     * @summary Oauth Authorize
-     * @param {string} provider
-     * @param {string | null} [redirectUri]
-     * @param {string | null} [state]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async oAuth2OauthAuthorize(
-      provider: string,
-      redirectUri?: string | null,
-      state?: string | null,
-      options?: RawAxiosRequestConfig
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>
-    > {
-      const localVarAxiosArgs =
-        await localVarAxiosParamCreator.oAuth2OauthAuthorize(
-          provider,
-          redirectUri,
-          state,
-          options
-        )
-      const localVarOperationServerIndex = configuration?.serverIndex ?? 0
-      const localVarOperationServerBasePath =
-        operationServerMap['OAuth2Api.oAuth2OauthAuthorize']?.[
-          localVarOperationServerIndex
-        ]?.url
-      return (axios, basePath) =>
-        createRequestFunction(
-          localVarAxiosArgs,
-          globalAxios,
-          BASE_PATH,
-          configuration
-        )(axios, localVarOperationServerBasePath || basePath)
-    },
-    /**
-     * e.g. /api/auth/google/callback
-     * @summary Oauth Callback
-     * @param {string} provider
-     * @param {string} code
-     * @param {string | null} [state]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async oAuth2OauthCallback(
-      provider: string,
-      code: string,
-      state?: string | null,
-      options?: RawAxiosRequestConfig
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Token>
-    > {
-      const localVarAxiosArgs =
-        await localVarAxiosParamCreator.oAuth2OauthCallback(
-          provider,
-          code,
-          state,
-          options
-        )
-      const localVarOperationServerIndex = configuration?.serverIndex ?? 0
-      const localVarOperationServerBasePath =
-        operationServerMap['OAuth2Api.oAuth2OauthCallback']?.[
-          localVarOperationServerIndex
-        ]?.url
-      return (axios, basePath) =>
-        createRequestFunction(
-          localVarAxiosArgs,
-          globalAxios,
-          BASE_PATH,
-          configuration
-        )(axios, localVarOperationServerBasePath || basePath)
-    },
-  }
-}
+	const localVarAxiosParamCreator = OAuth2ApiAxiosParamCreator(configuration);
+	return {
+		/**
+		 * e.g. /api/auth/google/authorize
+		 * @summary Oauth Authorize
+		 * @param {string} provider
+		 * @param {string | null} [redirectUri]
+		 * @param {string | null} [state]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async oAuth2OauthAuthorize(
+			provider: string,
+			redirectUri?: string | null,
+			state?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.oAuth2OauthAuthorize(
+					provider,
+					redirectUri,
+					state,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["OAuth2Api.oAuth2OauthAuthorize"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * e.g. /api/auth/google/callback
+		 * @summary Oauth Callback
+		 * @param {string} provider
+		 * @param {string} code
+		 * @param {string | null} [state]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async oAuth2OauthCallback(
+			provider: string,
+			code: string,
+			state?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Token>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.oAuth2OauthCallback(
+					provider,
+					code,
+					state,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["OAuth2Api.oAuth2OauthCallback"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+	};
+};
 
 /**
  * OAuth2Api - factory interface
  * @export
  */
 export const OAuth2ApiFactory = function (
-  configuration?: Configuration,
-  basePath?: string,
-  axios?: AxiosInstance
+	configuration?: Configuration,
+	basePath?: string,
+	axios?: AxiosInstance,
 ) {
-  const localVarFp = OAuth2ApiFp(configuration)
-  return {
-    /**
-     * e.g. /api/auth/google/authorize
-     * @summary Oauth Authorize
-     * @param {string} provider
-     * @param {string | null} [redirectUri]
-     * @param {string | null} [state]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    oAuth2OauthAuthorize(
-      provider: string,
-      redirectUri?: string | null,
-      state?: string | null,
-      options?: RawAxiosRequestConfig
-    ): AxiosPromise<string> {
-      return localVarFp
-        .oAuth2OauthAuthorize(provider, redirectUri, state, options)
-        .then((request) => request(axios, basePath))
-    },
-    /**
-     * e.g. /api/auth/google/callback
-     * @summary Oauth Callback
-     * @param {string} provider
-     * @param {string} code
-     * @param {string | null} [state]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    oAuth2OauthCallback(
-      provider: string,
-      code: string,
-      state?: string | null,
-      options?: RawAxiosRequestConfig
-    ): AxiosPromise<Token> {
-      return localVarFp
-        .oAuth2OauthCallback(provider, code, state, options)
-        .then((request) => request(axios, basePath))
-    },
-  }
-}
+	const localVarFp = OAuth2ApiFp(configuration);
+	return {
+		/**
+		 * e.g. /api/auth/google/authorize
+		 * @summary Oauth Authorize
+		 * @param {string} provider
+		 * @param {string | null} [redirectUri]
+		 * @param {string | null} [state]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		oAuth2OauthAuthorize(
+			provider: string,
+			redirectUri?: string | null,
+			state?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<string> {
+			return localVarFp
+				.oAuth2OauthAuthorize(provider, redirectUri, state, options)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * e.g. /api/auth/google/callback
+		 * @summary Oauth Callback
+		 * @param {string} provider
+		 * @param {string} code
+		 * @param {string | null} [state]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		oAuth2OauthCallback(
+			provider: string,
+			code: string,
+			state?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<Token> {
+			return localVarFp
+				.oAuth2OauthCallback(provider, code, state, options)
+				.then((request) => request(axios, basePath));
+		},
+	};
+};
 
 /**
  * OAuth2Api - object-oriented interface
@@ -2415,47 +3283,934 @@ export const OAuth2ApiFactory = function (
  * @extends {BaseAPI}
  */
 export class OAuth2Api extends BaseAPI {
-  /**
-   * e.g. /api/auth/google/authorize
-   * @summary Oauth Authorize
-   * @param {string} provider
-   * @param {string | null} [redirectUri]
-   * @param {string | null} [state]
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof OAuth2Api
-   */
-  public oAuth2OauthAuthorize(
-    provider: string,
-    redirectUri?: string | null,
-    state?: string | null,
-    options?: RawAxiosRequestConfig
-  ) {
-    return OAuth2ApiFp(this.configuration)
-      .oAuth2OauthAuthorize(provider, redirectUri, state, options)
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * e.g. /api/auth/google/authorize
+	 * @summary Oauth Authorize
+	 * @param {string} provider
+	 * @param {string | null} [redirectUri]
+	 * @param {string | null} [state]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof OAuth2Api
+	 */
+	public oAuth2OauthAuthorize(
+		provider: string,
+		redirectUri?: string | null,
+		state?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return OAuth2ApiFp(this.configuration)
+			.oAuth2OauthAuthorize(provider, redirectUri, state, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
 
-  /**
-   * e.g. /api/auth/google/callback
-   * @summary Oauth Callback
-   * @param {string} provider
-   * @param {string} code
-   * @param {string | null} [state]
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof OAuth2Api
-   */
-  public oAuth2OauthCallback(
-    provider: string,
-    code: string,
-    state?: string | null,
-    options?: RawAxiosRequestConfig
-  ) {
-    return OAuth2ApiFp(this.configuration)
-      .oAuth2OauthCallback(provider, code, state, options)
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * e.g. /api/auth/google/callback
+	 * @summary Oauth Callback
+	 * @param {string} provider
+	 * @param {string} code
+	 * @param {string | null} [state]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof OAuth2Api
+	 */
+	public oAuth2OauthCallback(
+		provider: string,
+		code: string,
+		state?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return OAuth2ApiFp(this.configuration)
+			.oAuth2OauthCallback(provider, code, state, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
+}
+
+/**
+ * SubscriptionsApi - axios parameter creator
+ * @export
+ */
+export const SubscriptionsApiAxiosParamCreator = function (
+	configuration?: Configuration,
+) {
+	return {
+		/**
+		 * 특정 구독에 서비스 추가 API
+		 * @summary Add Service To Subscription
+		 * @param {string} subscriptionId
+		 * @param {string} serviceId
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		subscriptionsAddServiceToSubscription: async (
+			subscriptionId: string,
+			serviceId: string,
+			tokenFromCookie?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'subscriptionId' is not null or undefined
+			assertParamExists(
+				"subscriptionsAddServiceToSubscription",
+				"subscriptionId",
+				subscriptionId,
+			);
+			// verify required parameter 'serviceId' is not null or undefined
+			assertParamExists(
+				"subscriptionsAddServiceToSubscription",
+				"serviceId",
+				serviceId,
+			);
+			const localVarPath =
+				`/api/v1/subscriptions/{subscription_id}/services`.replace(
+					`{${"subscription_id"}}`,
+					encodeURIComponent(String(subscriptionId)),
+				);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = {
+				method: "POST",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
+
+			if (serviceId !== undefined) {
+				localVarQueryParameter["service_id"] = serviceId;
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * 유저 구독 취소 API
+		 * @summary Cancel User Subscription
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		subscriptionsCancelUserSubscription: async (
+			tokenFromCookie?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			const localVarPath = `/api/v1/subscriptions/cancel/`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = {
+				method: "POST",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * 유저 구독 정보 조회 API
+		 * @summary Get Subscription
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		subscriptionsGetSubscription: async (
+			tokenFromCookie?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			const localVarPath = `/api/v1/subscriptions/`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = {
+				method: "GET",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * 특정 구독에서 서비스 삭제 API
+		 * @summary Remove Service From Subscription
+		 * @param {string} subscriptionId
+		 * @param {string} serviceId
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		subscriptionsRemoveServiceFromSubscription: async (
+			subscriptionId: string,
+			serviceId: string,
+			tokenFromCookie?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'subscriptionId' is not null or undefined
+			assertParamExists(
+				"subscriptionsRemoveServiceFromSubscription",
+				"subscriptionId",
+				subscriptionId,
+			);
+			// verify required parameter 'serviceId' is not null or undefined
+			assertParamExists(
+				"subscriptionsRemoveServiceFromSubscription",
+				"serviceId",
+				serviceId,
+			);
+			const localVarPath =
+				`/api/v1/subscriptions/{subscription_id}/services/{service_id}`
+					.replace(
+						`{${"subscription_id"}}`,
+						encodeURIComponent(String(subscriptionId)),
+					)
+					.replace(`{${"service_id"}}`, encodeURIComponent(String(serviceId)));
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = {
+				method: "DELETE",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * 유저 구독 생성 API
+		 * @summary Subscribe User
+		 * @param {SubscriptionCreate} subscriptionCreate
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		subscriptionsSubscribeUser: async (
+			subscriptionCreate: SubscriptionCreate,
+			tokenFromCookie?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'subscriptionCreate' is not null or undefined
+			assertParamExists(
+				"subscriptionsSubscribeUser",
+				"subscriptionCreate",
+				subscriptionCreate,
+			);
+			const localVarPath = `/api/v1/subscriptions/subscribe/`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = {
+				method: "POST",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
+
+			localVarHeaderParameter["Content-Type"] = "application/json";
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				subscriptionCreate,
+				localVarRequestOptions,
+				configuration,
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * 유저 구독 정보 수정 API
+		 * @summary Update User Subscription
+		 * @param {SubscriptionUpdate} subscriptionUpdate
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		subscriptionsUpdateUserSubscription: async (
+			subscriptionUpdate: SubscriptionUpdate,
+			tokenFromCookie?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'subscriptionUpdate' is not null or undefined
+			assertParamExists(
+				"subscriptionsUpdateUserSubscription",
+				"subscriptionUpdate",
+				subscriptionUpdate,
+			);
+			const localVarPath = `/api/v1/subscriptions/`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = {
+				method: "PATCH",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
+
+			localVarHeaderParameter["Content-Type"] = "application/json";
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				subscriptionUpdate,
+				localVarRequestOptions,
+				configuration,
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+	};
+};
+
+/**
+ * SubscriptionsApi - functional programming interface
+ * @export
+ */
+export const SubscriptionsApiFp = function (configuration?: Configuration) {
+	const localVarAxiosParamCreator =
+		SubscriptionsApiAxiosParamCreator(configuration);
+	return {
+		/**
+		 * 특정 구독에 서비스 추가 API
+		 * @summary Add Service To Subscription
+		 * @param {string} subscriptionId
+		 * @param {string} serviceId
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async subscriptionsAddServiceToSubscription(
+			subscriptionId: string,
+			serviceId: string,
+			tokenFromCookie?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(
+				axios?: AxiosInstance,
+				basePath?: string,
+			) => AxiosPromise<SubscriptionPublic>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.subscriptionsAddServiceToSubscription(
+					subscriptionId,
+					serviceId,
+					tokenFromCookie,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap[
+					"SubscriptionsApi.subscriptionsAddServiceToSubscription"
+				]?.[localVarOperationServerIndex]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 유저 구독 취소 API
+		 * @summary Cancel User Subscription
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async subscriptionsCancelUserSubscription(
+			tokenFromCookie?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Message>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.subscriptionsCancelUserSubscription(
+					tokenFromCookie,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap[
+					"SubscriptionsApi.subscriptionsCancelUserSubscription"
+				]?.[localVarOperationServerIndex]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 유저 구독 정보 조회 API
+		 * @summary Get Subscription
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async subscriptionsGetSubscription(
+			tokenFromCookie?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(
+				axios?: AxiosInstance,
+				basePath?: string,
+			) => AxiosPromise<SubscriptionPublic>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.subscriptionsGetSubscription(
+					tokenFromCookie,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["SubscriptionsApi.subscriptionsGetSubscription"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 특정 구독에서 서비스 삭제 API
+		 * @summary Remove Service From Subscription
+		 * @param {string} subscriptionId
+		 * @param {string} serviceId
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async subscriptionsRemoveServiceFromSubscription(
+			subscriptionId: string,
+			serviceId: string,
+			tokenFromCookie?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(
+				axios?: AxiosInstance,
+				basePath?: string,
+			) => AxiosPromise<SubscriptionPublic>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.subscriptionsRemoveServiceFromSubscription(
+					subscriptionId,
+					serviceId,
+					tokenFromCookie,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap[
+					"SubscriptionsApi.subscriptionsRemoveServiceFromSubscription"
+				]?.[localVarOperationServerIndex]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 유저 구독 생성 API
+		 * @summary Subscribe User
+		 * @param {SubscriptionCreate} subscriptionCreate
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async subscriptionsSubscribeUser(
+			subscriptionCreate: SubscriptionCreate,
+			tokenFromCookie?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(
+				axios?: AxiosInstance,
+				basePath?: string,
+			) => AxiosPromise<SubscriptionPublic>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.subscriptionsSubscribeUser(
+					subscriptionCreate,
+					tokenFromCookie,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["SubscriptionsApi.subscriptionsSubscribeUser"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 유저 구독 정보 수정 API
+		 * @summary Update User Subscription
+		 * @param {SubscriptionUpdate} subscriptionUpdate
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async subscriptionsUpdateUserSubscription(
+			subscriptionUpdate: SubscriptionUpdate,
+			tokenFromCookie?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(
+				axios?: AxiosInstance,
+				basePath?: string,
+			) => AxiosPromise<SubscriptionPublic>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.subscriptionsUpdateUserSubscription(
+					subscriptionUpdate,
+					tokenFromCookie,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap[
+					"SubscriptionsApi.subscriptionsUpdateUserSubscription"
+				]?.[localVarOperationServerIndex]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+	};
+};
+
+/**
+ * SubscriptionsApi - factory interface
+ * @export
+ */
+export const SubscriptionsApiFactory = function (
+	configuration?: Configuration,
+	basePath?: string,
+	axios?: AxiosInstance,
+) {
+	const localVarFp = SubscriptionsApiFp(configuration);
+	return {
+		/**
+		 * 특정 구독에 서비스 추가 API
+		 * @summary Add Service To Subscription
+		 * @param {string} subscriptionId
+		 * @param {string} serviceId
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		subscriptionsAddServiceToSubscription(
+			subscriptionId: string,
+			serviceId: string,
+			tokenFromCookie?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<SubscriptionPublic> {
+			return localVarFp
+				.subscriptionsAddServiceToSubscription(
+					subscriptionId,
+					serviceId,
+					tokenFromCookie,
+					options,
+				)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 유저 구독 취소 API
+		 * @summary Cancel User Subscription
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		subscriptionsCancelUserSubscription(
+			tokenFromCookie?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<Message> {
+			return localVarFp
+				.subscriptionsCancelUserSubscription(tokenFromCookie, options)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 유저 구독 정보 조회 API
+		 * @summary Get Subscription
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		subscriptionsGetSubscription(
+			tokenFromCookie?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<SubscriptionPublic> {
+			return localVarFp
+				.subscriptionsGetSubscription(tokenFromCookie, options)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 특정 구독에서 서비스 삭제 API
+		 * @summary Remove Service From Subscription
+		 * @param {string} subscriptionId
+		 * @param {string} serviceId
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		subscriptionsRemoveServiceFromSubscription(
+			subscriptionId: string,
+			serviceId: string,
+			tokenFromCookie?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<SubscriptionPublic> {
+			return localVarFp
+				.subscriptionsRemoveServiceFromSubscription(
+					subscriptionId,
+					serviceId,
+					tokenFromCookie,
+					options,
+				)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 유저 구독 생성 API
+		 * @summary Subscribe User
+		 * @param {SubscriptionCreate} subscriptionCreate
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		subscriptionsSubscribeUser(
+			subscriptionCreate: SubscriptionCreate,
+			tokenFromCookie?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<SubscriptionPublic> {
+			return localVarFp
+				.subscriptionsSubscribeUser(
+					subscriptionCreate,
+					tokenFromCookie,
+					options,
+				)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 유저 구독 정보 수정 API
+		 * @summary Update User Subscription
+		 * @param {SubscriptionUpdate} subscriptionUpdate
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		subscriptionsUpdateUserSubscription(
+			subscriptionUpdate: SubscriptionUpdate,
+			tokenFromCookie?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<SubscriptionPublic> {
+			return localVarFp
+				.subscriptionsUpdateUserSubscription(
+					subscriptionUpdate,
+					tokenFromCookie,
+					options,
+				)
+				.then((request) => request(axios, basePath));
+		},
+	};
+};
+
+/**
+ * SubscriptionsApi - object-oriented interface
+ * @export
+ * @class SubscriptionsApi
+ * @extends {BaseAPI}
+ */
+export class SubscriptionsApi extends BaseAPI {
+	/**
+	 * 특정 구독에 서비스 추가 API
+	 * @summary Add Service To Subscription
+	 * @param {string} subscriptionId
+	 * @param {string} serviceId
+	 * @param {string | null} [tokenFromCookie]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof SubscriptionsApi
+	 */
+	public subscriptionsAddServiceToSubscription(
+		subscriptionId: string,
+		serviceId: string,
+		tokenFromCookie?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return SubscriptionsApiFp(this.configuration)
+			.subscriptionsAddServiceToSubscription(
+				subscriptionId,
+				serviceId,
+				tokenFromCookie,
+				options,
+			)
+			.then((request) => request(this.axios, this.basePath));
+	}
+
+	/**
+	 * 유저 구독 취소 API
+	 * @summary Cancel User Subscription
+	 * @param {string | null} [tokenFromCookie]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof SubscriptionsApi
+	 */
+	public subscriptionsCancelUserSubscription(
+		tokenFromCookie?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return SubscriptionsApiFp(this.configuration)
+			.subscriptionsCancelUserSubscription(tokenFromCookie, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
+
+	/**
+	 * 유저 구독 정보 조회 API
+	 * @summary Get Subscription
+	 * @param {string | null} [tokenFromCookie]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof SubscriptionsApi
+	 */
+	public subscriptionsGetSubscription(
+		tokenFromCookie?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return SubscriptionsApiFp(this.configuration)
+			.subscriptionsGetSubscription(tokenFromCookie, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
+
+	/**
+	 * 특정 구독에서 서비스 삭제 API
+	 * @summary Remove Service From Subscription
+	 * @param {string} subscriptionId
+	 * @param {string} serviceId
+	 * @param {string | null} [tokenFromCookie]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof SubscriptionsApi
+	 */
+	public subscriptionsRemoveServiceFromSubscription(
+		subscriptionId: string,
+		serviceId: string,
+		tokenFromCookie?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return SubscriptionsApiFp(this.configuration)
+			.subscriptionsRemoveServiceFromSubscription(
+				subscriptionId,
+				serviceId,
+				tokenFromCookie,
+				options,
+			)
+			.then((request) => request(this.axios, this.basePath));
+	}
+
+	/**
+	 * 유저 구독 생성 API
+	 * @summary Subscribe User
+	 * @param {SubscriptionCreate} subscriptionCreate
+	 * @param {string | null} [tokenFromCookie]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof SubscriptionsApi
+	 */
+	public subscriptionsSubscribeUser(
+		subscriptionCreate: SubscriptionCreate,
+		tokenFromCookie?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return SubscriptionsApiFp(this.configuration)
+			.subscriptionsSubscribeUser(subscriptionCreate, tokenFromCookie, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
+
+	/**
+	 * 유저 구독 정보 수정 API
+	 * @summary Update User Subscription
+	 * @param {SubscriptionUpdate} subscriptionUpdate
+	 * @param {string | null} [tokenFromCookie]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof SubscriptionsApi
+	 */
+	public subscriptionsUpdateUserSubscription(
+		subscriptionUpdate: SubscriptionUpdate,
+		tokenFromCookie?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return SubscriptionsApiFp(this.configuration)
+			.subscriptionsUpdateUserSubscription(
+				subscriptionUpdate,
+				tokenFromCookie,
+				options,
+			)
+			.then((request) => request(this.axios, this.basePath));
+	}
 }
 
 /**
@@ -2463,782 +4218,786 @@ export class OAuth2Api extends BaseAPI {
  * @export
  */
 export const UsersApiAxiosParamCreator = function (
-  configuration?: Configuration
+	configuration?: Configuration,
 ) {
-  return {
-    /**
-     * 내 계정 탈퇴
-     * @summary Delete Me
-     * @param {string | null} [tokenFromCookie]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    usersDeleteMe: async (
-      tokenFromCookie?: string | null,
-      options: RawAxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      const localVarPath = `/api/v1/users/me/`
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
+	return {
+		/**
+		 * 내 계정 탈퇴
+		 * @summary Delete Me
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		usersDeleteMe: async (
+			tokenFromCookie?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			const localVarPath = `/api/v1/users/me/`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
 
-      const localVarRequestOptions = {
-        method: 'DELETE',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
+			const localVarRequestOptions = {
+				method: "DELETE",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
 
-      // authentication OAuth2PasswordBearer required
-      // oauth required
-      await setOAuthToObject(
-        localVarHeaderParameter,
-        'OAuth2PasswordBearer',
-        [],
-        configuration
-      )
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
 
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
 
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-    /**
-     * 이메일로 사용자 정보 조회
-     * @summary Read User By Email
-     * @param {string} email
-     * @param {string | null} [tokenFromCookie]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    usersReadUserByEmail: async (
-      email: string,
-      tokenFromCookie?: string | null,
-      options: RawAxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'email' is not null or undefined
-      assertParamExists('usersReadUserByEmail', 'email', email)
-      const localVarPath = `/api/v1/users/`
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * 이메일로 사용자 정보 조회
+		 * @summary Read User By Email
+		 * @param {string} email
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		usersReadUserByEmail: async (
+			email: string,
+			tokenFromCookie?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'email' is not null or undefined
+			assertParamExists("usersReadUserByEmail", "email", email);
+			const localVarPath = `/api/v1/users/`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
 
-      const localVarRequestOptions = {
-        method: 'GET',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
+			const localVarRequestOptions = {
+				method: "GET",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
 
-      // authentication OAuth2PasswordBearer required
-      // oauth required
-      await setOAuthToObject(
-        localVarHeaderParameter,
-        'OAuth2PasswordBearer',
-        [],
-        configuration
-      )
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
 
-      if (email !== undefined) {
-        localVarQueryParameter['email'] = email
-      }
+			if (email !== undefined) {
+				localVarQueryParameter["email"] = email;
+			}
 
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
 
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-    /**
-     * 사용자 ID로 사용자 정보 조회
-     * @summary Read User By Id
-     * @param {string} userId
-     * @param {string | null} [tokenFromCookie]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    usersReadUserById: async (
-      userId: string,
-      tokenFromCookie?: string | null,
-      options: RawAxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'userId' is not null or undefined
-      assertParamExists('usersReadUserById', 'userId', userId)
-      const localVarPath = `/api/v1/users/{user_id}`.replace(
-        `{${'user_id'}}`,
-        encodeURIComponent(String(userId))
-      )
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * 사용자 ID로 사용자 정보 조회
+		 * @summary Read User By Id
+		 * @param {string} userId
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		usersReadUserById: async (
+			userId: string,
+			tokenFromCookie?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'userId' is not null or undefined
+			assertParamExists("usersReadUserById", "userId", userId);
+			const localVarPath = `/api/v1/users/{user_id}`.replace(
+				`{${"user_id"}}`,
+				encodeURIComponent(String(userId)),
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
 
-      const localVarRequestOptions = {
-        method: 'GET',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
+			const localVarRequestOptions = {
+				method: "GET",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
 
-      // authentication OAuth2PasswordBearer required
-      // oauth required
-      await setOAuthToObject(
-        localVarHeaderParameter,
-        'OAuth2PasswordBearer',
-        [],
-        configuration
-      )
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
 
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
 
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-    /**
-     * 현재 사용자 정보 조회
-     * @summary Read User Me
-     * @param {string | null} [tokenFromCookie]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    usersReadUserMe: async (
-      tokenFromCookie?: string | null,
-      options: RawAxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      const localVarPath = `/api/v1/users/me`
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * 현재 사용자 정보 조회
+		 * @summary Read User Me
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		usersReadUserMe: async (
+			tokenFromCookie?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			const localVarPath = `/api/v1/users/me`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
 
-      const localVarRequestOptions = {
-        method: 'GET',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
+			const localVarRequestOptions = {
+				method: "GET",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
 
-      // authentication OAuth2PasswordBearer required
-      // oauth required
-      await setOAuthToObject(
-        localVarHeaderParameter,
-        'OAuth2PasswordBearer',
-        [],
-        configuration
-      )
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
 
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
 
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-    /**
-     * 이메일의 로컬 부분 또는 이름의 일부로 사용자 검색 (도메인 제외)
-     * @summary Search User
-     * @param {string | null} [email]
-     * @param {string | null} [fullname]
-     * @param {string | null} [tokenFromCookie]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    usersSearchUser: async (
-      email?: string | null,
-      fullname?: string | null,
-      tokenFromCookie?: string | null,
-      options: RawAxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      const localVarPath = `/api/v1/users/search`
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * 이메일의 로컬 부분 또는 이름의 일부로 사용자 검색 (도메인 제외)
+		 * @summary Search User
+		 * @param {string | null} [email]
+		 * @param {string | null} [fullname]
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		usersSearchUser: async (
+			email?: string | null,
+			fullname?: string | null,
+			tokenFromCookie?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			const localVarPath = `/api/v1/users/search`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
 
-      const localVarRequestOptions = {
-        method: 'GET',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
+			const localVarRequestOptions = {
+				method: "GET",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
 
-      // authentication OAuth2PasswordBearer required
-      // oauth required
-      await setOAuthToObject(
-        localVarHeaderParameter,
-        'OAuth2PasswordBearer',
-        [],
-        configuration
-      )
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
 
-      if (email !== undefined) {
-        localVarQueryParameter['email'] = email
-      }
+			if (email !== undefined) {
+				localVarQueryParameter["email"] = email;
+			}
 
-      if (fullname !== undefined) {
-        localVarQueryParameter['fullname'] = fullname
-      }
+			if (fullname !== undefined) {
+				localVarQueryParameter["fullname"] = fullname;
+			}
 
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
 
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-    /**
-     * 내 정보 업데이트
-     * @summary Update Me
-     * @param {UserUpdateMe} userUpdateMe
-     * @param {string | null} [tokenFromCookie]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    usersUpdateMe: async (
-      userUpdateMe: UserUpdateMe,
-      tokenFromCookie?: string | null,
-      options: RawAxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'userUpdateMe' is not null or undefined
-      assertParamExists('usersUpdateMe', 'userUpdateMe', userUpdateMe)
-      const localVarPath = `/api/v1/users/me`
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * 내 정보 업데이트
+		 * @summary Update Me
+		 * @param {UserUpdateMe} userUpdateMe
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		usersUpdateMe: async (
+			userUpdateMe: UserUpdateMe,
+			tokenFromCookie?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'userUpdateMe' is not null or undefined
+			assertParamExists("usersUpdateMe", "userUpdateMe", userUpdateMe);
+			const localVarPath = `/api/v1/users/me`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
 
-      const localVarRequestOptions = {
-        method: 'PATCH',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
+			const localVarRequestOptions = {
+				method: "PATCH",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
 
-      // authentication OAuth2PasswordBearer required
-      // oauth required
-      await setOAuthToObject(
-        localVarHeaderParameter,
-        'OAuth2PasswordBearer',
-        [],
-        configuration
-      )
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
 
-      localVarHeaderParameter['Content-Type'] = 'application/json'
+			localVarHeaderParameter["Content-Type"] = "application/json";
 
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
-      localVarRequestOptions.data = serializeDataIfNeeded(
-        userUpdateMe,
-        localVarRequestOptions,
-        configuration
-      )
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				userUpdateMe,
+				localVarRequestOptions,
+				configuration,
+			);
 
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-    /**
-     * 내 비밀번호 변경
-     * @summary Update Password
-     * @param {UpdatePassword} updatePassword
-     * @param {string | null} [tokenFromCookie]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    usersUpdatePassword: async (
-      updatePassword: UpdatePassword,
-      tokenFromCookie?: string | null,
-      options: RawAxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'updatePassword' is not null or undefined
-      assertParamExists('usersUpdatePassword', 'updatePassword', updatePassword)
-      const localVarPath = `/api/v1/users/me/password`
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * 내 비밀번호 변경
+		 * @summary Update Password
+		 * @param {UpdatePassword} updatePassword
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		usersUpdatePassword: async (
+			updatePassword: UpdatePassword,
+			tokenFromCookie?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'updatePassword' is not null or undefined
+			assertParamExists(
+				"usersUpdatePassword",
+				"updatePassword",
+				updatePassword,
+			);
+			const localVarPath = `/api/v1/users/me/password`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
 
-      const localVarRequestOptions = {
-        method: 'PATCH',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
+			const localVarRequestOptions = {
+				method: "PATCH",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
 
-      // authentication OAuth2PasswordBearer required
-      // oauth required
-      await setOAuthToObject(
-        localVarHeaderParameter,
-        'OAuth2PasswordBearer',
-        [],
-        configuration
-      )
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
 
-      localVarHeaderParameter['Content-Type'] = 'application/json'
+			localVarHeaderParameter["Content-Type"] = "application/json";
 
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
-      localVarRequestOptions.data = serializeDataIfNeeded(
-        updatePassword,
-        localVarRequestOptions,
-        configuration
-      )
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				updatePassword,
+				localVarRequestOptions,
+				configuration,
+			);
 
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-  }
-}
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+	};
+};
 
 /**
  * UsersApi - functional programming interface
  * @export
  */
 export const UsersApiFp = function (configuration?: Configuration) {
-  const localVarAxiosParamCreator = UsersApiAxiosParamCreator(configuration)
-  return {
-    /**
-     * 내 계정 탈퇴
-     * @summary Delete Me
-     * @param {string | null} [tokenFromCookie]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async usersDeleteMe(
-      tokenFromCookie?: string | null,
-      options?: RawAxiosRequestConfig
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Message>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.usersDeleteMe(
-        tokenFromCookie,
-        options
-      )
-      const localVarOperationServerIndex = configuration?.serverIndex ?? 0
-      const localVarOperationServerBasePath =
-        operationServerMap['UsersApi.usersDeleteMe']?.[
-          localVarOperationServerIndex
-        ]?.url
-      return (axios, basePath) =>
-        createRequestFunction(
-          localVarAxiosArgs,
-          globalAxios,
-          BASE_PATH,
-          configuration
-        )(axios, localVarOperationServerBasePath || basePath)
-    },
-    /**
-     * 이메일로 사용자 정보 조회
-     * @summary Read User By Email
-     * @param {string} email
-     * @param {string | null} [tokenFromCookie]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async usersReadUserByEmail(
-      email: string,
-      tokenFromCookie?: string | null,
-      options?: RawAxiosRequestConfig
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserPublic>
-    > {
-      const localVarAxiosArgs =
-        await localVarAxiosParamCreator.usersReadUserByEmail(
-          email,
-          tokenFromCookie,
-          options
-        )
-      const localVarOperationServerIndex = configuration?.serverIndex ?? 0
-      const localVarOperationServerBasePath =
-        operationServerMap['UsersApi.usersReadUserByEmail']?.[
-          localVarOperationServerIndex
-        ]?.url
-      return (axios, basePath) =>
-        createRequestFunction(
-          localVarAxiosArgs,
-          globalAxios,
-          BASE_PATH,
-          configuration
-        )(axios, localVarOperationServerBasePath || basePath)
-    },
-    /**
-     * 사용자 ID로 사용자 정보 조회
-     * @summary Read User By Id
-     * @param {string} userId
-     * @param {string | null} [tokenFromCookie]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async usersReadUserById(
-      userId: string,
-      tokenFromCookie?: string | null,
-      options?: RawAxiosRequestConfig
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserPublic>
-    > {
-      const localVarAxiosArgs =
-        await localVarAxiosParamCreator.usersReadUserById(
-          userId,
-          tokenFromCookie,
-          options
-        )
-      const localVarOperationServerIndex = configuration?.serverIndex ?? 0
-      const localVarOperationServerBasePath =
-        operationServerMap['UsersApi.usersReadUserById']?.[
-          localVarOperationServerIndex
-        ]?.url
-      return (axios, basePath) =>
-        createRequestFunction(
-          localVarAxiosArgs,
-          globalAxios,
-          BASE_PATH,
-          configuration
-        )(axios, localVarOperationServerBasePath || basePath)
-    },
-    /**
-     * 현재 사용자 정보 조회
-     * @summary Read User Me
-     * @param {string | null} [tokenFromCookie]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async usersReadUserMe(
-      tokenFromCookie?: string | null,
-      options?: RawAxiosRequestConfig
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserPublic>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.usersReadUserMe(
-        tokenFromCookie,
-        options
-      )
-      const localVarOperationServerIndex = configuration?.serverIndex ?? 0
-      const localVarOperationServerBasePath =
-        operationServerMap['UsersApi.usersReadUserMe']?.[
-          localVarOperationServerIndex
-        ]?.url
-      return (axios, basePath) =>
-        createRequestFunction(
-          localVarAxiosArgs,
-          globalAxios,
-          BASE_PATH,
-          configuration
-        )(axios, localVarOperationServerBasePath || basePath)
-    },
-    /**
-     * 이메일의 로컬 부분 또는 이름의 일부로 사용자 검색 (도메인 제외)
-     * @summary Search User
-     * @param {string | null} [email]
-     * @param {string | null} [fullname]
-     * @param {string | null} [tokenFromCookie]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async usersSearchUser(
-      email?: string | null,
-      fullname?: string | null,
-      tokenFromCookie?: string | null,
-      options?: RawAxiosRequestConfig
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.usersSearchUser(
-        email,
-        fullname,
-        tokenFromCookie,
-        options
-      )
-      const localVarOperationServerIndex = configuration?.serverIndex ?? 0
-      const localVarOperationServerBasePath =
-        operationServerMap['UsersApi.usersSearchUser']?.[
-          localVarOperationServerIndex
-        ]?.url
-      return (axios, basePath) =>
-        createRequestFunction(
-          localVarAxiosArgs,
-          globalAxios,
-          BASE_PATH,
-          configuration
-        )(axios, localVarOperationServerBasePath || basePath)
-    },
-    /**
-     * 내 정보 업데이트
-     * @summary Update Me
-     * @param {UserUpdateMe} userUpdateMe
-     * @param {string | null} [tokenFromCookie]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async usersUpdateMe(
-      userUpdateMe: UserUpdateMe,
-      tokenFromCookie?: string | null,
-      options?: RawAxiosRequestConfig
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserPublic>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.usersUpdateMe(
-        userUpdateMe,
-        tokenFromCookie,
-        options
-      )
-      const localVarOperationServerIndex = configuration?.serverIndex ?? 0
-      const localVarOperationServerBasePath =
-        operationServerMap['UsersApi.usersUpdateMe']?.[
-          localVarOperationServerIndex
-        ]?.url
-      return (axios, basePath) =>
-        createRequestFunction(
-          localVarAxiosArgs,
-          globalAxios,
-          BASE_PATH,
-          configuration
-        )(axios, localVarOperationServerBasePath || basePath)
-    },
-    /**
-     * 내 비밀번호 변경
-     * @summary Update Password
-     * @param {UpdatePassword} updatePassword
-     * @param {string | null} [tokenFromCookie]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async usersUpdatePassword(
-      updatePassword: UpdatePassword,
-      tokenFromCookie?: string | null,
-      options?: RawAxiosRequestConfig
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Message>
-    > {
-      const localVarAxiosArgs =
-        await localVarAxiosParamCreator.usersUpdatePassword(
-          updatePassword,
-          tokenFromCookie,
-          options
-        )
-      const localVarOperationServerIndex = configuration?.serverIndex ?? 0
-      const localVarOperationServerBasePath =
-        operationServerMap['UsersApi.usersUpdatePassword']?.[
-          localVarOperationServerIndex
-        ]?.url
-      return (axios, basePath) =>
-        createRequestFunction(
-          localVarAxiosArgs,
-          globalAxios,
-          BASE_PATH,
-          configuration
-        )(axios, localVarOperationServerBasePath || basePath)
-    },
-  }
-}
+	const localVarAxiosParamCreator = UsersApiAxiosParamCreator(configuration);
+	return {
+		/**
+		 * 내 계정 탈퇴
+		 * @summary Delete Me
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async usersDeleteMe(
+			tokenFromCookie?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Message>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.usersDeleteMe(
+				tokenFromCookie,
+				options,
+			);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["UsersApi.usersDeleteMe"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 이메일로 사용자 정보 조회
+		 * @summary Read User By Email
+		 * @param {string} email
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async usersReadUserByEmail(
+			email: string,
+			tokenFromCookie?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserPublic>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.usersReadUserByEmail(
+					email,
+					tokenFromCookie,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["UsersApi.usersReadUserByEmail"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 사용자 ID로 사용자 정보 조회
+		 * @summary Read User By Id
+		 * @param {string} userId
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async usersReadUserById(
+			userId: string,
+			tokenFromCookie?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserPublic>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.usersReadUserById(
+					userId,
+					tokenFromCookie,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["UsersApi.usersReadUserById"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 현재 사용자 정보 조회
+		 * @summary Read User Me
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async usersReadUserMe(
+			tokenFromCookie?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserPublic>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.usersReadUserMe(
+				tokenFromCookie,
+				options,
+			);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["UsersApi.usersReadUserMe"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 이메일의 로컬 부분 또는 이름의 일부로 사용자 검색 (도메인 제외)
+		 * @summary Search User
+		 * @param {string | null} [email]
+		 * @param {string | null} [fullname]
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async usersSearchUser(
+			email?: string | null,
+			fullname?: string | null,
+			tokenFromCookie?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.usersSearchUser(
+				email,
+				fullname,
+				tokenFromCookie,
+				options,
+			);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["UsersApi.usersSearchUser"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 내 정보 업데이트
+		 * @summary Update Me
+		 * @param {UserUpdateMe} userUpdateMe
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async usersUpdateMe(
+			userUpdateMe: UserUpdateMe,
+			tokenFromCookie?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserPublic>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.usersUpdateMe(
+				userUpdateMe,
+				tokenFromCookie,
+				options,
+			);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["UsersApi.usersUpdateMe"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 내 비밀번호 변경
+		 * @summary Update Password
+		 * @param {UpdatePassword} updatePassword
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async usersUpdatePassword(
+			updatePassword: UpdatePassword,
+			tokenFromCookie?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Message>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.usersUpdatePassword(
+					updatePassword,
+					tokenFromCookie,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["UsersApi.usersUpdatePassword"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+	};
+};
 
 /**
  * UsersApi - factory interface
  * @export
  */
 export const UsersApiFactory = function (
-  configuration?: Configuration,
-  basePath?: string,
-  axios?: AxiosInstance
+	configuration?: Configuration,
+	basePath?: string,
+	axios?: AxiosInstance,
 ) {
-  const localVarFp = UsersApiFp(configuration)
-  return {
-    /**
-     * 내 계정 탈퇴
-     * @summary Delete Me
-     * @param {string | null} [tokenFromCookie]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    usersDeleteMe(
-      tokenFromCookie?: string | null,
-      options?: RawAxiosRequestConfig
-    ): AxiosPromise<Message> {
-      return localVarFp
-        .usersDeleteMe(tokenFromCookie, options)
-        .then((request) => request(axios, basePath))
-    },
-    /**
-     * 이메일로 사용자 정보 조회
-     * @summary Read User By Email
-     * @param {string} email
-     * @param {string | null} [tokenFromCookie]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    usersReadUserByEmail(
-      email: string,
-      tokenFromCookie?: string | null,
-      options?: RawAxiosRequestConfig
-    ): AxiosPromise<UserPublic> {
-      return localVarFp
-        .usersReadUserByEmail(email, tokenFromCookie, options)
-        .then((request) => request(axios, basePath))
-    },
-    /**
-     * 사용자 ID로 사용자 정보 조회
-     * @summary Read User By Id
-     * @param {string} userId
-     * @param {string | null} [tokenFromCookie]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    usersReadUserById(
-      userId: string,
-      tokenFromCookie?: string | null,
-      options?: RawAxiosRequestConfig
-    ): AxiosPromise<UserPublic> {
-      return localVarFp
-        .usersReadUserById(userId, tokenFromCookie, options)
-        .then((request) => request(axios, basePath))
-    },
-    /**
-     * 현재 사용자 정보 조회
-     * @summary Read User Me
-     * @param {string | null} [tokenFromCookie]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    usersReadUserMe(
-      tokenFromCookie?: string | null,
-      options?: RawAxiosRequestConfig
-    ): AxiosPromise<UserPublic> {
-      return localVarFp
-        .usersReadUserMe(tokenFromCookie, options)
-        .then((request) => request(axios, basePath))
-    },
-    /**
-     * 이메일의 로컬 부분 또는 이름의 일부로 사용자 검색 (도메인 제외)
-     * @summary Search User
-     * @param {string | null} [email]
-     * @param {string | null} [fullname]
-     * @param {string | null} [tokenFromCookie]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    usersSearchUser(
-      email?: string | null,
-      fullname?: string | null,
-      tokenFromCookie?: string | null,
-      options?: RawAxiosRequestConfig
-    ): AxiosPromise<any> {
-      return localVarFp
-        .usersSearchUser(email, fullname, tokenFromCookie, options)
-        .then((request) => request(axios, basePath))
-    },
-    /**
-     * 내 정보 업데이트
-     * @summary Update Me
-     * @param {UserUpdateMe} userUpdateMe
-     * @param {string | null} [tokenFromCookie]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    usersUpdateMe(
-      userUpdateMe: UserUpdateMe,
-      tokenFromCookie?: string | null,
-      options?: RawAxiosRequestConfig
-    ): AxiosPromise<UserPublic> {
-      return localVarFp
-        .usersUpdateMe(userUpdateMe, tokenFromCookie, options)
-        .then((request) => request(axios, basePath))
-    },
-    /**
-     * 내 비밀번호 변경
-     * @summary Update Password
-     * @param {UpdatePassword} updatePassword
-     * @param {string | null} [tokenFromCookie]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    usersUpdatePassword(
-      updatePassword: UpdatePassword,
-      tokenFromCookie?: string | null,
-      options?: RawAxiosRequestConfig
-    ): AxiosPromise<Message> {
-      return localVarFp
-        .usersUpdatePassword(updatePassword, tokenFromCookie, options)
-        .then((request) => request(axios, basePath))
-    },
-  }
-}
+	const localVarFp = UsersApiFp(configuration);
+	return {
+		/**
+		 * 내 계정 탈퇴
+		 * @summary Delete Me
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		usersDeleteMe(
+			tokenFromCookie?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<Message> {
+			return localVarFp
+				.usersDeleteMe(tokenFromCookie, options)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 이메일로 사용자 정보 조회
+		 * @summary Read User By Email
+		 * @param {string} email
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		usersReadUserByEmail(
+			email: string,
+			tokenFromCookie?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<UserPublic> {
+			return localVarFp
+				.usersReadUserByEmail(email, tokenFromCookie, options)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 사용자 ID로 사용자 정보 조회
+		 * @summary Read User By Id
+		 * @param {string} userId
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		usersReadUserById(
+			userId: string,
+			tokenFromCookie?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<UserPublic> {
+			return localVarFp
+				.usersReadUserById(userId, tokenFromCookie, options)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 현재 사용자 정보 조회
+		 * @summary Read User Me
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		usersReadUserMe(
+			tokenFromCookie?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<UserPublic> {
+			return localVarFp
+				.usersReadUserMe(tokenFromCookie, options)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 이메일의 로컬 부분 또는 이름의 일부로 사용자 검색 (도메인 제외)
+		 * @summary Search User
+		 * @param {string | null} [email]
+		 * @param {string | null} [fullname]
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		usersSearchUser(
+			email?: string | null,
+			fullname?: string | null,
+			tokenFromCookie?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<any> {
+			return localVarFp
+				.usersSearchUser(email, fullname, tokenFromCookie, options)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 내 정보 업데이트
+		 * @summary Update Me
+		 * @param {UserUpdateMe} userUpdateMe
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		usersUpdateMe(
+			userUpdateMe: UserUpdateMe,
+			tokenFromCookie?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<UserPublic> {
+			return localVarFp
+				.usersUpdateMe(userUpdateMe, tokenFromCookie, options)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 내 비밀번호 변경
+		 * @summary Update Password
+		 * @param {UpdatePassword} updatePassword
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		usersUpdatePassword(
+			updatePassword: UpdatePassword,
+			tokenFromCookie?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<Message> {
+			return localVarFp
+				.usersUpdatePassword(updatePassword, tokenFromCookie, options)
+				.then((request) => request(axios, basePath));
+		},
+	};
+};
 
 /**
  * UsersApi - object-oriented interface
@@ -3247,136 +5006,136 @@ export const UsersApiFactory = function (
  * @extends {BaseAPI}
  */
 export class UsersApi extends BaseAPI {
-  /**
-   * 내 계정 탈퇴
-   * @summary Delete Me
-   * @param {string | null} [tokenFromCookie]
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof UsersApi
-   */
-  public usersDeleteMe(
-    tokenFromCookie?: string | null,
-    options?: RawAxiosRequestConfig
-  ) {
-    return UsersApiFp(this.configuration)
-      .usersDeleteMe(tokenFromCookie, options)
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * 내 계정 탈퇴
+	 * @summary Delete Me
+	 * @param {string | null} [tokenFromCookie]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof UsersApi
+	 */
+	public usersDeleteMe(
+		tokenFromCookie?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return UsersApiFp(this.configuration)
+			.usersDeleteMe(tokenFromCookie, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
 
-  /**
-   * 이메일로 사용자 정보 조회
-   * @summary Read User By Email
-   * @param {string} email
-   * @param {string | null} [tokenFromCookie]
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof UsersApi
-   */
-  public usersReadUserByEmail(
-    email: string,
-    tokenFromCookie?: string | null,
-    options?: RawAxiosRequestConfig
-  ) {
-    return UsersApiFp(this.configuration)
-      .usersReadUserByEmail(email, tokenFromCookie, options)
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * 이메일로 사용자 정보 조회
+	 * @summary Read User By Email
+	 * @param {string} email
+	 * @param {string | null} [tokenFromCookie]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof UsersApi
+	 */
+	public usersReadUserByEmail(
+		email: string,
+		tokenFromCookie?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return UsersApiFp(this.configuration)
+			.usersReadUserByEmail(email, tokenFromCookie, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
 
-  /**
-   * 사용자 ID로 사용자 정보 조회
-   * @summary Read User By Id
-   * @param {string} userId
-   * @param {string | null} [tokenFromCookie]
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof UsersApi
-   */
-  public usersReadUserById(
-    userId: string,
-    tokenFromCookie?: string | null,
-    options?: RawAxiosRequestConfig
-  ) {
-    return UsersApiFp(this.configuration)
-      .usersReadUserById(userId, tokenFromCookie, options)
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * 사용자 ID로 사용자 정보 조회
+	 * @summary Read User By Id
+	 * @param {string} userId
+	 * @param {string | null} [tokenFromCookie]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof UsersApi
+	 */
+	public usersReadUserById(
+		userId: string,
+		tokenFromCookie?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return UsersApiFp(this.configuration)
+			.usersReadUserById(userId, tokenFromCookie, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
 
-  /**
-   * 현재 사용자 정보 조회
-   * @summary Read User Me
-   * @param {string | null} [tokenFromCookie]
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof UsersApi
-   */
-  public usersReadUserMe(
-    tokenFromCookie?: string | null,
-    options?: RawAxiosRequestConfig
-  ) {
-    return UsersApiFp(this.configuration)
-      .usersReadUserMe(tokenFromCookie, options)
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * 현재 사용자 정보 조회
+	 * @summary Read User Me
+	 * @param {string | null} [tokenFromCookie]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof UsersApi
+	 */
+	public usersReadUserMe(
+		tokenFromCookie?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return UsersApiFp(this.configuration)
+			.usersReadUserMe(tokenFromCookie, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
 
-  /**
-   * 이메일의 로컬 부분 또는 이름의 일부로 사용자 검색 (도메인 제외)
-   * @summary Search User
-   * @param {string | null} [email]
-   * @param {string | null} [fullname]
-   * @param {string | null} [tokenFromCookie]
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof UsersApi
-   */
-  public usersSearchUser(
-    email?: string | null,
-    fullname?: string | null,
-    tokenFromCookie?: string | null,
-    options?: RawAxiosRequestConfig
-  ) {
-    return UsersApiFp(this.configuration)
-      .usersSearchUser(email, fullname, tokenFromCookie, options)
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * 이메일의 로컬 부분 또는 이름의 일부로 사용자 검색 (도메인 제외)
+	 * @summary Search User
+	 * @param {string | null} [email]
+	 * @param {string | null} [fullname]
+	 * @param {string | null} [tokenFromCookie]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof UsersApi
+	 */
+	public usersSearchUser(
+		email?: string | null,
+		fullname?: string | null,
+		tokenFromCookie?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return UsersApiFp(this.configuration)
+			.usersSearchUser(email, fullname, tokenFromCookie, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
 
-  /**
-   * 내 정보 업데이트
-   * @summary Update Me
-   * @param {UserUpdateMe} userUpdateMe
-   * @param {string | null} [tokenFromCookie]
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof UsersApi
-   */
-  public usersUpdateMe(
-    userUpdateMe: UserUpdateMe,
-    tokenFromCookie?: string | null,
-    options?: RawAxiosRequestConfig
-  ) {
-    return UsersApiFp(this.configuration)
-      .usersUpdateMe(userUpdateMe, tokenFromCookie, options)
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * 내 정보 업데이트
+	 * @summary Update Me
+	 * @param {UserUpdateMe} userUpdateMe
+	 * @param {string | null} [tokenFromCookie]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof UsersApi
+	 */
+	public usersUpdateMe(
+		userUpdateMe: UserUpdateMe,
+		tokenFromCookie?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return UsersApiFp(this.configuration)
+			.usersUpdateMe(userUpdateMe, tokenFromCookie, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
 
-  /**
-   * 내 비밀번호 변경
-   * @summary Update Password
-   * @param {UpdatePassword} updatePassword
-   * @param {string | null} [tokenFromCookie]
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof UsersApi
-   */
-  public usersUpdatePassword(
-    updatePassword: UpdatePassword,
-    tokenFromCookie?: string | null,
-    options?: RawAxiosRequestConfig
-  ) {
-    return UsersApiFp(this.configuration)
-      .usersUpdatePassword(updatePassword, tokenFromCookie, options)
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * 내 비밀번호 변경
+	 * @summary Update Password
+	 * @param {UpdatePassword} updatePassword
+	 * @param {string | null} [tokenFromCookie]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof UsersApi
+	 */
+	public usersUpdatePassword(
+		updatePassword: UpdatePassword,
+		tokenFromCookie?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return UsersApiFp(this.configuration)
+			.usersUpdatePassword(updatePassword, tokenFromCookie, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
 }
 
 /**
@@ -3384,219 +5143,219 @@ export class UsersApi extends BaseAPI {
  * @export
  */
 export const UtilsApiAxiosParamCreator = function (
-  configuration?: Configuration
+	configuration?: Configuration,
 ) {
-  return {
-    /**
-     *
-     * @summary Health Check
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    utilsHealthCheck: async (
-      options: RawAxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      const localVarPath = `/api/v1/utils/health-check/`
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
+	return {
+		/**
+		 *
+		 * @summary Health Check
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		utilsHealthCheck: async (
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			const localVarPath = `/api/v1/utils/health-check/`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
 
-      const localVarRequestOptions = {
-        method: 'GET',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
+			const localVarRequestOptions = {
+				method: "GET",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
 
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
 
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-    /**
-     * Test emails.
-     * @summary Test Email
-     * @param {string} emailTo
-     * @param {string | null} [tokenFromCookie]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    utilsTestEmail: async (
-      emailTo: string,
-      tokenFromCookie?: string | null,
-      options: RawAxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'emailTo' is not null or undefined
-      assertParamExists('utilsTestEmail', 'emailTo', emailTo)
-      const localVarPath = `/api/v1/utils/test-email/`
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * Test emails.
+		 * @summary Test Email
+		 * @param {string} emailTo
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		utilsTestEmail: async (
+			emailTo: string,
+			tokenFromCookie?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'emailTo' is not null or undefined
+			assertParamExists("utilsTestEmail", "emailTo", emailTo);
+			const localVarPath = `/api/v1/utils/test-email/`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
 
-      const localVarRequestOptions = {
-        method: 'POST',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
+			const localVarRequestOptions = {
+				method: "POST",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
 
-      // authentication OAuth2PasswordBearer required
-      // oauth required
-      await setOAuthToObject(
-        localVarHeaderParameter,
-        'OAuth2PasswordBearer',
-        [],
-        configuration
-      )
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
 
-      if (emailTo !== undefined) {
-        localVarQueryParameter['email_to'] = emailTo
-      }
+			if (emailTo !== undefined) {
+				localVarQueryParameter["email_to"] = emailTo;
+			}
 
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
 
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-  }
-}
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+	};
+};
 
 /**
  * UtilsApi - functional programming interface
  * @export
  */
 export const UtilsApiFp = function (configuration?: Configuration) {
-  const localVarAxiosParamCreator = UtilsApiAxiosParamCreator(configuration)
-  return {
-    /**
-     *
-     * @summary Health Check
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async utilsHealthCheck(
-      options?: RawAxiosRequestConfig
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<boolean>
-    > {
-      const localVarAxiosArgs =
-        await localVarAxiosParamCreator.utilsHealthCheck(options)
-      const localVarOperationServerIndex = configuration?.serverIndex ?? 0
-      const localVarOperationServerBasePath =
-        operationServerMap['UtilsApi.utilsHealthCheck']?.[
-          localVarOperationServerIndex
-        ]?.url
-      return (axios, basePath) =>
-        createRequestFunction(
-          localVarAxiosArgs,
-          globalAxios,
-          BASE_PATH,
-          configuration
-        )(axios, localVarOperationServerBasePath || basePath)
-    },
-    /**
-     * Test emails.
-     * @summary Test Email
-     * @param {string} emailTo
-     * @param {string | null} [tokenFromCookie]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async utilsTestEmail(
-      emailTo: string,
-      tokenFromCookie?: string | null,
-      options?: RawAxiosRequestConfig
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Message>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.utilsTestEmail(
-        emailTo,
-        tokenFromCookie,
-        options
-      )
-      const localVarOperationServerIndex = configuration?.serverIndex ?? 0
-      const localVarOperationServerBasePath =
-        operationServerMap['UtilsApi.utilsTestEmail']?.[
-          localVarOperationServerIndex
-        ]?.url
-      return (axios, basePath) =>
-        createRequestFunction(
-          localVarAxiosArgs,
-          globalAxios,
-          BASE_PATH,
-          configuration
-        )(axios, localVarOperationServerBasePath || basePath)
-    },
-  }
-}
+	const localVarAxiosParamCreator = UtilsApiAxiosParamCreator(configuration);
+	return {
+		/**
+		 *
+		 * @summary Health Check
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async utilsHealthCheck(
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<boolean>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.utilsHealthCheck(options);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["UtilsApi.utilsHealthCheck"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * Test emails.
+		 * @summary Test Email
+		 * @param {string} emailTo
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async utilsTestEmail(
+			emailTo: string,
+			tokenFromCookie?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Message>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.utilsTestEmail(
+				emailTo,
+				tokenFromCookie,
+				options,
+			);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["UtilsApi.utilsTestEmail"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+	};
+};
 
 /**
  * UtilsApi - factory interface
  * @export
  */
 export const UtilsApiFactory = function (
-  configuration?: Configuration,
-  basePath?: string,
-  axios?: AxiosInstance
+	configuration?: Configuration,
+	basePath?: string,
+	axios?: AxiosInstance,
 ) {
-  const localVarFp = UtilsApiFp(configuration)
-  return {
-    /**
-     *
-     * @summary Health Check
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    utilsHealthCheck(options?: RawAxiosRequestConfig): AxiosPromise<boolean> {
-      return localVarFp
-        .utilsHealthCheck(options)
-        .then((request) => request(axios, basePath))
-    },
-    /**
-     * Test emails.
-     * @summary Test Email
-     * @param {string} emailTo
-     * @param {string | null} [tokenFromCookie]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    utilsTestEmail(
-      emailTo: string,
-      tokenFromCookie?: string | null,
-      options?: RawAxiosRequestConfig
-    ): AxiosPromise<Message> {
-      return localVarFp
-        .utilsTestEmail(emailTo, tokenFromCookie, options)
-        .then((request) => request(axios, basePath))
-    },
-  }
-}
+	const localVarFp = UtilsApiFp(configuration);
+	return {
+		/**
+		 *
+		 * @summary Health Check
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		utilsHealthCheck(options?: RawAxiosRequestConfig): AxiosPromise<boolean> {
+			return localVarFp
+				.utilsHealthCheck(options)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * Test emails.
+		 * @summary Test Email
+		 * @param {string} emailTo
+		 * @param {string | null} [tokenFromCookie]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		utilsTestEmail(
+			emailTo: string,
+			tokenFromCookie?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<Message> {
+			return localVarFp
+				.utilsTestEmail(emailTo, tokenFromCookie, options)
+				.then((request) => request(axios, basePath));
+		},
+	};
+};
 
 /**
  * UtilsApi - object-oriented interface
@@ -3605,35 +5364,35 @@ export const UtilsApiFactory = function (
  * @extends {BaseAPI}
  */
 export class UtilsApi extends BaseAPI {
-  /**
-   *
-   * @summary Health Check
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof UtilsApi
-   */
-  public utilsHealthCheck(options?: RawAxiosRequestConfig) {
-    return UtilsApiFp(this.configuration)
-      .utilsHealthCheck(options)
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 *
+	 * @summary Health Check
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof UtilsApi
+	 */
+	public utilsHealthCheck(options?: RawAxiosRequestConfig) {
+		return UtilsApiFp(this.configuration)
+			.utilsHealthCheck(options)
+			.then((request) => request(this.axios, this.basePath));
+	}
 
-  /**
-   * Test emails.
-   * @summary Test Email
-   * @param {string} emailTo
-   * @param {string | null} [tokenFromCookie]
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof UtilsApi
-   */
-  public utilsTestEmail(
-    emailTo: string,
-    tokenFromCookie?: string | null,
-    options?: RawAxiosRequestConfig
-  ) {
-    return UtilsApiFp(this.configuration)
-      .utilsTestEmail(emailTo, tokenFromCookie, options)
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * Test emails.
+	 * @summary Test Email
+	 * @param {string} emailTo
+	 * @param {string | null} [tokenFromCookie]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof UtilsApi
+	 */
+	public utilsTestEmail(
+		emailTo: string,
+		tokenFromCookie?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return UtilsApiFp(this.configuration)
+			.utilsTestEmail(emailTo, tokenFromCookie, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
 }
