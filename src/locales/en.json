@@ -14,6 +14,8 @@
   },
   "user_button": {
     "profile": "My Profile",
+    "dashboard": "Dashboard",
+    "admin_dashboard": "Admin Dashboard",
     "logout": "Logout"
   },
   "user": {

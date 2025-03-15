@@ -9,13 +9,16 @@ import {
 } from '@/components/ui/sheet'
 import { Button } from '@/components/ui/button'
 import { useAuth } from '@/contexts/AuthContext'
-import Link from 'next/link'
-import { LogOut, User } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import { LayoutDashboard, LogOut, User } from 'lucide-react'
 import { useTranslations } from 'next-intl'
+import { RiAdminLine } from "react-icons/ri";
+
 
 export default function UserButton() {
   const { user: userData, logout } = useAuth()
   const t = useTranslations()
+  const router = useRouter()
   const handleLogout = () => {
     logout()
   }
@@ -31,7 +34,7 @@ export default function UserButton() {
       </SheetTrigger>
       <SheetContent side='right' className='w-64 p-0'>
         {/* <VisuallyHidden> */}
-        <SheetTitle>none</SheetTitle>
+        <SheetTitle></SheetTitle>
         {/* </VisuallyHidden> */}
         <div className='flex items-center px-4 mt-8 py-2 gap-3 text-sm'>
           <UserAvatar userData={userData} />
@@ -45,15 +48,32 @@ export default function UserButton() {
 
         <div className='border-t'></div>
 
-        <ul className='space-y-1'>
+        <ul className='space-y-1 px-4'>
+          {userData?.is_superuser == true && (
+            <li>
+              <Button
+                variant='ghost'
+                onClick={() => router.push('/admin')}
+              >
+                <RiAdminLine className='h-5 w-5 mr-2' />
+                {t('user_button.admin_dashboard')}
+              </Button>
+            </li>
+          )}
           <li>
-            <Link
-              href='/main/settings'
-              className='flex items-center px-4 py-2 text-sm hover:bg-gray-100 cursor-pointer'
+            <Button variant='ghost' onClick={() => router.push('/main')}>
+              <LayoutDashboard className='h-5 w-5 mr-2' />
+              {t('user_button.dashboard')}
+            </Button>
+          </li>
+          <li>
+            <Button
+              variant='ghost'
+              onClick={() => router.push('/main/settings')}
             >
               <User className='h-5 w-5 mr-2' />
               {t('user_button.profile')}
-            </Link>
+            </Button>
           </li>
           <li
             className='flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer'

@@ -5,6 +5,7 @@ import { Toaster } from '@/components/ui/sonner'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages } from 'next-intl/server'
 import React from 'react'
+import { AppProvider } from '@/contexts/AppContext'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -59,7 +60,7 @@ export default async function LocaleLayout({
       >
         <NextIntlClientProvider messages={messages}>
           <AuthProvider>
-            {children}
+            <AppProvider>{children}</AppProvider>
             <Toaster />
           </AuthProvider>
         </NextIntlClientProvider>

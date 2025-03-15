@@ -11,9 +11,7 @@ import {
 } from '@/components/ui/tooltip'
 import { FiChevronsLeft, FiChevronsRight } from 'react-icons/fi'
 import { menuItems } from '@/config/RoleBaseNav'
-import { UserRound } from 'lucide-react'
 import { usePathname } from 'next/navigation'
-import { useAuth } from '@/contexts/AuthContext'
 import Link from 'next/link'
 import { useTranslations } from 'next-intl'
 
@@ -22,7 +20,6 @@ interface SidebarProps {
 }
 
 export default function Sidebar({ onToggleExpand }: SidebarProps) {
-  const { user } = useAuth()
   const pathname = usePathname()
   const [expanded, setExpanded] = useState(false)
   const t = useTranslations()
@@ -87,49 +84,7 @@ export default function Sidebar({ onToggleExpand }: SidebarProps) {
                   )}
                 </Tooltip>
               </li>
-              // </RoleBasedAccess>
             ))}
-            <li className='flex justify-start w-full'>
-              {user?.is_superuser == true && (
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Link
-                      href='/main/admin'
-                      className={cn(
-                        'flex items-center py-3 px-4 text-sm font-normal rounded-md',
-                        pathname === '/main/admin'
-                          ? 'text-blue-600 '
-                          : 'hover:text-blue-600 text-accent-foreground'
-                      )}
-                    >
-                      <UserRound
-                        className={cn(
-                          'h-[19px] w-[19px]',
-                          expanded ? 'mr-3' : 'mx-auto'
-                        )}
-                      />
-                      {expanded && (
-                        <span
-                          className={cn(
-                            'w-40 transition-all duration-300 ease-in-out',
-                            expanded
-                              ? 'flex opacity-100 max-w-full visibility-visible'
-                              : 'hidden opacity-0 max-w-0 visibility-hidden'
-                          )}
-                        >
-                          Admin
-                        </span>
-                      )}
-                    </Link>
-                  </TooltipTrigger>
-                  {!expanded && (
-                    <TooltipContent side='right'>
-                      <p>Admin</p>
-                    </TooltipContent>
-                  )}
-                </Tooltip>
-              )}
-            </li>
           </ul>
         </TooltipProvider>
       </nav>

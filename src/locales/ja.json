@@ -14,6 +14,8 @@
   },
   "user_button": {
     "profile": "プロフィール",
+    "admin_dashboard": "管理者ダッシュボード",
+    "dashboard": "ダッシュボード",
     "logout": "ログアウト"
   },
   "user": {

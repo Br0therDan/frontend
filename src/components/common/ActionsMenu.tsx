@@ -1,3 +1,5 @@
+// path: src/components/common/ActionsMenu.tsx
+
 'use client'
 import React, { useState } from 'react'
 import {
@@ -15,8 +17,9 @@ import EditUser from '@/components/admin/users/EditUser'
 
 import DeleteAlert from './DeleteAlert' // (Refactored version of "Delete")
 
-import DocsForm from '../admin/docs/document/DocsForm'
 import { DocumentPublic } from '@/client/docs'
+import { useApp } from '@/contexts/AppContext'
+import { useRouter } from 'next/navigation'
 
 interface ActionsMenuProps {
   type: 'User' | 'Document'
@@ -31,6 +34,8 @@ export default function ActionsMenu({
 }: ActionsMenuProps) {
   const [editOpen, setEditOpen] = useState(false)
   const [deleteOpen, setDeleteOpen] = useState(false)
+  const { activeApp } = useApp()
+  const router = useRouter()
 
   return (
     <>
@@ -72,12 +77,7 @@ export default function ActionsMenu({
             )
           case 'Document':
             return (
-              <DocsForm
-                initialData={value as DocumentPublic | undefined}
-                isOpen={editOpen}
-                mode='edit'
-                onClose={() => setEditOpen(false)}
-              />
+              router.push(`/admin/${activeApp.name}/docs/${(value as DocumentPublic)._id}/edit`)
             )
 
           default:

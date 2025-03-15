@@ -1,3 +1,4 @@
+
 import React from 'react'
 
 interface PageTitleProps {
@@ -7,7 +8,7 @@ interface PageTitleProps {
 
 export default function PageTitle({ title, description }: PageTitleProps) {
   return (
-    <div className='flex flex-col py-4'>
+    <div className='flex flex-col'>
       <h1 className='text-3xl font-semibold'>{title}</h1>
       <p className='text-sm '>{description}</p>
     </div>

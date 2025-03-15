@@ -1,3 +1,5 @@
+// path: src/components/admin/docs/document/DocsTable.tsx
+
 'use client'
 import { useEffect, useState } from 'react'
 import DataTable from '@/components/data_table/DataTable'
@@ -8,14 +10,20 @@ import { toast } from 'sonner'
 import Loading from '@/components/common/Loading'
 import { DocumentPublic } from '@/client/docs'
 import { columns } from './columns'
-import Navbar from '@/components/common/Navbar'
-import DocsForm from './DocsForm'
+import { Button } from '@/components/ui/button'
+import { FaPlus } from 'react-icons/fa'
+import { useRouter } from 'next/navigation'
+import { useApp } from '@/contexts/AppContext'
 
 export default function DocsTable() {
   const [docs, setDocs] = useState<DocumentPublic[]>([])
-  const [isAdding, setIsAdding] = useState<boolean>(false)
-  const [editingDoc, setEditingDoc] = useState<DocumentPublic | null>(null)
+  const router = useRouter()
   const [loading, setLoading] = useState<boolean>(true)
+  const { activeApp } = useApp()
+
+  const handleRoute = (activeApp: string) => {
+    router.push(`/admin/${activeApp}/docs/add`)
+  }
 
   useEffect(() => {
     const fetchDocs = async () => {
@@ -38,24 +46,14 @@ export default function DocsTable() {
 
   return (
     <div className='space-y-2'>
-      <Navbar type='Document' addModalAs={DocsForm} />
+      <Button
+        variant='ghost'
+        className='flex items-center overflow-auto min-w-20 gap-2'
+        onClick={() => handleRoute(activeApp.name)}
+      >
+        <FaPlus /> Add Document
+      </Button>
       <DataTable columns={columns} data={docs} />
-      {isAdding && (
-        <DocsForm
-          isOpen={isAdding}
-          onClose={() => setIsAdding(false)}
-          mode={'add'}
-        />
-      )}
-
-      {editingDoc && (
-        <DocsForm
-          isOpen={true}
-          onClose={() => setEditingDoc(null)}
-          mode={'edit'}
-          initialData={editingDoc}
-        />
-      )}
     </div>
   )
 }

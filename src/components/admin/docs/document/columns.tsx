@@ -1,3 +1,5 @@
+// path: src/components/admin/docs/document/columns.tsx
+
 import React from 'react'
 import { Button } from '@/components/ui/button'
 import { ColumnDef } from '@tanstack/react-table'
@@ -9,6 +11,7 @@ import { Badge } from '@/components/ui/badge'
 import { useTranslations } from 'next-intl'
 import { DocumentPublic } from '@/client/docs'
 import ActionsMenu from '@/components/common/ActionsMenu'
+import { useApp } from '@/contexts/AppContext'
 
 export const columns: ColumnDef<DocumentPublic>[] = [
   {
@@ -52,11 +55,12 @@ export const columns: ColumnDef<DocumentPublic>[] = [
     cell: ({ row }) => {
       const doc = row.original
       const t = useTranslations()
+      const { activeApp } = useApp()
 
       return (
         <div className='truncate flex p-3 flex-col space-y-1'>
           <div className='flex items-center gap-2'>
-            <Link href={`/main/admin/docs/${doc._id}`} className='text-xl'>
+            <Link href={`/main/admin/${activeApp.name}/docs/${doc._id}`} className='text-xl'>
               {doc.title}
             </Link>
             {doc.is_public ? (
