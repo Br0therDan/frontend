@@ -1,3 +1,4 @@
+// path: src/app/[locale]/(home)/docs/layout.tsx
 'use client'
 import React from 'react'
 import { AppSidebar } from '@/components/home/docs/app-sidebar'

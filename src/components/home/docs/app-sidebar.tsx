@@ -1,3 +1,4 @@
+// path: src/components/home/docs/app-sidebar.tsx
 'use client'
 
 import * as React from 'react'
@@ -74,7 +75,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           items: categorizedDocs[category][subcategory].map(
             (doc: DocumentPublic) => ({
               title: doc.title,
-              url: `/docs?docId=${doc.title}`,
+              url: `/docs/${doc._id}`,
             })
           ),
         })
