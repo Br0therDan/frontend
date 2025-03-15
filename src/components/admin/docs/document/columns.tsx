@@ -3,15 +3,15 @@
 import React from 'react'
 import { Button } from '@/components/ui/button'
 import { ColumnDef } from '@tanstack/react-table'
-import { ArrowUpDown } from 'lucide-react'
+import { ArrowUpDown, Edit, Trash2 } from 'lucide-react'
 import { formatDateTime } from '@/utils/formatDate'
 import { Checkbox } from '@/components/ui/checkbox'
 import Link from 'next/link'
 import { Badge } from '@/components/ui/badge'
 import { useTranslations } from 'next-intl'
 import { DocumentPublic } from '@/client/docs'
-import ActionsMenu from '@/components/common/ActionsMenu'
 import { useApp } from '@/contexts/AppContext'
+import { useRouter } from 'next/navigation'
 
 export const columns: ColumnDef<DocumentPublic>[] = [
   {
@@ -60,7 +60,10 @@ export const columns: ColumnDef<DocumentPublic>[] = [
       return (
         <div className='truncate flex p-3 flex-col space-y-1'>
           <div className='flex items-center gap-2'>
-            <Link href={`/main/admin/${activeApp.name}/docs/${doc._id}`} className='text-xl'>
+            <Link
+              href={`/main/admin/${activeApp.path}/docs/${doc._id}`}
+              className='text-xl'
+            >
               {doc.title}
             </Link>
             {doc.is_public ? (
@@ -96,8 +99,19 @@ export const columns: ColumnDef<DocumentPublic>[] = [
     id: 'actions',
     cell: ({ row }) => {
       const doc = row.original
+      const { activeApp } = useApp()
+      const router = useRouter()
 
-      return <ActionsMenu type='Document' value={doc} />
+      return (
+        <div>
+          <Button variant='ghost' className='p-2' aria-label='Actions' onClick={() => router.push(`/admin/${activeApp.path}/docs/${doc._id}/edit`)}>
+            <Edit />
+          </Button>
+          <Button variant='ghost' className='p-2' aria-label='Actions'>
+            <Trash2 />
+          </Button>
+        </div>
+      )
     },
   },
 ]
