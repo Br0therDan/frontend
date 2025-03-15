@@ -61,7 +61,7 @@ export const columns: ColumnDef<DocumentPublic>[] = [
         <div className='truncate flex p-3 flex-col space-y-1'>
           <div className='flex items-center gap-2'>
             <Link
-              href={`/main/admin/${activeApp.path}/docs/${doc._id}`}
+              href={`/admin/${activeApp.path}/docs/${doc._id}`}
               className='text-xl'
             >
               {doc.title}

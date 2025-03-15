@@ -3,8 +3,8 @@ import { DocsService } from '@/lib/api'
 import { notFound } from 'next/navigation'
 import DocumentForm from '@/components/admin/docs/document/DocsForm'
 
-export default async function DocsPage({ params }: { params: { docId: string } }) {
-  const { docId } = params
+export default async function DocsPage({ params }: { params: Promise<{ docId: string }> }) {
+  const { docId } = await params
   let doc
   try {
     const response = await DocsService.docsReadDocument(docId)
