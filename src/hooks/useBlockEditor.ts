@@ -11,7 +11,7 @@ import { randomElement } from '@/lib/tiptap-utils'
 import type { EditorUser } from '../components/BlockEditor/types'
 import { initialContent } from '@/lib/data/initialContent'
 
-import { AiImage, AiWriter } from '@/components/BlockEditor/extensions'
+import { AiWriter } from '@/components/BlockEditor/extensions'
 import ExtensionKit from '@/components/BlockEditor/extensions/extension-kit'
 import { Ai } from '@/components/BlockEditor/extensions/Ai'
 
@@ -83,12 +83,7 @@ export const useBlockEditor = ({
               authorName: userName,
             })
           : undefined,
-        aiToken
-          ? AiImage.configure({
-              authorId: userId,
-              authorName: userName,
-            })
-          : undefined,
+
         aiToken ? Ai.configure({ token: aiToken }) : undefined,
       ].filter((e): e is AnyExtension => e !== undefined),
       editorProps: {

@@ -31,7 +31,6 @@ export { UniqueID } from '@tiptap-pro/extension-unique-id'
 
 export { Selection } from './Selection'
 export { AiWriter } from './AiWriter'
-export { AiImage } from './AiImage'
 export { Table, TableCell, TableHeader, TableRow } from './Table'
 export { HorizontalRule } from './HorizontalRule'
 export { Heading } from './Heading'
