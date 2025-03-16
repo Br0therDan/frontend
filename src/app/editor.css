@@ -1,97 +1,327 @@
 .ProseMirror {
+
+  /* 빈 상태의 자리 표시 텍스트 */
   .is-empty::before {
-    @apply text-neutral-500 dark:text-neutral-400;
+    color: #6b7280;
+
+    /* text-neutral-500 */
+    @media (prefers-color-scheme: dark) {
+      color: #9ca3af;
+      /* dark:text-neutral-400 */
+    }
   }
 
-  & > *:first-child,
-  [data-type='column'] > * {
-    @apply first:mt-0 last:mb-0;
+  /* 첫번째 자식과 column 내부 첫번째 자식에 대한 마진 초기화 */
+  &>*:first-child,
+  [data-type='column']>* {
+    margin-top: 0;
+    margin-bottom: 0;
   }
 
-  & > * + * {
+  /* 인접 요소 간의 상단 마진 */
+  &>*+* {
     margin-top: 0.75em;
   }
 
+  /* node-imageUpload 기본 스타일 */
   .node-imageUpload {
-    @apply rounded border-2 border-dotted border-black border-opacity-10 p-2 dark:border-neutral-500;
+    border-radius: 0.375rem;
+    /* rounded */
+    border-width: 2px;
+    /* border-2 */
+    border-style: dotted;
+    /* border-dotted */
+    border-color: rgba(0, 0, 0, 0.3);
+
+    padding: 0.5rem;
+
+    /* p-2 */
+    @media (prefers-color-scheme: dark) {
+      border-color: #6b7280;
+      /* dark:border-neutral-500 */
+    }
+
     transition: border 160ms cubic-bezier(0.45, 0.05, 0.55, 0.95);
-
-    &:hover {
-      @apply border-opacity-30;
-    }
-
-    &:has(.is-active),
-    &.has-focus {
-      @apply border-opacity-40;
-    }
   }
 
+  /* columns 관련 내부 스타일 */
   [data-type='columns'] {
+
+    /* hover 또는 has-focus 상태에서 자식 column의 테두리 색상 변경 */
     &.has-focus [data-type='column'],
     &:hover [data-type='column'] {
-      @apply border-neutral-300 dark:border-neutral-700;
+      border-color: #d1d5db;
+
+      /* border-neutral-300 */
+      @media (prefers-color-scheme: dark) {
+        border-color: #374151;
+        /* dark:border-neutral-700 */
+      }
     }
 
+    /* column 자체의 has-focus 상태 */
     [data-type='column'].has-focus {
-      @apply border-neutral-400 dark:border-neutral-600;
+      border-color: #9ca3af;
+
+      /* border-neutral-400 */
+      @media (prefers-color-scheme: dark) {
+        border-color: #4b5563;
+        /* dark:border-neutral-600 */
+      }
     }
   }
 
+  /* column 기본 스타일 */
   [data-type='column'] {
-    @apply rounded border-2 border-dotted border-transparent p-1;
+    border-radius: 0.375rem;
+    /* rounded */
+    border-width: 2px;
+    /* border-2 */
+    border-style: dotted;
+    /* border-dotted */
+    border-color: transparent;
+    /* border-transparent */
+    border-color: #f3f4f6;
+
+    /* border-neutral-100 */
+    @media (prefers-color-scheme: dark) {
+      border-color: #111827;
+      /* dark:border-neutral-900 */
+    }
+
     transition: border 160ms cubic-bezier(0.45, 0.05, 0.55, 0.95);
 
     &:hover {
-      @apply border-neutral-100 dark:border-neutral-900;
+      border-width: 2px;
+      /* border-2 */
+      border-color: transparent;
+      /* border-transparent */
+      border-radius: 0.75rem;
+      /* rounded-xl */
+      overflow: hidden;
+      /* overflow-hidden */
+      border-width: 2px;
+      /* border-2 */
+      border-color: #f3f4f6;
+
+      /* border-neutral-100 */
+      @media (prefers-color-scheme: dark) {
+        border-color: #111827;
+        /* dark:border-neutral-900 */
+      }
     }
 
-    &:has(.is-active),
-    &.has-focus {
-      @apply border-neutral-100 dark:border-neutral-900;
+    /* node-imageBlock 내부 이미지 스타일 */
+    .node-imageBlock {
+      & img {
+        border-width: 2px;
+        /* border-2 */
+        border-color: transparent;
+        /* border-transparent */
+        border-radius: 0.75rem;
+        /* rounded-xl */
+        overflow: hidden;
+        /* overflow-hidden */
+        box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.3);
+
+        /* shadow-[0_0_0_2px] shadow-black/30 */
+        @media (prefers-color-scheme: dark) {
+          box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+          /* dark:shadow-white/30 */
+        }
+
+        transition: all 0.2s;
+        /* transition-all */
+        border-radius: 0.5rem;
+        /* rounded-lg */
+
+        &:hover img {
+          outline-color: #374151;
+
+          /* outline-neutral-700 */
+          &:hover {
+            outline-color: #4b5563;
+            /* hover:outline-neutral-600 */
+          }
+
+          @media (prefers-color-scheme: dark) {
+            border-left-width: 4px;
+            /* border-l-4 */
+            border-left-color: #374151;
+            /* border-l-neutral-700 */
+            padding-top: 0.5rem;
+            /* py-2 */
+            padding-bottom: 0.5rem;
+            /* py-2 */
+            padding-left: 1rem;
+            /* px-4 */
+            font-size: 1.125rem;
+            /* text-lg */
+            color: #000000;
+
+            /* text-black */
+            @media (prefers-color-scheme: dark) {
+              color: #ffffff;
+              /* dark:text-white */
+            }
+
+            font-size: 0.875rem;
+            /* text-sm */
+            color: #6b7280;
+            /* text-neutral-500 */
+            margin-top: 1rem;
+            /* mt-4 */
+            transition: all 0.2s;
+            /* transition-all */
+            overflow: hidden;
+
+            /* overflow-hidden */
+            @media (prefers-color-scheme: dark) {
+              color: #9ca3af;
+              /* dark:text-neutral-400 */
+            }
+
+            border-bottom-left-radius: 0;
+
+            /* rounded-bl-none */
+            @media (prefers-color-scheme: dark) {
+              border-left-color: #d1d5db;
+              /* dark:border-l-neutral-300 */
+            }
+
+            outline-color: #e5e7eb;
+            /* dark:hover:outline-neutral-400 */
+          }
+        }
+      }
+
+      /* 이미지 활성화/포커스 상태는 별도로 처리 */
+    }
+
+    /* AI 관련 및 목차 노드 스타일 */
+    .node-aiWriter,
+    .node-aiImage,
+    .node-tableOfContentsNode {
+      &.has-focus [data-node-view-wrapper]>* {
+        box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.3);
+
+        /* shadow-black/30 */
+        @media (prefers-color-scheme: dark) {
+          box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+          /* dark:shadow-white/30 */
+        }
+
+        transition: all 0.2s;
+        /* transition-all */
+        border-radius: 0.5rem;
+        /* rounded-lg */
+      }
+    }
+
+    /* gapcursor 이후 나타나는 요소에 대한 아웃라인 */
+    .ProseMirror-gapcursor+.node-imageBlock,
+    .ProseMirror-gapcursor+.node-imageUpload,
+    .ProseMirror-gapcursor+[data-type='blockquoteFigure'] {
+      outline-color: #374151;
+      /* outline-neutral-700 */
+    }
+
+    .ProseMirror-gapcursor+.node-imageBlock:hover,
+    .ProseMirror-gapcursor+.node-imageUpload:hover,
+    .ProseMirror-gapcursor+[data-type='blockquoteFigure']:hover {
+      outline-color: #4b5563;
+      /* hover:outline-neutral-600 */
+    }
+
+    @media (prefers-color-scheme: dark) {
+
+      .ProseMirror-gapcursor+.node-imageBlock,
+      .ProseMirror-gapcursor+.node-imageUpload,
+      .ProseMirror-gapcursor+[data-type='blockquoteFigure'] {
+        outline-color: #d1d5db;
+        /* dark:outline-neutral-300 */
+      }
+
+      .ProseMirror-gapcursor+.node-imageBlock:hover,
+      .ProseMirror-gapcursor+.node-imageUpload:hover,
+      .ProseMirror-gapcursor+[data-type='blockquoteFigure']:hover {
+        outline-color: #e5e7eb;
+        /* dark:hover:outline-neutral-400 */
+      }
+    }
+
+    /* blockquoteFigure 내부 스타일 */
+    [data-type='blockquoteFigure']>div {
+      border-left-width: 4px;
+      /* border-l-4 */
+      border-left-color: #374151;
+      /* border-l-neutral-700 */
+      padding-top: 0.5rem;
+      /* py-2 */
+      padding-bottom: 0.5rem;
+      /* py-2 */
+      padding-left: 1rem;
+      /* px-4 */
+      background-color: rgba(255, 255, 255, 0.8);
+      /* bg-opacity-80 */
+      border-top-left-radius: 0;
+      /* rounded-tl-none */
+      border-bottom-left-radius: 0;
+      /* rounded-bl-none */
+      border-radius: 0.5rem;
+      /* rounded-lg */
+    }
+
+    @media (prefers-color-scheme: dark) {
+      [data-type='blockquoteFigure']>div {
+        border-left-color: #d1d5db;
+        /* dark:border-l-neutral-300 */
+      }
+    }
+
+    [data-type='blockquoteFigure']>blockquote {
+      font-size: 1.125rem;
+      /* text-lg */
+      color: #000000;
+      /* text-black */
+    }
+
+    @media (prefers-color-scheme: dark) {
+      [data-type='blockquoteFigure']>blockquote {
+        color: #ffffff;
+        /* dark:text-white */
+      }
+    }
+
+    [data-type='blockquoteFigure'] figcaption {
+      font-size: 0.875rem;
+      /* text-sm */
+      color: #6b7280;
+      /* text-neutral-500 */
+      margin-top: 1rem;
+      /* mt-4 */
+      transition: all 0.2s;
+      /* transition-all */
+      overflow: hidden;
+      /* overflow-hidden */
+    }
+
+    @media (prefers-color-scheme: dark) {
+      [data-type='blockquoteFigure'] figcaption {
+        color: #9ca3af;
+        /* dark:text-neutral-400 */
+      }
     }
   }
 
-  .node-imageBlock {
-    & img {
-      @apply border-2 border-transparent rounded-xl overflow-hidden;
-    }
-
-    &:hover img {
-      @apply border-2 border-neutral-100 dark:border-neutral-900;
-    }
-
-    &:has(.is-active) img,
-    &.has-focus img {
-      @apply border-2 border-neutral-800 dark:border-neutral-200;
-    }
+  /* node-imageUpload hover 상태 */
+  .node-imageUpload:hover {
+    border-color: rgba(0, 0, 0, 0.3);
   }
 
-  .node-aiWriter,
-  .node-aiImage,
-  .node-tableOfContentsNode {
-    &.has-focus [data-node-view-wrapper] > * {
-      @apply shadow-[0_0_0_2px] shadow-black/30 dark:shadow-white/30 transition-all rounded-lg;
-    }
-  }
-
-  .ProseMirror-gapcursor + .node-imageBlock,
-  .ProseMirror-gapcursor + .node-imageUpload,
-  .ProseMirror-gapcursor + [data-type='blockquoteFigure'] {
-    @apply outline-neutral-700 hover:outline-neutral-600 dark:outline-neutral-300 dark:hover:outline-neutral-400;
-  }
-
-  [data-type='blockquoteFigure'] > div {
-    @apply border-l-4 border-l-neutral-700 py-2 px-4 bg-opacity-80 rounded-lg rounded-tl-none rounded-bl-none;
-    @apply dark:border-l-neutral-300;
-  }
-
-  [data-type='blockquoteFigure'] > blockquote {
-    @apply text-lg text-black;
-    @apply dark:text-white;
-  }
-
-  [data-type='blockquoteFigure'] figcaption {
-    @apply text-sm text-neutral-500 mt-4 transition-all overflow-hidden;
-    @apply dark:text-neutral-400;
+  /* node-imageUpload의 :has(.is-active) 및 .has-focus 상태 */
+  .node-imageUpload:has(.is-active),
+  .node-imageUpload.has-focus {
+    border-color: rgba(0, 0, 0, 0.4);
   }
 }

@@ -1,34 +1,63 @@
 .ProseMirror {
   p {
-    @apply leading-relaxed my-3 first:mt-0 last:mb-0;
+    /* @apply leading-relaxed my-3 first:mt-0 last:mb-0; */
+    line-height: 1.625; /* approximate value for leading-relaxed */
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
+    &:first-child {
+      margin-top: 0;
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 
   & > p {
-    @apply my-6 first:mt-0 last:mb-0;
+    /* @apply my-6 first:mt-0 last:mb-0; */
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    &:first-child {
+      margin-top: 0;
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 
   h1 {
-    @apply text-3xl;
+    /* @apply text-3xl; */
+    font-size: 1.875rem; /* 30px */
+    line-height: 2.25rem;
   }
 
   h2 {
-    @apply text-2xl;
+    /* @apply text-2xl; */
+    font-size: 1.5rem; /* 24px */
+    line-height: 2rem;
   }
 
   h3 {
-    @apply text-xl;
+    /* @apply text-xl; */
+    font-size: 1.25rem; /* 20px */
+    line-height: 1.75rem;
   }
 
   h4 {
-    @apply text-lg;
+    /* @apply text-lg; */
+    font-size: 1.125rem; /* 18px */
+    line-height: 1.75rem;
   }
 
   h5 {
-    @apply text-base;
+    /* @apply text-base; */
+    font-size: 1rem; /* 16px */
+    line-height: 1.5rem;
   }
 
   h6 {
-    @apply text-sm;
+    /* @apply text-sm; */
+    font-size: 0.875rem; /* 14px */
+    line-height: 1.25rem;
   }
 
   h1,
@@ -37,52 +66,101 @@
   h4,
   h5,
   h6 {
-    @apply font-bold first:mt-0 last:mb-0;
+    /* @apply font-bold first:mt-0 last:mb-0; */
+    font-weight: 700;
+    &:first-child {
+      margin-top: 0;
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 
   h1,
   h2,
   h3 {
-    @apply mt-12;
+    /* @apply mt-12; */
+    margin-top: 3rem;
   }
 
   h4,
   h5,
   h6 {
-    @apply mt-8;
+    /* @apply mt-8; */
+    margin-top: 2rem;
   }
 
   a.link {
-    @apply text-blue-500 font-extrabold dark:text-blue-400;
+    /* @apply text-blue-500 font-extrabold dark:text-blue-400; */
+    color: #3B82F6;
+    font-weight: 800;
   }
-
+  
   mark {
-    @apply bg-red-500 rounded-sm decoration-clone text-inherit py-1 px-0 dark:bg-red-400;
+    /* @apply bg-red-500 rounded-sm decoration-clone text-inherit py-1 px-0 dark:bg-red-400; */
+    background-color: #ef4444;
+    border-radius: 0.125rem;
+    /* decoration-clone은 직접 변환하는 속성이 없으므로 그대로 두거나 별도 처리합니다 */
+    color: inherit;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    padding-left: 0;
+    padding-right: 0;
   }
 
   & img {
-    @apply h-auto w-full max-w-full;
+    /* @apply h-auto w-full max-w-full; */
+    height: auto;
+    width: 100%;
+    max-width: 100%;
   }
 
   [data-type='horizontalRule'] {
-    @apply my-8 py-4 transition-all duration-100 ease-in-out cursor-pointer;
+    /* @apply my-8 py-4 transition-all duration-100 ease-in-out cursor-pointer; */
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    transition: all 100ms ease-in-out;
+    cursor: pointer;
 
     &.ProseMirror-selectednode {
-      @apply bg-black/5 dark:bg-white/10;
-
-      hr {
-        @apply border-t-black/30 dark:border-t-white/30;
-      }
+      /* @apply bg-black/5 dark:bg-white/10; */
+      background-color: rgba(0, 0, 0, 0.05);
     }
-
-    &:hover:not(&.ProseMirror-selectednode) {
-      @apply bg-black/5;
-      @apply dark:bg-white/10;
+    .dark &.ProseMirror-selectednode {
+      background-color: rgba(255, 255, 255, 0.1);
     }
 
     hr {
-      @apply border-0 border-t border-black/20 bg-black/80;
-      @apply dark:border-white/20 dark:bg-white/80;
+      /* @apply border-0 border-t border-black/20 bg-black/80; */
+      border: 0;
+      border-top: 1px solid rgba(0, 0, 0, 0.2);
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+    .dark [data-type='horizontalRule'] hr {
+      /* @apply dark:border-white/20 dark:bg-white/80; */
+      border-top-color: rgba(255, 255, 255, 0.2);
+      background-color: rgba(255, 255, 255, 0.8);
+    }
+
+    &:hover:not(&.ProseMirror-selectednode) {
+      /* @apply bg-black/5; */
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+    .dark [data-type='horizontalRule']:hover:not(&.ProseMirror-selectednode) {
+      /* @apply dark:bg-white/10; */
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    /* hr 내부의 다크모드 처리도 위와 같이 유지 */
+    &.ProseMirror-selectednode hr {
+      /* @apply border-t-black/30; */
+      border-top-color: rgba(0, 0, 0, 0.3);
+    }
+    .dark &.ProseMirror-selectednode hr {
+      /* @apply dark:border-t-white/30; */
+      border-top-color: rgba(255, 255, 255, 0.3);
     }
   }
 

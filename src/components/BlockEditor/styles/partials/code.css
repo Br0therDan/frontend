@@ -1,26 +1,53 @@
 .ProseMirror {
   code {
-    @apply caret-white text-white bg-neutral-900 rounded-sm shadow-lg font-mono;
+    /* @apply caret-white text-white bg-neutral-900 rounded-sm shadow-lg font-mono; */
+    caret-color: #ffffff;
+    color: #ffffff;
+    background-color: #111827;
+    border-radius: 0.125rem;
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
     &::selection {
-      @apply bg-white/30;
+      /* @apply bg-white/30; */
+      background-color: rgba(255,255,255,0.3);
     }
   }
 
   pre {
-    @apply caret-white bg-neutral-700 text-white rounded my-12 p-4 border border-black dark:bg-neutral-900 dark:border-neutral-800;
+    /* @apply caret-white bg-neutral-700 text-white rounded my-12 p-4 border border-black dark:bg-neutral-900 dark:border-neutral-800; */
+    caret-color: #ffffff;
+    background-color: #374151;
+    color: #ffffff;
+    border-radius: 0.25rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    padding: 1rem;
+    border: 1px solid #000000;
+
+    /* dark 모드 오버라이드 (Tailwind dark: 접두사의 경우, 페이지 최상위에 .dark 클래스가 있어야 함) */
+    .dark & {
+      background-color: #111827;
+      border-color: #1F2937;
+    }
 
     *::selection {
-      @apply bg-white/20;
+      /* @apply bg-white/20; */
+      background-color: rgba(255,255,255,0.2);
     }
 
     code {
-      @apply bg-inherit text-inherit p-0 shadow-none;
+      /* @apply bg-inherit text-inherit p-0 shadow-none; */
+      background-color: inherit;
+      color: inherit;
+      padding: 0;
+      box-shadow: none;
     }
 
     .hljs-comment,
     .hljs-quote {
-      @apply text-neutral-400;
+      /* @apply text-neutral-400; */
+      color: #9CA3AF;
     }
 
     .hljs-variable,
@@ -30,10 +57,10 @@
     .hljs-name,
     .hljs-regexp,
     .hljs-link,
-    .hljs-name,
     .hljs-selector-id,
     .hljs-selector-class {
-      @apply text-red-300;
+      /* @apply text-red-300; */
+      color: #FCA5A5;
     }
 
     .hljs-number,
@@ -43,23 +70,27 @@
     .hljs-literal,
     .hljs-type,
     .hljs-params {
-      @apply text-orange-300;
+      /* @apply text-orange-300; */
+      color: #FDBA74;
     }
 
     .hljs-string,
     .hljs-symbol,
     .hljs-bullet {
-      @apply text-lime-300;
+      /* @apply text-lime-300; */
+      color: #bef264;
     }
 
     .hljs-title,
     .hljs-section {
-      @apply text-yellow-300;
+      /* @apply text-yellow-300; */
+      color: #FCD34D;
     }
 
     .hljs-keyword,
     .hljs-selector-tag {
-      @apply text-teal-300;
+      /* @apply text-teal-300; */
+      color: #5eead4;
     }
 
     .hljs-emphasis {

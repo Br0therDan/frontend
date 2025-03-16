@@ -1,11 +1,32 @@
 .ProseMirror {
   .collaboration-cursor {
     &__caret {
-      @apply border-r border-l border-black pointer-events-none -ml-[1px] -mr-[1px] relative break-normal;
+      border-right: 1px solid black;
+      border-left: 1px solid black;
+      pointer-events: none;
+      margin-left: -1px;
+      margin-right: -1px;
+      position: relative;
+      word-break: normal;
     }
 
     &__label {
-      @apply rounded rounded-tl-none text-black text-xs font-semibold -left-[1px] leading-none py-0.5 px-1.5 absolute -top-[1.4em] select-none whitespace-nowrap;
+      border-radius: 0.25rem;
+      border-top-left-radius: 0;
+      color: black;
+      font-size: 0.75rem;
+      font-weight: 600;
+      left: -1px;
+      line-height: 1;
+      padding-top: 0.125rem;
+      padding-bottom: 0.125rem;
+      padding-left: 0.375rem;
+      padding-right: 0.375rem;
+      position: absolute;
+      top: -1.4em;
+      -webkit-user-select: none;
+      user-select: none;
+      white-space: nowrap;
     }
   }
 }

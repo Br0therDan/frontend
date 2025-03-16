@@ -1,63 +1,148 @@
 .ProseMirror {
   /* Image Block */
   figure[data-type='imageBlock'] {
-    @apply m-0;
+    margin: 0;
 
     img {
-      @apply rounded block w-full;
+      border-radius: 0.25rem;
+      display: block;
+      width: 100%;
     }
   }
 
-  /* Block Quote */
   figure[data-type='blockquoteFigure'] {
-    @apply my-14 text-black dark:text-white;
+    margin-top: 3.5rem;
+    margin-bottom: 3.5rem;
+    color: black;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    figure[data-type='blockquoteFigure'] {
+      color: white;
+    }
+  }
+
+  figure[data-type='blockquoteFigure'] {
+    &:first-child {
+      margin-top: 0;
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  figure[data-type='blockquoteFigure'] {
+    display: grid;
+    gap: 1rem;
+    margin-top: 3.5rem;
+    margin-bottom: 3rem;
   }
 
   & > blockquote,
   [data-type='blockquoteFigure'] {
     blockquote {
-      @apply m-0;
+      margin: 0;
 
       & > * {
-        @apply first:mt-0 last:mb-0;
+        &:first-child {
+          margin-top: 0;
+        }
+        &:last-child {
+          margin-bottom: 0;
+        }
       }
     }
   }
 
   /* Columns */
   [data-type='columns'] {
-    @apply grid gap-4 mt-14 mb-12;
+    overflow: auto;
+    display: grid;
+    gap: 1rem;
+    margin-top: 3.5rem;
+    margin-bottom: 3rem;
+  }
 
-    &.layout-sidebar-left {
-      grid-template-columns: 40fr 60fr;
-    }
+  &.layout-sidebar-left {
+    grid-template-columns: 40fr 60fr;
+    display: flex;
+    gap: 0.25rem;
+    margin-top: 1.5rem;
+    font-weight: bold;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    background-color: #D1D5DB;
+  }
 
-    &.layout-sidebar-right {
-      grid-template-columns: 60fr 40fr;
-    }
-
-    &.layout-two-column {
-      grid-template-columns: 1fr 1fr;
+  @media (prefers-color-scheme: dark) {
+    &.layout-sidebar-left:hover {
+      background-color: #1F2937;
     }
   }
 
+  &.layout-sidebar-left {
+    align-items: center;
+    justify-content: center;
+    transform: rotate(90deg);
+    font-size: 0.75rem;
+    height: 1.25rem;
+    width: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 0.25rem;
+  }
+
+  &.layout-sidebar-right {
+    grid-template-columns: 60fr 40fr;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  &.layout-two-column {
+    grid-template-columns: 1fr 1fr;
+  }
+
   [data-type='column'] {
-    @apply overflow-auto;
+    overflow: auto;
   }
 
   /* Details */
   [data-type='details'] {
-    @apply flex gap-1 my-6 mx-auto p-2 border border-gray-300 rounded;
+    display: flex;
+    gap: 0.25rem;
+    margin: 1.5rem auto;
+    padding: 0.5rem;
+    border: 1px solid #D1D5DB;
+    border-radius: 0.25rem;
 
     summary {
-      @apply font-bold block;
+      font-weight: bold;
+      display: block;
     }
 
     > button {
-      @apply bg-transparent border-none cursor-pointer flex items-center justify-center rounded text-xs h-5 w-5;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 0.25rem;
+      font-size: 0.75rem;
+      height: 1.25rem;
+      width: 1.25rem;
 
       &:hover {
-        @apply dark:bg-gray-800 bg-gray-300;
+        background-color: #1F2937; /* dark:bg-gray-800 */
+        background-color: #D1D5DB; /* bg-gray-300 */
       }
 
       &::before {
@@ -66,19 +151,22 @@
     }
 
     &.is-open > button::before {
-      @apply rotate-90;
+      transform: rotate(90deg);
     }
 
     > div {
-      @apply flex flex-col gap-4 w-full;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      width: 100%;
 
       > [data-type='detailsContent'] > :last-child {
-        @apply mb-2;
+        margin-bottom: 0.5rem;
       }
     }
 
     [data-type='details'] {
-      @apply my-2 mx-0;
+      margin: 0.5rem 0;
     }
   }
 }

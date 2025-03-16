@@ -1,131 +1,111 @@
 .ProseMirror {
-  .tableWrapper {
-    @apply my-12;
+  ol {
+    list-style-type: decimal;
   }
-
-  table {
-    @apply border-collapse border-black/10 rounded box-border w-full;
-    @apply dark:border-white/20;
-
-    td,
-    th {
-      @apply border border-black/10 min-w-[100px] p-2 relative text-left align-top;
-      @apply dark:border-white/20;
-
-      &:first-of-type:not(a) {
-        @apply mt-0;
-      }
-
+  
+  ul {
+    list-style-type: disc;
+  }
+  
+  ul,
+  ol {
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 8px;
+    padding-right: 8px;
+    /* 기존에 두 값이 혼재되어 있어 마지막 선언된 margin-top: 1px을 사용 */
+    margin-top: 1px;
+    margin-bottom: 1px;
+  }
+  
+  ol:first-child {
+    margin-top: 0;
+    margin-bottom: 1px;
+  }
+  
+  ol:last-child {
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
+  
+  > ul:first-child {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 0;
+    margin: 0;
+  }
+  
+  > ul:last-child,
+  > ol:last-child {
+    margin-bottom: 0;
+    display: flex;
+    
+    li {
+      /* 변환: @apply my-1 → margin-top, margin-bottom 0.25rem */
+      margin-top: 0.25rem;
+      margin-bottom: 0.25rem;
+      flex-grow: 0;
+      flex-shrink: 0;
+      flex: auto;
+      /* 기존에 margin-top: 1px이 선언되어 있으면 그대로 유지 */
+      margin-top: 1px;
+      user-select: none;
+      
       p {
-        @apply m-0;
-
-        & + p {
-          @apply mt-3;
-        }
+        text-decoration: line-through;
       }
     }
-
-    th {
-      @apply font-bold;
+  }
+  
+  /* 변환: @apply my-8 first:mt-0 last:mb-0 */
+  & > ul,
+  & > ol {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  & > ul:first-child,
+  & > ol:first-child {
+    margin-top: 0;
+  }
+  
+  & > ul:last-child,
+  & > ol:last-child {
+    margin-bottom: 0;
+  }
+  
+  ul[data-type='taskList'] {
+    /* 변환: @apply list-none p-0 */
+    list-style-type: none;
+    padding: 0;
+    
+    p {
+      /* 변환: @apply m-0 */
+      margin: 0;
     }
-
-    .column-resize-handle {
-      @apply -bottom-[2px] flex pointer-events-none absolute -right-1 top-0 w-2;
-
-      &::before {
-        @apply bg-black/20 h-full w-[1px] ml-2;
-        @apply dark:bg-white/20;
-        content: '';
+    
+    li {
+      /* 변환: @apply flex */
+      display: flex;
+      
+      > label {
+        /* 변환: @apply grow-0 shrink-0 flex-auto mt-1 mr-2 select-none */
+        flex-grow: 0;
+        flex-shrink: 0;
+        flex: 1 1 auto;
+        margin-top: 0.25rem;
+        margin-right: 0.5rem;
+        user-select: none;
       }
-    }
-
-    .selectedCell {
-      @apply bg-black/5 border-black/20 border-double;
-      @apply dark:bg-white/10 dark:border-white/20;
-    }
-
-    .grip-column,
-    .grip-row {
-      @apply items-center bg-black/5 cursor-pointer flex justify-center absolute z-10;
-      @apply dark:bg-white/10;
-    }
-
-    .grip-column {
-      @apply w-[calc(100%+1px)] border-l border-black/20 h-3 left-0 -ml-[1px] -top-3;
-      @apply dark:border-white/20;
-
-      &:hover,
-      &.selected {
-        &::before {
-          content: '';
-          @apply w-2.5;
-        }
+      
+      > div {
+        /* 변환: @apply flex-auto */
+        flex: 1 1 auto;
       }
-
-      &:hover {
-        @apply bg-black/10;
-        @apply dark:bg-white/20;
-
-        &::before {
-          @apply border-b-2 border-dotted border-black/60;
-          @apply dark:border-white/60;
-        }
-      }
-
-      &.first {
-        @apply border-transparent rounded-tl-sm;
-      }
-
-      &.last {
-        @apply rounded-tr-sm;
-      }
-
-      &.selected {
-        @apply bg-black/30 border-black/30 shadow-sm;
-        @apply dark:bg-white/30 dark:border-white/30;
-
-        &::before {
-          @apply border-b-2 border-dotted;
-        }
-      }
-    }
-
-    .grip-row {
-      @apply h-[calc(100%+1px)] border-t border-black/20 -left-3 w-3 top-0 -mt-[1px];
-      @apply dark:border-white/20;
-
-      &:hover,
-      &.selected {
-        &::before {
-          @apply h-2.5;
-          content: '';
-        }
-      }
-      &:hover {
-        @apply bg-black/10;
-        @apply dark:bg-white/20;
-
-        &::before {
-          @apply border-l-2 border-dotted border-black/60;
-          @apply dark:border-white/60;
-        }
-      }
-
-      &.first {
-        @apply border-transparent rounded-tl-sm;
-      }
-
-      &.last {
-        @apply rounded-bl-sm;
-      }
-
-      &.selected {
-        @apply bg-black/30 border-black/30 shadow-sm;
-        @apply dark:bg-white/30 dark:border-white/30;
-
-        &::before {
-          @apply border-l-2 border-dotted;
-        }
+      
+      &[data-checked='true'] {
+        /* 변환: @apply line-through */
+        text-decoration: line-through;
       }
     }
   }

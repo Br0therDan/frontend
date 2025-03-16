@@ -1,52 +1,117 @@
 .ProseMirror {
   ol {
-    @apply list-decimal;
+    list-style-type: decimal;
   }
-
+  
   ul {
-    @apply list-disc;
+    list-style-type: disc;
   }
-
+  
   ul,
   ol {
-    @apply py-0 px-8 my-6 first:mt-0 last:mb-0;
-
-    ul,
-    ol,
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 8px;
+    padding-right: 8px;
+    /* 기존에 두 값이 혼재되어 있어 마지막 선언된 margin-top: 1px을 사용 */
+    margin-top: 1px;
+    margin-bottom: 1px;
+  }
+  
+  ol:first-child {
+    margin-top: 0;
+    margin-bottom: 1px;
+  }
+  
+  ol:last-child {
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
+  
+  > ul:first-child {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 0;
+    margin: 0;
+  }
+  
+  > ul:last-child,
+  > ol:last-child {
+    margin-bottom: 0;
+    display: flex;
+    
     li {
-      @apply my-1;
-    }
-
-    p {
-      @apply mt-0 mb-1;
+      /* 변환: @apply my-1 → margin-top, margin-bottom 0.25rem */
+      margin-top: 0.25rem;
+      margin-bottom: 0.25rem;
+      flex-grow: 0;
+      flex-shrink: 0;
+      flex: auto;
+      /* 기존에 margin-top: 1px이 선언되어 있으면 그대로 유지 */
+      margin-top: 1px;
+      -webkit-user-select: none;
+      -webkit-user-select: none;
+      -webkit-user-select: none;
+      -webkit-user-select: none;
+      -webkit-user-select: none;
+      -webkit-user-select: none;
+      user-select: none;
+      
+      p {
+        text-decoration: line-through;
+      }
     }
   }
-
+  
+  /* 변환: @apply my-8 first:mt-0 last:mb-0 */
   & > ul,
   & > ol {
-    @apply my-8 first:mt-0 last:mb-0;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
   }
-
+  
+  & > ul:first-child,
+  & > ol:first-child {
+    margin-top: 0;
+  }
+  
+  & > ul:last-child,
+  & > ol:last-child {
+    margin-bottom: 0;
+  }
+  
   ul[data-type='taskList'] {
-    @apply list-none p-0;
-
+    /* 변환: @apply list-none p-0 */
+    list-style-type: none;
+    padding: 0;
+    
     p {
-      @apply m-0;
+      /* 변환: @apply m-0 */
+      margin: 0;
     }
-
+    
     li {
-      @apply flex;
-
+      /* 변환: @apply flex */
+      display: flex;
+      
       > label {
-        @apply grow-0 shrink-0 flex-auto mt-1 mr-2 select-none;
+        /* 변환: @apply grow-0 shrink-0 flex-auto mt-1 mr-2 select-none */
+        flex-grow: 0;
+        flex-shrink: 0;
+        flex: 1 1 auto;
+        margin-top: 0.25rem;
+        margin-right: 0.5rem;
+        user-select: none;
       }
-
+      
       > div {
-        @apply flex-auto;
+        /* 변환: @apply flex-auto */
+        flex: 1 1 auto;
       }
-
+      
       &[data-checked='true'] {
-        @apply line-through;
+        /* 변환: @apply line-through */
+        text-decoration: line-through;
       }
     }
   }

@@ -1,7 +1,12 @@
 .ProseMirror {
   /* Placeholder Styles */
   .is-empty::before {
-    @apply text-black/40 dark:text-white/40 float-left h-0 pointer-events-none w-full;
+    color: rgba(0, 0, 0, 0.4);
+    color: rgba(255, 255, 255, 0.4);
+    float: left;
+    height: 0;
+    pointer-events: none;
+    width: 100%;
   }
 
   &.ProseMirror-focused {
