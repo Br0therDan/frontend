@@ -47,7 +47,7 @@ export function middleware(request: NextRequest) {
   const isProtectedRoute = locales.some(
     (locale) =>
       pathname.startsWith(`/${locale}/main`) ||
-      pathname.startsWith(`/${locale}/auth`) ||
+      // pathname.startsWith(`/${locale}/auth`) ||
       pathname.startsWith(`/${locale}/admin`)
   );
   if (isProtectedRoute && !request.cookies.get('access_token')) {
@@ -61,7 +61,6 @@ export const config = {
   matcher: [
     '/((?!api|_next|.*\\..*).*)',
     '/[locale]/main/:path*',
-    '/[locale]/auth/:path*',
     '/[locale]/docs/:path*',
   ],
 };

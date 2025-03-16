@@ -3,8 +3,8 @@ import { DocsService } from '@/lib/api'
 import { notFound } from 'next/navigation'
 import sanitizeHtml from 'sanitize-html'
 
-export default async function DocsPage({ params }: { params: { docId: string } }) {
-  const { docId } = params
+export default async function DocsPage({ params }: { params: Promise<{ docId: string }> }) {
+  const { docId } = await params
   
   console.log('DocsPage - docId:', docId)
   

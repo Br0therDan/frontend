@@ -8,12 +8,14 @@ export const MyLogo = ({
   ...props
 }: React.ImgHTMLAttributes<HTMLImageElement>) => {
   return (
-    <img
-      src='/images/logo_sq_light.png'
-      alt={alt}
-      className={cn('size-8 min-w-8 dark:hidden', className)} // Light 모드일 때
-      {...props}
-    />
+    <a href='/'>
+      <img
+        src='/images/logo_sq_light.png'
+        alt={alt}
+        className={cn('size-8 min-w-8 dark:hidden', className)} // Light 모드일 때
+        {...props}
+      />
+    </a>
   )
 }
 
@@ -28,12 +30,14 @@ export const MyLogoDark = ({
   ...props
 }: React.ImgHTMLAttributes<HTMLImageElement>) => {
   return (
-    <img
-      src='/images/logo_sq_dark.png'
-      alt={alt}
-      className={cn('size-8 min-w-8 hidden dark:block', className)} // Dark 모드일 때
-      {...props}
-    />
+    <a href='/'>
+      <img
+        src='/images/logo_sq_dark.png'
+        alt={alt}
+        className={cn('size-8 min-w-8 hidden dark:block', className)} // Dark 모드일 때
+        {...props}
+      />
+    </a>
   )
 }
 

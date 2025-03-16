@@ -4,12 +4,7 @@
 import React, { useState, useEffect } from "react";
 import { useEditor, EditorContent, BubbleMenu } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import Link from "@tiptap/extension-link";
-import Image from "@tiptap/extension-image";
-import Youtube from "@tiptap/extension-youtube";
-import CustomCodeBlockLowlight from "@/utils/codeBlockIndent";
-import { Indent } from "@/utils/indent";
-import { Markdown } from "tiptap-markdown";
+
 
 interface TiptapEditorProps {
   onChange: (content: string) => void;
@@ -28,22 +23,7 @@ const TiptapEditor: React.FC<TiptapEditorProps> = ({
 
   const editor = useEditor({
     extensions: [
-      StarterKit.configure({
-        codeBlock: false,
-      }),
-      Link.extend({ inclusive: false }).configure({
-        openOnClick: false,
-      }),
-      Markdown,
-      CustomCodeBlockLowlight,
-      Indent,
-      Image.configure({
-        inline: true,
-      }),
-      Youtube.configure({
-        width: 640,
-        height: 360,
-      }),
+      StarterKit
     ],
     content,
     onUpdate({ editor }) {

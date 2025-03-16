@@ -30,22 +30,26 @@ import { Button } from '@/components/ui/button'
 import Loading from '@/components/common/Loading'
 import { handleApiError } from '@/lib/errorHandler'
 import { useTranslations } from 'next-intl'
-// import {
-//   Dialog,
-//   DialogContent,
-//   DialogHeader,
-//   DialogTitle,
-//   DialogClose,
-// } from '@/components/ui/dialog'
-import TiptapEditor from '@/components/editor/Editor'
+import { BlockEditor } from '@/components/BlockEditor'
+import { useSearchParams } from 'next/navigation'
+import { useCollaboration } from '@/hooks/useCollaboration'
+
 
 interface DocumentFormProps {
+  params: {docId: string}
   initialData?: DocumentPublic
   mode: 'add' | 'edit'
-}
+}    
 
-export default function DocumentForm({ initialData, mode }: DocumentFormProps) {
+export default function DocumentForm({ params, initialData, mode }: DocumentFormProps) {
   const [loading, setLoading] = useState(false)
+  const [aiToken, setAiToken] = useState<string | null | undefined>()
+  const searchParams = useSearchParams()
+  const providerState = useCollaboration({
+    docId: params.docId,
+    enabled: parseInt(searchParams?.get('noCollab') as string) !== 1,
+  })
+
   const t = useTranslations()
 
   const methods = useForm<DocumentUpdate>({
@@ -89,6 +93,38 @@ export default function DocumentForm({ initialData, mode }: DocumentFormProps) {
       setLoading(false)
     }
   }
+
+  useEffect(() => {
+    // fetch data
+    const dataFetch = async () => {
+      try {
+        const response = await fetch('/api/ai', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+
+        if (!response.ok) {
+          throw new Error('No AI token provided, please set TIPTAP_AI_SECRET in your environment')
+        }
+        const data = await response.json()
+
+        const { token } = data
+
+        // set state when the data received
+        setAiToken(token)
+      } catch (e) {
+        if (e instanceof Error) {
+          console.error(e.message)
+        }
+        setAiToken(null)
+        return
+      }
+    }
+
+    dataFetch()
+  }, [])
 
   useEffect(() => {
     const loadCategories = async () => {
@@ -238,24 +274,26 @@ export default function DocumentForm({ initialData, mode }: DocumentFormProps) {
           </div>
         </div>
         {/* 에디터 영역 */}
-        <div className='flex flex-col gap-2'>
-          <Controller
-            control={control}
-            name='content'
-            rules={{ required: 'Content is required.' }}
-            render={({ field }) => (
-              <div>
-                <TiptapEditor
-                  initialValue={field.value as string}
-                  onChange={field.onChange}
-                />
-              </div>
-            )}
-          />
-          {errors.content && (
-            <FormMessage>{errors.content.message as string}</FormMessage>
-          )}
-        </div>
+        <div className="grid gap-2 py-2">
+              <Controller
+                control={control}
+                name="content"
+                rules={{ required: 'Content is required.' }}
+                render={({ field }) => (
+                  <div className="border border-gray-300 rounded">
+                    <BlockEditor
+                      aiToken={aiToken ?? undefined}
+                      ydoc={providerState.yDoc}        // Y.Doc 인스턴스를 전달 (필요 시 생성)
+                      provider={providerState.provider} // Hocuspocus Provider 인스턴스를 전달
+                      onContentChange={field.onChange}
+                    />
+                  </div>
+                )}
+              />
+              {errors.content && (
+                <FormMessage>{errors.content.message as string}</FormMessage>
+              )}
+            </div>
         {/* 액션 버튼 */}
         <div className='flex justify-end gap-4 pt-4 border-t border-gray-200'>
           <Button
@@ -281,3 +319,4 @@ export default function DocumentForm({ initialData, mode }: DocumentFormProps) {
     </FormProvider>
   )
 }
+

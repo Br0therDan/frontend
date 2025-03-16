@@ -17,7 +17,6 @@ import { toast } from 'sonner'
 import { useAuth } from '@/contexts/AuthContext'
 import { handleApiError } from '@/lib/errorHandler'
 import { useTranslations } from 'next-intl'
-import { useRouter } from 'next/navigation'
 import { MyLogo, MyLogoDark } from '@/components/common/brand/logo'
 
 interface ForgotPasswordForm {
@@ -32,7 +31,7 @@ export default function ForgotPassword() {
     formState: { errors, isSubmitting },
   } = useForm<ForgotPasswordForm>()
 
-  const router = useRouter()
+
   const { forgotPassword } = useAuth()
   const t = useTranslations()
 
@@ -83,15 +82,14 @@ export default function ForgotPassword() {
                   </p>
                 )}
               </div>
-              <div className='flex gap-4'>
-                <Button
+              <div className='flex gap-2 w-full'>
+                {/* <Button
                   variant='outline'
-                  className='w-full'
                   onClick={() => router.push('/auth/login')}
                 >
                   {t('forms.forgot_password.back_to_login')}
-                </Button>
-                <Button type='submit' className='w-full'>
+                </Button> */}
+                <Button type='submit' className="w-full">
                   {isSubmitting ? (
                     <>
                       <Loader2 className='animate-spin' />

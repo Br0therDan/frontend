@@ -24,3 +24,4 @@ export default async function AdminLayout({
     </SidebarProvider>
   )
 }
+//http://local.mysingle.io:3000/auth/login
