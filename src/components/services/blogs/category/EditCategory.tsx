@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import { useForm, SubmitHandler, FormProvider } from 'react-hook-form'
-import { CategoryPublic, CategoryUpdate } from '@/client/blog'
+import { CategoryPublic, CategoryUpdate } from '@/client/posts'
 import { toast } from 'sonner'
 import {
   Dialog,

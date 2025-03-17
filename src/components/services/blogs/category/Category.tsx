@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import { useEffect, useState } from 'react'
-import { CategoryPublic } from '@/client/blog'
+import { CategoryPublic } from '@/client/posts'
 import EditCategory from './EditCategory'
 import AddCategory from './AddCategory'
 import { toast } from 'sonner'

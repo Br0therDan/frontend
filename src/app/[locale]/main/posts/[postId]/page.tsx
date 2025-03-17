@@ -2,7 +2,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
-import { PostPublic } from '@/client/blog' // 예시: 타입 정의
+import { PostPublic } from '@/client/posts' // 예시: 타입 정의
 import { formatDateTime } from '@/utils/formatDate'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -12,7 +12,7 @@ import { useTranslations } from 'next-intl'
 import { handleApiError } from '@/lib/errorHandler'
 import { toast } from 'sonner'
 
-export default function BlogPostPage() {
+export default function PostsPostPage() {
   const params = useParams()
   const router = useRouter()
 
@@ -56,7 +56,7 @@ export default function BlogPostPage() {
       <div className='p-4'>
         <p className='text-red-500'>Error: {error}</p>
         <button
-          onClick={() => router.push('/main/blogs')}
+          onClick={() => router.push('/main/postss')}
           className='mt-2 text-blue-500 underline'
         >
           Go back
@@ -71,7 +71,7 @@ export default function BlogPostPage() {
       <div className='p-4'>
         <p>Post not found.</p>
         <button
-          onClick={() => router.push('/main/blogs')}
+          onClick={() => router.push('/main/postss')}
           className='mt-2 text-blue-500 underline'
         >
           Go back
@@ -106,13 +106,13 @@ export default function BlogPostPage() {
           </div>
           <div className='flex justify-end gap-4'>
             <Button
-              onClick={() => router.push(`/main/blogs/${post._id}/edit`)}
+              onClick={() => router.push(`/main/postss/${post._id}/edit`)}
               variant='outline'
             >
               편집
             </Button>
             <Button
-              onClick={() => router.push('/main/blogs')}
+              onClick={() => router.push('/main/postss')}
               variant='outline'
             >
               목록으로
@@ -127,12 +127,12 @@ export default function BlogPostPage() {
       />
       <div className='flex justify-end gap-4 px-2'>
         <Button
-          onClick={() => router.push(`/main/blogs/${post._id}/edit`)}
+          onClick={() => router.push(`/main/postss/${post._id}/edit`)}
           variant='outline'
         >
           편집
         </Button>
-        <Button onClick={() => router.push('/main/blogs')} variant='outline'>
+        <Button onClick={() => router.push('/main/postss')} variant='outline'>
           목록으로
         </Button>
       </div>

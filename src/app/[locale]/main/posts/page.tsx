@@ -1,9 +1,9 @@
 'use client'
 import React from 'react'
-import PostTable from '@/components/services/blogs/post/PostTable'
+import PostTable from '@/components/services/postss/post/PostTable'
 import PageTitle from '@/components/common/PageTitle'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import Category from '@/components/services/blogs/category/Category'
+import Category from '@/components/services/postss/category/Category'
 import { useTranslations } from 'next-intl'
 
 const tabsConfig = [
@@ -11,7 +11,7 @@ const tabsConfig = [
   { title: '카테고리 관리', component: Category },
 ]
 
-export default function BlogPage() {
+export default function PostsPage() {
   const finalTabs = tabsConfig
   const t = useTranslations()
   return (

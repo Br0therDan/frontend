@@ -16,12 +16,16 @@ import { useBlockEditor } from '@/hooks/useBlockEditor'
 export const BlockEditor = ({
   aiToken,
   ydoc,
+  userId,
+  userName,
   initialContent,
   provider,
   onContentChange,
 }: {
   aiToken?: string
   ydoc: Y.Doc | null
+  userId: string
+  userName?: string
   initialContent?: string
   provider?: TiptapCollabProvider | null | undefined
   onContentChange?: (content: string) => void
@@ -32,6 +36,8 @@ export const BlockEditor = ({
   const { editor, users, collabState } = useBlockEditor({
     aiToken,
     ydoc,
+    userId,
+    userName,
     initialContent,
     provider,
     onTransaction({ editor: currentEditor }) {

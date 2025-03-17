@@ -1,3 +1,4 @@
+// path: src/components/admin/docs/document/DocsForm.tsx
 'use client'
 import React, { useEffect, useState, useMemo } from 'react'
 import {
@@ -31,20 +32,44 @@ import { handleApiError } from '@/lib/errorHandler'
 import { useTranslations } from 'next-intl'
 import { BlockEditor } from '@/components/BlockEditor'
 import { useCollaboration } from '@/hooks/useCollaboration'
+import { useAuth } from '@/contexts/AuthContext'
 
 interface DocumentFormProps {
-  initialData?: DocumentPublic
   mode: 'add' | 'edit'
+  app_name: string
+  doc_id?: string
 }
 
-export default function DocumentForm({ initialData, mode }: DocumentFormProps) {
+export default function DocumentForm({ mode, app_name, doc_id }: DocumentFormProps) {
   const [loading, setLoading] = useState(false)
   const [aiToken, setAiToken] = useState<string | null | undefined>()
+  const [doc, setDoc] = React.useState<DocumentPublic | null >(null);
+  useEffect(() => {
+    const fetchDoc = async () => {
+      try {
+        setLoading(true);
+        const response = await DocsService.docsReadDocumentByApp(
+          mode === 'edit' ? doc_id || '' : '',
+          app_name
+        );
+
+        const doc = response.data
+        setDoc(doc);
+      } catch (err) {
+        handleApiError(err, (message) => toast.error(message.title))
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchDoc();
+  }, []);
+
   const providerState = useCollaboration({
-    docId: initialData?._id || '',
+    docId: doc?._id || '',
     enabled: true,
   })
 
+  const { user: currentUser } = useAuth()
   const t = useTranslations()
 
   const methods = useForm<DocumentUpdate>({
@@ -53,9 +78,9 @@ export default function DocumentForm({ initialData, mode }: DocumentFormProps) {
     defaultValues:
       mode === 'edit'
         ? {
-            ...initialData,
-            category_id: initialData?.category?._id || '',
-            subcategory_id: initialData?.subcategory?._id || '',
+            ...doc,
+            category_id: doc?.category?._id || '',
+            subcategory_id: doc?.subcategory?._id || '',
           }
         : {
             title: '',
@@ -63,6 +88,8 @@ export default function DocumentForm({ initialData, mode }: DocumentFormProps) {
             is_public: false,
             category_id: '',
             subcategory_id: '',
+            app_name: app_name || '',
+            media_assets: [] as string[],
           },
   })
 
@@ -89,6 +116,8 @@ export default function DocumentForm({ initialData, mode }: DocumentFormProps) {
       setLoading(false)
     }
   }
+
+
 
   useEffect(() => {
     // fetch AI token
@@ -183,6 +212,8 @@ export default function DocumentForm({ initialData, mode }: DocumentFormProps) {
 
   if (loading) return <Loading />
 
+  if (!currentUser) return null
+
   return (
     <FormProvider {...methods}>
       <form
@@ -251,7 +282,7 @@ export default function DocumentForm({ initialData, mode }: DocumentFormProps) {
           <div className='flex flex-col gap-1'>
             <input
               id='title'
-              {...register('title', { required: 'Blog title is required.' })}
+              {...register('title', { required: 'Posts title is required.' })}
               placeholder={t('forms.create_doc.title_placeholder')}
               className='border-b border-gray-300 text-2xl font-semibold bg-transparent p-2 focus:outline-none'
             />
@@ -280,6 +311,8 @@ export default function DocumentForm({ initialData, mode }: DocumentFormProps) {
             render={({ field }) => (
               <BlockEditor
                 aiToken={aiToken ?? undefined}
+                userId={currentUser?._id}
+                userName={currentUser?.fullname ?? undefined}
                 ydoc={providerState.yDoc}
                 provider={providerState.provider}
                 initialContent={

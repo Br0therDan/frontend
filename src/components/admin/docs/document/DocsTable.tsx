@@ -15,7 +15,11 @@ import { FaPlus } from 'react-icons/fa'
 import { useRouter } from 'next/navigation'
 import { useApp } from '@/contexts/AppContext'
 
-export default function DocsTable() {
+interface DocsTableProps {
+  app_name: string
+}
+
+export default function DocsTable({ app_name }: DocsTableProps) {
   const [docs, setDocs] = useState<DocumentPublic[]>([])
   const router = useRouter()
   const [loading, setLoading] = useState<boolean>(true)
@@ -29,7 +33,7 @@ export default function DocsTable() {
     const fetchDocs = async () => {
       setLoading(true)
       try {
-        const response = await DocsService.docsReadDocs()
+        const response = await DocsService.docsReadDocsByApp(app_name)
         setDocs(response.data)
       } catch (err) {
         handleApiError(err, (message) => toast.error(message.title))

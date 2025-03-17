@@ -19,7 +19,7 @@ import {
   PostCreate,
   PostPublic,
   PostUpdate,
-} from '@/client/blog'
+} from '@/client/posts'
 import { toast } from 'sonner'
 import { Label } from '@/components/ui/label'
 // import { FormMessage } from '@/components/ui/form';
@@ -248,7 +248,7 @@ export default function PostForm({ mode, initialData }: PostFormProps) {
               <input
                 id='title'
                 {...register('title', {
-                  required: 'Blog title is required.',
+                  required: 'Posts title is required.',
                 })}
                 placeholder={t('forms.create_post.title_placeholder')}
                 className='border-none text-3xl bg-transparent px-2 placeholder:text-3xl h-14 focus-visible:outline-none'

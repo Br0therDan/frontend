@@ -47,10 +47,10 @@ const typeMessages: Record<
     error: 'An error occurred while deleting the document.',
   },
   Post: {
-    title: 'Delete Blog',
-    description: 'This blog will be permanently deleted.',
-    success: 'The blog was deleted successfully.',
-    error: 'An error occurred while deleting the blog.',
+    title: 'Delete Posts',
+    description: 'This posts will be permanently deleted.',
+    success: 'The posts was deleted successfully.',
+    error: 'An error occurred while deleting the posts.',
   },
 }
 

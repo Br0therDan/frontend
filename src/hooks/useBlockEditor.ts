@@ -26,7 +26,7 @@ export const useBlockEditor = ({
   initialContent = "<p>Start writing...</p>",
   provider,
   userId,
-  userName = 'Maxi',
+  userName,
   onContentChange, // 새로 추가한 콜백 prop
   onTransaction: parentOnTransaction, // 부모 콜백도 받기
   ...editorOptions

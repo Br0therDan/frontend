@@ -7,7 +7,7 @@ import {
   OAuth2Api,
 } from '@/client/iam'
 import { PostsApi, CategoriesApi } from '@/client/posts'
-import { DocsApi, CategoriesApi as CatApi } from '@/client/docs'
+import { DocsApi, MediaAssetsApi, AppsApi, CategoriesApi as CatApi } from '@/client/docs'
 import {
   AssetsApi,
   BacktestResultsApi,
@@ -57,6 +57,8 @@ export const CategoryService = new CategoriesApi(postsConfiguration)
 
 export const DocsService = new DocsApi(docsConfiguration)
 export const CatService = new CatApi(docsConfiguration)
+export const MediaAssetsService = new MediaAssetsApi(docsConfiguration)
+export const AppsService = new AppsApi(docsConfiguration)
 
 export const CommunitiesService = new CommunitiesApi(kidsConfiguration)
 export const AlertsService = new AlertsApi(kidsConfiguration)

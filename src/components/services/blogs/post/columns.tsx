@@ -1,5 +1,5 @@
 import React from 'react'
-import { PostPublic } from '@/client/blog'
+import { PostPublic } from '@/client/posts'
 import { Button } from '@/components/ui/button'
 import { ColumnDef } from '@tanstack/react-table'
 import { ArrowUpDown, Trash2, UserRoundPen } from 'lucide-react'

@@ -1,3 +1,4 @@
+// path: src/app/[locale]/admin/[app]/docs/[docId]/page.tsx
 import React from 'react'
 import { DocsService } from '@/lib/api'
 import { notFound } from 'next/navigation'
