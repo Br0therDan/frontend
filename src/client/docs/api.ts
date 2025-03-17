@@ -289,6 +289,18 @@ export interface DocumentPublic {
 	is_public: boolean;
 	/**
 	 *
+	 * @type {DocsCategoryPublic}
+	 * @memberof DocumentPublic
+	 */
+	category?: DocsCategoryPublic | null;
+	/**
+	 *
+	 * @type {DocsSubcategoryPublic}
+	 * @memberof DocumentPublic
+	 */
+	subcategory?: DocsSubcategoryPublic | null;
+	/**
+	 *
 	 * @type {string}
 	 * @memberof DocumentPublic
 	 */
