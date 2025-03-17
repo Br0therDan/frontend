@@ -9,7 +9,6 @@ import type { Doc as YDoc } from 'yjs'
 import { userColors, userNames } from '../lib/constants'
 import { randomElement } from '@/lib/tiptap-utils'
 import type { EditorUser } from '../components/BlockEditor/types'
-import { initialContent } from '@/lib/data/initialContent'
 
 import { AiWriter } from '@/components/BlockEditor/extensions'
 import ExtensionKit from '@/components/BlockEditor/extensions/extension-kit'
@@ -24,16 +23,22 @@ declare global {
 export const useBlockEditor = ({
   aiToken,
   ydoc,
+  initialContent = "<p>Start writing...</p>",
   provider,
   userId,
   userName = 'Maxi',
+  onContentChange, // 새로 추가한 콜백 prop
+  onTransaction: parentOnTransaction, // 부모 콜백도 받기
   ...editorOptions
 }: {
   aiToken?: string
   ydoc: YDoc | null
+  initialContent?: string
   provider?: TiptapCollabProvider | null | undefined
   userId?: string
   userName?: string
+  onContentChange?: (content: string) => void
+  onTransaction?: (params: { editor: Editor }) => void
 } & Partial<Omit<EditorOptions, 'extensions'>>) => {
   const [collabState, setCollabState] = useState<WebSocketStatus>(
     provider ? WebSocketStatus.Connecting : WebSocketStatus.Disconnected,
@@ -57,6 +62,16 @@ export const useBlockEditor = ({
         } else if (ctx.editor.isEmpty) {
           ctx.editor.commands.setContent(initialContent)
           ctx.editor.commands.focus('start', { scrollIntoView: true })
+        }
+      },
+      onTransaction({ editor: currentEditor }) {
+        // 부모 콜백이 있다면 먼저 호출
+        if (parentOnTransaction) {
+          parentOnTransaction({ editor: currentEditor })
+        }
+        // 그리고 onContentChange 업데이트
+        if (onContentChange) {
+          onContentChange(currentEditor.getHTML())
         }
       },
       extensions: [
@@ -83,7 +98,6 @@ export const useBlockEditor = ({
               authorName: userName,
             })
           : undefined,
-
         aiToken ? Ai.configure({ token: aiToken }) : undefined,
       ].filter((e): e is AnyExtension => e !== undefined),
       editorProps: {
@@ -109,7 +123,6 @@ export const useBlockEditor = ({
         const firstName = names?.[0]
         const lastName = names?.[names.length - 1]
         const initials = `${firstName?.[0] || '?'}${lastName?.[0] || '?'}`
-
         return { ...user, initials: initials.length ? initials : '?' }
       })
     },

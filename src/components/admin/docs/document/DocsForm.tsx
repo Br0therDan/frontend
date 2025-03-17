@@ -1,4 +1,3 @@
-// path: src/components/admin/docs/document/DocsForm.tsx
 'use client'
 import React, { useEffect, useState, useMemo } from 'react'
 import {
@@ -31,23 +30,19 @@ import Loading from '@/components/common/Loading'
 import { handleApiError } from '@/lib/errorHandler'
 import { useTranslations } from 'next-intl'
 import { BlockEditor } from '@/components/BlockEditor'
-import { useSearchParams } from 'next/navigation'
 import { useCollaboration } from '@/hooks/useCollaboration'
 
-
 interface DocumentFormProps {
-  params: {docId: string}
   initialData?: DocumentPublic
   mode: 'add' | 'edit'
-}    
+}
 
-export default function DocumentForm({ params, initialData, mode }: DocumentFormProps) {
+export default function DocumentForm({ initialData, mode }: DocumentFormProps) {
   const [loading, setLoading] = useState(false)
   const [aiToken, setAiToken] = useState<string | null | undefined>()
-  const searchParams = useSearchParams()
   const providerState = useCollaboration({
-    docId: params.docId,
-    enabled: parseInt(searchParams?.get('noCollab') as string) !== 1,
+    docId: initialData?._id || '',
+    enabled: true,
   })
 
   const t = useTranslations()
@@ -77,6 +72,7 @@ export default function DocumentForm({ params, initialData, mode }: DocumentForm
     control,
     reset,
     watch,
+    setValue, // 추가
     formState: { errors, isSubmitting, isDirty },
   } = methods
 
@@ -95,7 +91,7 @@ export default function DocumentForm({ params, initialData, mode }: DocumentForm
   }
 
   useEffect(() => {
-    // fetch data
+    // fetch AI token
     const dataFetch = async () => {
       try {
         const response = await fetch('/api/ai', {
@@ -106,13 +102,13 @@ export default function DocumentForm({ params, initialData, mode }: DocumentForm
         })
 
         if (!response.ok) {
-          throw new Error('No AI token provided, please set TIPTAP_AI_SECRET in your environment')
+          throw new Error(
+            'No AI token provided, please set TIPTAP_AI_SECRET in your environment'
+          )
         }
         const data = await response.json()
-
         const { token } = data
 
-        // set state when the data received
         setAiToken(token)
       } catch (e) {
         if (e instanceof Error) {
@@ -171,16 +167,18 @@ export default function DocumentForm({ params, initialData, mode }: DocumentForm
   }
 
   const onSubmit: SubmitHandler<DocumentUpdate> = async (doc) => {
+    const content = watch('content')
+    const updatedDoc = { ...doc, content }
+
     if (mode === 'add') {
-      await addDocument(doc as DocumentCreate)
+      await addDocument(updatedDoc as DocumentCreate)
     } else {
-      await updateDocument(doc as DocumentUpdate)
+      await updateDocument(updatedDoc as DocumentUpdate)
     }
   }
 
   const onCancel = () => {
     reset()
-    // onClose()
   }
 
   if (loading) return <Loading />
@@ -274,26 +272,32 @@ export default function DocumentForm({ params, initialData, mode }: DocumentForm
           </div>
         </div>
         {/* 에디터 영역 */}
-        <div className="grid gap-2 py-2">
-              <Controller
-                control={control}
-                name="content"
-                rules={{ required: 'Content is required.' }}
-                render={({ field }) => (
-                  <div className="border border-gray-300 rounded">
-                    <BlockEditor
-                      aiToken={aiToken ?? undefined}
-                      ydoc={providerState.yDoc}        // Y.Doc 인스턴스를 전달 (필요 시 생성)
-                      provider={providerState.provider} // Hocuspocus Provider 인스턴스를 전달
-                      onContentChange={field.onChange}
-                    />
-                  </div>
-                )}
+        <div className='grid gap-2 py-2'>
+          <Controller
+            control={control}
+            name='content'
+            rules={{ required: 'Content is required.' }}
+            render={({ field }) => (
+              <BlockEditor
+                aiToken={aiToken ?? undefined}
+                ydoc={providerState.yDoc}
+                provider={providerState.provider}
+                initialContent={
+                  mode === 'add' && !field.value
+                    ? undefined
+                    : (field.value as string)
+                }
+                onContentChange={(content) => {
+                  field.onChange(content)
+                  setValue('content', content, { shouldDirty: true })
+                }}
               />
-              {errors.content && (
-                <FormMessage>{errors.content.message as string}</FormMessage>
-              )}
-            </div>
+            )}
+          />
+          {errors.content && (
+            <FormMessage>{errors.content.message as string}</FormMessage>
+          )}
+        </div>
         {/* 액션 버튼 */}
         <div className='flex justify-end gap-4 pt-4 border-t border-gray-200'>
           <Button
@@ -319,4 +323,3 @@ export default function DocumentForm({ params, initialData, mode }: DocumentForm
     </FormProvider>
   )
 }
-

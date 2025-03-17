@@ -16,11 +16,13 @@ import { useBlockEditor } from '@/hooks/useBlockEditor'
 export const BlockEditor = ({
   aiToken,
   ydoc,
+  initialContent,
   provider,
-  onContentChange, // 새로 추가한 콜백 prop
+  onContentChange,
 }: {
   aiToken?: string
   ydoc: Y.Doc | null
+  initialContent?: string
   provider?: TiptapCollabProvider | null | undefined
   onContentChange?: (content: string) => void
 }) => {
@@ -30,13 +32,14 @@ export const BlockEditor = ({
   const { editor, users, collabState } = useBlockEditor({
     aiToken,
     ydoc,
+    initialContent,
     provider,
     onTransaction({ editor: currentEditor }) {
       setIsEditable(currentEditor.isEditable)
-      if (onContentChange) {
-        onContentChange(currentEditor.getHTML())
-      }
+      // 부모 onTransaction는 전달되지 않으므로, 이 부분은
+      // 이제 useBlockEditor 내부에서 처리됩니다.
     },
+    onContentChange, // 전달한 onContentChange가 useBlockEditor로 전달됨
   })
 
   if (!editor || !users) {
