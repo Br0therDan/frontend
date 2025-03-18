@@ -1,4 +1,5 @@
 // path: src/app/[locale]/admin/[app]/docs/[docId]/page.tsx
+
 import React from 'react'
 import { DocsService } from '@/lib/api'
 import { notFound } from 'next/navigation'
@@ -11,7 +12,7 @@ export default async function DocsPage({ params }: { params: Promise<{ docId: st
   
   let doc
   try {
-    const response = await DocsService.docsReadDocument(docId)
+    const response = await DocsService.docsReadDocumentByApp(docId)
 
     doc = response.data
     if (!doc) {

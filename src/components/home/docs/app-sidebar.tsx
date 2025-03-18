@@ -25,7 +25,7 @@ const mockdata = {
 async function FetchDocs() {
   let docs: DocumentPublic[] | null = null
   try {
-    const response = await DocsService.docsReadPublicDocs()
+    const response = await DocsService.docsReadPublicDocsByApp()
     docs = response.data
   } catch (err) {
     handleApiError(err, (message) => toast.error(message.title))

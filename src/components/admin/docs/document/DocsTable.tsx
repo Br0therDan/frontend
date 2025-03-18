@@ -53,7 +53,7 @@ export default function DocsTable({ app_name }: DocsTableProps) {
       <Button
         variant='ghost'
         className='flex items-center overflow-auto min-w-20 gap-2'
-        onClick={() => handleRoute(activeApp.name)}
+        onClick={() => handleRoute(activeApp.path)}
       >
         <FaPlus /> Add Document
       </Button>
