@@ -5,7 +5,7 @@ import { SidebarProvider } from '@/components/ui/sidebar'
 import AdminSidebar from '@/components/admin/admin-sidebar'
 import AdminHeader from '@/components/admin/admin-header'
 
-export default async function AdminLayout({
+export default function AdminLayout({
   children,
 }: {
   children: React.ReactNode
@@ -24,4 +24,3 @@ export default async function AdminLayout({
     </SidebarProvider>
   )
 }
-//http://local.mysingle.io:3000/auth/login

@@ -1,5 +1,5 @@
 // path: src/components/admin/docs/document/columns.tsx
-
+'use client'
 import React from 'react'
 import { Button } from '@/components/ui/button'
 import { ColumnDef } from '@tanstack/react-table'

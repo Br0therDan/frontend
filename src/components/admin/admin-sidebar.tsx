@@ -58,9 +58,24 @@ export default function AdminSidebar() {
               plan: 'Free',
               path: 'quant',
             },
-            { name: 'HomeBrew', logo: Beer, plan: 'Free', path: 'homebrew' },
-            { name: 'Locations', logo: Globe, plan: 'Free', path: 'locations' },
-            { name: 'Yachts', logo: ShipWheel, plan: 'Free', path: 'yachts' },
+            { 
+              name: 'HomeBrew', 
+              logo: Beer, 
+              plan: 'Free', 
+              path: 'homebrew' 
+            },
+            { 
+              name: 'Locations', 
+              logo: Globe, 
+              plan: 'Free', 
+              path: 'locations' 
+            },
+            { 
+              name: 'Yachts', 
+              logo: ShipWheel, 
+              plan: 'Free', 
+              path: 'yachts' 
+            },
           ]}
         />
         <AdminSearchForm />

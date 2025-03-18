@@ -3,16 +3,17 @@ import PageTitle from '@/components/common/PageTitle'
 import { capitalizeFirstLetter } from '@/utils/formatName'
 import React from 'react'
 
+// 앱 대시보드 페이지 (params로 appName 전달) - SSR
 export default async function AppPage({
   params,
 }: {
-  params: Promise<{ app: string }>
+  params: Promise<{ appName: string }>
 }) {
-  const { app } = await params
+  const { appName } = await params
   
   return (
     <div>
-      <PageTitle title={`${capitalizeFirstLetter(app)} Dashboard`} />
+      <PageTitle title={`${capitalizeFirstLetter(appName)} Dashboard`} />
     </div>
   )
 }
