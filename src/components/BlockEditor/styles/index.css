@@ -1,22 +1,25 @@
 .ProseMirror {
-  caret-color: black;
+  cursor: text;
+  caret-color: auto;
   outline: 0;
-  padding-right: 2rem;
-  padding-left: 5rem;
-  padding-top: 4rem;
-  padding-bottom: 4rem;
+
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
   z-index: 0;
   margin-left: auto;
   margin-right: auto;
-  max-width: 42rem;
+  max-width: 64rem;
+  min-height: 100px;
 
   @media (min-width: 1024px) {
     padding-left: 2rem;
     padding-right: 2rem;
   }
 
-  @media (prefers-color-scheme: dark) {
-    caret-color: white;
+  @media (prefers-color-scheme: light) {
+    caret-color: red
   }
 
   .selection {
@@ -25,8 +28,8 @@
 
   .selection,
   *::selection {
-    background-color: rgba(0, 0, 0, 0.1);
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: #B3D4FC; /* 선택 영역 배경색 */
+    color: #000; /* 선택 영역 글자색 */
     display: inline;
   }
 

@@ -18,10 +18,10 @@ export default async function DocsPage({
 }: {
   params: Promise<DocsPageProps['params']>
 }) {
-  const {appName} = await params
-  
+  const { appName } = await params
+
   return (
-    <div>
+    <div className='flex flex-col h-full p-4 sm:p-8'>
       <PageTitle
         title={`${capitalizeFirstLetter(appName)} Document Management`}
       />

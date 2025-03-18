@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { Loader2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { Button } from '@/components/ui/button'
 
 /**
  * Supported variants. Add more if your design calls for it,
@@ -54,7 +55,7 @@ export const MyButton = React.forwardRef<HTMLButtonElement, MyButtonProps>(
     )
 
     return (
-      <button
+      <Button
         ref={ref}
         className={baseClasses}
         disabled={disabled || isLoading}
@@ -68,7 +69,7 @@ export const MyButton = React.forwardRef<HTMLButtonElement, MyButtonProps>(
         ) : (
           children
         )}
-      </button>
+      </Button>
     )
   }
 )

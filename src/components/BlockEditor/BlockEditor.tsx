@@ -1,6 +1,7 @@
 import { EditorContent } from '@tiptap/react'
 import React, { useRef, useState } from 'react'
 import { LinkMenu } from './components/menus'
+
 import ImageBlockMenu from '@/components/BlockEditor/extensions/ImageBlock/components/ImageBlockMenu'
 import { ColumnsMenu } from '@/components/BlockEditor/extensions/MultiColumn/menus'
 import { TableColumnMenu, TableRowMenu } from '@/components/BlockEditor/extensions/Table/menus'

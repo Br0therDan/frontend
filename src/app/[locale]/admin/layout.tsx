@@ -13,12 +13,10 @@ export default function AdminLayout({
   return (
     <SidebarProvider>
       <AdminSidebar />
-      <main className='flex flex-col p-2 min-h-screen w-full'>
+      <main className='flex flex-col min-h-screen w-full'>
         <AdminHeader />
-        <div className='flex flex-1 bg-backgroud px-4 mx-auto w-full justify-center'>
-          <div className='flex flex-col p-4 sm:p-6 w-full border rounded-lg bg-white'>
+        <div className='flex flex-1 flex-col mx-auto w-full justify-center'>
             {children}
-          </div>
         </div>
       </main>
     </SidebarProvider>

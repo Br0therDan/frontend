@@ -51,7 +51,8 @@ export default function DocsTable({ app_name }: DocsTableProps) {
   }
 
   return (
-    <div className='space-y-2'>
+    <div className='flex flex-col h-full'>
+      <main className='flex-1 space-y-4 pb-5 overflow-y-auto p-4 sm:p-8'>
       <Button
         variant='ghost'
         className='flex items-center overflow-auto min-w-20 gap-2'
@@ -60,6 +61,7 @@ export default function DocsTable({ app_name }: DocsTableProps) {
         <FaPlus /> Add Document
       </Button>
       <DataTable columns={columns} data={docs} />
+      </main>
     </div>
   )
 }

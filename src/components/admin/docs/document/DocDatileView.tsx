@@ -53,7 +53,7 @@ export default function DocsDetailView({
   return (
     <div className='flex flex-col h-full'>
       {/* 메인 콘텐츠 영역: 스크롤이 필요한 경우 overflow-auto 적용 */}
-      <main className='flex-1 space-y-4 pb-5 overflow-auto'>
+      <main className='flex-1 space-y-4 pb-5 overflow-auto p-4 sm:p-8'>
         <p className='text-sm text-gray-400'>
           {doc.category?.name} / {doc.subcategory?.name}
         </p>
