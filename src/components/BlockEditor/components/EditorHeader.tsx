@@ -2,8 +2,8 @@
 import React from 'react'
 import { Icon } from '@/components/ui/Icon'
 import { EditorInfo } from './EditorInfo'
-import { EditorUser } from '../types'
-import { WebSocketStatus } from '@hocuspocus/provider'
+// import { EditorUser } from '../types'
+// import { WebSocketStatus } from '@hocuspocus/provider'
 import { Toolbar } from '@/components/ui/Toolbar'
 import { Editor } from '@tiptap/core'
 import { useEditorState } from '@tiptap/react'
@@ -13,11 +13,15 @@ export type EditorHeaderProps = {
   isSidebarOpen?: boolean
   toggleSidebar?: () => void
   editor: Editor
-  collabState: WebSocketStatus
-  users: EditorUser[]
+  // collabState: WebSocketStatus
+  // users: EditorUser[]
 }
 
-export const EditorHeader = ({ editor, collabState, users }: EditorHeaderProps) => {
+export const EditorHeader = ({ 
+  editor, 
+  // collabState, 
+  // users 
+}: EditorHeaderProps) => {
   const { characters, words } = useEditorState({
     editor,
     selector: (ctx): { characters: number; words: number } => {
@@ -41,7 +45,12 @@ export const EditorHeader = ({ editor, collabState, users }: EditorHeaderProps) 
           </Toolbar.Button>
         </div>
       </div>
-      <EditorInfo characters={characters} words={words} collabState={collabState} users={users} />
+      <EditorInfo 
+        characters={characters} 
+        words={words} 
+        // collabState={collabState} 
+        // users={users} 
+      />
     </div>
   )
 }

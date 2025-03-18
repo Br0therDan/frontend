@@ -6,40 +6,44 @@ import './styles/index.css'
 import ImageBlockMenu from '@/components/BlockEditor/extensions/ImageBlock/components/ImageBlockMenu'
 import { ColumnsMenu } from '@/components/BlockEditor/extensions/MultiColumn/menus'
 import { TableColumnMenu, TableRowMenu } from '@/components/BlockEditor/extensions/Table/menus'
-import { EditorHeader } from './components/EditorHeader'
+// import { EditorHeader } from './components/EditorHeader'
 import { TextMenu } from './components/menus/TextMenu'
 import { ContentItemMenu } from './components/menus/ContentItemMenu'
-import * as Y from 'yjs'
-import { TiptapCollabProvider } from '@hocuspocus/provider'
+// import * as Y from 'yjs'
+// import { TiptapCollabProvider } from '@hocuspocus/provider'
 import { useBlockEditor } from '@/hooks/useBlockEditor'
 
 export const BlockEditor = ({
-  aiToken,
-  ydoc,
+  // aiToken,
+  // ydoc,
   userId,
   userName,
   initialContent,
-  provider,
+  // provider,
   onContentChange,
 }: {
-  aiToken?: string
-  ydoc: Y.Doc | null
+  // aiToken?: string
+  // ydoc: Y.Doc | null
   userId: string
   userName?: string
   initialContent?: string
-  provider?: TiptapCollabProvider | null | undefined
+  // provider?: TiptapCollabProvider | null | undefined
   onContentChange?: (content: string) => void
 }) => {
   const [isEditable, setIsEditable] = useState(true)
   const menuContainerRef = useRef(null)
 
-  const { editor, users, collabState } = useBlockEditor({
-    aiToken,
-    ydoc,
+  const { 
+    editor, 
+    // users, 
+    // collabState 
+  } = useBlockEditor({
+    // aiToken,
+    // ydoc,
     userId,
     userName,
     initialContent,
-    provider,
+    // provider,
     onTransaction({ editor: currentEditor }) {
       setIsEditable(currentEditor.isEditable)
       // 부모 onTransaction는 전달되지 않으므로, 이 부분은
@@ -48,18 +52,20 @@ export const BlockEditor = ({
     onContentChange, // 전달한 onContentChange가 useBlockEditor로 전달됨
   })
 
-  if (!editor || !users) {
+  if (!editor 
+      // || !users
+    ) {
     return null
   }
 
   return (
     <div className="flex h-full" ref={menuContainerRef}>
       <div className="relative flex flex-col flex-1 h-full overflow-hidden">
-        <EditorHeader
+        {/* <EditorHeader
           editor={editor}
-          collabState={collabState}
-          users={users}
-        />
+          // collabState={collabState}
+          // users={users}
+        /> */}
         <EditorContent editor={editor} className="flex-1 overflow-y-auto" />
         <ContentItemMenu editor={editor} isEditable={isEditable} />
         <LinkMenu editor={editor} appendTo={menuContainerRef} />

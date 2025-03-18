@@ -1,20 +1,25 @@
 import React from 'react'
-import { WebSocketStatus } from '@hocuspocus/provider'
+// import { WebSocketStatus } from '@hocuspocus/provider'
 import { memo } from 'react'
-import { EditorUser } from '../types'
-import { cn } from '../../../lib/utils'
+// import { EditorUser } from '../types'
+// import { cn } from '../../../lib/utils'
 
-import Tooltip from '../../ui/Ttooltip'
-import { getConnectionText } from '@/lib/tiptap-utils'
+// import Tooltip from '../../ui/Ttooltip'
+// import { getConnectionText } from '@/lib/tiptap-utils'
 
 export type EditorInfoProps = {
   characters: number
   words: number
-  collabState: WebSocketStatus
-  users: EditorUser[]
+  // collabState: WebSocketStatus
+  // users: EditorUser[]
 }
 
-export const EditorInfo = memo(({ characters, collabState, users, words }: EditorInfoProps) => {
+export const EditorInfo = memo(({ 
+  characters, 
+  // collabState, 
+  // users, 
+  words 
+}: EditorInfoProps) => {
   return (
     <div className="flex items-center">
       <div className="flex flex-col justify-center pr-4 mr-4 text-right border-r border-neutral-200 dark:border-neutral-800">
@@ -26,21 +31,21 @@ export const EditorInfo = memo(({ characters, collabState, users, words }: Edito
         </div>
       </div>
       <div className="flex items-center gap-2 mr-2">
-        <div
+        {/* <div
           className={cn('w-2 h-2 rounded-full', {
             'bg-yellow-500 dark:bg-yellow-400': collabState === 'connecting',
             'bg-green-500 dark:bg-green-400': collabState === 'connected',
             'bg-red-500 dark:bg-red-400': collabState === 'disconnected',
           })}
-        />
-        <span className="max-w-[4rem] text-xs text-neutral-500 dark:text-neutral-400 font-semibold">
+        /> */}
+        {/* <span className="max-w-[4rem] text-xs text-neutral-500 dark:text-neutral-400 font-semibold">
           {getConnectionText(collabState)}
-        </span>
+        </span> */}
       </div>
-      {collabState === 'connected' && (
+      {/* {collabState === 'connected' && ( */}
         <div className="flex flex-row items-center">
           <div className="relative flex flex-row items-center ml-3">
-            {users.slice(0, 3).map((user: EditorUser) => (
+            {/* {users.slice(0, 3).map((user: EditorUser) => (
               <div key={user.clientId} className="-ml-3">
                 <Tooltip title={user.name}>
                   <img
@@ -53,16 +58,16 @@ export const EditorInfo = memo(({ characters, collabState, users, words }: Edito
                 </Tooltip>
               </div>
             ))}
-            {users.length > 3 && (
+            {users.length > 3 && ( */}
               <div className="-ml-3">
-                <div className="flex items-center justify-center w-8 h-8 font-bold text-xs leading-none border border-white dark:border-black bg-[#FFA2A2] rounded-full">
+                {/* <div className="flex items-center justify-center w-8 h-8 font-bold text-xs leading-none border border-white dark:border-black bg-[#FFA2A2] rounded-full">
                   +{users.length - 3}
-                </div>
+                </div> */}
               </div>
-            )}
+            {/* )} */}
           </div>
         </div>
-      )}
+      {/* )} */}
     </div>
   )
 })
