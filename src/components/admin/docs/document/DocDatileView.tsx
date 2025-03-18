@@ -53,14 +53,14 @@ export default function DocsDetailView({
   return (
     <div className='flex flex-col h-full'>
       {/* 메인 콘텐츠 영역: 스크롤이 필요한 경우 overflow-auto 적용 */}
-      <main className='flex-1 space-y-4 pb-5 overflow-auto p-4 sm:p-8'>
+      <main className='flex-1 space-y-4 pb-2 overflow-auto p-4 sm:p-8'>
         <p className='text-sm text-gray-400'>
           {doc.category?.name} / {doc.subcategory?.name}
         </p>
         <h1 className='text-2xl px-2 font-bold'>{doc.title}</h1>
-        <section className='rounded-lg'>
+        <section className='max-h-[680px] px-2 bg-accent rounded-sm overflow-y-auto'>
           <div
-            className='prose my-2 mt-4 text-gray-700 p-4 min-h-[240px] border-t '
+            className='prose my-2 mt-4 text-gray-700 dark:text-white p-4 min-h-[240px] border-t '
             dangerouslySetInnerHTML={{ __html: sanitizedContent }}
           />
         </section>

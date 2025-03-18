@@ -10,9 +10,9 @@ export default async function AppPage({
   params: Promise<{ appName: string }>
 }) {
   const { appName } = await params
-  
+
   return (
-    <div>
+    <div className='flex flex-col h-full p-4 sm:p-8'>
       <PageTitle title={`${capitalizeFirstLetter(appName)} Dashboard`} />
     </div>
   )
