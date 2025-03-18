@@ -32,7 +32,6 @@ import { useTranslations } from 'next-intl'
 import { BlockEditor } from '@/components/BlockEditor'
 import { useCollaboration } from '@/hooks/useCollaboration'
 import { useAuth } from '@/contexts/AuthContext'
-import { useApp } from '@/contexts/AppContext'
 
 interface DocumentFormProps {
   mode: 'add' | 'edit'
@@ -40,13 +39,13 @@ interface DocumentFormProps {
   doc_id?: string
 }
 
-export default function DocumentForm({ mode, doc_id }: DocumentFormProps) {
+export default function DocumentForm({ mode, doc_id, app_name }: DocumentFormProps) {
   // 기본 상태는 항상 선언
   const [loading, setLoading] = useState(false)
   const [aiToken, setAiToken] = useState<string | null | undefined>()
   const [editDoc, setEditDoc] = useState<DocumentPublic | null>(null)
   const [categories, setCategories] = useState<DocsCategoryPublic[]>([])
-  const { activeApp: app } = useApp()
+
 
   // edit 모드에서 doc_id를 통해 문서 로딩 (모든 Hook은 항상 호출됨)
   useEffect(() => {
@@ -56,7 +55,7 @@ export default function DocumentForm({ mode, doc_id }: DocumentFormProps) {
         try {
           const response = await DocsService.docsReadDocumentByApp(
             doc_id || '',
-            app.path
+            app_name
           )
           setEditDoc(response.data)
         } catch (err) {
@@ -67,7 +66,7 @@ export default function DocumentForm({ mode, doc_id }: DocumentFormProps) {
       }
       fetchDoc()
     }
-  }, [mode, doc_id, app])
+  }, [mode, doc_id, app_name])
 
   // AI Token fetch
   useEffect(() => {

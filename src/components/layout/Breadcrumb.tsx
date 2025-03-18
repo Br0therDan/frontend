@@ -18,6 +18,14 @@ export default function CustomBreadcrumb() {
       (segment) => segment && !['ko', 'ja', 'main', 'en'].includes(segment)
     )
 
+  // 마지막 경로가 24자리 16진수(예: MongoDB ObjectId)라면 제외
+  if (
+    pathSegments.length > 0 &&
+    /^[a-f0-9]{24}$/i.test(pathSegments[pathSegments.length - 1])
+  ) {
+    pathSegments.pop()
+  }
+
   const breadcrumbItems: BreadcrumbItems[] = pathSegments.map(
     (segment, index) => ({
       label: segment.charAt(0).toUpperCase() + segment.slice(1),
