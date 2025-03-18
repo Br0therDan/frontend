@@ -41,7 +41,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         (err as { response?: { data?: { detail?: string } }; message: string })
           .response?.data?.detail || (err as { message: string }).message
       setError(errorMsg)
-      handleApiError(err, (message) => toast.error(message.title))
+      handleApiError(err, (message) =>
+        toast.error(message.title, { description: message.description })
+      )
     } finally {
       setLoading(false)
     }
@@ -67,7 +69,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           ).response?.data?.detail || (err as { message: string }).message
         setError(errorMsg)
         await handleLogout()
-        handleApiError(err, (message) => toast.error(message.title))
+        handleApiError(err, (message) =>
+          toast.error(message.title, { description: message.description })
+        )
       } finally {
         setLoading(false)
       }
@@ -89,7 +93,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         (err as { response?: { data?: { detail?: string } }; message: string })
           .response?.data?.detail || (err as { message: string }).message
       setError(errorMsg)
-      handleApiError(err, (message) => toast.error(message.title))
+      handleApiError(err, (message) =>
+        toast.error(message.title, { description: message.description })
+      )
     } finally {
       Cookies.remove('access_token')
       Cookies.remove('token_type')
@@ -124,7 +130,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         (err as { response?: { data?: { detail?: string } }; message: string })
           .response?.data?.detail || (err as { message: string }).message
       setError(errorMsg)
-      handleApiError(err, (message) => toast.error(message.title))
+      handleApiError(err, (message) =>
+        toast.error(message.title, { description: message.description })
+      )
     } finally {
       setLoading(false)
     }
@@ -142,7 +150,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         (err as { response?: { data?: { detail?: string } }; message: string })
           .response?.data?.detail || (err as { message: string }).message
       setError(errorMsg)
-      handleApiError(err, (message) => toast.error(message.title))
+      handleApiError(err, (message) =>
+        toast.error(message.title, { description: message.description })
+      )
     } finally {
       setLoading(false)
     }
@@ -161,7 +171,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         (err as { response?: { data?: { detail?: string } }; message: string })
           .response?.data?.detail || (err as { message: string }).message
       setError(errorMsg)
-      handleApiError(err, (message) => toast.error(message.title))
+      handleApiError(err, (message) =>
+        toast.error(message.title, { description: message.description })
+      )
     } finally {
       setLoading(false)
     }

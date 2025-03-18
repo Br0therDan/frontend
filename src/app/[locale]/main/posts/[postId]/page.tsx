@@ -36,7 +36,9 @@ export default function PostsPostPage() {
       } catch (err) {
         const error = err as { response?: { data?: { detail?: string } } }
         setError(error.response?.data?.detail || t('error_fetching_post'))
-        handleApiError(err, (message) => toast.error(message.title))
+        handleApiError(err, (message) =>
+          toast.error(message.title, { description: message.description })
+        )
       } finally {
         setLoading(false)
       }

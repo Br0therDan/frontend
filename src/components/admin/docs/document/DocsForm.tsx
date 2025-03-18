@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState, useMemo } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   useForm,
   SubmitHandler,
@@ -31,8 +31,9 @@ import { handleApiError } from '@/lib/errorHandler'
 import { useTranslations } from 'next-intl'
 import { BlockEditor } from '@/components/BlockEditor'
 // import { useCollaboration } from '@/hooks/useCollaboration'
-import { useAuth } from '@/contexts/AuthContext'
+// import { useAuth } from '@/contexts/AuthContext'
 import { Input } from '@/components/ui/input'
+import { useRouter } from 'next/navigation'
 
 interface DocumentFormProps {
   mode: 'add' | 'edit'
@@ -46,93 +47,22 @@ export default function DocumentForm({
   app_name,
 }: DocumentFormProps) {
   const [loading, setLoading] = useState(false)
-  // const [aiToken, setAiToken] = useState<string | null | undefined>()
   const [editDoc, setEditDoc] = useState<DocumentPublic | null>(null)
   const [categories, setCategories] = useState<DocsCategoryPublic[]>([])
-
-  // edit 모드에서 문서를 불러옴
-  useEffect(() => {
-    if (mode === 'edit') {
-      const fetchDoc = async () => {
-        setLoading(true)
-        try {
-          const response = await DocsService.docsReadDocumentByApp(
-            doc_id || '',
-            app_name
-          )
-          setEditDoc(response.data)
-        } catch (err) {
-          handleApiError(err, (message) => toast.error(message.title))
-        } finally {
-          setLoading(false)
-        }
-      }
-      fetchDoc()
-    }
-  }, [mode, doc_id, app_name])
-
-  // AI 토큰 불러오기
-  // useEffect(() => {
-  //   const dataFetch = async () => {
-  //     try {
-  //       const response = await fetch('/api/ai', {
-  //         method: 'POST',
-  //         headers: { 'Content-Type': 'application/json' },
-  //       })
-  //       if (!response.ok) {
-  //         throw new Error(
-  //           'No AI token provided, please set TIPTAP_AI_SECRET in your environment'
-  //         )
-  //       }
-  //       const data = await response.json()
-  //       setAiToken(data.token)
-  //     } catch (e) {
-  //       if (e instanceof Error) console.error(e.message)
-  //       setAiToken(null)
-  //     }
-  //   }
-  //   dataFetch()
-  // }, [])
-
-  // add 모드와 edit 모드 모두에서 카테고리 목록 불러오기
-  useEffect(() => {
-    const loadCategories = async () => {
-      setLoading(true)
-      try {
-        const res = await CatService.categoriesReadDocsCategory()
-        if (res) setCategories(res.data)
-      } catch (err) {
-        handleApiError(err, (message) => toast.error(message.title))
-      } finally {
-        setLoading(false)
-      }
-    }
-    loadCategories()
-  }, [])
-
-  // useCollaboration은 항상 호출 (docId가 없으면 빈 문자열 전달)
-  // const providerState = useCollaboration({
-  //   docId: editDoc?._id || '',
-  //   enabled: true,
-  // })
-
-  const { user: currentUser } = useAuth()
+  const router = useRouter()
   const t = useTranslations()
 
-  // react-hook-form 기본값: add 모드용 기본값. edit 모드인 경우 reset()으로 업데이트됨.
-  const methods = useForm<DocumentUpdate>({
-    mode: 'onBlur',
-    criteriaMode: 'all',
+  // add 모드에 기본값, edit 모드의 경우 나중에 reset()으로 갱신
+  const methods = useForm<DocumentUpdate | DocumentCreate>({
     defaultValues: {
       title: '',
       content: '',
       is_public: false,
       category_id: '',
       subcategory_id: '',
-      media_assets: [] as string[],
+      media_assets: [] as string[]
     },
   })
-
   const {
     register,
     handleSubmit,
@@ -143,23 +73,58 @@ export default function DocumentForm({
     formState: { errors, isSubmitting, isDirty },
   } = methods
 
-  // edit 모드에서 문서 불러온 후 폼 초기화
+  // 편집 모드일 경우 문서를 불러와서 폼 갱신
   useEffect(() => {
-    if (editDoc) {
-      reset({
-        title: editDoc.title,
-        content: editDoc.content,
-        is_public: editDoc.is_public,
-        category_id: editDoc.category?._id,
-        subcategory_id: editDoc.subcategory?._id,
-      })
+    if (mode === 'edit' && doc_id) {
+      const fetchDoc = async () => {
+        setLoading(true)
+        try {
+          const response = await DocsService.docsReadDocumentByApp(
+            doc_id,
+            app_name
+          )
+          setEditDoc(response.data)
+          reset({
+            ...response.data,
+            category_id: response.data.category?._id,
+            subcategory_id: response.data.subcategory?._id,
+          })
+        } catch (err) {
+          handleApiError(err, (message) => toast.error(message.title, { description: message.description }))
+        } finally {
+          setLoading(false)
+        }
+      }
+      fetchDoc()
     }
-  }, [editDoc, reset])
+  }, [mode, doc_id, app_name, reset])
+
+  // 카테고리 불러오기
+  const fetchCategories = async () => {
+    setLoading(true)
+    try {
+      const response = await CatService.categoriesReadDocsCategory(app_name)
+      return response.data
+    } catch (err) {
+      handleApiError(err, (message) => toast.error(message.title, { description: message.description }))
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    const fetchCategoriesData = async () => {
+      const res = await fetchCategories()
+      if (res) {
+        setCategories(res)
+      }
+    }
+    fetchCategoriesData()
+  }, [])
 
   const selectedCategoryId = watch('category_id')
-  const selectedCategory = useMemo(
-    () => categories.find((cat) => cat._id === selectedCategoryId),
-    [categories, selectedCategoryId]
+  const selectedCategory = categories.find(
+    (cat) => cat._id === selectedCategoryId
   )
   const subcategories = selectedCategory?.subcategories || []
 
@@ -173,7 +138,7 @@ export default function DocumentForm({
       })
       reset()
     } catch (err) {
-      handleApiError(err, (message) => toast.error(message.title))
+      handleApiError(err, (message) => toast.error(message.title, { description: message.description }))
     } finally {
       setLoading(false)
     }
@@ -183,170 +148,191 @@ export default function DocumentForm({
   const updateDocument = async (doc: DocumentUpdate) => {
     setLoading(true)
     try {
-      await DocsService.docsUpdateDocument(doc._id, doc)
+      await DocsService.docsUpdateDocument(doc_id!, doc)
       toast.success(t('forms.edit_doc.success.title'), {
         description: t('forms.edit_doc.success.description'),
       })
     } catch (err) {
-      handleApiError(err, (message) => toast.error(message.title))
+      handleApiError(err, (message) => toast.error(message.title, { description: message.description }))
     } finally {
       setLoading(false)
     }
   }
 
-  // 폼 제출 핸들러: edit 모드에서는 isDirty 여부에 관계없이 제출 가능하도록 처리
-  const onSubmit: SubmitHandler<DocumentUpdate> = async (doc) => {
-    const content = watch('content')
-    const updatedDoc = { ...doc, content }
+  // 폼 제출 핸들러
+  const onSubmit: SubmitHandler<DocumentUpdate | DocumentCreate> = async (
+    doc
+  ) => {
     if (mode === 'add') {
-      await addDocument(updatedDoc as DocumentCreate)
+      try {
+        await addDocument(doc as DocumentCreate)
+        router.push(`/admin/${app_name}/docs`)
+      } catch (err) {
+        handleApiError(err, (message) => toast.error(message.title, { description: message.description }))
+      }
     } else {
-      await updateDocument(updatedDoc as DocumentUpdate)
+      try {
+        await updateDocument(doc as DocumentUpdate)
+        router.push(`/admin/${app_name}/docs/${doc_id}`)
+      } catch (err) {
+        handleApiError(err, (message) => toast.error(message.title, { description: message.description }))
+      }
     }
   }
 
+
   const onCancel = () => {
-    reset()
+    if (mode === 'edit' && editDoc) {
+      router.push(`/admin/${app_name}/docs/${editDoc._id}`)
+    } else {
+      router.push(`/admin/${app_name}/docs`)
+    }
   }
 
-  if ((mode === 'edit' && !editDoc) || loading || !currentUser) {
+  if (loading) {
     return <Loading />
   }
 
   return (
-    <FormProvider {...methods}>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className='flex flex-col space-y-4'
-      >
-        {/* 카테고리 / 서브카테고리 선택 */}
-        <div className='flex flex-col sm:flex-row gap-4'>
-          <Controller
-            control={control}
-            name='category_id'
-            rules={{ required: 'Category selection is required.' }}
-            render={({ field }) => (
-              <Select onValueChange={field.onChange} value={field.value || ''}>
-                <SelectTrigger className='text-sm w-48'>
-                  <SelectValue placeholder='카테고리 선택' />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    {categories.map((cat) => (
-                      <SelectItem
-                        key={cat._id}
-                        value={cat._id}
-                        className='px-4 text-sm'
-                      >
-                        {cat.name || '카테고리 없음'}
-                      </SelectItem>
-                    ))}
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-            )}
-          />
-          <Controller
-            control={control}
-            name='subcategory_id'
-            rules={{ required: 'Subcategory selection is required.' }}
-            render={({ field }) => (
-              <Select
-                onValueChange={field.onChange}
-                value={field.value || ''}
-                disabled={!selectedCategoryId}
-              >
-                <SelectTrigger className='text-sm w-48'>
-                  <SelectValue placeholder='서브카테고리 선택' />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    {subcategories.map((sub) => (
-                      <SelectItem
-                        key={sub._id}
-                        value={sub._id}
-                        className='px-4 text-sm'
-                      >
-                        {sub.name || '서브카테고리 없음'}
-                      </SelectItem>
-                    ))}
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-            )}
-          />
-        </div>
-        {/* 제목 및 공개 여부 */}
-        <div className='flex w-full gap-2 border-b'>
-          <input
-            id='title'
-            {...register('title', { required: 'Posts title is required.' })}
-            placeholder={t('forms.create_doc.title_placeholder')}
-            className='flex-1 text-2xl font-semibold bg-transparent p-2 focus:outline-none'
-          />
-          {errors.title && (
-            <FormMessage>{errors.title.message as string}</FormMessage>
-          )}
 
-          <div className='flex items-center gap-2'>
-            <Label htmlFor='is_public' className='text-sm'>
-              {t('forms.create_doc.is_public')}
-            </Label>
-            <Input
-              id='is_public'
-              {...register('is_public')}
-              type='checkbox'
-              className='form-checkbox h-5 w-5 text-indigo-600'
-            />
-          </div>
-        </div>
-        {/* 에디터 영역 */}
-        <div className='grid gap-2 py-2'>
-          <Controller
-            control={control}
-            name='content'
-            rules={{ required: 'Content is required.' }}
-            render={({ field }) => (
-              <BlockEditor
-                // aiToken={aiToken ?? undefined}
-                userId={currentUser?._id}
-                userName={currentUser?.fullname ?? undefined}
-                // ydoc={providerState.yDoc}
-                // provider={providerState.provider}
-                initialContent={field.value || undefined}
-                onContentChange={(content) => {
-                  field.onChange(content)
-                  setValue('content', content, { shouldDirty: true })
-                }}
+      <FormProvider {...methods}>
+        <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col h-full'>
+          <main className='flex-1 space-y-4 pb-5'>
+            {/* 카테고리 / 서브카테고리 선택 */}
+            <div className='flex flex-col sm:flex-row gap-4'>
+              <Controller
+                control={control}
+                name='category_id'
+                rules={{ required: 'Category selection is required.' }}
+                render={({ field }) => (
+                  <Select
+                    onValueChange={field.onChange}
+                    value={field.value || ''}
+                  >
+                    <SelectTrigger className='text-sm w-48'>
+                      <SelectValue placeholder='카테고리 선택' />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        {categories.map((cat) => (
+                          <SelectItem
+                            key={cat._id}
+                            value={cat._id}
+                            className='px-4 text-sm'
+                          >
+                            {cat.name || '카테고리 없음'}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                )}
               />
-            )}
-          />
-          {errors.content && (
-            <FormMessage>{errors.content.message as string}</FormMessage>
-          )}
-        </div>
-        {/* 액션 버튼 */}
-        <div className='flex justify-end gap-4 pt-4 border-t border-gray-200'>
-          <Button
-            variant='outline'
-            onClick={onCancel}
-            disabled={isSubmitting}
-            type='button'
-            className='px-4'
-          >
-            {t('forms.create_doc.cancel')}
-          </Button>
-          <MyButton
-            variant='default'
-            type='submit'
-            isLoading={isSubmitting}
-            disabled={mode === 'add' ? !isDirty : isSubmitting}
-            className='px-4'
-          >
-            {t('forms.create_doc.submit')}
-          </MyButton>
-        </div>
-      </form>
-    </FormProvider>
+              <Controller
+                control={control}
+                name='subcategory_id'
+                rules={{ required: 'Subcategory selection is required.' }}
+                render={({ field }) => (
+                  <Select
+                    onValueChange={field.onChange}
+                    value={field.value || ''}
+                    disabled={!selectedCategory || !selectedCategoryId} // disable if 카테고리 데이터 미로드
+                  >
+                    <SelectTrigger className='text-sm w-48'>
+                      <SelectValue placeholder='서브카테고리 선택' />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        {subcategories.map((sub) => (
+                          <SelectItem
+                            key={sub._id}
+                            value={sub._id}
+                            className='px-4 text-sm'
+                          >
+                            {/* {editDoc ? editDoc.subcategory?.name : '서브카테고리 없음'} */}
+                            {sub.name.length > 0
+                              ? sub.name
+                              : '서브카테고리 없음'}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                )}
+              />
+            </div>
+            {/* 제목 및 공개 여부 */}
+            <div className='flex w-full gap-2 border-b'>
+              <input
+                id='title'
+                {...register('title', { required: 'Posts title is required.' })}
+                placeholder={t('forms.create_doc.title_placeholder')}
+                className='flex-1 text-2xl font-semibold bg-transparent p-2 focus:outline-none'
+              />
+              {errors.title && (
+                <FormMessage>{errors.title.message as string}</FormMessage>
+              )}
+
+              <div className='flex items-center gap-2'>
+                <Label htmlFor='is_public' className='text-sm'>
+                  {t('forms.create_doc.is_public')}
+                </Label>
+                <Input
+                  id='is_public'
+                  {...register('is_public')}
+                  type='checkbox'
+                  className='form-checkbox h-5 w-5 text-indigo-600'
+                />
+              </div>
+            </div>
+            {/* 에디터 영역 */}
+            <div className='flex-1 bg-accent rounded-sm'>
+              <div className='grid gap-2 py-2'>
+                <Controller
+                  control={control}
+                  name='content'
+                  rules={{ required: 'Content is required.' }}
+                  render={({ field }) => (
+                    <BlockEditor
+                      initialContent={field.value || undefined}
+                      onContentChange={(content) => {
+                        if (content !== field.value) {
+                          field.onChange(content)
+                          setValue('content', content, { shouldDirty: true })
+                        }
+                      }}
+                    />
+                  )}
+                />
+                {errors.content && (
+                  <FormMessage>{errors.content.message as string}</FormMessage>
+                )}
+              </div>
+            </div>
+          </main>
+          <footer className='sticky bottom-0 right-0 p-4 border-t z-50'>
+            <div className='flex justify-between'>
+              <Button
+                variant='outline'
+                onClick={onCancel}
+                disabled={isSubmitting} 
+                type='button'
+                className='px-4'
+              >
+                {t('forms.create_doc.cancel')}
+              </Button>
+              <MyButton
+                variant='default'
+                type='submit'
+                isLoading={isSubmitting}
+                disabled={mode === 'add' ? !isDirty : isSubmitting}
+                className='px-4'
+              >
+                {t('forms.create_doc.submit')}
+              </MyButton>
+            </div>
+          </footer>
+        </form>
+      </FormProvider>
   )
 }

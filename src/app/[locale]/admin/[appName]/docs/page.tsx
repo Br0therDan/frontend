@@ -13,12 +13,12 @@ export interface DocsPageProps {
 }
 
 // 문서 목록페이지 (params로 appName 전달하여 문서 목록 테이블 렌더링) - SSR
-export default function DocsPage({
+export default async function DocsPage({
   params,
 }: {
-  params: DocsPageProps['params']
+  params: Promise<DocsPageProps['params']>
 }) {
-  const {appName} = params
+  const {appName} = await params
   
   return (
     <div>

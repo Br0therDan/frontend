@@ -62,8 +62,7 @@ export const Tooltip = ({
         offset={[0, 8]}
         touch={false}
         zIndex={99999}
-        appendTo={document.body}
-         
+        appendTo={typeof document !== 'undefined' ? document.body : undefined} // 수정된 부분
         {...tippyOptions}
         render={renderTooltip}
       >

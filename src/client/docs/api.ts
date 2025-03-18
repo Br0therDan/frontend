@@ -347,12 +347,6 @@ export interface DocumentUpdate {
 	 * @type {string}
 	 * @memberof DocumentUpdate
 	 */
-	_id: string;
-	/**
-	 *
-	 * @type {string}
-	 * @memberof DocumentUpdate
-	 */
 	title?: string | null;
 	/**
 	 *
@@ -1376,7 +1370,7 @@ export const CategoriesApiAxiosParamCreator = function (
 	return {
 		/**
 		 *
-		 * @summary 새로운 카테고리(서브카테고리 포함) 생성
+		 * @summary Create Category
 		 * @param {string} appId
 		 * @param {DocsCategoryCreate} docsCategoryCreate
 		 * @param {string | null} [accessToken]
@@ -1449,7 +1443,7 @@ export const CategoriesApiAxiosParamCreator = function (
 		},
 		/**
 		 *
-		 * @summary 카테고리 및 해당 서브카테고리 삭제
+		 * @summary Delete Category
 		 * @param {string} catId
 		 * @param {string | null} [accessToken]
 		 * @param {*} [options] Override http request option.
@@ -1506,13 +1500,17 @@ export const CategoriesApiAxiosParamCreator = function (
 		},
 		/**
 		 *
-		 * @summary 전체 카테고리(서브카테고리 포함) 조회
+		 * @summary Read Docs Category
+		 * @param {string} appName
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		categoriesReadDocsCategory: async (
+			appName: string,
 			options: RawAxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
+			// verify required parameter 'appName' is not null or undefined
+			assertParamExists("categoriesReadDocsCategory", "appName", appName);
 			const localVarPath = `/api/v1/categories/public`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1528,6 +1526,10 @@ export const CategoriesApiAxiosParamCreator = function (
 			};
 			const localVarHeaderParameter = {} as any;
 			const localVarQueryParameter = {} as any;
+
+			if (appName !== undefined) {
+				localVarQueryParameter["app_name"] = appName;
+			}
 
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
 			let headersFromBaseOptions =
@@ -1545,7 +1547,7 @@ export const CategoriesApiAxiosParamCreator = function (
 		},
 		/**
 		 *
-		 * @summary 카테고리 정보 업데이트
+		 * @summary Update Category
 		 * @param {string} catId
 		 * @param {DocsCategoryUpdate} docsCategoryUpdate
 		 * @param {string | null} [accessToken]
@@ -1628,7 +1630,7 @@ export const CategoriesApiFp = function (configuration?: Configuration) {
 	return {
 		/**
 		 *
-		 * @summary 새로운 카테고리(서브카테고리 포함) 생성
+		 * @summary Create Category
 		 * @param {string} appId
 		 * @param {DocsCategoryCreate} docsCategoryCreate
 		 * @param {string | null} [accessToken]
@@ -1668,7 +1670,7 @@ export const CategoriesApiFp = function (configuration?: Configuration) {
 		},
 		/**
 		 *
-		 * @summary 카테고리 및 해당 서브카테고리 삭제
+		 * @summary Delete Category
 		 * @param {string} catId
 		 * @param {string | null} [accessToken]
 		 * @param {*} [options] Override http request option.
@@ -1702,11 +1704,13 @@ export const CategoriesApiFp = function (configuration?: Configuration) {
 		},
 		/**
 		 *
-		 * @summary 전체 카테고리(서브카테고리 포함) 조회
+		 * @summary Read Docs Category
+		 * @param {string} appName
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async categoriesReadDocsCategory(
+			appName: string,
 			options?: RawAxiosRequestConfig,
 		): Promise<
 			(
@@ -1715,7 +1719,10 @@ export const CategoriesApiFp = function (configuration?: Configuration) {
 			) => AxiosPromise<Array<DocsCategoryPublic>>
 		> {
 			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.categoriesReadDocsCategory(options);
+				await localVarAxiosParamCreator.categoriesReadDocsCategory(
+					appName,
+					options,
+				);
 			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
 			const localVarOperationServerBasePath =
 				operationServerMap["CategoriesApi.categoriesReadDocsCategory"]?.[
@@ -1731,7 +1738,7 @@ export const CategoriesApiFp = function (configuration?: Configuration) {
 		},
 		/**
 		 *
-		 * @summary 카테고리 정보 업데이트
+		 * @summary Update Category
 		 * @param {string} catId
 		 * @param {DocsCategoryUpdate} docsCategoryUpdate
 		 * @param {string | null} [accessToken]
@@ -1785,7 +1792,7 @@ export const CategoriesApiFactory = function (
 	return {
 		/**
 		 *
-		 * @summary 새로운 카테고리(서브카테고리 포함) 생성
+		 * @summary Create Category
 		 * @param {string} appId
 		 * @param {DocsCategoryCreate} docsCategoryCreate
 		 * @param {string | null} [accessToken]
@@ -1809,7 +1816,7 @@ export const CategoriesApiFactory = function (
 		},
 		/**
 		 *
-		 * @summary 카테고리 및 해당 서브카테고리 삭제
+		 * @summary Delete Category
 		 * @param {string} catId
 		 * @param {string | null} [accessToken]
 		 * @param {*} [options] Override http request option.
@@ -1826,20 +1833,22 @@ export const CategoriesApiFactory = function (
 		},
 		/**
 		 *
-		 * @summary 전체 카테고리(서브카테고리 포함) 조회
+		 * @summary Read Docs Category
+		 * @param {string} appName
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		categoriesReadDocsCategory(
+			appName: string,
 			options?: RawAxiosRequestConfig,
 		): AxiosPromise<Array<DocsCategoryPublic>> {
 			return localVarFp
-				.categoriesReadDocsCategory(options)
+				.categoriesReadDocsCategory(appName, options)
 				.then((request) => request(axios, basePath));
 		},
 		/**
 		 *
-		 * @summary 카테고리 정보 업데이트
+		 * @summary Update Category
 		 * @param {string} catId
 		 * @param {DocsCategoryUpdate} docsCategoryUpdate
 		 * @param {string | null} [accessToken]
@@ -1873,7 +1882,7 @@ export const CategoriesApiFactory = function (
 export class CategoriesApi extends BaseAPI {
 	/**
 	 *
-	 * @summary 새로운 카테고리(서브카테고리 포함) 생성
+	 * @summary Create Category
 	 * @param {string} appId
 	 * @param {DocsCategoryCreate} docsCategoryCreate
 	 * @param {string | null} [accessToken]
@@ -1894,7 +1903,7 @@ export class CategoriesApi extends BaseAPI {
 
 	/**
 	 *
-	 * @summary 카테고리 및 해당 서브카테고리 삭제
+	 * @summary Delete Category
 	 * @param {string} catId
 	 * @param {string | null} [accessToken]
 	 * @param {*} [options] Override http request option.
@@ -1913,20 +1922,24 @@ export class CategoriesApi extends BaseAPI {
 
 	/**
 	 *
-	 * @summary 전체 카테고리(서브카테고리 포함) 조회
+	 * @summary Read Docs Category
+	 * @param {string} appName
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
 	 * @memberof CategoriesApi
 	 */
-	public categoriesReadDocsCategory(options?: RawAxiosRequestConfig) {
+	public categoriesReadDocsCategory(
+		appName: string,
+		options?: RawAxiosRequestConfig,
+	) {
 		return CategoriesApiFp(this.configuration)
-			.categoriesReadDocsCategory(options)
+			.categoriesReadDocsCategory(appName, options)
 			.then((request) => request(this.axios, this.basePath));
 	}
 
 	/**
 	 *
-	 * @summary 카테고리 정보 업데이트
+	 * @summary Update Category
 	 * @param {string} catId
 	 * @param {DocsCategoryUpdate} docsCategoryUpdate
 	 * @param {string | null} [accessToken]
@@ -2473,7 +2486,7 @@ export const DocsApiAxiosParamCreator = function (
 			};
 		},
 		/**
-		 * [관리자용] 기존 문서를 수정하고, 변경 사항을 새로운 버전으로 저장합니다.  1. 수정 전 현재 문서를 Version에 기록합니다. 2. 수정된 필드를 반영하여 문서를 업데이트합니다. 3. 새 버전 생성 후 문서의 current_version_id를 업데이트합니다.  :param doc_id: 수정할 문서의 ObjectId :param entry: DocumentUpdate 객체 (수정할 필드들, 예: title, content, is_public, category_id, subcategory_id) :param current_user: 현재 활성화된 사용자 :return: 업데이트된 문서 정보를 담은 DocumentPublic 객체 :raises HTTPException: 문서를 찾지 못한 경우 (404) 또는 권한이 없는 경우 (403)
+		 * [관리자용] 기존 문서를 수정하고, 변경 사항을 새로운 버전으로 저장합니다.  1. 수정 전 현재 문서를 Version에 기록합니다. 2. 수정된 필드를 반영하여 문서를 업데이트합니다. 3. 새 버전 생성 후 문서의 current_version_id를 업데이트합니다.  :param doc_id: 수정할 문서의 ObjectId :param entry: DocumentUpdate 객체 (수정할 필드들, 예: title, content, is_public, category_id, subcategory_id) :param current_user: 현재 활성화된 사용자 :return: 업데이트된 문서 정보를 담은 DocumentPublic 객체
 		 * @summary [관리자용] 문서 수정 (새 버전 생성)
 		 * @param {string} docId
 		 * @param {DocumentUpdate} documentUpdate
@@ -2503,7 +2516,7 @@ export const DocsApiAxiosParamCreator = function (
 			}
 
 			const localVarRequestOptions = {
-				method: "PUT",
+				method: "PATCH",
 				...baseOptions,
 				...options,
 			};
@@ -2869,7 +2882,7 @@ export const DocsApiFp = function (configuration?: Configuration) {
 				)(axios, localVarOperationServerBasePath || basePath);
 		},
 		/**
-		 * [관리자용] 기존 문서를 수정하고, 변경 사항을 새로운 버전으로 저장합니다.  1. 수정 전 현재 문서를 Version에 기록합니다. 2. 수정된 필드를 반영하여 문서를 업데이트합니다. 3. 새 버전 생성 후 문서의 current_version_id를 업데이트합니다.  :param doc_id: 수정할 문서의 ObjectId :param entry: DocumentUpdate 객체 (수정할 필드들, 예: title, content, is_public, category_id, subcategory_id) :param current_user: 현재 활성화된 사용자 :return: 업데이트된 문서 정보를 담은 DocumentPublic 객체 :raises HTTPException: 문서를 찾지 못한 경우 (404) 또는 권한이 없는 경우 (403)
+		 * [관리자용] 기존 문서를 수정하고, 변경 사항을 새로운 버전으로 저장합니다.  1. 수정 전 현재 문서를 Version에 기록합니다. 2. 수정된 필드를 반영하여 문서를 업데이트합니다. 3. 새 버전 생성 후 문서의 current_version_id를 업데이트합니다.  :param doc_id: 수정할 문서의 ObjectId :param entry: DocumentUpdate 객체 (수정할 필드들, 예: title, content, is_public, category_id, subcategory_id) :param current_user: 현재 활성화된 사용자 :return: 업데이트된 문서 정보를 담은 DocumentPublic 객체
 		 * @summary [관리자용] 문서 수정 (새 버전 생성)
 		 * @param {string} docId
 		 * @param {DocumentUpdate} documentUpdate
@@ -3085,7 +3098,7 @@ export const DocsApiFactory = function (
 				.then((request) => request(axios, basePath));
 		},
 		/**
-		 * [관리자용] 기존 문서를 수정하고, 변경 사항을 새로운 버전으로 저장합니다.  1. 수정 전 현재 문서를 Version에 기록합니다. 2. 수정된 필드를 반영하여 문서를 업데이트합니다. 3. 새 버전 생성 후 문서의 current_version_id를 업데이트합니다.  :param doc_id: 수정할 문서의 ObjectId :param entry: DocumentUpdate 객체 (수정할 필드들, 예: title, content, is_public, category_id, subcategory_id) :param current_user: 현재 활성화된 사용자 :return: 업데이트된 문서 정보를 담은 DocumentPublic 객체 :raises HTTPException: 문서를 찾지 못한 경우 (404) 또는 권한이 없는 경우 (403)
+		 * [관리자용] 기존 문서를 수정하고, 변경 사항을 새로운 버전으로 저장합니다.  1. 수정 전 현재 문서를 Version에 기록합니다. 2. 수정된 필드를 반영하여 문서를 업데이트합니다. 3. 새 버전 생성 후 문서의 current_version_id를 업데이트합니다.  :param doc_id: 수정할 문서의 ObjectId :param entry: DocumentUpdate 객체 (수정할 필드들, 예: title, content, is_public, category_id, subcategory_id) :param current_user: 현재 활성화된 사용자 :return: 업데이트된 문서 정보를 담은 DocumentPublic 객체
 		 * @summary [관리자용] 문서 수정 (새 버전 생성)
 		 * @param {string} docId
 		 * @param {DocumentUpdate} documentUpdate
@@ -3285,7 +3298,7 @@ export class DocsApi extends BaseAPI {
 	}
 
 	/**
-	 * [관리자용] 기존 문서를 수정하고, 변경 사항을 새로운 버전으로 저장합니다.  1. 수정 전 현재 문서를 Version에 기록합니다. 2. 수정된 필드를 반영하여 문서를 업데이트합니다. 3. 새 버전 생성 후 문서의 current_version_id를 업데이트합니다.  :param doc_id: 수정할 문서의 ObjectId :param entry: DocumentUpdate 객체 (수정할 필드들, 예: title, content, is_public, category_id, subcategory_id) :param current_user: 현재 활성화된 사용자 :return: 업데이트된 문서 정보를 담은 DocumentPublic 객체 :raises HTTPException: 문서를 찾지 못한 경우 (404) 또는 권한이 없는 경우 (403)
+	 * [관리자용] 기존 문서를 수정하고, 변경 사항을 새로운 버전으로 저장합니다.  1. 수정 전 현재 문서를 Version에 기록합니다. 2. 수정된 필드를 반영하여 문서를 업데이트합니다. 3. 새 버전 생성 후 문서의 current_version_id를 업데이트합니다.  :param doc_id: 수정할 문서의 ObjectId :param entry: DocumentUpdate 객체 (수정할 필드들, 예: title, content, is_public, category_id, subcategory_id) :param current_user: 현재 활성화된 사용자 :return: 업데이트된 문서 정보를 담은 DocumentPublic 객체
 	 * @summary [관리자용] 문서 수정 (새 버전 생성)
 	 * @param {string} docId
 	 * @param {DocumentUpdate} documentUpdate

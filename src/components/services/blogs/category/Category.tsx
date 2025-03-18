@@ -28,7 +28,9 @@ export default function Category() {
       }
       setCategories(categories)
     } catch (err) {
-      handleApiError(err, (message) => toast.error(message.title))
+      handleApiError(err, (message) =>
+        toast.error(message.title, { description: message.description })
+      )
     }
   }
 

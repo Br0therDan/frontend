@@ -28,7 +28,9 @@ async function FetchDocs() {
     const response = await DocsService.docsReadPublicDocsByApp()
     docs = response.data
   } catch (err) {
-    handleApiError(err, (message) => toast.error(message.title))
+    handleApiError(err, (message) =>
+      toast.error(message.title, { description: message.description })
+    )
   }
   return docs
 }

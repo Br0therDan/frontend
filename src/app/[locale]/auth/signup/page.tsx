@@ -61,7 +61,9 @@ export default function SignUp() {
       window.location.href = `${process.env.NEXT_PUBLIC_SITE_URL}/auth/login`
     } catch (err) {
       setError((err as any).response?.data?.detail)
-      handleApiError(err, (message) => toast.error(message.title))
+      handleApiError(err, (message) =>
+        toast.error(message.title, { description: message.description })
+      )
     } finally {
       setLoading(false)
     }

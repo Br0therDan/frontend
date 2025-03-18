@@ -25,7 +25,9 @@ export default function UserTable() {
         const response = await AdminService.adminReadUsers()
         setUsers(response.data)
       } catch (err) {
-        handleApiError(err, (message) => toast.error(message.title))
+        handleApiError(err, (message) =>
+          toast.error(message.title, { description: message.description })
+        )
       } finally {
         setLoading(false)
       }

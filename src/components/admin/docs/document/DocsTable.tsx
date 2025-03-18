@@ -36,7 +36,9 @@ export default function DocsTable({ app_name }: DocsTableProps) {
         const response = await DocsService.docsReadDocsByApp(app_name)
         setDocs(response.data)
       } catch (err) {
-        handleApiError(err, (message) => toast.error(message.title))
+        handleApiError(err, (message) =>
+          toast.error(message.title, { description: message.description })
+        )
       } finally {
         setLoading(false)
       }

@@ -79,7 +79,9 @@ export function OAuthLoginButton({
         window.location.href = res.data // 외부 OAuth URL로 이동
       }
     } catch (err) {
-      handleApiError(err, (message) => toast.error(message.title))
+      handleApiError(err, (message) =>
+        toast.error(message.title, { description: message.description })
+      )
     } finally {
       setIsLoading(false)
     }

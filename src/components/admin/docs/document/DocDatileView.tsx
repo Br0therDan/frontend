@@ -26,10 +26,15 @@ export default function DocsDetailView({
     const fetchDoc = async () => {
       setLoading(true)
       try {
-        const response = await DocsService.docsReadDocumentByApp(doc_id, app_name)
+        const response = await DocsService.docsReadDocumentByApp(
+          doc_id,
+          app_name
+        )
         setDoc(response.data)
       } catch (err) {
-        handleApiError(err, (message) => toast.error(message.title))
+        handleApiError(err, (message) =>
+          toast.error(message.title, { description: message.description })
+        )
       } finally {
         setLoading(false)
       }
@@ -46,32 +51,34 @@ export default function DocsDetailView({
   }
 
   return (
-    <div className="flex flex-col h-full">
+    <div className='flex flex-col h-full'>
       {/* 메인 콘텐츠 영역: 스크롤이 필요한 경우 overflow-auto 적용 */}
-      <main className="flex-1 p-8 pb-20 overflow-auto">
-        <h1 className="text-3xl font-bold mb-4">{doc.title}</h1>
-        <section className="py-6 rounded-lg">
-          <p className="text-sm text-gray-400">
-            {doc.category?.name} / {doc.subcategory?.name}
-          </p>
+      <main className='flex-1 space-y-4 pb-5 overflow-auto'>
+        <p className='text-sm text-gray-400'>
+          {doc.category?.name} / {doc.subcategory?.name}
+        </p>
+        <h1 className='text-2xl px-2 font-bold'>{doc.title}</h1>
+        <section className='rounded-lg'>
           <div
-            className="prose my-2 mt-4 text-gray-700 p-4 min-h-[240px] border-t "
+            className='prose my-2 mt-4 text-gray-700 p-4 min-h-[240px] border-t '
             dangerouslySetInnerHTML={{ __html: sanitizedContent }}
           />
         </section>
       </main>
       {/* sticky footer: fixed 대신 sticky를 사용하여 부모 컨테이너 내에서 스크롤 시에도 화면 하단에 위치 */}
-      <footer className="sticky bottom-0  right-0 bg-white p-4 border-t z-50">
-        <div className="flex justify-between">
+      <footer className='sticky bottom-0  right-0 p-4 border-t z-50'>
+        <div className='flex justify-between'>
           <Button
-            variant="outline"
+            variant='outline'
             onClick={() => router.push(`/admin/${app_name}/docs`)}
           >
             목록으로
           </Button>
           <Button
-            variant="outline"
-            onClick={() => router.push(`/admin/${app_name}/docs/${doc_id}/edit`)}
+            variant='default'
+            onClick={() =>
+              router.push(`/admin/${app_name}/docs/${doc_id}/edit`)
+            }
           >
             편집
           </Button>

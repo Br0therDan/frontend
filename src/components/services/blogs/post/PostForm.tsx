@@ -91,7 +91,9 @@ export default function PostForm({ mode, initialData }: PostFormProps) {
       })
       return categories
     } catch (err) {
-      handleApiError(err, (message) => toast.error(message.title))
+      handleApiError(err, (message) =>
+        toast.error(message.title, { description: message.description })
+      )
     } finally {
       setLoading(false)
     }
@@ -123,7 +125,9 @@ export default function PostForm({ mode, initialData }: PostFormProps) {
         router.push(`/main/posts/${data.id}`)
       }
     } catch (err) {
-      handleApiError(err, (message) => toast.error(message.title))
+      handleApiError(err, (message) =>
+        toast.error(message.title, { description: message.description })
+      )
     } finally {
       setLoading(false)
     }
@@ -137,7 +141,9 @@ export default function PostForm({ mode, initialData }: PostFormProps) {
       })
       reset()
     } catch (err) {
-      handleApiError(err, (message) => toast.error(message.title))
+      handleApiError(err, (message) =>
+        toast.error(message.title, { description: message.description })
+      )
     }
   }
 
@@ -153,7 +159,9 @@ export default function PostForm({ mode, initialData }: PostFormProps) {
       })
       reset()
     } catch (err) {
-      handleApiError(err, (message) => toast.error(message.title))
+      handleApiError(err, (message) =>
+        toast.error(message.title, { description: message.description })
+      )
     }
   }
 

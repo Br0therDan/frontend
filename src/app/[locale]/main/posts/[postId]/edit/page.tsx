@@ -30,7 +30,9 @@ export default function EditPostPage() {
         setPost(response.data ?? null)
       } catch (err) {
         console.error(err)
-        handleApiError(err, (message) => toast.error(message.title))
+        handleApiError(err, (message) =>
+          toast.error(message.title, { description: message.description })
+        )
       } finally {
         setLoading(false)
       }

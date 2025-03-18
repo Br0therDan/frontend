@@ -31,7 +31,6 @@ export default function ForgotPassword() {
     formState: { errors, isSubmitting },
   } = useForm<ForgotPasswordForm>()
 
-
   const { forgotPassword } = useAuth()
   const t = useTranslations()
 
@@ -44,7 +43,9 @@ export default function ForgotPassword() {
       })
       reset()
     } catch (err) {
-      handleApiError(err, (message) => toast.error(message.title))
+      handleApiError(err, (message) =>
+        toast.error(message.title, { description: message.description })
+      )
     }
   }
 
@@ -89,7 +90,7 @@ export default function ForgotPassword() {
                 >
                   {t('forms.forgot_password.back_to_login')}
                 </Button> */}
-                <Button type='submit' className="w-full">
+                <Button type='submit' className='w-full'>
                   {isSubmitting ? (
                     <>
                       <Loader2 className='animate-spin' />

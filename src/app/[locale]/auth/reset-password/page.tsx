@@ -51,7 +51,9 @@ export default function ResetPassword() {
       })
       router.push('/auth/login')
     } catch (err) {
-      handleApiError(err, (message) => toast.error(message.title))
+      handleApiError(err, (message) =>
+        toast.error(message.title, { description: message.description })
+      )
     }
   }
 

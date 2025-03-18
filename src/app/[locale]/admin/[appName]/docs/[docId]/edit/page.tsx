@@ -4,21 +4,12 @@ import React from 'react'
 import DocumentForm from '@/components/admin/docs/document/DocsForm'
 import { DocsPageProps } from '../../page'
 
-// 문서 수정 페이지 (params 로 appName, docId 전달) - SSR
-export default function DocsEditPage({
+export default async function DocsEditPage({
   params,
 }: {
-  params: DocsPageProps['params']
+  params: Promise<DocsPageProps['params']>
 }) {
-  const { appName, docId } =  params
+  const { appName, docId } = await params
 
-  return (
-    <div>
-      <DocumentForm 
-        mode='edit' 
-        doc_id={docId} 
-        app_name={appName} 
-      />
-    </div>
-  )
+  return <DocumentForm mode='edit' doc_id={docId} app_name={appName} />
 }

@@ -63,7 +63,9 @@ export default function AddCategory({ isOpen, onClose }: AddCategoryProps) {
       reset()
       onClose()
     } catch (err) {
-      handleApiError(err, (message) => toast.error(message.title))
+      handleApiError(err, (message) =>
+        toast.error(message.title, { description: message.description })
+      )
     } finally {
       setLoading(false)
     }

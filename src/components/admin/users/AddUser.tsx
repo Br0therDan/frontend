@@ -72,7 +72,9 @@ export default function AddUser({ isOpen, onClose }: AddUserProps) {
       reset()
       onClose()
     } catch (err) {
-      handleApiError(err, (message) => toast.error(message.title))
+      handleApiError(err, (message) =>
+        toast.error(message.title, { description: message.description })
+      )
     } finally {
       setLoading(false)
     }

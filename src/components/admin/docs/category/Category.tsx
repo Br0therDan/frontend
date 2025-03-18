@@ -29,7 +29,9 @@ export default function DocsCategory() {
       }
       setCategories(categories)
     } catch (err) {
-      handleApiError(err, (message) => toast.error(message.title))
+      handleApiError(err, (message) =>
+        toast.error(message.title, { description: message.description })
+      )
     }
   }
 
@@ -55,7 +57,9 @@ export default function DocsCategory() {
         description: `Category ${category.name} has been deleted.`,
       })
     } catch (err) {
-      handleApiError(err, (message) => toast.error(message.title))
+      handleApiError(err, (message) =>
+        toast.error(message.title, { description: message.description })
+      )
     }
   }
 

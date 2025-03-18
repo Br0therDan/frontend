@@ -90,7 +90,9 @@ export default function Delete({ type, id, isOpen, onClose }: DeleteProps) {
       onClose()
       window.location.reload()
     } catch (err) {
-      handleApiError(err, (message) => toast.error(message.title))
+      handleApiError(err, (message) =>
+        toast.error(message.title, { description: message.description })
+      )
     }
   }
 

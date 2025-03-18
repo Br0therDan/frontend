@@ -37,7 +37,7 @@ export const handleApiError = (error: unknown, toast: ToastType) => {
       axiosError.response?.data.detail || axiosError.response?.data.message
 
     toast({
-      title: status ? `Error ${status}` : 'Error',
+      title: status ? `Error ${status}` : 'Server Error',
       description:
         apiDetail ||
         statusMessageMap[status || 0] ||
