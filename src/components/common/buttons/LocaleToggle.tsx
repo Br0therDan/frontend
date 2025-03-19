@@ -29,7 +29,7 @@ export default function LocaleSwitcher() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant='outline'>
+        <Button variant='ghost'>
           {currentLocale === 'ko'
             ? '한국어'
             : currentLocale === 'ja'

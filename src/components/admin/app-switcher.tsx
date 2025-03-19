@@ -23,7 +23,8 @@ import { useEffect, useState } from 'react'
 import { AppsService } from '@/lib/api'
 import { handleApiError } from '@/lib/errorHandler'
 import { toast } from 'sonner'
-import AppForm from './docs/apps/AppForm'
+import AppApp from './docs/apps/AddApp'
+import Navbar from '../common/Navbar'
 
 export interface AppType {
   name: string
@@ -112,7 +113,7 @@ export default function AppSwitcher(
             ))}
             <DropdownMenuSeparator />
             <DropdownMenuItem className='gap-2 p-2'>
-              <AppForm mode="create" />
+              <Navbar type='App' addModalAs={AppApp}  />
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

@@ -53,15 +53,6 @@ export default function AdminSidebar() {
     <Sidebar>
       <SidebarHeader>
         <AppSwitcher />
-        {/* <AppSwitcher
-          apps={
-            apps.map((app) => ({
-              name: app.name,
-              logo: app.logo as React.ElementType,
-              description: app.description,
-            })) || []
-          }
-        /> */}
         <AdminSearchForm />
       </SidebarHeader>
       <SidebarContent>

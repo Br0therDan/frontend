@@ -1,13 +1,15 @@
 import React from 'react'
 import { ColumnDef } from '@tanstack/react-table'
-import { ArrowUpDown } from 'lucide-react'
+import { ArrowUpDown, Trash2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { UserPublic } from '@/client/iam'
-import ActionsMenu from '@/components/common/ActionsMenu'
+// import ActionsMenu from '@/components/common/ActionsMenu'
 
 import { Checkbox } from '@/components/ui/checkbox'
-import { useAuth } from '@/contexts/AuthContext'
+// import { useAuth } from '@/contexts/AuthContext'
 import { capitalizeFirstLetter } from '@/utils/formatName'
+import UserForm from './UserForm'
+// import DeleteAlert from '@/components/common/DeleteAlert'
 
 export const columns: ColumnDef<UserPublic>[] = [
   {
@@ -124,14 +126,23 @@ export const columns: ColumnDef<UserPublic>[] = [
     id: 'actions',
     cell: ({ row }) => {
       const user = row.original
-      const { user: currentUser } = useAuth()
+      // const { user: currentUser } = useAuth()
 
       return (
-        <ActionsMenu
-          type='User'
-          value={user}
-          disabled={currentUser?._id === user._id}
-        />
+        <div>
+          <UserForm mode='edit' user={user} />
+          <Button variant='ghost' className='p-2' aria-label='Actions'>
+            <Trash2 />
+          </Button>
+
+
+          {/* <DeleteAlert
+            type="User"
+            id={(value as { _id: string })._id || ''}
+            isOpen={deleteOpen}
+            onClose={() => setDeleteOpen(false)}
+          /> */}
+        </div>        
       )
     },
   },

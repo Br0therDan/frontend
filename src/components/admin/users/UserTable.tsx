@@ -1,10 +1,10 @@
 'use client'
 import React from 'react'
 import { useEffect, useState } from 'react'
-import AddUser from './AddUser'
-import EditUser from './EditUser'
+// import AddUser from './AddUser'
+// import EditUser from './EditUser'
 import { columns } from './columns'
-import Navbar from '@/components/common/Navbar'
+// import Navbar from '@/components/common/Navbar'
 import { AdminService } from '@/lib/api'
 import type { UserPublic } from '@/client/iam'
 import DataTable from '@/components/data_table/DataTable'
@@ -14,8 +14,6 @@ import { toast } from 'sonner'
 
 export default function UserTable() {
   const [users, setUsers] = useState<UserPublic[]>([])
-  const [editingUser, setEditingUser] = useState<UserPublic | null>(null)
-  const [isAdding, setIsAdding] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(true)
 
   useEffect(() => {
@@ -42,21 +40,7 @@ export default function UserTable() {
 
   return (
     <div className='space-y-2'>
-      <Navbar type='User' addModalAs={AddUser} />
-
       <DataTable columns={columns} data={users} />
-
-      {isAdding && (
-        <AddUser isOpen={isAdding} onClose={() => setIsAdding(false)} />
-      )}
-
-      {editingUser && (
-        <EditUser
-          isOpen={true}
-          onClose={() => setEditingUser(null)}
-          user={editingUser}
-        />
-      )}
     </div>
   )
 }

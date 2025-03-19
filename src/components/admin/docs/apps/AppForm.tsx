@@ -23,16 +23,18 @@ import { useState } from 'react'
 import Loading from '@/components/common/Loading'
 import { AppCreate, AppPublic, AppUpdate } from '@/client/docs'
 import { useTranslations } from 'next-intl'
-import { DialogTrigger } from '@radix-ui/react-dialog'
+import { DialogOverlay, DialogTrigger } from '@radix-ui/react-dialog'
 import { Button } from '@/components/ui/button'
 import { Plus } from 'lucide-react'
 
 interface AppFormProps {
+  isOpen: boolean
+  onClose: () => void
   mode: 'create' | 'update'
   appName?: string
 }
 
-export default function AppForm({ mode, appName }: AppFormProps) {
+export default function AppForm({ mode, appName, isOpen, onClose }: AppFormProps) {
   const [loading, setLoading] = useState(false)
   const t = useTranslations()
   const [app, setApp] = useState<AppPublic | null>(null)
@@ -87,7 +89,7 @@ export default function AppForm({ mode, appName }: AppFormProps) {
         description: '앱이 성공적으로 업데이트 되었습니다.',
       })
       reset()
-      // onClose()
+      onClose()
     } catch (err) {
       handleApiError(err, (message) =>
         toast.error(message.title, { description: message.description })
@@ -105,7 +107,7 @@ export default function AppForm({ mode, appName }: AppFormProps) {
         description: '앱이 성공적으로 추가되었습니다.',
       })
       reset()
-      // onClose()
+      onClose()
     } catch (err) {
       handleApiError(err, (message) =>
         toast.error(message.title, { description: message.description })
@@ -119,7 +121,7 @@ export default function AppForm({ mode, appName }: AppFormProps) {
     if (mode === 'create') {
       addApp(data as AppCreate)
     } else {
-      updateApp(data)
+      updateApp(data as AppUpdate)
     }
   }
 
@@ -133,12 +135,14 @@ export default function AppForm({ mode, appName }: AppFormProps) {
   }
 
   return (
-    <Dialog>
-      <DialogTrigger>
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogTrigger asChild>
         <Button variant='ghost'>
-          <Plus className='size-4' />앱 추가
+          <Plus className='size-4' />
+          앱 추가
         </Button>
       </DialogTrigger>
+      <DialogOverlay asChild />
       <DialogContent className='max-w-md'>
         <DialogHeader>
           <DialogTitle className='text-2xl'>새 앱 추가</DialogTitle>

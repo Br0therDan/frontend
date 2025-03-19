@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useForm, SubmitHandler, FormProvider } from 'react-hook-form'
 
 import { toast } from 'sonner'
@@ -21,55 +21,26 @@ import { AppsService } from '@/lib/api'
 import { handleApiError } from '@/lib/errorHandler'
 import { useState } from 'react'
 import Loading from '@/components/common/Loading'
-import { AppCreate, AppPublic, AppUpdate } from '@/client/docs'
+import { AppCreate } from '@/client/docs'
 import { useTranslations } from 'next-intl'
-import { DialogTrigger } from '@radix-ui/react-dialog'
-import { Button } from '@/components/ui/button'
-import { Plus } from 'lucide-react'
 
-interface AppFormProps {
-  mode: 'create' | 'update'
-  appName?: string
+interface AddAppProps {
+  isOpen: boolean
+  onClose: () => void
 }
 
-export default function AppFormDrawer({ mode, appName }: AppFormProps) {
-  const [loading, setLoading] = useState(false)
+export default function AddApp({isOpen, onClose }: AddAppProps) {
+  const [loading, setLoading] = useState<boolean>(false)
   const t = useTranslations()
-  const [app, setApp] = useState<AppPublic | null>(null)
-  // const [isOpen, setIsOpen] = useState(false)
 
-  const fetchApp = async () => {
-    setLoading(true)
-    try {
-      const response = await AppsService.appsReadAppById(appName!)
-      setApp(response.data)
-    } catch (err) {
-      handleApiError(err, (message) =>
-        toast.error(message.title, { description: message.description })
-      )
-    } finally {
-      setLoading(false)
-    }
-  }
-  useEffect(() => {
-    if (mode === 'update') {
-      fetchApp()
-    }
-  }, [])
-
-  const methods = useForm<AppUpdate>({
+  const methods = useForm<AppCreate>({
     mode: 'onBlur',
     criteriaMode: 'all',
-    defaultValues:
-      mode === 'create'
-        ? {
-            name: '',
-            description: '',
-            logo: '',
-          }
-        : {
-            ...app,
-          },
+    defaultValues:{
+      name: '',
+      description: '',
+      logo: '',
+    }
   })
 
   const {
@@ -79,33 +50,15 @@ export default function AppFormDrawer({ mode, appName }: AppFormProps) {
     formState: { errors, isSubmitting, isDirty },
   } = methods
 
-  const updateApp = async (data: AppUpdate) => {
+  const addApp = async (data: AppCreate) => {
     setLoading(true)
     try {
-      await AppsService.appsUpdateApp(appName!, data)
-      toast.success('성공!', {
-        description: '앱이 성공적으로 업데이트 되었습니다.',
-      })
-      reset()
-      // onClose()
-    } catch (err) {
-      handleApiError(err, (message) =>
-        toast.error(message.title, { description: message.description })
-      )
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const addApp = async (app: AppCreate) => {
-    setLoading(true)
-    try {
-      await AppsService.appsCreateApp(app)
+      await AppsService.appsCreateApp(data)
       toast.success('성공!', {
         description: '앱이 성공적으로 추가되었습니다.',
       })
       reset()
-      // onClose()
+      onClose()
     } catch (err) {
       handleApiError(err, (message) =>
         toast.error(message.title, { description: message.description })
@@ -115,17 +68,13 @@ export default function AppFormDrawer({ mode, appName }: AppFormProps) {
     }
   }
 
-  const onSubmit: SubmitHandler<AppCreate | AppUpdate> = async (data) => {
-    if (mode === 'create') {
-      addApp(data as AppCreate)
-    } else {
-      updateApp(data)
-    }
+  const onSubmit: SubmitHandler<AppCreate> = async (data) => {
+    addApp(data)
   }
 
-  const handleCancel = () => {
+  const onCancel = () => {
     reset()
-    // onClose()
+    onClose()
   }
 
   if (loading) {
@@ -133,25 +82,15 @@ export default function AppFormDrawer({ mode, appName }: AppFormProps) {
   }
 
   return (
-    <FormProvider {...methods}>
-      {/* <Dialog open={isOpen} onOpenChange={() => setIsOpen(false)}> */}
-      <Dialog>
-        <DialogTrigger>
-          <Button variant='ghost'>
-            <Plus className='size-4' />
-            앱 추가
-          </Button>
-        </DialogTrigger>
-        {/* <DialogOverlay className='fixed inset-0 bg-black bg-opacity-50 z-990' /> */}
-        <DialogContent className='max-w-md z-1000'>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <DialogHeader>
-              <DialogTitle className='text-2xl'>새 앱 추가</DialogTitle>
-              <DialogDescription>
-                신규 애플리케이션을 추가합니다.
-              </DialogDescription>
-            </DialogHeader>
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className='max-w-md'>
+        <DialogHeader>
+          <DialogTitle className='text-2xl'>새 앱 추가</DialogTitle>
+          <DialogDescription>신규 애플리케이션을 추가합니다.</DialogDescription>
+        </DialogHeader>
 
+        <FormProvider {...methods}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className='grid gap-4 py-4'>
               {/* Category Name */}
               <div className='grid gap-2'>
@@ -205,7 +144,7 @@ export default function AppFormDrawer({ mode, appName }: AppFormProps) {
             <DialogFooter className='flex justify-end gap-3 pt-2'>
               <MyButton
                 variant='outline'
-                onClick={handleCancel}
+                onClick={onCancel}
                 disabled={isSubmitting}
                 className='w-full'
                 type='button'
@@ -223,9 +162,9 @@ export default function AppFormDrawer({ mode, appName }: AppFormProps) {
               </MyButton>
             </DialogFooter>
           </form>
-          <DialogClose className='absolute top-4 right-4' />
-        </DialogContent>
-      </Dialog>
-    </FormProvider>
+        </FormProvider>
+        <DialogClose className='absolute top-4 right-4' />
+      </DialogContent>
+    </Dialog>
   )
 }

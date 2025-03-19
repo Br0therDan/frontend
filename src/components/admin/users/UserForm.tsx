@@ -13,14 +13,16 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
-  DialogFooter,
+  // DialogFooter,
   DialogClose,
+  DialogTrigger,
+  DialogFooter,
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Checkbox } from '@/components/ui/checkbox' // If you generated a ShadCN Checkbox
 import { MyButton } from '@/components/common/buttons/submit-button' // Custom ShadCN-based button
-import { type AdminUserCreate } from '@/client/iam'
+import { UserPublic, type AdminUserCreate } from '@/client/iam'
 import { emailPattern, namePattern, passwordRules } from '@/utils/utils'
 import { toast } from 'sonner'
 import { AdminService } from '@/lib/api'
@@ -28,20 +30,23 @@ import { handleApiError } from '@/lib/errorHandler'
 import { useState } from 'react'
 import Loading from '@/components/common/Loading'
 import { useTranslations } from 'next-intl'
+import { Button } from '@/components/ui/button'
+import { Edit, PlusCircle } from 'lucide-react'
 
-interface AddUserProps {
-  isOpen: boolean
-  onClose: () => void
+interface UserFormProps {
+  mode: 'add' | 'edit'
+  user?: UserPublic
 }
 
-interface UserCreateForm extends AdminUserCreate {
-  confirm_password: string
+interface UserForm extends AdminUserCreate {
+  confirm_password?: string
 }
 
-export default function AddUser({ isOpen, onClose }: AddUserProps) {
+export default function UserForm({ mode, user }: UserFormProps) {
   const t = useTranslations()
   const [loading, setLoading] = useState<boolean>(false)
-  const methods = useForm<UserCreateForm>({
+
+  const methods = useForm<UserForm>({
     mode: 'onBlur',
     criteriaMode: 'all',
     defaultValues: {
@@ -70,7 +75,6 @@ export default function AddUser({ isOpen, onClose }: AddUserProps) {
         description: t('forms.user.add_success.description'),
       })
       reset()
-      onClose()
     } catch (err) {
       handleApiError(err, (message) =>
         toast.error(message.title, { description: message.description })
@@ -80,12 +84,31 @@ export default function AddUser({ isOpen, onClose }: AddUserProps) {
     }
   }
 
-  const onSubmit: SubmitHandler<UserCreateForm> = (data) => {
-    add(data)
+  const edit = async (data: UserForm) => {
+    setLoading(true)
+    try {
+      if (mode === 'edit' && user) {
+        await AdminService.adminUpdateUser(user._id, data)
+        toast.success(t('forms.user.edit_success.title'), {
+          description: t('forms.user.edit_success.description'),
+        })
+      }
+      reset()
+    } catch (err) {
+      handleApiError(err, (message) =>
+        toast.error(message.title, { description: message.description })
+      )
+    } finally {
+      setLoading(false)
+    }
   }
-  const onCancel = () => {
-    reset()
-    onClose()
+
+  const onSubmit: SubmitHandler<UserForm> = (data) => {
+    if (mode === 'edit') {
+      edit(data)
+    } else {
+      add(data)
+    }
   }
 
   if (loading) {
@@ -94,12 +117,30 @@ export default function AddUser({ isOpen, onClose }: AddUserProps) {
 
   return (
     <FormProvider {...methods}>
-      <Dialog open={isOpen} onOpenChange={onClose}>
+      <Dialog>
+        <DialogTrigger>
+          {/* Add User */}
+          {mode === 'add' ? (
+            <Button variant='default'>
+              {' '}
+              <PlusCircle /> Add User{' '}
+            </Button>
+          ) : (
+            <Button variant='ghost'>
+              <Edit />
+            </Button>
+          )}
+        </DialogTrigger>
         {/* No DialogTrigger here, as we open externally */}
         <DialogContent>
           <form onSubmit={handleSubmit(onSubmit)}>
             <DialogHeader>
-              <DialogTitle>{t('pages.admin.users.create.title')}</DialogTitle>
+              {mode === 'edit' ? (
+                <DialogTitle>{t('pages.admin.users.edit.title')}</DialogTitle>
+              ) : (
+                <DialogTitle>{t('pages.admin.users.create.title')}</DialogTitle>
+              )}
+
               <DialogDescription className='text-sm text-muted-foreground'>
                 {t('pages.admin.users.create.description')}
               </DialogDescription>
@@ -211,15 +252,6 @@ export default function AddUser({ isOpen, onClose }: AddUserProps) {
             </div>
 
             <DialogFooter className='flex justify-end gap-3 pt-2'>
-              <MyButton
-                variant='outline'
-                onClick={onCancel}
-                disabled={isSubmitting}
-                className='w-full'
-                type='button'
-              >
-                {t('forms.user.cancel')}
-              </MyButton>
               <MyButton
                 variant='default'
                 type='submit'
