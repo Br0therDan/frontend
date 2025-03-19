@@ -40,7 +40,7 @@ import {
 } from "./base";
 
 /**
- * App 생성 스키마  :param name: App의 이름 :param description: App에 대한 설명 (선택 사항)
+ *
  * @export
  * @interface AppCreate
  */
@@ -56,10 +56,16 @@ export interface AppCreate {
 	 * @type {string}
 	 * @memberof AppCreate
 	 */
-	description?: string | null;
+	logo?: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof AppCreate
+	 */
+	description?: string;
 }
 /**
- * 공개 App 정보 스키마  :param id: App의 ObjectId :param name: App의 이름 :param description: App에 대한 설명 (선택 사항) :param created_by: App을 생성한 사용자 ID :param created_at: App 생성 일시 :param updated_at: App 업데이트 일시 (선택 사항)
+ *
  * @export
  * @interface AppPublic
  */
@@ -69,7 +75,7 @@ export interface AppPublic {
 	 * @type {string}
 	 * @memberof AppPublic
 	 */
-	id: string;
+	_id?: string;
 	/**
 	 *
 	 * @type {string}
@@ -81,28 +87,22 @@ export interface AppPublic {
 	 * @type {string}
 	 * @memberof AppPublic
 	 */
-	description?: string | null;
+	logo?: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof AppPublic
+	 */
+	description?: string;
 	/**
 	 *
 	 * @type {string}
 	 * @memberof AppPublic
 	 */
 	created_by: string;
-	/**
-	 *
-	 * @type {string}
-	 * @memberof AppPublic
-	 */
-	created_at: string;
-	/**
-	 *
-	 * @type {string}
-	 * @memberof AppPublic
-	 */
-	updated_at?: string | null;
 }
 /**
- * App 업데이트 스키마  :param name: App의 이름 (선택 사항) :param description: App에 대한 설명 (선택 사항)
+ *
  * @export
  * @interface AppUpdate
  */
@@ -113,6 +113,12 @@ export interface AppUpdate {
 	 * @memberof AppUpdate
 	 */
 	name?: string | null;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof AppUpdate
+	 */
+	logo?: string | null;
 	/**
 	 *
 	 * @type {string}
@@ -875,25 +881,25 @@ export const AppsApiAxiosParamCreator = function (
 		/**
 		 * 특정 App의 정보를 수정합니다.  :param app_id: 수정할 App의 ObjectId :param app_data: AppUpdate 객체 (수정할 필드들) :param current_user: 현재 활성 사용자 :return: 업데이트된 AppPublic 객체 :raises HTTPException: App을 찾지 못한 경우 (404) 또는 권한이 없는 경우 (403)
 		 * @summary App 정보 수정
-		 * @param {string} appId
+		 * @param {string} appName
 		 * @param {AppUpdate} appUpdate
 		 * @param {string | null} [accessToken]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		appsUpdateApp: async (
-			appId: string,
+			appName: string,
 			appUpdate: AppUpdate,
 			accessToken?: string | null,
 			options: RawAxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
-			// verify required parameter 'appId' is not null or undefined
-			assertParamExists("appsUpdateApp", "appId", appId);
+			// verify required parameter 'appName' is not null or undefined
+			assertParamExists("appsUpdateApp", "appName", appName);
 			// verify required parameter 'appUpdate' is not null or undefined
 			assertParamExists("appsUpdateApp", "appUpdate", appUpdate);
-			const localVarPath = `/api/v1/apps/{app_id}`.replace(
-				`{${"app_id"}}`,
-				encodeURIComponent(String(appId)),
+			const localVarPath = `/api/v1/apps/{app_name}`.replace(
+				`{${"app_name"}}`,
+				encodeURIComponent(String(appName)),
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1106,14 +1112,14 @@ export const AppsApiFp = function (configuration?: Configuration) {
 		/**
 		 * 특정 App의 정보를 수정합니다.  :param app_id: 수정할 App의 ObjectId :param app_data: AppUpdate 객체 (수정할 필드들) :param current_user: 현재 활성 사용자 :return: 업데이트된 AppPublic 객체 :raises HTTPException: App을 찾지 못한 경우 (404) 또는 권한이 없는 경우 (403)
 		 * @summary App 정보 수정
-		 * @param {string} appId
+		 * @param {string} appName
 		 * @param {AppUpdate} appUpdate
 		 * @param {string | null} [accessToken]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async appsUpdateApp(
-			appId: string,
+			appName: string,
 			appUpdate: AppUpdate,
 			accessToken?: string | null,
 			options?: RawAxiosRequestConfig,
@@ -1121,7 +1127,7 @@ export const AppsApiFp = function (configuration?: Configuration) {
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AppPublic>
 		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.appsUpdateApp(
-				appId,
+				appName,
 				appUpdate,
 				accessToken,
 				options,
@@ -1233,20 +1239,20 @@ export const AppsApiFactory = function (
 		/**
 		 * 특정 App의 정보를 수정합니다.  :param app_id: 수정할 App의 ObjectId :param app_data: AppUpdate 객체 (수정할 필드들) :param current_user: 현재 활성 사용자 :return: 업데이트된 AppPublic 객체 :raises HTTPException: App을 찾지 못한 경우 (404) 또는 권한이 없는 경우 (403)
 		 * @summary App 정보 수정
-		 * @param {string} appId
+		 * @param {string} appName
 		 * @param {AppUpdate} appUpdate
 		 * @param {string | null} [accessToken]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		appsUpdateApp(
-			appId: string,
+			appName: string,
 			appUpdate: AppUpdate,
 			accessToken?: string | null,
 			options?: RawAxiosRequestConfig,
 		): AxiosPromise<AppPublic> {
 			return localVarFp
-				.appsUpdateApp(appId, appUpdate, accessToken, options)
+				.appsUpdateApp(appName, appUpdate, accessToken, options)
 				.then((request) => request(axios, basePath));
 		},
 	};
@@ -1341,7 +1347,7 @@ export class AppsApi extends BaseAPI {
 	/**
 	 * 특정 App의 정보를 수정합니다.  :param app_id: 수정할 App의 ObjectId :param app_data: AppUpdate 객체 (수정할 필드들) :param current_user: 현재 활성 사용자 :return: 업데이트된 AppPublic 객체 :raises HTTPException: App을 찾지 못한 경우 (404) 또는 권한이 없는 경우 (403)
 	 * @summary App 정보 수정
-	 * @param {string} appId
+	 * @param {string} appName
 	 * @param {AppUpdate} appUpdate
 	 * @param {string | null} [accessToken]
 	 * @param {*} [options] Override http request option.
@@ -1349,13 +1355,13 @@ export class AppsApi extends BaseAPI {
 	 * @memberof AppsApi
 	 */
 	public appsUpdateApp(
-		appId: string,
+		appName: string,
 		appUpdate: AppUpdate,
 		accessToken?: string | null,
 		options?: RawAxiosRequestConfig,
 	) {
 		return AppsApiFp(this.configuration)
-			.appsUpdateApp(appId, appUpdate, accessToken, options)
+			.appsUpdateApp(appName, appUpdate, accessToken, options)
 			.then((request) => request(this.axios, this.basePath));
 	}
 }
@@ -1371,20 +1377,20 @@ export const CategoriesApiAxiosParamCreator = function (
 		/**
 		 *
 		 * @summary Create Category
-		 * @param {string} appId
+		 * @param {string} appName
 		 * @param {DocsCategoryCreate} docsCategoryCreate
 		 * @param {string | null} [accessToken]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		categoriesCreateCategory: async (
-			appId: string,
+			appName: string,
 			docsCategoryCreate: DocsCategoryCreate,
 			accessToken?: string | null,
 			options: RawAxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
-			// verify required parameter 'appId' is not null or undefined
-			assertParamExists("categoriesCreateCategory", "appId", appId);
+			// verify required parameter 'appName' is not null or undefined
+			assertParamExists("categoriesCreateCategory", "appName", appName);
 			// verify required parameter 'docsCategoryCreate' is not null or undefined
 			assertParamExists(
 				"categoriesCreateCategory",
@@ -1416,8 +1422,8 @@ export const CategoriesApiAxiosParamCreator = function (
 				configuration,
 			);
 
-			if (appId !== undefined) {
-				localVarQueryParameter["app_id"] = appId;
+			if (appName !== undefined) {
+				localVarQueryParameter["app_name"] = appName;
 			}
 
 			localVarHeaderParameter["Content-Type"] = "application/json";
@@ -1631,14 +1637,14 @@ export const CategoriesApiFp = function (configuration?: Configuration) {
 		/**
 		 *
 		 * @summary Create Category
-		 * @param {string} appId
+		 * @param {string} appName
 		 * @param {DocsCategoryCreate} docsCategoryCreate
 		 * @param {string | null} [accessToken]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async categoriesCreateCategory(
-			appId: string,
+			appName: string,
 			docsCategoryCreate: DocsCategoryCreate,
 			accessToken?: string | null,
 			options?: RawAxiosRequestConfig,
@@ -1650,7 +1656,7 @@ export const CategoriesApiFp = function (configuration?: Configuration) {
 		> {
 			const localVarAxiosArgs =
 				await localVarAxiosParamCreator.categoriesCreateCategory(
-					appId,
+					appName,
 					docsCategoryCreate,
 					accessToken,
 					options,
@@ -1793,21 +1799,21 @@ export const CategoriesApiFactory = function (
 		/**
 		 *
 		 * @summary Create Category
-		 * @param {string} appId
+		 * @param {string} appName
 		 * @param {DocsCategoryCreate} docsCategoryCreate
 		 * @param {string | null} [accessToken]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		categoriesCreateCategory(
-			appId: string,
+			appName: string,
 			docsCategoryCreate: DocsCategoryCreate,
 			accessToken?: string | null,
 			options?: RawAxiosRequestConfig,
 		): AxiosPromise<DocsCategoryPublic> {
 			return localVarFp
 				.categoriesCreateCategory(
-					appId,
+					appName,
 					docsCategoryCreate,
 					accessToken,
 					options,
@@ -1883,7 +1889,7 @@ export class CategoriesApi extends BaseAPI {
 	/**
 	 *
 	 * @summary Create Category
-	 * @param {string} appId
+	 * @param {string} appName
 	 * @param {DocsCategoryCreate} docsCategoryCreate
 	 * @param {string | null} [accessToken]
 	 * @param {*} [options] Override http request option.
@@ -1891,13 +1897,18 @@ export class CategoriesApi extends BaseAPI {
 	 * @memberof CategoriesApi
 	 */
 	public categoriesCreateCategory(
-		appId: string,
+		appName: string,
 		docsCategoryCreate: DocsCategoryCreate,
 		accessToken?: string | null,
 		options?: RawAxiosRequestConfig,
 	) {
 		return CategoriesApiFp(this.configuration)
-			.categoriesCreateCategory(appId, docsCategoryCreate, accessToken, options)
+			.categoriesCreateCategory(
+				appName,
+				docsCategoryCreate,
+				accessToken,
+				options,
+			)
 			.then((request) => request(this.axios, this.basePath));
 	}
 

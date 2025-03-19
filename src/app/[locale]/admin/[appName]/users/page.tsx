@@ -11,7 +11,7 @@ export default async function UserPage({
 }) {
   const { appName } = await params
   return (
-    <div>
+    <div className='flex flex-col h-full p-4 sm:p-8'>
       <PageTitle title={`${capitalizeFirstLetter(appName)} User Management`} />
       <UserTable />
     </div>

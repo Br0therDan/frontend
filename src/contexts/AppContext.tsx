@@ -1,13 +1,9 @@
 "use client";
+import { AppType } from '@/components/admin/app-switcher';
+import { capitalizeFirstLetter } from '@/utils/formatName';
 import { SquareTerminal } from 'lucide-react';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
-interface AppType {
-  name: string;
-  path: string;
-  plan?: string;
-  logo?: React.ElementType;
-}
 
 interface AppContextType {
   activeApp: AppType;
@@ -17,7 +13,7 @@ interface AppContextType {
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 // 기본값 정의 (기본 앱은 Quant)
-const defaultApp: AppType = { name: 'Quant', logo: SquareTerminal, path: 'quant' };
+const defaultApp: AppType = { name: `${capitalizeFirstLetter("quant")}`, logo: SquareTerminal };
 
 export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const [activeApp, setActiveApp] = useState<AppType>(defaultApp);
@@ -43,8 +39,8 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
 
   // activeApp 값이 변경될 때마다 로컬 스토리지에 저장
   useEffect(() => {
-    const { name, path, plan } = activeApp;
-    localStorage.setItem('activeApp', JSON.stringify({ name, path, plan }));
+    const { name, description } = activeApp;
+    localStorage.setItem('activeApp', JSON.stringify({ name, description }));
   }, [activeApp]);
 
   return (

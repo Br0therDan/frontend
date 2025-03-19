@@ -11,20 +11,23 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarMenuSub,
+  SidebarMenuSubItem,
 } from '@/components/ui/sidebar'
 import AppSwitcher from './app-switcher'
 import { AdminSearchForm } from './search-form'
 import { useApp } from '@/contexts/AppContext'
 import {
-  Beer,
-  BookText,
-  Globe,
   Home,
-  ShipWheel,
-  SquareTerminal,
   User,
+  BookText,
+  // Beer,
+  // Globe,
+  // ShipWheel,
+  // SquareTerminal,
 } from 'lucide-react'
 import Link from 'next/link'
+
 
 const items = [
   {
@@ -46,38 +49,19 @@ const items = [
 
 export default function AdminSidebar() {
   const { activeApp } = useApp()
-
   return (
     <Sidebar>
       <SidebarHeader>
-        <AppSwitcher
-          apps={[
-            {
-              name: 'Quant',
-              logo: SquareTerminal,
-              plan: 'Free',
-              path: 'quant',
-            },
-            { 
-              name: 'HomeBrew', 
-              logo: Beer, 
-              plan: 'Free', 
-              path: 'homebrew' 
-            },
-            { 
-              name: 'Locations', 
-              logo: Globe, 
-              plan: 'Free', 
-              path: 'locations' 
-            },
-            { 
-              name: 'Yachts', 
-              logo: ShipWheel, 
-              plan: 'Free', 
-              path: 'yachts' 
-            },
-          ]}
-        />
+        <AppSwitcher />
+        {/* <AppSwitcher
+          apps={
+            apps.map((app) => ({
+              name: app.name,
+              logo: app.logo as React.ElementType,
+              description: app.description,
+            })) || []
+          }
+        /> */}
         <AdminSearchForm />
       </SidebarHeader>
       <SidebarContent>
@@ -90,7 +74,7 @@ export default function AdminSidebar() {
                 // 예: '/admin/documents' -> '/quant/documents'
                 const base = '/admin'
                 const subRoute = item.url.replace(base, '')
-                const finalPath = `${base}/${activeApp.path}${subRoute}`
+                const finalPath = `${base}/${activeApp.name}${subRoute}`
                 return (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton asChild>
@@ -99,6 +83,11 @@ export default function AdminSidebar() {
                         <span>{item.title}</span>
                       </Link>
                     </SidebarMenuButton>
+                    <SidebarMenuSub>
+                      <SidebarMenuSubItem>
+
+                      </SidebarMenuSubItem>
+                    </SidebarMenuSub>  
                   </SidebarMenuItem>
                 )
               })}

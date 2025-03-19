@@ -34,11 +34,12 @@ import { DocsCategoryCreate } from '@/client/docs'
 import { useTranslations } from 'next-intl'
 
 interface AddCategoryProps {
+  appName: string 
   isOpen: boolean
   onClose: () => void
 }
 
-export default function AddCategory({ isOpen, onClose }: AddCategoryProps) {
+export default function AddCategory({ appName, isOpen, onClose }: AddCategoryProps) {
   const [loading, setLoading] = useState(false)
   // const { user: currentUser } = useAuth();
   // const isAdmin = currentUser?.is_superuser === true;
@@ -63,10 +64,10 @@ export default function AddCategory({ isOpen, onClose }: AddCategoryProps) {
 
   const subcategories = watch('subcategories')
 
-  const onSubmit: SubmitHandler<DocsCategoryCreate> = async (data) => {
+  const onSubmit: SubmitHandler<DocsCategoryCreate> = async (cat) => {
     setLoading(true)
     try {
-      await CatService.categoriesCreateCategory(data)
+      await CatService.categoriesCreateCategory(appName, cat)
       toast.success(t('forms.create_category.success.title'), {
         description: t('forms.create_category.success.description'),
       })

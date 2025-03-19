@@ -11,9 +11,10 @@ import Loading from '@/components/common/Loading'
 import { DocumentPublic } from '@/client/docs'
 import { columns } from './columns'
 import { Button } from '@/components/ui/button'
-import { FaPlus } from 'react-icons/fa'
 import { useRouter } from 'next/navigation'
 import { useApp } from '@/contexts/AppContext'
+import { PlusCircle } from 'lucide-react'
+import CategoryTable from '../category/CategoryTable'
 
 interface DocsTableProps {
   app_name: string
@@ -53,12 +54,13 @@ export default function DocsTable({ app_name }: DocsTableProps) {
   return (
     <div className='flex flex-col h-full'>
       <main className='flex-1 space-y-4 pb-5 overflow-y-auto p-4 sm:p-8'>
+        <CategoryTable appName={activeApp.name} />
       <Button
-        variant='ghost'
-        className='flex items-center overflow-auto min-w-20 gap-2'
-        onClick={() => handleRoute(activeApp.path)}
+        variant="outline"
+        className='flex items-center min-w-20 gap-2'
+        onClick={() => handleRoute(activeApp.name)}
       >
-        <FaPlus /> Add Document
+        <PlusCircle />문서 작성
       </Button>
       <DataTable columns={columns} data={docs} />
       </main>

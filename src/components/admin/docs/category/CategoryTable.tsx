@@ -13,7 +13,11 @@ import { Button } from '@/components/ui/button'
 /**
  * 카테고리 목록과 서브카테고리를 트리 형태로 보여주는 컴포넌트
  */
-export default function DocsCategory() {
+interface DocsCategoryProps {
+  appName: string
+}
+
+export default function DocsCategory({appName}: DocsCategoryProps) {
   const [categories, setCategories] = useState<DocsCategoryPublic[]>([])
   const [editingCategory, setEditingCategory] =
     useState<DocsCategoryPublic | null>(null)
@@ -22,7 +26,7 @@ export default function DocsCategory() {
   // 카테고리 목록 가져오기
   const fetchCategories = async () => {
     try {
-      const response = await CatService.categoriesReadDocsCategory()
+      const response = await CatService.categoriesReadDocsCategory(appName)
       const categories = response.data
       if (!categories) {
         return
@@ -113,17 +117,18 @@ export default function DocsCategory() {
 
       {/* 카테고리 추가 버튼 */}
       <div className='flex justify-end'>
-        <button
+        <Button
+          variant='outline'
           onClick={handleAddClick}
-          className='bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600'
         >
           Add Category
-        </button>
+        </Button>
       </div>
 
       {/* 모달들 */}
       {isAdding && (
         <AddCategory
+          appName={appName} 
           isOpen={isAdding}
           onClose={() => {
             setIsAdding(false)
