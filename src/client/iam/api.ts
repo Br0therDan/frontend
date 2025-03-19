@@ -1240,25 +1240,25 @@ export const AdminApiAxiosParamCreator = function (
 		/**
 		 * [관리자 전용] 서비스 정보 수정
 		 * @summary Update App
-		 * @param {string} appName
+		 * @param {string} appId
 		 * @param {AppUpdate} appUpdate
 		 * @param {string | null} [tokenFromCookie]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		adminUpdateApp: async (
-			appName: string,
+			appId: string,
 			appUpdate: AppUpdate,
 			tokenFromCookie?: string | null,
 			options: RawAxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
-			// verify required parameter 'appName' is not null or undefined
-			assertParamExists("adminUpdateApp", "appName", appName);
+			// verify required parameter 'appId' is not null or undefined
+			assertParamExists("adminUpdateApp", "appId", appId);
 			// verify required parameter 'appUpdate' is not null or undefined
 			assertParamExists("adminUpdateApp", "appUpdate", appUpdate);
-			const localVarPath = `/api/v1/admin/apps/{app_name}`.replace(
-				`{${"app_name"}}`,
-				encodeURIComponent(String(appName)),
+			const localVarPath = `/api/v1/admin/apps/{app_id}`.replace(
+				`{${"app_id"}}`,
+				encodeURIComponent(String(appId)),
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1641,14 +1641,14 @@ export const AdminApiFp = function (configuration?: Configuration) {
 		/**
 		 * [관리자 전용] 서비스 정보 수정
 		 * @summary Update App
-		 * @param {string} appName
+		 * @param {string} appId
 		 * @param {AppUpdate} appUpdate
 		 * @param {string | null} [tokenFromCookie]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async adminUpdateApp(
-			appName: string,
+			appId: string,
 			appUpdate: AppUpdate,
 			tokenFromCookie?: string | null,
 			options?: RawAxiosRequestConfig,
@@ -1656,7 +1656,7 @@ export const AdminApiFp = function (configuration?: Configuration) {
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AppPublic>
 		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.adminUpdateApp(
-				appName,
+				appId,
 				appUpdate,
 				tokenFromCookie,
 				options,
@@ -1857,20 +1857,20 @@ export const AdminApiFactory = function (
 		/**
 		 * [관리자 전용] 서비스 정보 수정
 		 * @summary Update App
-		 * @param {string} appName
+		 * @param {string} appId
 		 * @param {AppUpdate} appUpdate
 		 * @param {string | null} [tokenFromCookie]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		adminUpdateApp(
-			appName: string,
+			appId: string,
 			appUpdate: AppUpdate,
 			tokenFromCookie?: string | null,
 			options?: RawAxiosRequestConfig,
 		): AxiosPromise<AppPublic> {
 			return localVarFp
-				.adminUpdateApp(appName, appUpdate, tokenFromCookie, options)
+				.adminUpdateApp(appId, appUpdate, tokenFromCookie, options)
 				.then((request) => request(axios, basePath));
 		},
 		/**
@@ -2045,7 +2045,7 @@ export class AdminApi extends BaseAPI {
 	/**
 	 * [관리자 전용] 서비스 정보 수정
 	 * @summary Update App
-	 * @param {string} appName
+	 * @param {string} appId
 	 * @param {AppUpdate} appUpdate
 	 * @param {string | null} [tokenFromCookie]
 	 * @param {*} [options] Override http request option.
@@ -2053,13 +2053,13 @@ export class AdminApi extends BaseAPI {
 	 * @memberof AdminApi
 	 */
 	public adminUpdateApp(
-		appName: string,
+		appId: string,
 		appUpdate: AppUpdate,
 		tokenFromCookie?: string | null,
 		options?: RawAxiosRequestConfig,
 	) {
 		return AdminApiFp(this.configuration)
-			.adminUpdateApp(appName, appUpdate, tokenFromCookie, options)
+			.adminUpdateApp(appId, appUpdate, tokenFromCookie, options)
 			.then((request) => request(this.axios, this.basePath));
 	}
 

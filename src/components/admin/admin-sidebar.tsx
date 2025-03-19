@@ -6,13 +6,12 @@ import {
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarGroupLabel,
+
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarMenuSub,
-  SidebarMenuSubItem,
+
 } from '@/components/ui/sidebar'
 import AppSwitcher from './app-switcher'
 import { AdminSearchForm } from './search-form'
@@ -21,10 +20,9 @@ import {
   Home,
   User,
   BookText,
-  // Beer,
-  // Globe,
-  // ShipWheel,
-  // SquareTerminal,
+  AppleIcon,
+  TerminalSquare,
+
 } from 'lucide-react'
 import Link from 'next/link'
 
@@ -32,13 +30,18 @@ import Link from 'next/link'
 const items = [
   {
     title: 'Home',
-    url: '/admin', // 기본값, 필요에 따라 변경
+    url: '/admin',
     icon: Home,
   },
   {
     title: 'Users',
     url: '/admin/users',
     icon: User,
+  },
+  {
+    title: 'Apps',
+    url: '/admin/apps',
+    icon: AppleIcon,
   },
   {
     title: 'Documents',
@@ -52,33 +55,42 @@ export default function AdminSidebar() {
   return (
     <Sidebar>
       <SidebarHeader>
-        <AppSwitcher />
+        <AppSwitcher/>
         <AdminSearchForm />
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Admin</SidebarGroupLabel>
+          {/* <SidebarGroupLabel>Admin</SidebarGroupLabel> */}
           <SidebarGroupContent>
-            <SidebarMenu>
+            <SidebarMenu className='space-y-1 p-2'>
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  asChild
+                  className='flex items-center space-x-1'
+                >
+                  <Link href='/admin'>
+                    <TerminalSquare />
+                    <span className='font-bold'>Dashboard</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
               {items.map((item) => {
                 // 기본 URL 구조에서 /admin 부분은 제거하고, 선택된 app.path를 앞에 붙입니다.
                 // 예: '/admin/documents' -> '/quant/documents'
                 const base = '/admin'
                 const subRoute = item.url.replace(base, '')
-                const finalPath = `${base}/${activeApp.name}${subRoute}`
+                const finalPath = `${base}/${activeApp?.name}${subRoute}`
                 return (
                   <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton asChild>
+                    <SidebarMenuButton
+                      asChild
+                      className='flex ml-2 items-center space-x-1'
+                    >
                       <Link href={finalPath}>
                         <item.icon />
                         <span>{item.title}</span>
                       </Link>
                     </SidebarMenuButton>
-                    <SidebarMenuSub>
-                      <SidebarMenuSubItem>
-
-                      </SidebarMenuSubItem>
-                    </SidebarMenuSub>  
                   </SidebarMenuItem>
                 )
               })}

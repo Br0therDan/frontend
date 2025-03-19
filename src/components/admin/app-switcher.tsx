@@ -17,49 +17,24 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar'
 import { useRouter } from 'next/navigation'
+import { capitalizeFirstLetter } from '@/utils/formatName'
 import { useApp } from '@/contexts/AppContext'
-import { AppPublic } from '@/client/iam'
-import { useEffect, useState } from 'react'
-import { AppsService } from '@/lib/api'
-import { handleApiError } from '@/lib/errorHandler'
-import { toast } from 'sonner'
-import AppForm from './docs/apps/AppForm'
+
 
 export interface AppType {
   name: string
-  logo: React.ElementType
+  logo: React.ElementType | null
   description: string | null | undefined
 }
 
-export default function AppSwitcher(
-) {
+export default function AppSwitcher() {
   const router = useRouter()
   const { isMobile } = useSidebar()
-  const { activeApp, setActiveApp } = useApp()
-  const [apps, setApps] = useState<AppType[]>([])
-
-  useEffect(() => {
-    const fetchApps = async () => {
-      try {
-        const response = await AppsService.appsReadApps()
-        const applist = response.data.map((app: AppPublic) => ({
-          name: app.name,
-          logo: app.logo as React.ElementType,
-          description: app.description,
-        }))
-        setApps(applist)
-      } catch (err) {
-        handleApiError(err, (message) => {
-          toast.error(message.title, { description: message.description })
-        })
-      }
-    }
-    fetchApps()
-  }, [])
+  const { activeApp, apps, setActiveApp } = useApp()
 
   const handleSwitchApp = (app: typeof activeApp) => {
     setActiveApp(app)
-    router.push(`/admin/${app.name}`)
+    router.push(`/admin/${app?.name}`)
   }
 
   if (!activeApp) {
@@ -67,7 +42,7 @@ export default function AppSwitcher(
   }
 
   return (
-    <SidebarMenu>
+    <SidebarMenu className='my-2'>
       <SidebarMenuItem>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -80,7 +55,7 @@ export default function AppSwitcher(
                   React.createElement(activeApp.logo, { className: 'size-4' })}
               </div>
               <div className='grid flex-1 text-left text-sm leading-tight'>
-                <span className='truncate font-semibold'>{activeApp.name}</span>
+                <span className='truncate font-semibold'>{capitalizeFirstLetter(activeApp.name)}</span>
                 <span className='truncate text-xs'>
                   {activeApp.description}
                 </span>
@@ -100,20 +75,19 @@ export default function AppSwitcher(
             {apps.map((app, index) => (
               <DropdownMenuItem
                 key={app.name}
-                onClick={() => handleSwitchApp(app)}
+                onClick={() => handleSwitchApp(app as typeof activeApp)}
                 className='gap-2 p-2'
               >
-                <div className='flex size-6 items-center justify-center rounded-sm border'>
-                  <app.logo className='size-4 shrink-0' />
-                </div>
+                {app.logo && (
+                  <div className='flex size-6 items-center justify-center rounded-sm border'>
+                    {React.createElement(app.logo, { className: 'size-4 shrink-0' })}
+                  </div>
+                )}
                 {app.name}
                 <DropdownMenuShortcut>⌘{index + 1}</DropdownMenuShortcut>
               </DropdownMenuItem>
             ))}
             <DropdownMenuSeparator />
-            <DropdownMenuItem className='gap-2 p-2'>
-              <AppForm mode='create' />
-            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </SidebarMenuItem>

@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useForm, SubmitHandler, FormProvider } from 'react-hook-form'
 
 import { toast } from 'sonner'
@@ -27,43 +27,24 @@ import { Button } from '@/components/ui/button'
 import { Edit, PlusCircle } from 'lucide-react'
 
 interface AppFormProps {
-  mode: 'create' | 'update'
-  appName?: string
+  mode: 'add' | 'edit'
+  app?: AppPublic
+  onSuccess?: () => void
 }
 
-export default function AppForm({ mode, appName }: AppFormProps) {
+export default function AppForm({ mode, app, onSuccess }: AppFormProps) {
   const [loading, setLoading] = useState(false)
-  const [app, setApp] = useState<AppPublic | null>(null)
   const t = useTranslations()
-
-  const fetchApp = async () => {
-    setLoading(true)
-    try {
-      const response = await AdminService.adminReadAppByName(appName!)
-      setApp(response.data)
-    } catch (err) {
-      handleApiError(err, (message) =>
-        toast.error(message.title, { description: message.description })
-      )
-    } finally {
-      setLoading(false)
-    }
-  }
-  useEffect(() => {
-    if (mode === 'update') {
-      fetchApp()
-    }
-  }, [])
 
   const methods = useForm<AppUpdate>({
     mode: 'onBlur',
     criteriaMode: 'all',
     defaultValues:
-      mode === 'create'
+      mode === 'edit' && app
         ? {
-            name: app?.name,
-            description: app?.description,
-            logo: app?.logo,
+            name: app.name,
+            description: app.description,
+            logo: app.logo,
           }
         : {
             name: '',
@@ -79,13 +60,17 @@ export default function AppForm({ mode, appName }: AppFormProps) {
     formState: { errors, isSubmitting, isDirty },
   } = methods
 
-  const updateApp = async (data: AppUpdate) => {
+  const editApp = async (data: AppUpdate) => {
     setLoading(true)
     try {
-      await AdminService.adminUpdateApp(appName!, data)
+      if (!app) {
+        throw new Error('App not found')
+      }
+      await AdminService.adminUpdateApp(app._id, data)
       toast.success('성공!', {
         description: '앱이 성공적으로 업데이트 되었습니다.',
       })
+      onSuccess?.()
       reset()
     } catch (err) {
       handleApiError(err, (message) =>
@@ -103,6 +88,7 @@ export default function AppForm({ mode, appName }: AppFormProps) {
       toast.success('성공!', {
         description: '앱이 성공적으로 추가되었습니다.',
       })
+      onSuccess?.()
       reset()
     } catch (err) {
       handleApiError(err, (message) =>
@@ -113,11 +99,11 @@ export default function AppForm({ mode, appName }: AppFormProps) {
     }
   }
 
-  const onSubmit: SubmitHandler<AppCreate | AppUpdate> = async (data) => {
-    if (mode === 'create') {
+  const onSubmit: SubmitHandler<AppCreate | AppUpdate> =  (data) => {
+    if (mode === 'add') {
       addApp(data as AppCreate)
     } else {
-      updateApp(data as AppUpdate)
+      editApp(data as AppUpdate)
     }
   }
 
@@ -129,8 +115,8 @@ export default function AppForm({ mode, appName }: AppFormProps) {
     <FormProvider {...methods}>
       <Dialog>
         <DialogTrigger asChild>
-        {mode === 'create' ? (
-            <Button variant='default'>
+        {mode === 'add' ? (
+            <Button variant='default' className='w-full'>
               {' '}
               <PlusCircle />새 앱 추가{' '}
             </Button>
@@ -140,9 +126,9 @@ export default function AppForm({ mode, appName }: AppFormProps) {
             </Button>
           )}
         </DialogTrigger>
-        <DialogContent className='max-w-md'>
+        <DialogContent className='max-w-md z-3000'>
             <DialogHeader>
-              {mode === 'update' ? (
+              {mode === 'edit' ? (
                 <>
                   <DialogTitle>{t('pages.admin.apps.edit.title')}</DialogTitle>
                   <DialogDescription className='text-sm text-muted-foreground'>

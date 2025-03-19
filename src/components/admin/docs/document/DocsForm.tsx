@@ -121,7 +121,7 @@ export default function DocumentForm({ mode, doc_id, app_name }: DocumentFormPro
   const addDocument = async (doc: DocumentCreate) => {
     setLoading(true)
     try {
-      await DocsService.docsCreateDocument(doc, app_name)
+      await DocsService.docsCreateDocument(app_name, doc)
       toast.success(t('forms.create_doc.success.title'), {
         description: t('forms.create_doc.success.description'),
       })
