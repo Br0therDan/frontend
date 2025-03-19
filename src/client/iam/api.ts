@@ -62,19 +62,13 @@ export interface AdminUserCreate {
 	 * @type {string}
 	 * @memberof AdminUserCreate
 	 */
-	password: string;
+	provider?: string | null;
 	/**
 	 *
 	 * @type {string}
 	 * @memberof AdminUserCreate
 	 */
-	provider?: string;
-	/**
-	 *
-	 * @type {Array<string>}
-	 * @memberof AdminUserCreate
-	 */
-	allow_services?: Array<string> | null;
+	password: string;
 	/**
 	 *
 	 * @type {boolean}
@@ -114,12 +108,6 @@ export interface AdminUserUpdate {
 	password?: string | null;
 	/**
 	 *
-	 * @type {Array<string>}
-	 * @memberof AdminUserUpdate
-	 */
-	allow_services?: Array<string> | null;
-	/**
-	 *
 	 * @type {boolean}
 	 * @memberof AdminUserUpdate
 	 */
@@ -130,6 +118,87 @@ export interface AdminUserUpdate {
 	 * @memberof AdminUserUpdate
 	 */
 	is_superuser?: boolean | null;
+}
+/**
+ * 서비스 생성 요청
+ * @export
+ * @interface AppCreate
+ */
+export interface AppCreate {
+	/**
+	 *
+	 * @type {string}
+	 * @memberof AppCreate
+	 */
+	name: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof AppCreate
+	 */
+	logo?: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof AppCreate
+	 */
+	description?: string;
+}
+/**
+ *
+ * @export
+ * @interface AppPublic
+ */
+export interface AppPublic {
+	/**
+	 *
+	 * @type {string}
+	 * @memberof AppPublic
+	 */
+	_id: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof AppPublic
+	 */
+	name: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof AppPublic
+	 */
+	logo?: string | null;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof AppPublic
+	 */
+	description?: string | null;
+}
+/**
+ * 서비스 업데이트 요청
+ * @export
+ * @interface AppUpdate
+ */
+export interface AppUpdate {
+	/**
+	 *
+	 * @type {string}
+	 * @memberof AppUpdate
+	 */
+	name?: string | null;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof AppUpdate
+	 */
+	logo?: string | null;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof AppUpdate
+	 */
+	description?: string | null;
 }
 /**
  *
@@ -244,67 +313,98 @@ export interface OAuthAccount {
 	refresh_token?: string | null;
 }
 /**
- * 서비스 생성 요청
+ *
  * @export
- * @interface ServiceCreate
+ * @interface Subscription
  */
-export interface ServiceCreate {
+export interface Subscription {
 	/**
 	 *
 	 * @type {string}
-	 * @memberof ServiceCreate
+	 * @memberof Subscription
 	 */
-	name: string;
+	_id?: string | null;
 	/**
 	 *
 	 * @type {string}
-	 * @memberof ServiceCreate
+	 * @memberof Subscription
 	 */
-	description?: string | null;
+	created_at?: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof Subscription
+	 */
+	updated_at?: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof Subscription
+	 */
+	user_id: string;
+	/**
+	 *
+	 * @type {Array<SubscriptionAppsInner>}
+	 * @memberof Subscription
+	 */
+	apps?: Array<SubscriptionAppsInner>;
+	/**
+	 *
+	 * @type {SubscriptionStatus}
+	 * @memberof Subscription
+	 */
+	status?: SubscriptionStatus;
+	/**
+	 *
+	 * @type {SubscriptionTier}
+	 * @memberof Subscription
+	 */
+	tier?: SubscriptionTier;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof Subscription
+	 */
+	expires_at?: string | null;
+}
+
+/**
+ *
+ * @export
+ * @interface SubscriptionAppsInner
+ */
+export interface SubscriptionAppsInner {
+	/**
+	 *
+	 * @type {string}
+	 * @memberof SubscriptionAppsInner
+	 */
+	id: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof SubscriptionAppsInner
+	 */
+	collection: string;
 }
 /**
  *
  * @export
- * @interface ServicePublic
+ * @interface SubscriptionAppsInnerAnyOf
  */
-export interface ServicePublic {
+export interface SubscriptionAppsInnerAnyOf {
 	/**
 	 *
 	 * @type {string}
-	 * @memberof ServicePublic
+	 * @memberof SubscriptionAppsInnerAnyOf
 	 */
-	_id: string;
+	id: string;
 	/**
 	 *
 	 * @type {string}
-	 * @memberof ServicePublic
+	 * @memberof SubscriptionAppsInnerAnyOf
 	 */
-	name: string;
-	/**
-	 *
-	 * @type {string}
-	 * @memberof ServicePublic
-	 */
-	description?: string | null;
-}
-/**
- * 서비스 업데이트 요청
- * @export
- * @interface ServiceUpdate
- */
-export interface ServiceUpdate {
-	/**
-	 *
-	 * @type {string}
-	 * @memberof ServiceUpdate
-	 */
-	name?: string | null;
-	/**
-	 *
-	 * @type {string}
-	 * @memberof ServiceUpdate
-	 */
-	description?: string | null;
+	collection: string;
 }
 /**
  * 구독 생성 요청
@@ -323,7 +423,7 @@ export interface SubscriptionCreate {
 	 * @type {Array<string>}
 	 * @memberof SubscriptionCreate
 	 */
-	services: Array<string>;
+	apps: Array<string>;
 	/**
 	 *
 	 * @type {number}
@@ -358,10 +458,10 @@ export interface SubscriptionPublic {
 	user_id: string;
 	/**
 	 *
-	 * @type {Array<ServicePublic>}
+	 * @type {Array<AppPublic>}
 	 * @memberof SubscriptionPublic
 	 */
-	services: Array<ServicePublic>;
+	apps: Array<AppPublic>;
 	/**
 	 *
 	 * @type {SubscriptionStatus}
@@ -432,7 +532,7 @@ export interface SubscriptionUpdate {
 	 * @type {Array<string>}
 	 * @memberof SubscriptionUpdate
 	 */
-	services?: Array<string> | null;
+	apps?: Array<string> | null;
 	/**
 	 *
 	 * @type {SubscriptionStatus}
@@ -587,6 +687,12 @@ export interface UserPublic {
 	 * @memberof UserPublic
 	 */
 	oauth_accounts?: Array<OAuthAccount> | null;
+	/**
+	 *
+	 * @type {Subscription}
+	 * @memberof UserPublic
+	 */
+	subscription?: Subscription | null;
 }
 /**
  *
@@ -698,20 +804,20 @@ export const AdminApiAxiosParamCreator = function (
 	return {
 		/**
 		 * [관리자 전용] 서비스 생성
-		 * @summary Create Service
-		 * @param {ServiceCreate} serviceCreate
+		 * @summary Create App
+		 * @param {AppCreate} appCreate
 		 * @param {string | null} [tokenFromCookie]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		adminCreateService: async (
-			serviceCreate: ServiceCreate,
+		adminCreateApp: async (
+			appCreate: AppCreate,
 			tokenFromCookie?: string | null,
 			options: RawAxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
-			// verify required parameter 'serviceCreate' is not null or undefined
-			assertParamExists("adminCreateService", "serviceCreate", serviceCreate);
-			const localVarPath = `/api/v1/admin/services/`;
+			// verify required parameter 'appCreate' is not null or undefined
+			assertParamExists("adminCreateApp", "appCreate", appCreate);
+			const localVarPath = `/api/v1/admin/apps/`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -747,7 +853,7 @@ export const AdminApiAxiosParamCreator = function (
 				...options.headers,
 			};
 			localVarRequestOptions.data = serializeDataIfNeeded(
-				serviceCreate,
+				appCreate,
 				localVarRequestOptions,
 				configuration,
 			);
@@ -820,22 +926,22 @@ export const AdminApiAxiosParamCreator = function (
 		},
 		/**
 		 * [관리자 전용] 서비스 삭제
-		 * @summary Delete Service
-		 * @param {string} serviceId
+		 * @summary Delete App
+		 * @param {string} appId
 		 * @param {string | null} [tokenFromCookie]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		adminDeleteService: async (
-			serviceId: string,
+		adminDeleteApp: async (
+			appId: string,
 			tokenFromCookie?: string | null,
 			options: RawAxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
-			// verify required parameter 'serviceId' is not null or undefined
-			assertParamExists("adminDeleteService", "serviceId", serviceId);
-			const localVarPath = `/api/v1/admin/services/{service_id}`.replace(
-				`{${"service_id"}}`,
-				encodeURIComponent(String(serviceId)),
+			// verify required parameter 'appId' is not null or undefined
+			assertParamExists("adminDeleteApp", "appId", appId);
+			const localVarPath = `/api/v1/admin/apps/{app_id}`.replace(
+				`{${"app_id"}}`,
+				encodeURIComponent(String(appId)),
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -934,22 +1040,20 @@ export const AdminApiAxiosParamCreator = function (
 		},
 		/**
 		 * 특정 서비스 정보 조회
-		 * @summary Read Service By Id
-		 * @param {string} serviceId
-		 * @param {string | null} [tokenFromCookie]
+		 * @summary Read App By Id
+		 * @param {string} appId
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		adminReadServiceById: async (
-			serviceId: string,
-			tokenFromCookie?: string | null,
+		adminReadAppById: async (
+			appId: string,
 			options: RawAxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
-			// verify required parameter 'serviceId' is not null or undefined
-			assertParamExists("adminReadServiceById", "serviceId", serviceId);
-			const localVarPath = `/api/v1/admin/services/{service_id}`.replace(
-				`{${"service_id"}}`,
-				encodeURIComponent(String(serviceId)),
+			// verify required parameter 'appId' is not null or undefined
+			assertParamExists("adminReadAppById", "appId", appId);
+			const localVarPath = `/api/v1/admin/apps/{app_id}`.replace(
+				`{${"app_id"}}`,
+				encodeURIComponent(String(appId)),
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -965,15 +1069,6 @@ export const AdminApiAxiosParamCreator = function (
 			};
 			const localVarHeaderParameter = {} as any;
 			const localVarQueryParameter = {} as any;
-
-			// authentication OAuth2PasswordBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				"OAuth2PasswordBearer",
-				[],
-				configuration,
-			);
 
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
 			let headersFromBaseOptions =
@@ -990,17 +1085,22 @@ export const AdminApiAxiosParamCreator = function (
 			};
 		},
 		/**
-		 * [관리자 전용] 서비스 조회
-		 * @summary Read Services
-		 * @param {string | null} [tokenFromCookie]
+		 * 특정 App의 상세 정보를 조회합니다.  :param name: 조회할 App의 ObjectId :return: AppPublic 객체 :raises HTTPException: App을 찾지 못한 경우 (404)
+		 * @summary [관리자]특정 App 조회
+		 * @param {string} appName
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		adminReadServices: async (
-			tokenFromCookie?: string | null,
+		adminReadAppByName: async (
+			appName: string,
 			options: RawAxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
-			const localVarPath = `/api/v1/admin/services/`;
+			// verify required parameter 'appName' is not null or undefined
+			assertParamExists("adminReadAppByName", "appName", appName);
+			const localVarPath = `/api/v1/admin/apps/{app_name}`.replace(
+				`{${"app_name"}}`,
+				encodeURIComponent(String(appName)),
+			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -1015,15 +1115,6 @@ export const AdminApiAxiosParamCreator = function (
 			};
 			const localVarHeaderParameter = {} as any;
 			const localVarQueryParameter = {} as any;
-
-			// authentication OAuth2PasswordBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				"OAuth2PasswordBearer",
-				[],
-				configuration,
-			);
 
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
 			let headersFromBaseOptions =
@@ -1148,26 +1239,26 @@ export const AdminApiAxiosParamCreator = function (
 		},
 		/**
 		 * [관리자 전용] 서비스 정보 수정
-		 * @summary Update Service
-		 * @param {string} serviceId
-		 * @param {ServiceUpdate} serviceUpdate
+		 * @summary Update App
+		 * @param {string} appName
+		 * @param {AppUpdate} appUpdate
 		 * @param {string | null} [tokenFromCookie]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		adminUpdateService: async (
-			serviceId: string,
-			serviceUpdate: ServiceUpdate,
+		adminUpdateApp: async (
+			appName: string,
+			appUpdate: AppUpdate,
 			tokenFromCookie?: string | null,
 			options: RawAxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
-			// verify required parameter 'serviceId' is not null or undefined
-			assertParamExists("adminUpdateService", "serviceId", serviceId);
-			// verify required parameter 'serviceUpdate' is not null or undefined
-			assertParamExists("adminUpdateService", "serviceUpdate", serviceUpdate);
-			const localVarPath = `/api/v1/admin/services/{service_id}`.replace(
-				`{${"service_id"}}`,
-				encodeURIComponent(String(serviceId)),
+			// verify required parameter 'appName' is not null or undefined
+			assertParamExists("adminUpdateApp", "appName", appName);
+			// verify required parameter 'appUpdate' is not null or undefined
+			assertParamExists("adminUpdateApp", "appUpdate", appUpdate);
+			const localVarPath = `/api/v1/admin/apps/{app_name}`.replace(
+				`{${"app_name"}}`,
+				encodeURIComponent(String(appName)),
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1204,7 +1295,7 @@ export const AdminApiAxiosParamCreator = function (
 				...options.headers,
 			};
 			localVarRequestOptions.data = serializeDataIfNeeded(
-				serviceUpdate,
+				appUpdate,
 				localVarRequestOptions,
 				configuration,
 			);
@@ -1294,28 +1385,27 @@ export const AdminApiFp = function (configuration?: Configuration) {
 	return {
 		/**
 		 * [관리자 전용] 서비스 생성
-		 * @summary Create Service
-		 * @param {ServiceCreate} serviceCreate
+		 * @summary Create App
+		 * @param {AppCreate} appCreate
 		 * @param {string | null} [tokenFromCookie]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		async adminCreateService(
-			serviceCreate: ServiceCreate,
+		async adminCreateApp(
+			appCreate: AppCreate,
 			tokenFromCookie?: string | null,
 			options?: RawAxiosRequestConfig,
 		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ServicePublic>
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AppPublic>
 		> {
-			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.adminCreateService(
-					serviceCreate,
-					tokenFromCookie,
-					options,
-				);
+			const localVarAxiosArgs = await localVarAxiosParamCreator.adminCreateApp(
+				appCreate,
+				tokenFromCookie,
+				options,
+			);
 			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
 			const localVarOperationServerBasePath =
-				operationServerMap["AdminApi.adminCreateService"]?.[
+				operationServerMap["AdminApi.adminCreateApp"]?.[
 					localVarOperationServerIndex
 				]?.url;
 			return (axios, basePath) =>
@@ -1361,28 +1451,27 @@ export const AdminApiFp = function (configuration?: Configuration) {
 		},
 		/**
 		 * [관리자 전용] 서비스 삭제
-		 * @summary Delete Service
-		 * @param {string} serviceId
+		 * @summary Delete App
+		 * @param {string} appId
 		 * @param {string | null} [tokenFromCookie]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		async adminDeleteService(
-			serviceId: string,
+		async adminDeleteApp(
+			appId: string,
 			tokenFromCookie?: string | null,
 			options?: RawAxiosRequestConfig,
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Message>
 		> {
-			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.adminDeleteService(
-					serviceId,
-					tokenFromCookie,
-					options,
-				);
+			const localVarAxiosArgs = await localVarAxiosParamCreator.adminDeleteApp(
+				appId,
+				tokenFromCookie,
+				options,
+			);
 			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
 			const localVarOperationServerBasePath =
-				operationServerMap["AdminApi.adminDeleteService"]?.[
+				operationServerMap["AdminApi.adminDeleteApp"]?.[
 					localVarOperationServerIndex
 				]?.url;
 			return (axios, basePath) =>
@@ -1428,28 +1517,22 @@ export const AdminApiFp = function (configuration?: Configuration) {
 		},
 		/**
 		 * 특정 서비스 정보 조회
-		 * @summary Read Service By Id
-		 * @param {string} serviceId
-		 * @param {string | null} [tokenFromCookie]
+		 * @summary Read App By Id
+		 * @param {string} appId
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		async adminReadServiceById(
-			serviceId: string,
-			tokenFromCookie?: string | null,
+		async adminReadAppById(
+			appId: string,
 			options?: RawAxiosRequestConfig,
 		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ServicePublic>
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AppPublic>
 		> {
 			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.adminReadServiceById(
-					serviceId,
-					tokenFromCookie,
-					options,
-				);
+				await localVarAxiosParamCreator.adminReadAppById(appId, options);
 			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
 			const localVarOperationServerBasePath =
-				operationServerMap["AdminApi.adminReadServiceById"]?.[
+				operationServerMap["AdminApi.adminReadAppById"]?.[
 					localVarOperationServerIndex
 				]?.url;
 			return (axios, basePath) =>
@@ -1461,29 +1544,23 @@ export const AdminApiFp = function (configuration?: Configuration) {
 				)(axios, localVarOperationServerBasePath || basePath);
 		},
 		/**
-		 * [관리자 전용] 서비스 조회
-		 * @summary Read Services
-		 * @param {string | null} [tokenFromCookie]
+		 * 특정 App의 상세 정보를 조회합니다.  :param name: 조회할 App의 ObjectId :return: AppPublic 객체 :raises HTTPException: App을 찾지 못한 경우 (404)
+		 * @summary [관리자]특정 App 조회
+		 * @param {string} appName
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		async adminReadServices(
-			tokenFromCookie?: string | null,
+		async adminReadAppByName(
+			appName: string,
 			options?: RawAxiosRequestConfig,
 		): Promise<
-			(
-				axios?: AxiosInstance,
-				basePath?: string,
-			) => AxiosPromise<Array<ServicePublic>>
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AppPublic>
 		> {
 			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.adminReadServices(
-					tokenFromCookie,
-					options,
-				);
+				await localVarAxiosParamCreator.adminReadAppByName(appName, options);
 			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
 			const localVarOperationServerBasePath =
-				operationServerMap["AdminApi.adminReadServices"]?.[
+				operationServerMap["AdminApi.adminReadAppByName"]?.[
 					localVarOperationServerIndex
 				]?.url;
 			return (axios, basePath) =>
@@ -1563,31 +1640,30 @@ export const AdminApiFp = function (configuration?: Configuration) {
 		},
 		/**
 		 * [관리자 전용] 서비스 정보 수정
-		 * @summary Update Service
-		 * @param {string} serviceId
-		 * @param {ServiceUpdate} serviceUpdate
+		 * @summary Update App
+		 * @param {string} appName
+		 * @param {AppUpdate} appUpdate
 		 * @param {string | null} [tokenFromCookie]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		async adminUpdateService(
-			serviceId: string,
-			serviceUpdate: ServiceUpdate,
+		async adminUpdateApp(
+			appName: string,
+			appUpdate: AppUpdate,
 			tokenFromCookie?: string | null,
 			options?: RawAxiosRequestConfig,
 		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ServicePublic>
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AppPublic>
 		> {
-			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.adminUpdateService(
-					serviceId,
-					serviceUpdate,
-					tokenFromCookie,
-					options,
-				);
+			const localVarAxiosArgs = await localVarAxiosParamCreator.adminUpdateApp(
+				appName,
+				appUpdate,
+				tokenFromCookie,
+				options,
+			);
 			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
 			const localVarOperationServerBasePath =
-				operationServerMap["AdminApi.adminUpdateService"]?.[
+				operationServerMap["AdminApi.adminUpdateApp"]?.[
 					localVarOperationServerIndex
 				]?.url;
 			return (axios, basePath) =>
@@ -1650,19 +1726,19 @@ export const AdminApiFactory = function (
 	return {
 		/**
 		 * [관리자 전용] 서비스 생성
-		 * @summary Create Service
-		 * @param {ServiceCreate} serviceCreate
+		 * @summary Create App
+		 * @param {AppCreate} appCreate
 		 * @param {string | null} [tokenFromCookie]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		adminCreateService(
-			serviceCreate: ServiceCreate,
+		adminCreateApp(
+			appCreate: AppCreate,
 			tokenFromCookie?: string | null,
 			options?: RawAxiosRequestConfig,
-		): AxiosPromise<ServicePublic> {
+		): AxiosPromise<AppPublic> {
 			return localVarFp
-				.adminCreateService(serviceCreate, tokenFromCookie, options)
+				.adminCreateApp(appCreate, tokenFromCookie, options)
 				.then((request) => request(axios, basePath));
 		},
 		/**
@@ -1684,19 +1760,19 @@ export const AdminApiFactory = function (
 		},
 		/**
 		 * [관리자 전용] 서비스 삭제
-		 * @summary Delete Service
-		 * @param {string} serviceId
+		 * @summary Delete App
+		 * @param {string} appId
 		 * @param {string | null} [tokenFromCookie]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		adminDeleteService(
-			serviceId: string,
+		adminDeleteApp(
+			appId: string,
 			tokenFromCookie?: string | null,
 			options?: RawAxiosRequestConfig,
 		): AxiosPromise<Message> {
 			return localVarFp
-				.adminDeleteService(serviceId, tokenFromCookie, options)
+				.adminDeleteApp(appId, tokenFromCookie, options)
 				.then((request) => request(axios, basePath));
 		},
 		/**
@@ -1718,34 +1794,32 @@ export const AdminApiFactory = function (
 		},
 		/**
 		 * 특정 서비스 정보 조회
-		 * @summary Read Service By Id
-		 * @param {string} serviceId
-		 * @param {string | null} [tokenFromCookie]
+		 * @summary Read App By Id
+		 * @param {string} appId
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		adminReadServiceById(
-			serviceId: string,
-			tokenFromCookie?: string | null,
+		adminReadAppById(
+			appId: string,
 			options?: RawAxiosRequestConfig,
-		): AxiosPromise<ServicePublic> {
+		): AxiosPromise<AppPublic> {
 			return localVarFp
-				.adminReadServiceById(serviceId, tokenFromCookie, options)
+				.adminReadAppById(appId, options)
 				.then((request) => request(axios, basePath));
 		},
 		/**
-		 * [관리자 전용] 서비스 조회
-		 * @summary Read Services
-		 * @param {string | null} [tokenFromCookie]
+		 * 특정 App의 상세 정보를 조회합니다.  :param name: 조회할 App의 ObjectId :return: AppPublic 객체 :raises HTTPException: App을 찾지 못한 경우 (404)
+		 * @summary [관리자]특정 App 조회
+		 * @param {string} appName
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		adminReadServices(
-			tokenFromCookie?: string | null,
+		adminReadAppByName(
+			appName: string,
 			options?: RawAxiosRequestConfig,
-		): AxiosPromise<Array<ServicePublic>> {
+		): AxiosPromise<AppPublic> {
 			return localVarFp
-				.adminReadServices(tokenFromCookie, options)
+				.adminReadAppByName(appName, options)
 				.then((request) => request(axios, basePath));
 		},
 		/**
@@ -1782,21 +1856,21 @@ export const AdminApiFactory = function (
 		},
 		/**
 		 * [관리자 전용] 서비스 정보 수정
-		 * @summary Update Service
-		 * @param {string} serviceId
-		 * @param {ServiceUpdate} serviceUpdate
+		 * @summary Update App
+		 * @param {string} appName
+		 * @param {AppUpdate} appUpdate
 		 * @param {string | null} [tokenFromCookie]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		adminUpdateService(
-			serviceId: string,
-			serviceUpdate: ServiceUpdate,
+		adminUpdateApp(
+			appName: string,
+			appUpdate: AppUpdate,
 			tokenFromCookie?: string | null,
 			options?: RawAxiosRequestConfig,
-		): AxiosPromise<ServicePublic> {
+		): AxiosPromise<AppPublic> {
 			return localVarFp
-				.adminUpdateService(serviceId, serviceUpdate, tokenFromCookie, options)
+				.adminUpdateApp(appName, appUpdate, tokenFromCookie, options)
 				.then((request) => request(axios, basePath));
 		},
 		/**
@@ -1830,20 +1904,20 @@ export const AdminApiFactory = function (
 export class AdminApi extends BaseAPI {
 	/**
 	 * [관리자 전용] 서비스 생성
-	 * @summary Create Service
-	 * @param {ServiceCreate} serviceCreate
+	 * @summary Create App
+	 * @param {AppCreate} appCreate
 	 * @param {string | null} [tokenFromCookie]
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
 	 * @memberof AdminApi
 	 */
-	public adminCreateService(
-		serviceCreate: ServiceCreate,
+	public adminCreateApp(
+		appCreate: AppCreate,
 		tokenFromCookie?: string | null,
 		options?: RawAxiosRequestConfig,
 	) {
 		return AdminApiFp(this.configuration)
-			.adminCreateService(serviceCreate, tokenFromCookie, options)
+			.adminCreateApp(appCreate, tokenFromCookie, options)
 			.then((request) => request(this.axios, this.basePath));
 	}
 
@@ -1868,20 +1942,20 @@ export class AdminApi extends BaseAPI {
 
 	/**
 	 * [관리자 전용] 서비스 삭제
-	 * @summary Delete Service
-	 * @param {string} serviceId
+	 * @summary Delete App
+	 * @param {string} appId
 	 * @param {string | null} [tokenFromCookie]
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
 	 * @memberof AdminApi
 	 */
-	public adminDeleteService(
-		serviceId: string,
+	public adminDeleteApp(
+		appId: string,
 		tokenFromCookie?: string | null,
 		options?: RawAxiosRequestConfig,
 	) {
 		return AdminApiFp(this.configuration)
-			.adminDeleteService(serviceId, tokenFromCookie, options)
+			.adminDeleteApp(appId, tokenFromCookie, options)
 			.then((request) => request(this.axios, this.basePath));
 	}
 
@@ -1906,37 +1980,29 @@ export class AdminApi extends BaseAPI {
 
 	/**
 	 * 특정 서비스 정보 조회
-	 * @summary Read Service By Id
-	 * @param {string} serviceId
-	 * @param {string | null} [tokenFromCookie]
+	 * @summary Read App By Id
+	 * @param {string} appId
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
 	 * @memberof AdminApi
 	 */
-	public adminReadServiceById(
-		serviceId: string,
-		tokenFromCookie?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
+	public adminReadAppById(appId: string, options?: RawAxiosRequestConfig) {
 		return AdminApiFp(this.configuration)
-			.adminReadServiceById(serviceId, tokenFromCookie, options)
+			.adminReadAppById(appId, options)
 			.then((request) => request(this.axios, this.basePath));
 	}
 
 	/**
-	 * [관리자 전용] 서비스 조회
-	 * @summary Read Services
-	 * @param {string | null} [tokenFromCookie]
+	 * 특정 App의 상세 정보를 조회합니다.  :param name: 조회할 App의 ObjectId :return: AppPublic 객체 :raises HTTPException: App을 찾지 못한 경우 (404)
+	 * @summary [관리자]특정 App 조회
+	 * @param {string} appName
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
 	 * @memberof AdminApi
 	 */
-	public adminReadServices(
-		tokenFromCookie?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
+	public adminReadAppByName(appName: string, options?: RawAxiosRequestConfig) {
 		return AdminApiFp(this.configuration)
-			.adminReadServices(tokenFromCookie, options)
+			.adminReadAppByName(appName, options)
 			.then((request) => request(this.axios, this.basePath));
 	}
 
@@ -1978,22 +2044,22 @@ export class AdminApi extends BaseAPI {
 
 	/**
 	 * [관리자 전용] 서비스 정보 수정
-	 * @summary Update Service
-	 * @param {string} serviceId
-	 * @param {ServiceUpdate} serviceUpdate
+	 * @summary Update App
+	 * @param {string} appName
+	 * @param {AppUpdate} appUpdate
 	 * @param {string | null} [tokenFromCookie]
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
 	 * @memberof AdminApi
 	 */
-	public adminUpdateService(
-		serviceId: string,
-		serviceUpdate: ServiceUpdate,
+	public adminUpdateApp(
+		appName: string,
+		appUpdate: AppUpdate,
 		tokenFromCookie?: string | null,
 		options?: RawAxiosRequestConfig,
 	) {
 		return AdminApiFp(this.configuration)
-			.adminUpdateService(serviceId, serviceUpdate, tokenFromCookie, options)
+			.adminUpdateApp(appName, appUpdate, tokenFromCookie, options)
 			.then((request) => request(this.axios, this.basePath));
 	}
 
@@ -2015,6 +2081,143 @@ export class AdminApi extends BaseAPI {
 	) {
 		return AdminApiFp(this.configuration)
 			.adminUpdateUser(userId, adminUserUpdate, tokenFromCookie, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
+}
+
+/**
+ * AppsApi - axios parameter creator
+ * @export
+ */
+export const AppsApiAxiosParamCreator = function (
+	configuration?: Configuration,
+) {
+	return {
+		/**
+		 * [관리자 전용] 서비스 조회
+		 * @summary Read Apps
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		appsReadApps: async (
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			const localVarPath = `/api/v1/apps/public`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = {
+				method: "GET",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+	};
+};
+
+/**
+ * AppsApi - functional programming interface
+ * @export
+ */
+export const AppsApiFp = function (configuration?: Configuration) {
+	const localVarAxiosParamCreator = AppsApiAxiosParamCreator(configuration);
+	return {
+		/**
+		 * [관리자 전용] 서비스 조회
+		 * @summary Read Apps
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async appsReadApps(
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(
+				axios?: AxiosInstance,
+				basePath?: string,
+			) => AxiosPromise<Array<AppPublic>>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.appsReadApps(options);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["AppsApi.appsReadApps"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+	};
+};
+
+/**
+ * AppsApi - factory interface
+ * @export
+ */
+export const AppsApiFactory = function (
+	configuration?: Configuration,
+	basePath?: string,
+	axios?: AxiosInstance,
+) {
+	const localVarFp = AppsApiFp(configuration);
+	return {
+		/**
+		 * [관리자 전용] 서비스 조회
+		 * @summary Read Apps
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		appsReadApps(
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<Array<AppPublic>> {
+			return localVarFp
+				.appsReadApps(options)
+				.then((request) => request(axios, basePath));
+		},
+	};
+};
+
+/**
+ * AppsApi - object-oriented interface
+ * @export
+ * @class AppsApi
+ * @extends {BaseAPI}
+ */
+export class AppsApi extends BaseAPI {
+	/**
+	 * [관리자 전용] 서비스 조회
+	 * @summary Read Apps
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof AppsApi
+	 */
+	public appsReadApps(options?: RawAxiosRequestConfig) {
+		return AppsApiFp(this.configuration)
+			.appsReadApps(options)
 			.then((request) => request(this.axios, this.basePath));
 	}
 }
@@ -3336,33 +3539,29 @@ export const SubscriptionsApiAxiosParamCreator = function (
 	return {
 		/**
 		 * 특정 구독에 서비스 추가 API
-		 * @summary Add Service To Subscription
+		 * @summary Add App To Subscription
 		 * @param {string} subscriptionId
-		 * @param {string} serviceId
+		 * @param {string} appId
 		 * @param {string | null} [tokenFromCookie]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		subscriptionsAddServiceToSubscription: async (
+		subscriptionsAddAppToSubscription: async (
 			subscriptionId: string,
-			serviceId: string,
+			appId: string,
 			tokenFromCookie?: string | null,
 			options: RawAxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
 			// verify required parameter 'subscriptionId' is not null or undefined
 			assertParamExists(
-				"subscriptionsAddServiceToSubscription",
+				"subscriptionsAddAppToSubscription",
 				"subscriptionId",
 				subscriptionId,
 			);
-			// verify required parameter 'serviceId' is not null or undefined
-			assertParamExists(
-				"subscriptionsAddServiceToSubscription",
-				"serviceId",
-				serviceId,
-			);
+			// verify required parameter 'appId' is not null or undefined
+			assertParamExists("subscriptionsAddAppToSubscription", "appId", appId);
 			const localVarPath =
-				`/api/v1/subscriptions/{subscription_id}/services`.replace(
+				`/api/v1/subscriptions/{subscription_id}/apps`.replace(
 					`{${"subscription_id"}}`,
 					encodeURIComponent(String(subscriptionId)),
 				);
@@ -3390,8 +3589,8 @@ export const SubscriptionsApiAxiosParamCreator = function (
 				configuration,
 			);
 
-			if (serviceId !== undefined) {
-				localVarQueryParameter["service_id"] = serviceId;
+			if (appId !== undefined) {
+				localVarQueryParameter["app_id"] = appId;
 			}
 
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -3510,38 +3709,38 @@ export const SubscriptionsApiAxiosParamCreator = function (
 		},
 		/**
 		 * 특정 구독에서 서비스 삭제 API
-		 * @summary Remove Service From Subscription
+		 * @summary Remove App From Subscription
 		 * @param {string} subscriptionId
-		 * @param {string} serviceId
+		 * @param {string} appId
 		 * @param {string | null} [tokenFromCookie]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		subscriptionsRemoveServiceFromSubscription: async (
+		subscriptionsRemoveAppFromSubscription: async (
 			subscriptionId: string,
-			serviceId: string,
+			appId: string,
 			tokenFromCookie?: string | null,
 			options: RawAxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
 			// verify required parameter 'subscriptionId' is not null or undefined
 			assertParamExists(
-				"subscriptionsRemoveServiceFromSubscription",
+				"subscriptionsRemoveAppFromSubscription",
 				"subscriptionId",
 				subscriptionId,
 			);
-			// verify required parameter 'serviceId' is not null or undefined
+			// verify required parameter 'appId' is not null or undefined
 			assertParamExists(
-				"subscriptionsRemoveServiceFromSubscription",
-				"serviceId",
-				serviceId,
+				"subscriptionsRemoveAppFromSubscription",
+				"appId",
+				appId,
 			);
 			const localVarPath =
-				`/api/v1/subscriptions/{subscription_id}/services/{service_id}`
+				`/api/v1/subscriptions/{subscription_id}/apps/{app_id}`
 					.replace(
 						`{${"subscription_id"}}`,
 						encodeURIComponent(String(subscriptionId)),
 					)
-					.replace(`{${"service_id"}}`, encodeURIComponent(String(serviceId)));
+					.replace(`{${"app_id"}}`, encodeURIComponent(String(appId)));
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -3723,16 +3922,16 @@ export const SubscriptionsApiFp = function (configuration?: Configuration) {
 	return {
 		/**
 		 * 특정 구독에 서비스 추가 API
-		 * @summary Add Service To Subscription
+		 * @summary Add App To Subscription
 		 * @param {string} subscriptionId
-		 * @param {string} serviceId
+		 * @param {string} appId
 		 * @param {string | null} [tokenFromCookie]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		async subscriptionsAddServiceToSubscription(
+		async subscriptionsAddAppToSubscription(
 			subscriptionId: string,
-			serviceId: string,
+			appId: string,
 			tokenFromCookie?: string | null,
 			options?: RawAxiosRequestConfig,
 		): Promise<
@@ -3742,16 +3941,16 @@ export const SubscriptionsApiFp = function (configuration?: Configuration) {
 			) => AxiosPromise<SubscriptionPublic>
 		> {
 			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.subscriptionsAddServiceToSubscription(
+				await localVarAxiosParamCreator.subscriptionsAddAppToSubscription(
 					subscriptionId,
-					serviceId,
+					appId,
 					tokenFromCookie,
 					options,
 				);
 			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
 			const localVarOperationServerBasePath =
 				operationServerMap[
-					"SubscriptionsApi.subscriptionsAddServiceToSubscription"
+					"SubscriptionsApi.subscriptionsAddAppToSubscription"
 				]?.[localVarOperationServerIndex]?.url;
 			return (axios, basePath) =>
 				createRequestFunction(
@@ -3828,16 +4027,16 @@ export const SubscriptionsApiFp = function (configuration?: Configuration) {
 		},
 		/**
 		 * 특정 구독에서 서비스 삭제 API
-		 * @summary Remove Service From Subscription
+		 * @summary Remove App From Subscription
 		 * @param {string} subscriptionId
-		 * @param {string} serviceId
+		 * @param {string} appId
 		 * @param {string | null} [tokenFromCookie]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		async subscriptionsRemoveServiceFromSubscription(
+		async subscriptionsRemoveAppFromSubscription(
 			subscriptionId: string,
-			serviceId: string,
+			appId: string,
 			tokenFromCookie?: string | null,
 			options?: RawAxiosRequestConfig,
 		): Promise<
@@ -3847,16 +4046,16 @@ export const SubscriptionsApiFp = function (configuration?: Configuration) {
 			) => AxiosPromise<SubscriptionPublic>
 		> {
 			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.subscriptionsRemoveServiceFromSubscription(
+				await localVarAxiosParamCreator.subscriptionsRemoveAppFromSubscription(
 					subscriptionId,
-					serviceId,
+					appId,
 					tokenFromCookie,
 					options,
 				);
 			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
 			const localVarOperationServerBasePath =
 				operationServerMap[
-					"SubscriptionsApi.subscriptionsRemoveServiceFromSubscription"
+					"SubscriptionsApi.subscriptionsRemoveAppFromSubscription"
 				]?.[localVarOperationServerIndex]?.url;
 			return (axios, basePath) =>
 				createRequestFunction(
@@ -3956,23 +4155,23 @@ export const SubscriptionsApiFactory = function (
 	return {
 		/**
 		 * 특정 구독에 서비스 추가 API
-		 * @summary Add Service To Subscription
+		 * @summary Add App To Subscription
 		 * @param {string} subscriptionId
-		 * @param {string} serviceId
+		 * @param {string} appId
 		 * @param {string | null} [tokenFromCookie]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		subscriptionsAddServiceToSubscription(
+		subscriptionsAddAppToSubscription(
 			subscriptionId: string,
-			serviceId: string,
+			appId: string,
 			tokenFromCookie?: string | null,
 			options?: RawAxiosRequestConfig,
 		): AxiosPromise<SubscriptionPublic> {
 			return localVarFp
-				.subscriptionsAddServiceToSubscription(
+				.subscriptionsAddAppToSubscription(
 					subscriptionId,
-					serviceId,
+					appId,
 					tokenFromCookie,
 					options,
 				)
@@ -4010,23 +4209,23 @@ export const SubscriptionsApiFactory = function (
 		},
 		/**
 		 * 특정 구독에서 서비스 삭제 API
-		 * @summary Remove Service From Subscription
+		 * @summary Remove App From Subscription
 		 * @param {string} subscriptionId
-		 * @param {string} serviceId
+		 * @param {string} appId
 		 * @param {string | null} [tokenFromCookie]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		subscriptionsRemoveServiceFromSubscription(
+		subscriptionsRemoveAppFromSubscription(
 			subscriptionId: string,
-			serviceId: string,
+			appId: string,
 			tokenFromCookie?: string | null,
 			options?: RawAxiosRequestConfig,
 		): AxiosPromise<SubscriptionPublic> {
 			return localVarFp
-				.subscriptionsRemoveServiceFromSubscription(
+				.subscriptionsRemoveAppFromSubscription(
 					subscriptionId,
-					serviceId,
+					appId,
 					tokenFromCookie,
 					options,
 				)
@@ -4086,24 +4285,24 @@ export const SubscriptionsApiFactory = function (
 export class SubscriptionsApi extends BaseAPI {
 	/**
 	 * 특정 구독에 서비스 추가 API
-	 * @summary Add Service To Subscription
+	 * @summary Add App To Subscription
 	 * @param {string} subscriptionId
-	 * @param {string} serviceId
+	 * @param {string} appId
 	 * @param {string | null} [tokenFromCookie]
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
 	 * @memberof SubscriptionsApi
 	 */
-	public subscriptionsAddServiceToSubscription(
+	public subscriptionsAddAppToSubscription(
 		subscriptionId: string,
-		serviceId: string,
+		appId: string,
 		tokenFromCookie?: string | null,
 		options?: RawAxiosRequestConfig,
 	) {
 		return SubscriptionsApiFp(this.configuration)
-			.subscriptionsAddServiceToSubscription(
+			.subscriptionsAddAppToSubscription(
 				subscriptionId,
-				serviceId,
+				appId,
 				tokenFromCookie,
 				options,
 			)
@@ -4146,24 +4345,24 @@ export class SubscriptionsApi extends BaseAPI {
 
 	/**
 	 * 특정 구독에서 서비스 삭제 API
-	 * @summary Remove Service From Subscription
+	 * @summary Remove App From Subscription
 	 * @param {string} subscriptionId
-	 * @param {string} serviceId
+	 * @param {string} appId
 	 * @param {string | null} [tokenFromCookie]
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
 	 * @memberof SubscriptionsApi
 	 */
-	public subscriptionsRemoveServiceFromSubscription(
+	public subscriptionsRemoveAppFromSubscription(
 		subscriptionId: string,
-		serviceId: string,
+		appId: string,
 		tokenFromCookie?: string | null,
 		options?: RawAxiosRequestConfig,
 	) {
 		return SubscriptionsApiFp(this.configuration)
-			.subscriptionsRemoveServiceFromSubscription(
+			.subscriptionsRemoveAppFromSubscription(
 				subscriptionId,
-				serviceId,
+				appId,
 				tokenFromCookie,
 				options,
 			)

@@ -5,9 +5,11 @@ import {
   AdminApi,
   Configuration,
   OAuth2Api,
+  AppsApi,
+  SubscriptionsApi
 } from '@/client/iam'
 import { PostsApi, CategoriesApi } from '@/client/posts'
-import { DocsApi, MediaAssetsApi, AppsApi, CategoriesApi as CatApi } from '@/client/docs'
+import { DocsApi, MediaAssetsApi, CategoriesApi as CatApi } from '@/client/docs'
 import {
   AssetsApi,
   BacktestResultsApi,
@@ -51,6 +53,9 @@ export const AuthService = new AuthApi(iamConfiguration)
 export const UsersService = new UsersApi(iamConfiguration)
 export const AdminService = new AdminApi(iamConfiguration)
 export const OAuthService = new OAuth2Api(iamConfiguration)
+export const AppsService = new AppsApi(iamConfiguration)
+export const SubscriptionsService = new SubscriptionsApi(iamConfiguration)
+
 
 export const PostService = new PostsApi(postsConfiguration)
 export const CategoryService = new CategoriesApi(postsConfiguration)
@@ -58,7 +63,6 @@ export const CategoryService = new CategoriesApi(postsConfiguration)
 export const DocsService = new DocsApi(docsConfiguration)
 export const CatService = new CatApi(docsConfiguration)
 export const MediaAssetsService = new MediaAssetsApi(docsConfiguration)
-export const AppsService = new AppsApi(docsConfiguration)
 
 export const CommunitiesService = new CommunitiesApi(kidsConfiguration)
 export const AlertsService = new AlertsApi(kidsConfiguration)

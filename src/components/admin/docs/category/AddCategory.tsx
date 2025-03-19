@@ -30,19 +30,15 @@ import { handleApiError } from '@/lib/errorHandler'
 import { useState } from 'react'
 import Loading from '@/components/common/Loading'
 import { DocsCategoryCreate } from '@/client/docs'
-// import { useAuth } from '@/contexts/AuthContext';
 import { useTranslations } from 'next-intl'
-
 interface AddCategoryProps {
   appName: string 
   isOpen: boolean
   onClose: () => void
 }
 
-export default function AddCategory({ appName, isOpen, onClose }: AddCategoryProps) {
+export default function AddCategory({ isOpen, onClose }: AddCategoryProps) {
   const [loading, setLoading] = useState(false)
-  // const { user: currentUser } = useAuth();
-  // const isAdmin = currentUser?.is_superuser === true;
   const t = useTranslations()
   const methods = useForm<DocsCategoryCreate>({
     mode: 'onBlur',
@@ -67,7 +63,7 @@ export default function AddCategory({ appName, isOpen, onClose }: AddCategoryPro
   const onSubmit: SubmitHandler<DocsCategoryCreate> = async (cat) => {
     setLoading(true)
     try {
-      await CatService.categoriesCreateCategory(appName, cat)
+      await CatService.categoriesCreateCategory(cat)
       toast.success(t('forms.create_category.success.title'), {
         description: t('forms.create_category.success.description'),
       })

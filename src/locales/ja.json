@@ -70,6 +70,22 @@
         }
       }
     },
+    "apps": {
+      "page_title": "アプリケーション",
+      "page_description": "アプリケーション一覧を管理します",
+      "create": {
+        "title": "アプリケーション作成",
+        "description": "新しいアプリケーションを登録します"
+      },
+      "edit": {
+        "title": "アプリケーション編集",
+        "description": "アプリケーション情報を編集します"
+      },
+      "delete": {
+        "title": "アプリケーション削除",
+        "description": "登録済みのアプリケーションを削除します"
+      }
+    }, 
     "docs": {
       "page_title": "文書",
       "page_description": "文書のリストを管理します。",

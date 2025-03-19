@@ -32,6 +32,7 @@ import { useTranslations } from 'next-intl'
 import { BlockEditor } from '@/components/BlockEditor'
 import { Input } from '@/components/ui/input'
 import { useRouter } from 'next/navigation'
+import Footer from '@/components/layout/Footer'
 
 interface DocumentFormProps {
   mode: 'add' | 'edit'
@@ -290,8 +291,7 @@ export default function DocumentForm({ mode, doc_id, app_name }: DocumentFormPro
             </div>
           </main>
           {/* Footer */}
-          <footer className='sticky bottom-0 right-0 p-4 border-t z-50 sm:px-8 bg-background'>
-            <div className='flex justify-between'>
+          <Footer>
               <Button
                 variant='outline'
                 onClick={onCancel}
@@ -310,8 +310,7 @@ export default function DocumentForm({ mode, doc_id, app_name }: DocumentFormPro
               >
                 {t('forms.create_doc.submit')}
               </MyButton>
-            </div>
-          </footer>
+          </Footer>
         </form>
       </FormProvider>
     </div>

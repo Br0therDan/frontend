@@ -8,6 +8,7 @@ import { toast } from 'sonner'
 import Loading from '@/components/common/Loading'
 import { Button } from '@/components/ui/button'
 import { useRouter } from 'next/navigation'
+import Footer from '@/components/layout/Footer'
 
 interface DocDetailViewProps {
   doc_id: string
@@ -66,24 +67,20 @@ export default function DocsDetailView({
         </section>
       </main>
       {/* sticky footer: fixed 대신 sticky를 사용하여 부모 컨테이너 내에서 스크롤 시에도 화면 하단에 위치 */}
-      <footer className='sticky bottom-0  right-0 p-4 border-t z-50'>
-        <div className='flex justify-between'>
-          <Button
-            variant='outline'
-            onClick={() => router.push(`/admin/${app_name}/docs`)}
-          >
-            목록으로
-          </Button>
-          <Button
-            variant='default'
-            onClick={() =>
-              router.push(`/admin/${app_name}/docs/${doc_id}/edit`)
-            }
-          >
-            편집
-          </Button>
-        </div>
-      </footer>
+      <Footer>
+        <Button
+          variant='outline'
+          onClick={() => router.push(`/admin/${app_name}/docs`)}
+        >
+          목록으로
+        </Button>
+        <Button
+          variant='default'
+          onClick={() => router.push(`/admin/${app_name}/docs/${doc_id}/edit`)}
+        >
+          편집
+        </Button>
+      </Footer>
     </div>
   )
 }

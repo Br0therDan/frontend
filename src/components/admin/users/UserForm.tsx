@@ -43,20 +43,28 @@ interface UserForm extends AdminUserCreate {
 }
 
 export default function UserForm({ mode, user }: UserFormProps) {
-  const t = useTranslations()
   const [loading, setLoading] = useState<boolean>(false)
+  const t = useTranslations()
 
   const methods = useForm<UserForm>({
     mode: 'onBlur',
     criteriaMode: 'all',
-    defaultValues: {
-      email: '',
-      password: '',
-      fullname: '',
-      confirm_password: '',
-      is_superuser: false,
-      is_active: false,
-    },
+    defaultValues:
+      mode === 'edit'
+        ? {
+            email: user?.email,
+            fullname: user?.fullname,
+            is_superuser: user?.is_superuser,
+            is_active: user?.is_active,
+          }
+        : {
+            email: '',
+            password: '',
+            fullname: '',
+            confirm_password: '',
+            is_superuser: false,
+            is_active: false,
+          },
   })
 
   const {
@@ -131,19 +139,26 @@ export default function UserForm({ mode, user }: UserFormProps) {
             </Button>
           )}
         </DialogTrigger>
-        {/* No DialogTrigger here, as we open externally */}
         <DialogContent>
           <form onSubmit={handleSubmit(onSubmit)}>
             <DialogHeader>
               {mode === 'edit' ? (
-                <DialogTitle>{t('pages.admin.users.edit.title')}</DialogTitle>
+                <>
+                  <DialogTitle>{t('pages.admin.users.edit.title')}</DialogTitle>
+                  <DialogDescription className='text-sm text-muted-foreground'>
+                    {t('pages.admin.users.edit.description')}
+                  </DialogDescription>
+                </>
               ) : (
-                <DialogTitle>{t('pages.admin.users.create.title')}</DialogTitle>
+                <>
+                  <DialogTitle>
+                    {t('pages.admin.users.create.title')}
+                  </DialogTitle>
+                  <DialogDescription className='text-sm text-muted-foreground'>
+                    {t('pages.admin.users.create.description')}
+                  </DialogDescription>
+                </>
               )}
-
-              <DialogDescription className='text-sm text-muted-foreground'>
-                {t('pages.admin.users.create.description')}
-              </DialogDescription>
             </DialogHeader>
             <div className='grid gap-4 py-4'>
               {/* Email */}

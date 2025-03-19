@@ -61,6 +61,22 @@
           "description": "사용자를 삭제합니다"
         }
       },
+      "apps": {
+        "title": "애플리케이션 관리",
+        "description": "애플리케이션 목록을 관리합니다",
+        "create": {
+          "title": "애플리케이션 생성",
+          "description": "새로운 애플리케이션을 생성합니다"
+        },
+        "edit": {
+          "title": "애플리케이션 수정",
+          "description": "애플리케이션 정보를 수정합니다"
+        },
+        "delete": {
+          "title": "애플리케이션 삭제",
+          "description": "애플리케이션를 삭제합니다"
+        }
+      },
       "docs": {
         "title": "문서 관리",
         "description": "문서 목록을 관리합니다"

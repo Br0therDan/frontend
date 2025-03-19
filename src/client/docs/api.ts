@@ -42,93 +42,6 @@ import {
 /**
  *
  * @export
- * @interface AppCreate
- */
-export interface AppCreate {
-	/**
-	 *
-	 * @type {string}
-	 * @memberof AppCreate
-	 */
-	name: string;
-	/**
-	 *
-	 * @type {string}
-	 * @memberof AppCreate
-	 */
-	logo?: string;
-	/**
-	 *
-	 * @type {string}
-	 * @memberof AppCreate
-	 */
-	description?: string;
-}
-/**
- *
- * @export
- * @interface AppPublic
- */
-export interface AppPublic {
-	/**
-	 *
-	 * @type {string}
-	 * @memberof AppPublic
-	 */
-	_id?: string;
-	/**
-	 *
-	 * @type {string}
-	 * @memberof AppPublic
-	 */
-	name: string;
-	/**
-	 *
-	 * @type {string}
-	 * @memberof AppPublic
-	 */
-	logo?: string;
-	/**
-	 *
-	 * @type {string}
-	 * @memberof AppPublic
-	 */
-	description?: string;
-	/**
-	 *
-	 * @type {string}
-	 * @memberof AppPublic
-	 */
-	created_by: string;
-}
-/**
- *
- * @export
- * @interface AppUpdate
- */
-export interface AppUpdate {
-	/**
-	 *
-	 * @type {string}
-	 * @memberof AppUpdate
-	 */
-	name?: string | null;
-	/**
-	 *
-	 * @type {string}
-	 * @memberof AppUpdate
-	 */
-	logo?: string | null;
-	/**
-	 *
-	 * @type {string}
-	 * @memberof AppUpdate
-	 */
-	description?: string | null;
-}
-/**
- *
- * @export
  * @interface DocsCategoryCreate
  */
 export interface DocsCategoryCreate {
@@ -138,6 +51,12 @@ export interface DocsCategoryCreate {
 	 * @memberof DocsCategoryCreate
 	 */
 	name: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof DocsCategoryCreate
+	 */
+	app_name: string;
 	/**
 	 *
 	 * @type {Array<string>}
@@ -168,12 +87,6 @@ export interface DocsCategoryPublic {
 	 * @type {string}
 	 * @memberof DocsCategoryPublic
 	 */
-	app_id: string;
-	/**
-	 *
-	 * @type {string}
-	 * @memberof DocsCategoryPublic
-	 */
 	app_name: string;
 	/**
 	 *
@@ -194,6 +107,12 @@ export interface DocsCategoryUpdate {
 	 * @memberof DocsCategoryUpdate
 	 */
 	_id: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof DocsCategoryUpdate
+	 */
+	app_name?: string | null;
 	/**
 	 *
 	 * @type {string}
@@ -622,751 +541,6 @@ export interface VersionPublic {
 }
 
 /**
- * AppsApi - axios parameter creator
- * @export
- */
-export const AppsApiAxiosParamCreator = function (
-	configuration?: Configuration,
-) {
-	return {
-		/**
-		 * [관리자]새로운 App을 생성합니다.  :param app_data: AppCreate 객체 (name, description 등) :param current_user: 현재 활성 사용자 :return: 생성된 App의 정보를 담은 AppPublic 객체
-		 * @summary [관리자]새로운 App 생성
-		 * @param {AppCreate} appCreate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		appsCreateApp: async (
-			appCreate: AppCreate,
-			accessToken?: string | null,
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			// verify required parameter 'appCreate' is not null or undefined
-			assertParamExists("appsCreateApp", "appCreate", appCreate);
-			const localVarPath = `/api/v1/apps/`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = {
-				method: "POST",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication OAuth2PasswordBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				"OAuth2PasswordBearer",
-				[],
-				configuration,
-			);
-
-			localVarHeaderParameter["Content-Type"] = "application/json";
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
-			localVarRequestOptions.data = serializeDataIfNeeded(
-				appCreate,
-				localVarRequestOptions,
-				configuration,
-			);
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 * 특정 App을 삭제합니다.  :param app_id: 삭제할 App의 ObjectId :param current_user: 현재 활성 사용자 :return: 삭제 성공 메시지를 담은 Message 객체 :raises HTTPException: App을 찾지 못한 경우 (404) 또는 권한이 없는 경우 (403)
-		 * @summary App 삭제
-		 * @param {string} appId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		appsDeleteApp: async (
-			appId: string,
-			accessToken?: string | null,
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			// verify required parameter 'appId' is not null or undefined
-			assertParamExists("appsDeleteApp", "appId", appId);
-			const localVarPath = `/api/v1/apps/{app_id}`.replace(
-				`{${"app_id"}}`,
-				encodeURIComponent(String(appId)),
-			);
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = {
-				method: "DELETE",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication OAuth2PasswordBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				"OAuth2PasswordBearer",
-				[],
-				configuration,
-			);
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 * 특정 App의 상세 정보를 조회합니다.  :param app_id: 조회할 App의 ObjectId :return: AppPublic 객체 :raises HTTPException: App을 찾지 못한 경우 (404)
-		 * @summary [관리자]특정 App 조회
-		 * @param {string} appId
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		appsReadAppById: async (
-			appId: string,
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			// verify required parameter 'appId' is not null or undefined
-			assertParamExists("appsReadAppById", "appId", appId);
-			const localVarPath = `/api/v1/apps/{app_id}`.replace(
-				`{${"app_id"}}`,
-				encodeURIComponent(String(appId)),
-			);
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = {
-				method: "GET",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 * 특정 App의 상세 정보를 조회합니다.  :param name: 조회할 App의 ObjectId :return: AppPublic 객체 :raises HTTPException: App을 찾지 못한 경우 (404)
-		 * @summary [관리자]특정 App 조회
-		 * @param {string} appName
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		appsReadAppByName: async (
-			appName: string,
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			// verify required parameter 'appName' is not null or undefined
-			assertParamExists("appsReadAppByName", "appName", appName);
-			const localVarPath = `/api/v1/apps/{app_name}`.replace(
-				`{${"app_name"}}`,
-				encodeURIComponent(String(appName)),
-			);
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = {
-				method: "GET",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 * [Public]전체 App 목록을 조회합니다.  :return: AppPublic 객체 리스트
-		 * @summary [퍼블릭]전체 App 조회
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		appsReadApps: async (
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			const localVarPath = `/api/v1/apps/public`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = {
-				method: "GET",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 * 특정 App의 정보를 수정합니다.  :param app_id: 수정할 App의 ObjectId :param app_data: AppUpdate 객체 (수정할 필드들) :param current_user: 현재 활성 사용자 :return: 업데이트된 AppPublic 객체 :raises HTTPException: App을 찾지 못한 경우 (404) 또는 권한이 없는 경우 (403)
-		 * @summary App 정보 수정
-		 * @param {string} appName
-		 * @param {AppUpdate} appUpdate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		appsUpdateApp: async (
-			appName: string,
-			appUpdate: AppUpdate,
-			accessToken?: string | null,
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			// verify required parameter 'appName' is not null or undefined
-			assertParamExists("appsUpdateApp", "appName", appName);
-			// verify required parameter 'appUpdate' is not null or undefined
-			assertParamExists("appsUpdateApp", "appUpdate", appUpdate);
-			const localVarPath = `/api/v1/apps/{app_name}`.replace(
-				`{${"app_name"}}`,
-				encodeURIComponent(String(appName)),
-			);
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = {
-				method: "PUT",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication OAuth2PasswordBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				"OAuth2PasswordBearer",
-				[],
-				configuration,
-			);
-
-			localVarHeaderParameter["Content-Type"] = "application/json";
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
-			localVarRequestOptions.data = serializeDataIfNeeded(
-				appUpdate,
-				localVarRequestOptions,
-				configuration,
-			);
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-	};
-};
-
-/**
- * AppsApi - functional programming interface
- * @export
- */
-export const AppsApiFp = function (configuration?: Configuration) {
-	const localVarAxiosParamCreator = AppsApiAxiosParamCreator(configuration);
-	return {
-		/**
-		 * [관리자]새로운 App을 생성합니다.  :param app_data: AppCreate 객체 (name, description 등) :param current_user: 현재 활성 사용자 :return: 생성된 App의 정보를 담은 AppPublic 객체
-		 * @summary [관리자]새로운 App 생성
-		 * @param {AppCreate} appCreate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async appsCreateApp(
-			appCreate: AppCreate,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AppPublic>
-		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.appsCreateApp(
-				appCreate,
-				accessToken,
-				options,
-			);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["AppsApi.appsCreateApp"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 * 특정 App을 삭제합니다.  :param app_id: 삭제할 App의 ObjectId :param current_user: 현재 활성 사용자 :return: 삭제 성공 메시지를 담은 Message 객체 :raises HTTPException: App을 찾지 못한 경우 (404) 또는 권한이 없는 경우 (403)
-		 * @summary App 삭제
-		 * @param {string} appId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async appsDeleteApp(
-			appId: string,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Message>
-		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.appsDeleteApp(
-				appId,
-				accessToken,
-				options,
-			);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["AppsApi.appsDeleteApp"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 * 특정 App의 상세 정보를 조회합니다.  :param app_id: 조회할 App의 ObjectId :return: AppPublic 객체 :raises HTTPException: App을 찾지 못한 경우 (404)
-		 * @summary [관리자]특정 App 조회
-		 * @param {string} appId
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async appsReadAppById(
-			appId: string,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AppPublic>
-		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.appsReadAppById(
-				appId,
-				options,
-			);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["AppsApi.appsReadAppById"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 * 특정 App의 상세 정보를 조회합니다.  :param name: 조회할 App의 ObjectId :return: AppPublic 객체 :raises HTTPException: App을 찾지 못한 경우 (404)
-		 * @summary [관리자]특정 App 조회
-		 * @param {string} appName
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async appsReadAppByName(
-			appName: string,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AppPublic>
-		> {
-			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.appsReadAppByName(appName, options);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["AppsApi.appsReadAppByName"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 * [Public]전체 App 목록을 조회합니다.  :return: AppPublic 객체 리스트
-		 * @summary [퍼블릭]전체 App 조회
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async appsReadApps(
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(
-				axios?: AxiosInstance,
-				basePath?: string,
-			) => AxiosPromise<Array<AppPublic>>
-		> {
-			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.appsReadApps(options);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["AppsApi.appsReadApps"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 * 특정 App의 정보를 수정합니다.  :param app_id: 수정할 App의 ObjectId :param app_data: AppUpdate 객체 (수정할 필드들) :param current_user: 현재 활성 사용자 :return: 업데이트된 AppPublic 객체 :raises HTTPException: App을 찾지 못한 경우 (404) 또는 권한이 없는 경우 (403)
-		 * @summary App 정보 수정
-		 * @param {string} appName
-		 * @param {AppUpdate} appUpdate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async appsUpdateApp(
-			appName: string,
-			appUpdate: AppUpdate,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AppPublic>
-		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.appsUpdateApp(
-				appName,
-				appUpdate,
-				accessToken,
-				options,
-			);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["AppsApi.appsUpdateApp"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-	};
-};
-
-/**
- * AppsApi - factory interface
- * @export
- */
-export const AppsApiFactory = function (
-	configuration?: Configuration,
-	basePath?: string,
-	axios?: AxiosInstance,
-) {
-	const localVarFp = AppsApiFp(configuration);
-	return {
-		/**
-		 * [관리자]새로운 App을 생성합니다.  :param app_data: AppCreate 객체 (name, description 등) :param current_user: 현재 활성 사용자 :return: 생성된 App의 정보를 담은 AppPublic 객체
-		 * @summary [관리자]새로운 App 생성
-		 * @param {AppCreate} appCreate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		appsCreateApp(
-			appCreate: AppCreate,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<AppPublic> {
-			return localVarFp
-				.appsCreateApp(appCreate, accessToken, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 * 특정 App을 삭제합니다.  :param app_id: 삭제할 App의 ObjectId :param current_user: 현재 활성 사용자 :return: 삭제 성공 메시지를 담은 Message 객체 :raises HTTPException: App을 찾지 못한 경우 (404) 또는 권한이 없는 경우 (403)
-		 * @summary App 삭제
-		 * @param {string} appId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		appsDeleteApp(
-			appId: string,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<Message> {
-			return localVarFp
-				.appsDeleteApp(appId, accessToken, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 * 특정 App의 상세 정보를 조회합니다.  :param app_id: 조회할 App의 ObjectId :return: AppPublic 객체 :raises HTTPException: App을 찾지 못한 경우 (404)
-		 * @summary [관리자]특정 App 조회
-		 * @param {string} appId
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		appsReadAppById(
-			appId: string,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<AppPublic> {
-			return localVarFp
-				.appsReadAppById(appId, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 * 특정 App의 상세 정보를 조회합니다.  :param name: 조회할 App의 ObjectId :return: AppPublic 객체 :raises HTTPException: App을 찾지 못한 경우 (404)
-		 * @summary [관리자]특정 App 조회
-		 * @param {string} appName
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		appsReadAppByName(
-			appName: string,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<AppPublic> {
-			return localVarFp
-				.appsReadAppByName(appName, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 * [Public]전체 App 목록을 조회합니다.  :return: AppPublic 객체 리스트
-		 * @summary [퍼블릭]전체 App 조회
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		appsReadApps(
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<Array<AppPublic>> {
-			return localVarFp
-				.appsReadApps(options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 * 특정 App의 정보를 수정합니다.  :param app_id: 수정할 App의 ObjectId :param app_data: AppUpdate 객체 (수정할 필드들) :param current_user: 현재 활성 사용자 :return: 업데이트된 AppPublic 객체 :raises HTTPException: App을 찾지 못한 경우 (404) 또는 권한이 없는 경우 (403)
-		 * @summary App 정보 수정
-		 * @param {string} appName
-		 * @param {AppUpdate} appUpdate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		appsUpdateApp(
-			appName: string,
-			appUpdate: AppUpdate,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<AppPublic> {
-			return localVarFp
-				.appsUpdateApp(appName, appUpdate, accessToken, options)
-				.then((request) => request(axios, basePath));
-		},
-	};
-};
-
-/**
- * AppsApi - object-oriented interface
- * @export
- * @class AppsApi
- * @extends {BaseAPI}
- */
-export class AppsApi extends BaseAPI {
-	/**
-	 * [관리자]새로운 App을 생성합니다.  :param app_data: AppCreate 객체 (name, description 등) :param current_user: 현재 활성 사용자 :return: 생성된 App의 정보를 담은 AppPublic 객체
-	 * @summary [관리자]새로운 App 생성
-	 * @param {AppCreate} appCreate
-	 * @param {string | null} [accessToken]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof AppsApi
-	 */
-	public appsCreateApp(
-		appCreate: AppCreate,
-		accessToken?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
-		return AppsApiFp(this.configuration)
-			.appsCreateApp(appCreate, accessToken, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 * 특정 App을 삭제합니다.  :param app_id: 삭제할 App의 ObjectId :param current_user: 현재 활성 사용자 :return: 삭제 성공 메시지를 담은 Message 객체 :raises HTTPException: App을 찾지 못한 경우 (404) 또는 권한이 없는 경우 (403)
-	 * @summary App 삭제
-	 * @param {string} appId
-	 * @param {string | null} [accessToken]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof AppsApi
-	 */
-	public appsDeleteApp(
-		appId: string,
-		accessToken?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
-		return AppsApiFp(this.configuration)
-			.appsDeleteApp(appId, accessToken, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 * 특정 App의 상세 정보를 조회합니다.  :param app_id: 조회할 App의 ObjectId :return: AppPublic 객체 :raises HTTPException: App을 찾지 못한 경우 (404)
-	 * @summary [관리자]특정 App 조회
-	 * @param {string} appId
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof AppsApi
-	 */
-	public appsReadAppById(appId: string, options?: RawAxiosRequestConfig) {
-		return AppsApiFp(this.configuration)
-			.appsReadAppById(appId, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 * 특정 App의 상세 정보를 조회합니다.  :param name: 조회할 App의 ObjectId :return: AppPublic 객체 :raises HTTPException: App을 찾지 못한 경우 (404)
-	 * @summary [관리자]특정 App 조회
-	 * @param {string} appName
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof AppsApi
-	 */
-	public appsReadAppByName(appName: string, options?: RawAxiosRequestConfig) {
-		return AppsApiFp(this.configuration)
-			.appsReadAppByName(appName, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 * [Public]전체 App 목록을 조회합니다.  :return: AppPublic 객체 리스트
-	 * @summary [퍼블릭]전체 App 조회
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof AppsApi
-	 */
-	public appsReadApps(options?: RawAxiosRequestConfig) {
-		return AppsApiFp(this.configuration)
-			.appsReadApps(options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 * 특정 App의 정보를 수정합니다.  :param app_id: 수정할 App의 ObjectId :param app_data: AppUpdate 객체 (수정할 필드들) :param current_user: 현재 활성 사용자 :return: 업데이트된 AppPublic 객체 :raises HTTPException: App을 찾지 못한 경우 (404) 또는 권한이 없는 경우 (403)
-	 * @summary App 정보 수정
-	 * @param {string} appName
-	 * @param {AppUpdate} appUpdate
-	 * @param {string | null} [accessToken]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof AppsApi
-	 */
-	public appsUpdateApp(
-		appName: string,
-		appUpdate: AppUpdate,
-		accessToken?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
-		return AppsApiFp(this.configuration)
-			.appsUpdateApp(appName, appUpdate, accessToken, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-}
-
-/**
  * CategoriesApi - axios parameter creator
  * @export
  */
@@ -1377,20 +551,16 @@ export const CategoriesApiAxiosParamCreator = function (
 		/**
 		 *
 		 * @summary Create Category
-		 * @param {string} appName
 		 * @param {DocsCategoryCreate} docsCategoryCreate
 		 * @param {string | null} [accessToken]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		categoriesCreateCategory: async (
-			appName: string,
 			docsCategoryCreate: DocsCategoryCreate,
 			accessToken?: string | null,
 			options: RawAxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
-			// verify required parameter 'appName' is not null or undefined
-			assertParamExists("categoriesCreateCategory", "appName", appName);
 			// verify required parameter 'docsCategoryCreate' is not null or undefined
 			assertParamExists(
 				"categoriesCreateCategory",
@@ -1421,10 +591,6 @@ export const CategoriesApiAxiosParamCreator = function (
 				[],
 				configuration,
 			);
-
-			if (appName !== undefined) {
-				localVarQueryParameter["app_name"] = appName;
-			}
 
 			localVarHeaderParameter["Content-Type"] = "application/json";
 
@@ -1637,14 +803,12 @@ export const CategoriesApiFp = function (configuration?: Configuration) {
 		/**
 		 *
 		 * @summary Create Category
-		 * @param {string} appName
 		 * @param {DocsCategoryCreate} docsCategoryCreate
 		 * @param {string | null} [accessToken]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async categoriesCreateCategory(
-			appName: string,
 			docsCategoryCreate: DocsCategoryCreate,
 			accessToken?: string | null,
 			options?: RawAxiosRequestConfig,
@@ -1656,7 +820,6 @@ export const CategoriesApiFp = function (configuration?: Configuration) {
 		> {
 			const localVarAxiosArgs =
 				await localVarAxiosParamCreator.categoriesCreateCategory(
-					appName,
 					docsCategoryCreate,
 					accessToken,
 					options,
@@ -1799,25 +962,18 @@ export const CategoriesApiFactory = function (
 		/**
 		 *
 		 * @summary Create Category
-		 * @param {string} appName
 		 * @param {DocsCategoryCreate} docsCategoryCreate
 		 * @param {string | null} [accessToken]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		categoriesCreateCategory(
-			appName: string,
 			docsCategoryCreate: DocsCategoryCreate,
 			accessToken?: string | null,
 			options?: RawAxiosRequestConfig,
 		): AxiosPromise<DocsCategoryPublic> {
 			return localVarFp
-				.categoriesCreateCategory(
-					appName,
-					docsCategoryCreate,
-					accessToken,
-					options,
-				)
+				.categoriesCreateCategory(docsCategoryCreate, accessToken, options)
 				.then((request) => request(axios, basePath));
 		},
 		/**
@@ -1889,7 +1045,6 @@ export class CategoriesApi extends BaseAPI {
 	/**
 	 *
 	 * @summary Create Category
-	 * @param {string} appName
 	 * @param {DocsCategoryCreate} docsCategoryCreate
 	 * @param {string | null} [accessToken]
 	 * @param {*} [options] Override http request option.
@@ -1897,18 +1052,12 @@ export class CategoriesApi extends BaseAPI {
 	 * @memberof CategoriesApi
 	 */
 	public categoriesCreateCategory(
-		appName: string,
 		docsCategoryCreate: DocsCategoryCreate,
 		accessToken?: string | null,
 		options?: RawAxiosRequestConfig,
 	) {
 		return CategoriesApiFp(this.configuration)
-			.categoriesCreateCategory(
-				appName,
-				docsCategoryCreate,
-				accessToken,
-				options,
-			)
+			.categoriesCreateCategory(docsCategoryCreate, accessToken, options)
 			.then((request) => request(this.axios, this.basePath));
 	}
 
@@ -2049,20 +1198,20 @@ export const DocsApiAxiosParamCreator = function (
 		/**
 		 * [관리자용] 새로운 문서를 생성하고 초기 버전을 자동으로 생성합니다.  :param entry: DocumentCreate 객체 (title, content, is_public, category_id, subcategory_id, media_assets) :param current_user: 현재 활성화된 사용자 (인증된 사용자) :return: 생성된 문서의 정보를 담은 DocumentPublic 객체
 		 * @summary [관리자용] 새로운 문서 생성
+		 * @param {string} appName
 		 * @param {DocumentCreate} documentCreate
-		 * @param {string | null} [appName]
-		 * @param {string | null} [appId]
 		 * @param {string | null} [accessToken]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		docsCreateDocument: async (
+			appName: string,
 			documentCreate: DocumentCreate,
-			appName?: string | null,
-			appId?: string | null,
 			accessToken?: string | null,
 			options: RawAxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
+			// verify required parameter 'appName' is not null or undefined
+			assertParamExists("docsCreateDocument", "appName", appName);
 			// verify required parameter 'documentCreate' is not null or undefined
 			assertParamExists("docsCreateDocument", "documentCreate", documentCreate);
 			const localVarPath = `/api/v1/docs/`;
@@ -2092,10 +1241,6 @@ export const DocsApiAxiosParamCreator = function (
 
 			if (appName !== undefined) {
 				localVarQueryParameter["app_name"] = appName;
-			}
-
-			if (appId !== undefined) {
-				localVarQueryParameter["app_id"] = appId;
 			}
 
 			localVarHeaderParameter["Content-Type"] = "application/json";
@@ -2272,14 +1417,12 @@ export const DocsApiAxiosParamCreator = function (
 		 * [관리자용] 앱별 문서 리스트를 조회합니다. param(Optional): app_name: 앱 이름 param(Optional): app_id: 앱 ID  :return: 앱별 문서들의 리스트 (DocumentPublic 형식)
 		 * @summary [관리자용] 앱별 문서목록 조회
 		 * @param {string | null} [appName]
-		 * @param {string | null} [appId]
 		 * @param {string | null} [accessToken]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		docsReadDocsByApp: async (
 			appName?: string | null,
-			appId?: string | null,
 			accessToken?: string | null,
 			options: RawAxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
@@ -2312,10 +1455,6 @@ export const DocsApiAxiosParamCreator = function (
 				localVarQueryParameter["app_name"] = appName;
 			}
 
-			if (appId !== undefined) {
-				localVarQueryParameter["app_id"] = appId;
-			}
-
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
 			let headersFromBaseOptions =
 				baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -2331,25 +1470,27 @@ export const DocsApiAxiosParamCreator = function (
 			};
 		},
 		/**
-		 * [관리자용] 문서 상세조회 param(Optional): app_name: 앱 이름  :return: 앱별 문서들의 리스트 (DocumentPublic 형식)
+		 * [관리자용] 문서 상세조회 param: app_name: 앱 이름 param: title: 문서 제목  :return: 앱별 문서들의 리스트 (DocumentPublic 형식)
 		 * @summary [관리자용] 앱별 문서목록 조회
-		 * @param {string} docId
-		 * @param {string | null} [appName]
+		 * @param {string} appName
+		 * @param {string} title
 		 * @param {string | null} [accessToken]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		docsReadDocumentByApp: async (
-			docId: string,
-			appName?: string | null,
+			appName: string,
+			title: string,
 			accessToken?: string | null,
 			options: RawAxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
-			// verify required parameter 'docId' is not null or undefined
-			assertParamExists("docsReadDocumentByApp", "docId", docId);
-			const localVarPath = `/api/v1/docs/{doc_id}`.replace(
-				`{${"doc_id"}}`,
-				encodeURIComponent(String(docId)),
+			// verify required parameter 'appName' is not null or undefined
+			assertParamExists("docsReadDocumentByApp", "appName", appName);
+			// verify required parameter 'title' is not null or undefined
+			assertParamExists("docsReadDocumentByApp", "title", title);
+			const localVarPath = `/api/v1/docs/{app_name}`.replace(
+				`{${"app_name"}}`,
+				encodeURIComponent(String(appName)),
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -2375,8 +1516,8 @@ export const DocsApiAxiosParamCreator = function (
 				configuration,
 			);
 
-			if (appName !== undefined) {
-				localVarQueryParameter["app_name"] = appName;
+			if (title !== undefined) {
+				localVarQueryParameter["title"] = title;
 			}
 
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -2394,17 +1535,15 @@ export const DocsApiAxiosParamCreator = function (
 			};
 		},
 		/**
-		 * [퍼블릭]앱별 문서 리스트 조회  param(Optional): app_name: 앱 이름 param(Optional): app_id: 앱 ID param(Optional): title: 문서 제목  :return: 공개된 문서들의 리스트 (DocumentPublic 형식)
+		 * [퍼블릭]앱별 문서 리스트 조회  param(Optional): app_name: 앱 이름 param(Optional): title: 문서 제목  :return: 공개된 문서들의 리스트 (DocumentPublic 형식)
 		 * @summary [퍼블릭]앱별 문서 리스트 조회
 		 * @param {string | null} [appName]
-		 * @param {string | null} [appId]
 		 * @param {string | null} [title]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		docsReadPublicDocsByApp: async (
+		docsReadPublicDocs: async (
 			appName?: string | null,
-			appId?: string | null,
 			title?: string | null,
 			options: RawAxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
@@ -2428,10 +1567,6 @@ export const DocsApiAxiosParamCreator = function (
 				localVarQueryParameter["app_name"] = appName;
 			}
 
-			if (appId !== undefined) {
-				localVarQueryParameter["app_id"] = appId;
-			}
-
 			if (title !== undefined) {
 				localVarQueryParameter["title"] = title;
 			}
@@ -2453,19 +1588,19 @@ export const DocsApiAxiosParamCreator = function (
 		/**
 		 * 문서상세 조회: 문서ID 또는 문서제목으로 조회  :param(Optional) doc_id: 조회할 문서의 ObjectId :return: 문서의 최신 버전을 포함한 DocumentPublic 객체
 		 * @summary [퍼블릭]문서 상세조회 조회
-		 * @param {string} docId
+		 * @param {string} title
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		docsReadPublicDocumentById: async (
-			docId: string,
+			title: string,
 			options: RawAxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
-			// verify required parameter 'docId' is not null or undefined
-			assertParamExists("docsReadPublicDocumentById", "docId", docId);
-			const localVarPath = `/api/v1/docs/public/{doc_id}`.replace(
-				`{${"doc_id"}}`,
-				encodeURIComponent(String(docId)),
+			// verify required parameter 'title' is not null or undefined
+			assertParamExists("docsReadPublicDocumentById", "title", title);
+			const localVarPath = `/api/v1/docs/public/{title}`.replace(
+				`{${"title"}}`,
+				encodeURIComponent(String(title)),
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -2497,7 +1632,7 @@ export const DocsApiAxiosParamCreator = function (
 			};
 		},
 		/**
-		 * [관리자용] 기존 문서를 수정하고, 변경 사항을 새로운 버전으로 저장합니다.  1. 수정 전 현재 문서를 Version에 기록합니다. 2. 수정된 필드를 반영하여 문서를 업데이트합니다. 3. 새 버전 생성 후 문서의 current_version_id를 업데이트합니다.  :param doc_id: 수정할 문서의 ObjectId :param entry: DocumentUpdate 객체 (수정할 필드들, 예: title, content, is_public, category_id, subcategory_id) :param current_user: 현재 활성화된 사용자 :return: 업데이트된 문서 정보를 담은 DocumentPublic 객체
+		 * [관리자용] 기존 문서를 수정하고, 변경 사항을 새로운 버전으로 저장합니다.  1. 수정 전 현재 문서를 Version에 기록합니다. 2. 수정된 필드를 반영하여 문서를 업데이트합니다. 3. 새 버전 생성 후 문서의 current_version_id를 업데이트합니다.  :param doc_id: 수정할 문서의 ObjectId :param entry: DocumentUpdate 객체 (수정할 필드들, 예: title, content, is_public, category_id, subcategory_id) :return: 업데이트된 문서 정보를 담은 DocumentPublic 객체
 		 * @summary [관리자용] 문서 수정 (새 버전 생성)
 		 * @param {string} docId
 		 * @param {DocumentUpdate} documentUpdate
@@ -2613,17 +1748,15 @@ export const DocsApiFp = function (configuration?: Configuration) {
 		/**
 		 * [관리자용] 새로운 문서를 생성하고 초기 버전을 자동으로 생성합니다.  :param entry: DocumentCreate 객체 (title, content, is_public, category_id, subcategory_id, media_assets) :param current_user: 현재 활성화된 사용자 (인증된 사용자) :return: 생성된 문서의 정보를 담은 DocumentPublic 객체
 		 * @summary [관리자용] 새로운 문서 생성
+		 * @param {string} appName
 		 * @param {DocumentCreate} documentCreate
-		 * @param {string | null} [appName]
-		 * @param {string | null} [appId]
 		 * @param {string | null} [accessToken]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async docsCreateDocument(
+			appName: string,
 			documentCreate: DocumentCreate,
-			appName?: string | null,
-			appId?: string | null,
 			accessToken?: string | null,
 			options?: RawAxiosRequestConfig,
 		): Promise<
@@ -2631,9 +1764,8 @@ export const DocsApiFp = function (configuration?: Configuration) {
 		> {
 			const localVarAxiosArgs =
 				await localVarAxiosParamCreator.docsCreateDocument(
-					documentCreate,
 					appName,
-					appId,
+					documentCreate,
 					accessToken,
 					options,
 				);
@@ -2751,14 +1883,12 @@ export const DocsApiFp = function (configuration?: Configuration) {
 		 * [관리자용] 앱별 문서 리스트를 조회합니다. param(Optional): app_name: 앱 이름 param(Optional): app_id: 앱 ID  :return: 앱별 문서들의 리스트 (DocumentPublic 형식)
 		 * @summary [관리자용] 앱별 문서목록 조회
 		 * @param {string | null} [appName]
-		 * @param {string | null} [appId]
 		 * @param {string | null} [accessToken]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async docsReadDocsByApp(
 			appName?: string | null,
-			appId?: string | null,
 			accessToken?: string | null,
 			options?: RawAxiosRequestConfig,
 		): Promise<
@@ -2770,7 +1900,6 @@ export const DocsApiFp = function (configuration?: Configuration) {
 			const localVarAxiosArgs =
 				await localVarAxiosParamCreator.docsReadDocsByApp(
 					appName,
-					appId,
 					accessToken,
 					options,
 				);
@@ -2788,17 +1917,17 @@ export const DocsApiFp = function (configuration?: Configuration) {
 				)(axios, localVarOperationServerBasePath || basePath);
 		},
 		/**
-		 * [관리자용] 문서 상세조회 param(Optional): app_name: 앱 이름  :return: 앱별 문서들의 리스트 (DocumentPublic 형식)
+		 * [관리자용] 문서 상세조회 param: app_name: 앱 이름 param: title: 문서 제목  :return: 앱별 문서들의 리스트 (DocumentPublic 형식)
 		 * @summary [관리자용] 앱별 문서목록 조회
-		 * @param {string} docId
-		 * @param {string | null} [appName]
+		 * @param {string} appName
+		 * @param {string} title
 		 * @param {string | null} [accessToken]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async docsReadDocumentByApp(
-			docId: string,
-			appName?: string | null,
+			appName: string,
+			title: string,
 			accessToken?: string | null,
 			options?: RawAxiosRequestConfig,
 		): Promise<
@@ -2806,8 +1935,8 @@ export const DocsApiFp = function (configuration?: Configuration) {
 		> {
 			const localVarAxiosArgs =
 				await localVarAxiosParamCreator.docsReadDocumentByApp(
-					docId,
 					appName,
+					title,
 					accessToken,
 					options,
 				);
@@ -2825,32 +1954,29 @@ export const DocsApiFp = function (configuration?: Configuration) {
 				)(axios, localVarOperationServerBasePath || basePath);
 		},
 		/**
-		 * [퍼블릭]앱별 문서 리스트 조회  param(Optional): app_name: 앱 이름 param(Optional): app_id: 앱 ID param(Optional): title: 문서 제목  :return: 공개된 문서들의 리스트 (DocumentPublic 형식)
+		 * [퍼블릭]앱별 문서 리스트 조회  param(Optional): app_name: 앱 이름 param(Optional): title: 문서 제목  :return: 공개된 문서들의 리스트 (DocumentPublic 형식)
 		 * @summary [퍼블릭]앱별 문서 리스트 조회
 		 * @param {string | null} [appName]
-		 * @param {string | null} [appId]
 		 * @param {string | null} [title]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		async docsReadPublicDocsByApp(
+		async docsReadPublicDocs(
 			appName?: string | null,
-			appId?: string | null,
 			title?: string | null,
 			options?: RawAxiosRequestConfig,
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>
 		> {
 			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.docsReadPublicDocsByApp(
+				await localVarAxiosParamCreator.docsReadPublicDocs(
 					appName,
-					appId,
 					title,
 					options,
 				);
 			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
 			const localVarOperationServerBasePath =
-				operationServerMap["DocsApi.docsReadPublicDocsByApp"]?.[
+				operationServerMap["DocsApi.docsReadPublicDocs"]?.[
 					localVarOperationServerIndex
 				]?.url;
 			return (axios, basePath) =>
@@ -2864,19 +1990,19 @@ export const DocsApiFp = function (configuration?: Configuration) {
 		/**
 		 * 문서상세 조회: 문서ID 또는 문서제목으로 조회  :param(Optional) doc_id: 조회할 문서의 ObjectId :return: 문서의 최신 버전을 포함한 DocumentPublic 객체
 		 * @summary [퍼블릭]문서 상세조회 조회
-		 * @param {string} docId
+		 * @param {string} title
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		async docsReadPublicDocumentById(
-			docId: string,
+			title: string,
 			options?: RawAxiosRequestConfig,
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DocumentPublic>
 		> {
 			const localVarAxiosArgs =
 				await localVarAxiosParamCreator.docsReadPublicDocumentById(
-					docId,
+					title,
 					options,
 				);
 			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
@@ -2893,7 +2019,7 @@ export const DocsApiFp = function (configuration?: Configuration) {
 				)(axios, localVarOperationServerBasePath || basePath);
 		},
 		/**
-		 * [관리자용] 기존 문서를 수정하고, 변경 사항을 새로운 버전으로 저장합니다.  1. 수정 전 현재 문서를 Version에 기록합니다. 2. 수정된 필드를 반영하여 문서를 업데이트합니다. 3. 새 버전 생성 후 문서의 current_version_id를 업데이트합니다.  :param doc_id: 수정할 문서의 ObjectId :param entry: DocumentUpdate 객체 (수정할 필드들, 예: title, content, is_public, category_id, subcategory_id) :param current_user: 현재 활성화된 사용자 :return: 업데이트된 문서 정보를 담은 DocumentPublic 객체
+		 * [관리자용] 기존 문서를 수정하고, 변경 사항을 새로운 버전으로 저장합니다.  1. 수정 전 현재 문서를 Version에 기록합니다. 2. 수정된 필드를 반영하여 문서를 업데이트합니다. 3. 새 버전 생성 후 문서의 current_version_id를 업데이트합니다.  :param doc_id: 수정할 문서의 ObjectId :param entry: DocumentUpdate 객체 (수정할 필드들, 예: title, content, is_public, category_id, subcategory_id) :return: 업데이트된 문서 정보를 담은 DocumentPublic 객체
 		 * @summary [관리자용] 문서 수정 (새 버전 생성)
 		 * @param {string} docId
 		 * @param {DocumentUpdate} documentUpdate
@@ -2965,28 +2091,20 @@ export const DocsApiFactory = function (
 		/**
 		 * [관리자용] 새로운 문서를 생성하고 초기 버전을 자동으로 생성합니다.  :param entry: DocumentCreate 객체 (title, content, is_public, category_id, subcategory_id, media_assets) :param current_user: 현재 활성화된 사용자 (인증된 사용자) :return: 생성된 문서의 정보를 담은 DocumentPublic 객체
 		 * @summary [관리자용] 새로운 문서 생성
+		 * @param {string} appName
 		 * @param {DocumentCreate} documentCreate
-		 * @param {string | null} [appName]
-		 * @param {string | null} [appId]
 		 * @param {string | null} [accessToken]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		docsCreateDocument(
+			appName: string,
 			documentCreate: DocumentCreate,
-			appName?: string | null,
-			appId?: string | null,
 			accessToken?: string | null,
 			options?: RawAxiosRequestConfig,
 		): AxiosPromise<DocumentPublic> {
 			return localVarFp
-				.docsCreateDocument(
-					documentCreate,
-					appName,
-					appId,
-					accessToken,
-					options,
-				)
+				.docsCreateDocument(appName, documentCreate, accessToken, options)
 				.then((request) => request(axios, basePath));
 		},
 		/**
@@ -3040,76 +2158,72 @@ export const DocsApiFactory = function (
 		 * [관리자용] 앱별 문서 리스트를 조회합니다. param(Optional): app_name: 앱 이름 param(Optional): app_id: 앱 ID  :return: 앱별 문서들의 리스트 (DocumentPublic 형식)
 		 * @summary [관리자용] 앱별 문서목록 조회
 		 * @param {string | null} [appName]
-		 * @param {string | null} [appId]
 		 * @param {string | null} [accessToken]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		docsReadDocsByApp(
 			appName?: string | null,
-			appId?: string | null,
 			accessToken?: string | null,
 			options?: RawAxiosRequestConfig,
 		): AxiosPromise<Array<DocumentPublic>> {
 			return localVarFp
-				.docsReadDocsByApp(appName, appId, accessToken, options)
+				.docsReadDocsByApp(appName, accessToken, options)
 				.then((request) => request(axios, basePath));
 		},
 		/**
-		 * [관리자용] 문서 상세조회 param(Optional): app_name: 앱 이름  :return: 앱별 문서들의 리스트 (DocumentPublic 형식)
+		 * [관리자용] 문서 상세조회 param: app_name: 앱 이름 param: title: 문서 제목  :return: 앱별 문서들의 리스트 (DocumentPublic 형식)
 		 * @summary [관리자용] 앱별 문서목록 조회
-		 * @param {string} docId
-		 * @param {string | null} [appName]
+		 * @param {string} appName
+		 * @param {string} title
 		 * @param {string | null} [accessToken]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		docsReadDocumentByApp(
-			docId: string,
-			appName?: string | null,
+			appName: string,
+			title: string,
 			accessToken?: string | null,
 			options?: RawAxiosRequestConfig,
 		): AxiosPromise<DocumentPublic> {
 			return localVarFp
-				.docsReadDocumentByApp(docId, appName, accessToken, options)
+				.docsReadDocumentByApp(appName, title, accessToken, options)
 				.then((request) => request(axios, basePath));
 		},
 		/**
-		 * [퍼블릭]앱별 문서 리스트 조회  param(Optional): app_name: 앱 이름 param(Optional): app_id: 앱 ID param(Optional): title: 문서 제목  :return: 공개된 문서들의 리스트 (DocumentPublic 형식)
+		 * [퍼블릭]앱별 문서 리스트 조회  param(Optional): app_name: 앱 이름 param(Optional): title: 문서 제목  :return: 공개된 문서들의 리스트 (DocumentPublic 형식)
 		 * @summary [퍼블릭]앱별 문서 리스트 조회
 		 * @param {string | null} [appName]
-		 * @param {string | null} [appId]
 		 * @param {string | null} [title]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		docsReadPublicDocsByApp(
+		docsReadPublicDocs(
 			appName?: string | null,
-			appId?: string | null,
 			title?: string | null,
 			options?: RawAxiosRequestConfig,
 		): AxiosPromise<any> {
 			return localVarFp
-				.docsReadPublicDocsByApp(appName, appId, title, options)
+				.docsReadPublicDocs(appName, title, options)
 				.then((request) => request(axios, basePath));
 		},
 		/**
 		 * 문서상세 조회: 문서ID 또는 문서제목으로 조회  :param(Optional) doc_id: 조회할 문서의 ObjectId :return: 문서의 최신 버전을 포함한 DocumentPublic 객체
 		 * @summary [퍼블릭]문서 상세조회 조회
-		 * @param {string} docId
+		 * @param {string} title
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
 		docsReadPublicDocumentById(
-			docId: string,
+			title: string,
 			options?: RawAxiosRequestConfig,
 		): AxiosPromise<DocumentPublic> {
 			return localVarFp
-				.docsReadPublicDocumentById(docId, options)
+				.docsReadPublicDocumentById(title, options)
 				.then((request) => request(axios, basePath));
 		},
 		/**
-		 * [관리자용] 기존 문서를 수정하고, 변경 사항을 새로운 버전으로 저장합니다.  1. 수정 전 현재 문서를 Version에 기록합니다. 2. 수정된 필드를 반영하여 문서를 업데이트합니다. 3. 새 버전 생성 후 문서의 current_version_id를 업데이트합니다.  :param doc_id: 수정할 문서의 ObjectId :param entry: DocumentUpdate 객체 (수정할 필드들, 예: title, content, is_public, category_id, subcategory_id) :param current_user: 현재 활성화된 사용자 :return: 업데이트된 문서 정보를 담은 DocumentPublic 객체
+		 * [관리자용] 기존 문서를 수정하고, 변경 사항을 새로운 버전으로 저장합니다.  1. 수정 전 현재 문서를 Version에 기록합니다. 2. 수정된 필드를 반영하여 문서를 업데이트합니다. 3. 새 버전 생성 후 문서의 current_version_id를 업데이트합니다.  :param doc_id: 수정할 문서의 ObjectId :param entry: DocumentUpdate 객체 (수정할 필드들, 예: title, content, is_public, category_id, subcategory_id) :return: 업데이트된 문서 정보를 담은 DocumentPublic 객체
 		 * @summary [관리자용] 문서 수정 (새 버전 생성)
 		 * @param {string} docId
 		 * @param {DocumentUpdate} documentUpdate
@@ -3161,23 +2275,21 @@ export class DocsApi extends BaseAPI {
 	/**
 	 * [관리자용] 새로운 문서를 생성하고 초기 버전을 자동으로 생성합니다.  :param entry: DocumentCreate 객체 (title, content, is_public, category_id, subcategory_id, media_assets) :param current_user: 현재 활성화된 사용자 (인증된 사용자) :return: 생성된 문서의 정보를 담은 DocumentPublic 객체
 	 * @summary [관리자용] 새로운 문서 생성
+	 * @param {string} appName
 	 * @param {DocumentCreate} documentCreate
-	 * @param {string | null} [appName]
-	 * @param {string | null} [appId]
 	 * @param {string | null} [accessToken]
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
 	 * @memberof DocsApi
 	 */
 	public docsCreateDocument(
+		appName: string,
 		documentCreate: DocumentCreate,
-		appName?: string | null,
-		appId?: string | null,
 		accessToken?: string | null,
 		options?: RawAxiosRequestConfig,
 	) {
 		return DocsApiFp(this.configuration)
-			.docsCreateDocument(documentCreate, appName, appId, accessToken, options)
+			.docsCreateDocument(appName, documentCreate, accessToken, options)
 			.then((request) => request(this.axios, this.basePath));
 	}
 
@@ -3232,7 +2344,6 @@ export class DocsApi extends BaseAPI {
 	 * [관리자용] 앱별 문서 리스트를 조회합니다. param(Optional): app_name: 앱 이름 param(Optional): app_id: 앱 ID  :return: 앱별 문서들의 리스트 (DocumentPublic 형식)
 	 * @summary [관리자용] 앱별 문서목록 조회
 	 * @param {string | null} [appName]
-	 * @param {string | null} [appId]
 	 * @param {string | null} [accessToken]
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
@@ -3240,76 +2351,73 @@ export class DocsApi extends BaseAPI {
 	 */
 	public docsReadDocsByApp(
 		appName?: string | null,
-		appId?: string | null,
 		accessToken?: string | null,
 		options?: RawAxiosRequestConfig,
 	) {
 		return DocsApiFp(this.configuration)
-			.docsReadDocsByApp(appName, appId, accessToken, options)
+			.docsReadDocsByApp(appName, accessToken, options)
 			.then((request) => request(this.axios, this.basePath));
 	}
 
 	/**
-	 * [관리자용] 문서 상세조회 param(Optional): app_name: 앱 이름  :return: 앱별 문서들의 리스트 (DocumentPublic 형식)
+	 * [관리자용] 문서 상세조회 param: app_name: 앱 이름 param: title: 문서 제목  :return: 앱별 문서들의 리스트 (DocumentPublic 형식)
 	 * @summary [관리자용] 앱별 문서목록 조회
-	 * @param {string} docId
-	 * @param {string | null} [appName]
+	 * @param {string} appName
+	 * @param {string} title
 	 * @param {string | null} [accessToken]
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
 	 * @memberof DocsApi
 	 */
 	public docsReadDocumentByApp(
-		docId: string,
-		appName?: string | null,
+		appName: string,
+		title: string,
 		accessToken?: string | null,
 		options?: RawAxiosRequestConfig,
 	) {
 		return DocsApiFp(this.configuration)
-			.docsReadDocumentByApp(docId, appName, accessToken, options)
+			.docsReadDocumentByApp(appName, title, accessToken, options)
 			.then((request) => request(this.axios, this.basePath));
 	}
 
 	/**
-	 * [퍼블릭]앱별 문서 리스트 조회  param(Optional): app_name: 앱 이름 param(Optional): app_id: 앱 ID param(Optional): title: 문서 제목  :return: 공개된 문서들의 리스트 (DocumentPublic 형식)
+	 * [퍼블릭]앱별 문서 리스트 조회  param(Optional): app_name: 앱 이름 param(Optional): title: 문서 제목  :return: 공개된 문서들의 리스트 (DocumentPublic 형식)
 	 * @summary [퍼블릭]앱별 문서 리스트 조회
 	 * @param {string | null} [appName]
-	 * @param {string | null} [appId]
 	 * @param {string | null} [title]
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
 	 * @memberof DocsApi
 	 */
-	public docsReadPublicDocsByApp(
+	public docsReadPublicDocs(
 		appName?: string | null,
-		appId?: string | null,
 		title?: string | null,
 		options?: RawAxiosRequestConfig,
 	) {
 		return DocsApiFp(this.configuration)
-			.docsReadPublicDocsByApp(appName, appId, title, options)
+			.docsReadPublicDocs(appName, title, options)
 			.then((request) => request(this.axios, this.basePath));
 	}
 
 	/**
 	 * 문서상세 조회: 문서ID 또는 문서제목으로 조회  :param(Optional) doc_id: 조회할 문서의 ObjectId :return: 문서의 최신 버전을 포함한 DocumentPublic 객체
 	 * @summary [퍼블릭]문서 상세조회 조회
-	 * @param {string} docId
+	 * @param {string} title
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
 	 * @memberof DocsApi
 	 */
 	public docsReadPublicDocumentById(
-		docId: string,
+		title: string,
 		options?: RawAxiosRequestConfig,
 	) {
 		return DocsApiFp(this.configuration)
-			.docsReadPublicDocumentById(docId, options)
+			.docsReadPublicDocumentById(title, options)
 			.then((request) => request(this.axios, this.basePath));
 	}
 
 	/**
-	 * [관리자용] 기존 문서를 수정하고, 변경 사항을 새로운 버전으로 저장합니다.  1. 수정 전 현재 문서를 Version에 기록합니다. 2. 수정된 필드를 반영하여 문서를 업데이트합니다. 3. 새 버전 생성 후 문서의 current_version_id를 업데이트합니다.  :param doc_id: 수정할 문서의 ObjectId :param entry: DocumentUpdate 객체 (수정할 필드들, 예: title, content, is_public, category_id, subcategory_id) :param current_user: 현재 활성화된 사용자 :return: 업데이트된 문서 정보를 담은 DocumentPublic 객체
+	 * [관리자용] 기존 문서를 수정하고, 변경 사항을 새로운 버전으로 저장합니다.  1. 수정 전 현재 문서를 Version에 기록합니다. 2. 수정된 필드를 반영하여 문서를 업데이트합니다. 3. 새 버전 생성 후 문서의 current_version_id를 업데이트합니다.  :param doc_id: 수정할 문서의 ObjectId :param entry: DocumentUpdate 객체 (수정할 필드들, 예: title, content, is_public, category_id, subcategory_id) :return: 업데이트된 문서 정보를 담은 DocumentPublic 객체
 	 * @summary [관리자용] 문서 수정 (새 버전 생성)
 	 * @param {string} docId
 	 * @param {DocumentUpdate} documentUpdate

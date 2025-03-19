@@ -10,40 +10,36 @@ import {
   DialogTitle,
   DialogDescription,
   DialogFooter,
-  // DialogOverlay,
   DialogClose,
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { FormMessage } from '@/components/ui/form'
 import { MyButton } from '@/components/common/buttons/submit-button'
-import { AppsService } from '@/lib/api'
+import { AdminService } from '@/lib/api'
 import { handleApiError } from '@/lib/errorHandler'
 import { useState } from 'react'
 import Loading from '@/components/common/Loading'
-import { AppCreate, AppPublic, AppUpdate } from '@/client/docs'
+import { AppCreate, AppPublic, AppUpdate } from '@/client/iam'
 import { useTranslations } from 'next-intl'
-import { DialogOverlay, DialogTrigger } from '@radix-ui/react-dialog'
+import { DialogTrigger } from '@radix-ui/react-dialog'
 import { Button } from '@/components/ui/button'
-import { Plus } from 'lucide-react'
+import { Edit, PlusCircle } from 'lucide-react'
 
 interface AppFormProps {
-  isOpen: boolean
-  onClose: () => void
   mode: 'create' | 'update'
   appName?: string
 }
 
-export default function AppForm({ mode, appName, isOpen, onClose }: AppFormProps) {
+export default function AppForm({ mode, appName }: AppFormProps) {
   const [loading, setLoading] = useState(false)
-  const t = useTranslations()
   const [app, setApp] = useState<AppPublic | null>(null)
-  // const [isOpen, setIsOpen] = useState(false)
+  const t = useTranslations()
 
   const fetchApp = async () => {
     setLoading(true)
     try {
-      const response = await AppsService.appsReadAppById(appName!)
+      const response = await AdminService.adminReadAppByName(appName!)
       setApp(response.data)
     } catch (err) {
       handleApiError(err, (message) =>
@@ -65,12 +61,14 @@ export default function AppForm({ mode, appName, isOpen, onClose }: AppFormProps
     defaultValues:
       mode === 'create'
         ? {
+            name: app?.name,
+            description: app?.description,
+            logo: app?.logo,
+          }
+        : {
             name: '',
             description: '',
             logo: '',
-          }
-        : {
-            ...app,
           },
   })
 
@@ -84,12 +82,11 @@ export default function AppForm({ mode, appName, isOpen, onClose }: AppFormProps
   const updateApp = async (data: AppUpdate) => {
     setLoading(true)
     try {
-      await AppsService.appsUpdateApp(appName!, data)
+      await AdminService.adminUpdateApp(appName!, data)
       toast.success('성공!', {
         description: '앱이 성공적으로 업데이트 되었습니다.',
       })
       reset()
-      onClose()
     } catch (err) {
       handleApiError(err, (message) =>
         toast.error(message.title, { description: message.description })
@@ -102,12 +99,11 @@ export default function AppForm({ mode, appName, isOpen, onClose }: AppFormProps
   const addApp = async (app: AppCreate) => {
     setLoading(true)
     try {
-      await AppsService.appsCreateApp(app)
+      await AdminService.adminCreateApp(app)
       toast.success('성공!', {
         description: '앱이 성공적으로 추가되었습니다.',
       })
       reset()
-      onClose()
     } catch (err) {
       handleApiError(err, (message) =>
         toast.error(message.title, { description: message.description })
@@ -125,31 +121,46 @@ export default function AppForm({ mode, appName, isOpen, onClose }: AppFormProps
     }
   }
 
-  const handleCancel = () => {
-    reset()
-    // onClose()
-  }
-
   if (loading) {
     return <Loading />
   }
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogTrigger asChild>
-        <Button variant='ghost'>
-          <Plus className='size-4' />
-          앱 추가
-        </Button>
-      </DialogTrigger>
-      <DialogOverlay asChild />
-      <DialogContent className='max-w-md'>
-        <DialogHeader>
-          <DialogTitle className='text-2xl'>새 앱 추가</DialogTitle>
-          <DialogDescription>신규 애플리케이션을 추가합니다.</DialogDescription>
-        </DialogHeader>
+    <FormProvider {...methods}>
+      <Dialog>
+        <DialogTrigger asChild>
+        {mode === 'create' ? (
+            <Button variant='default'>
+              {' '}
+              <PlusCircle />새 앱 추가{' '}
+            </Button>
+          ) : (
+            <Button variant='ghost'>
+              <Edit />
+            </Button>
+          )}
+        </DialogTrigger>
+        <DialogContent className='max-w-md'>
+            <DialogHeader>
+              {mode === 'update' ? (
+                <>
+                  <DialogTitle>{t('pages.admin.apps.edit.title')}</DialogTitle>
+                  <DialogDescription className='text-sm text-muted-foreground'>
+                    {t('pages.admin.apps.edit.description')}
+                  </DialogDescription>
+                </>
+              ) : (
+                <>
+                  <DialogTitle>
+                    {t('pages.admin.apps.create.title')}
+                  </DialogTitle>
+                  <DialogDescription className='text-sm text-muted-foreground'>
+                    {t('pages.admin.apps.create.description')}
+                  </DialogDescription>
+                </>
+              )}
+            </DialogHeader>
 
-        <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className='grid gap-4 py-4'>
               {/* Category Name */}
@@ -203,15 +214,6 @@ export default function AppForm({ mode, appName, isOpen, onClose }: AppFormProps
 
             <DialogFooter className='flex justify-end gap-3 pt-2'>
               <MyButton
-                variant='outline'
-                onClick={handleCancel}
-                disabled={isSubmitting}
-                className='w-full'
-                type='button'
-              >
-                {t('forms.create_category.cancel')}
-              </MyButton>
-              <MyButton
                 variant='default'
                 type='submit'
                 isLoading={isSubmitting}
@@ -222,9 +224,9 @@ export default function AppForm({ mode, appName, isOpen, onClose }: AppFormProps
               </MyButton>
             </DialogFooter>
           </form>
-        </FormProvider>
-        <DialogClose className='absolute top-4 right-4' />
-      </DialogContent>
-    </Dialog>
+          <DialogClose className='absolute top-4 right-4' />
+        </DialogContent>
+      </Dialog>
+    </FormProvider>
   )
 }

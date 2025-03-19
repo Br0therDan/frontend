@@ -18,18 +18,17 @@ import {
 } from '@/components/ui/sidebar'
 import { useRouter } from 'next/navigation'
 import { useApp } from '@/contexts/AppContext'
-import { AppPublic } from '@/client/docs'
+import { AppPublic } from '@/client/iam'
 import { useEffect, useState } from 'react'
 import { AppsService } from '@/lib/api'
 import { handleApiError } from '@/lib/errorHandler'
 import { toast } from 'sonner'
-import AppApp from './docs/apps/AddApp'
-import Navbar from '../common/Navbar'
+import AppForm from './docs/apps/AppForm'
 
 export interface AppType {
   name: string
   logo: React.ElementType
-  description?: string
+  description: string | null | undefined
 }
 
 export default function AppSwitcher(
@@ -113,7 +112,7 @@ export default function AppSwitcher(
             ))}
             <DropdownMenuSeparator />
             <DropdownMenuItem className='gap-2 p-2'>
-              <Navbar type='App' addModalAs={AppApp}  />
+              <AppForm mode='create' />
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

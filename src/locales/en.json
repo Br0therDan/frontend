@@ -61,6 +61,23 @@
           "description": "Delete registered users"
         }
       },
+      "apps": {
+        "title": "App Management",
+        "description": "Manage installed applications",
+        "create": {
+          "title": "Add App",
+          "description": "Install a new application"
+        },
+        "edit": {
+          "title": "Edit App",
+          "description": "Modify app details"
+        },
+        "delete": {
+          "title": "Delete App",
+          "description": "Uninstall applications"
+        }
+      },
+
       "docs": {
         "title": "Manage Documents",
         "description": "Manage the list of documents"
