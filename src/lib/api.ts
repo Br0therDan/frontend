@@ -23,7 +23,7 @@ import {
   AlertsApi,
   LocationsApi,
   SafezonesApi,
-} from '@/client/kids'
+} from '@/client/locations'
 
 import Cookies from 'js-cookie'
 
@@ -45,7 +45,7 @@ const createConfig = (basePath: string) => {
 const iamConfiguration = createConfig(process.env.NEXT_PUBLIC_IAM_API_URL!)
 const postsConfiguration = createConfig(process.env.NEXT_PUBLIC_POSTS_API_URL!)
 const docsConfiguration = createConfig(process.env.NEXT_PUBLIC_DOCS_API_URL!)
-const kidsConfiguration = createConfig(process.env.NEXT_PUBLIC_KIDS_API_URL!)
+const locationsConfiguration = createConfig(process.env.NEXT_PUBLIC_LOCATIONS_API_URL!)
 const quantConfiguration = createConfig(process.env.NEXT_PUBLIC_QUANT_API_URL!)
 
 // ✅ API 서비스 그룹화
@@ -64,10 +64,10 @@ export const DocsService = new DocsApi(docsConfiguration)
 export const CatService = new CatApi(docsConfiguration)
 export const MediaAssetsService = new MediaAssetsApi(docsConfiguration)
 
-export const CommunitiesService = new CommunitiesApi(kidsConfiguration)
-export const AlertsService = new AlertsApi(kidsConfiguration)
-export const LocationsService = new LocationsApi(kidsConfiguration)
-export const SafezonesService = new SafezonesApi(kidsConfiguration)
+export const CommunitiesService = new CommunitiesApi(locationsConfiguration)
+export const AlertsService = new AlertsApi(locationsConfiguration)
+export const LocationsService = new LocationsApi(locationsConfiguration)
+export const SafezonesService = new SafezonesApi(locationsConfiguration)
 
 export const AssetsService = new AssetsApi(quantConfiguration)
 export const BacktestResultsService = new BacktestResultsApi(quantConfiguration)
