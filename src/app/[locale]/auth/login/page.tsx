@@ -1,8 +1,8 @@
 'use client'
 
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { useAuth } from '@/contexts/AuthContext'
 import { emailPattern, passwordRules } from '@/utils/utils'
@@ -17,14 +17,14 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { OAuthLoginButton } from '@/components/auth/OAuthLoginButton'
-import Loading from '@/components/common/Loading'
+// import Loading from '@/components/common/Loading'
 import { LoginRequest } from '@/types/auth'
 import { MyLogo, MyLogoDark } from '@/components/common/brand/logo'
 import { useTranslations } from 'next-intl'
 
 export default function LoginPage() {
-  const { login, loading, user } = useAuth()
-  const router = useRouter()
+  const { login } = useAuth()
+  // const router = useRouter()
   const searchParams = useSearchParams()
   const redirectPath = searchParams.get('redirectPath')
   const t = useTranslations()
@@ -38,16 +38,15 @@ export default function LoginPage() {
     defaultValues: { username: '', password: '' },
   })
 
-  useEffect(() => {
-    if (user) router.push(redirectPath || '/main')
-  }, [user, router, redirectPath])
+  // useEffect(() => {
+  //   if (user) router.push(redirectPath || '/main')
+  // }, [user, router, redirectPath])
 
   const onSubmit: SubmitHandler<LoginRequest> = async (data) => {
     if (isSubmitting) return
     await login({ ...data, redirectPath: redirectPath || '/main' })
   }
 
-  if (loading) return <Loading />
 
   return (
     <div className='flex min-h-svh flex-col items-center justify-center gap-6 bg-muted p-6 md:p-10'>
