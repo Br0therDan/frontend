@@ -21,6 +21,8 @@ import { useRouter } from 'next/navigation'
 import { capitalizeFirstLetter } from '@/utils/formatName'
 import { useApp } from '@/contexts/AppContext'
 import { AppPublic } from '@/client/iam'
+import LucideIcons from '../common/Icons'
+
 
 export default function AppSwitcher() {
   const router = useRouter()
@@ -83,8 +85,9 @@ export default function AppSwitcher() {
               className='data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground'
             >
               <div className='flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground'>
-                {activeApp.logo &&
-                  React.createElement(activeApp.logo, { className: 'size-4' })}
+                {activeApp.name &&
+                  <LucideIcons icon={activeApp.name} />
+                }
               </div>
               <div className='grid flex-1 text-left text-sm leading-tight'>
                 <span className='truncate font-semibold'>
@@ -112,9 +115,9 @@ export default function AppSwitcher() {
                 onClick={() => handleSwitchApp(app)}
                 className='gap-2 p-2'
               >
-                {app.logo && (
+                {app.name && (
                   <div className='flex size-6 items-center justify-center rounded-sm border'>
-                    {React.createElement(app.logo, { className: 'size-4 shrink-0' })}
+                    <LucideIcons icon={app.name} />
                   </div>
                 )}
                 {app.name}
