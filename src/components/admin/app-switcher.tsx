@@ -19,13 +19,7 @@ import {
 import { useRouter } from 'next/navigation'
 import { capitalizeFirstLetter } from '@/utils/formatName'
 import { useApp } from '@/contexts/AppContext'
-
-
-export interface AppType {
-  name: string
-  logo: React.ElementType | null
-  description: string | null | undefined
-}
+import Cookies from 'js-cookie';
 
 export default function AppSwitcher() {
   const router = useRouter()
@@ -34,6 +28,7 @@ export default function AppSwitcher() {
 
   const handleSwitchApp = (app: typeof activeApp) => {
     setActiveApp(app)
+    Cookies.set('activeApp', JSON.stringify(app));
     router.push(`/admin/${app?.name}`)
   }
 
@@ -80,7 +75,8 @@ export default function AppSwitcher() {
               >
                 {app.logo && (
                   <div className='flex size-6 items-center justify-center rounded-sm border'>
-                    {React.createElement(app.logo, { className: 'size-4 shrink-0' })}
+                    {/* {React.createElement(app.logo, { className: 'size-4 shrink-0' })} */}
+                    <app.logo />
                   </div>
                 )}
                 {app.name}
