@@ -126,7 +126,7 @@ export default function UserForm({ mode, user }: UserFormProps) {
   return (
     <FormProvider {...methods}>
       <Dialog>
-        <DialogTrigger>
+        <DialogTrigger asChild>
           {/* Add User */}
           {mode === 'add' ? (
             <Button variant='default'>

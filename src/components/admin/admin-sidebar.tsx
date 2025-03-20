@@ -19,7 +19,6 @@ import {
   Home,
   User,
   BookText,
-  AppleIcon,
   TerminalSquare,
 
 } from 'lucide-react'
@@ -36,11 +35,6 @@ const items = [
     title: 'Users',
     url: '/admin/users',
     icon: User,
-  },
-  {
-    title: 'Apps',
-    url: '/admin/apps',
-    icon: AppleIcon,
   },
   {
     title: 'Documents',

@@ -13,10 +13,11 @@ import React, {
 import { toast } from 'sonner'
 import Cookies from 'js-cookie'
 
+// Context 타입
 interface AppContextType {
   apps: AppPublic[]
   loading: boolean
-  fetchApps: () => Promise<void>
+  fetchApps: (force?: boolean) => Promise<void>
   activeApp: AppPublic | undefined
   setActiveApp: React.Dispatch<React.SetStateAction<AppPublic | undefined>>
 }
@@ -29,13 +30,33 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const [activeApp, setActiveApp] = useState<AppPublic | undefined>(undefined)
 
   /**
-   * 1. 앱 목록을 불러오는 함수
+   * 1) apps 목록 가져오기 - "force"가 아닌 이상 쿠키 우선
    */
-  const fetchApps = useCallback(async () => {
+  const fetchApps = useCallback(async (force = false) => {
+    // 쿠키에 이미 있으면 바로 파싱 + 로딩 끝
+    const storedApps = Cookies.get('apps')
+    if (storedApps && !force) {
+      try {
+        const parsedApps: AppPublic[] = JSON.parse(storedApps)
+        setApps(parsedApps)
+        setLoading(false)
+        return
+      } catch (err) {
+        handleApiError(err, (message) =>
+          toast.error(message.title, { description: message.description })
+        )
+        Cookies.remove('apps')
+      }
+    }
+
+    // 여기 오면 쿠키가 없거나(force=true) 하므로 서버 Fetch
     setLoading(true)
     try {
       const response = await AppsService.appsReadApps()
       setApps(response.data)
+
+      // 서버에서 받은 apps를 쿠키에 저장
+      Cookies.set('apps', JSON.stringify(response.data))
     } catch (err) {
       handleApiError(err, (message) =>
         toast.error(message.title, { description: message.description })
@@ -46,13 +67,13 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   }, [])
 
   /**
-   * 2. 마운트 시점:
-   *    - fetchApps()로 앱 목록을 불러오기
-   *    - 쿠키에서 activeApp 복원
+   * 2) 마운트 시점:
+   *   - 쿠키에서 activeApp(전체 객체) 복원
+   *   - apps 목록 fetch (쿠키 우선)
    */
   useEffect(() => {
     const init = async () => {
-      // 우선 쿠키 체크
+      // 쿠키에서 activeApp 불러오기
       const stored = Cookies.get('activeApp')
       if (stored) {
         try {
@@ -62,32 +83,25 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
           console.error("Error parsing stored activeApp:", error)
         }
       }
-
-      // apps fetch
-      await fetchApps()
+      // 쿠키에 apps 있으면 바로 setApps, 없으면 서버 fetch
+      await fetchApps(/* force= */ false)
     }
-
     init()
   }, [fetchApps])
 
   /**
-   * 3. apps가 업데이트되면(즉, fetchApps 후),
-   *    만약 activeApp이 없는 상태라면(쿠키 없거나 파싱 에러),
-   *    apps 배열의 첫 번째 앱을 default activeApp으로 설정
+   * 3) apps가 로드된 뒤, activeApp이 없다면 → 첫 번째 앱 선택
    */
   useEffect(() => {
-    // 쿠키에 activeApp이 없거나 파싱 실패로 activeApp이 설정되지 않았다면
     if (!activeApp && apps.length > 0) {
-      // 첫 번째 앱을 기본값으로 설정
       const defaultApp = apps[0]
       setActiveApp(defaultApp)
       Cookies.set('activeApp', JSON.stringify(defaultApp))
     }
-  }, [activeApp, apps])
+  }, [apps, activeApp])
 
   /**
-   * 4. activeApp이 바뀔 때마다 쿠키 업데이트 (선택사항)
-   *    - 이미 위에서 쿠키를 세팅했으므로, 추가로 해주고 싶으면 다음 로직을 유지
+   * 4) activeApp이 바뀔 때마다 쿠키에 반영
    */
   useEffect(() => {
     if (activeApp) {
