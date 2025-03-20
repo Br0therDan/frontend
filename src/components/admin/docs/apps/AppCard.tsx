@@ -16,6 +16,7 @@ import { AdminService, AppsService } from '@/lib/api'
 import { Button } from '@/components/ui/button'
 import { Trash2 } from 'lucide-react'
 import { capitalizeFirstLetter } from '@/utils/formatName'
+import LucideIcons from '@/components/common/Icons'
 
 export default function AppsCard() {
   const [apps, setApps] = useState<AppPublic[]>([])
@@ -73,7 +74,10 @@ export default function AppsCard() {
               className='flex items-center justify-between py-1 space-x-2 border-b'
             >
               <div className='flex-col'>
-                <p>{capitalizeFirstLetter(app.name)}</p>
+                <div className='flex items-center space-x-2'>
+                  <LucideIcons icon={app.name} />
+                  <p className="text-sm">{capitalizeFirstLetter(app.name)}</p>
+                </div>
                 <span className='text-xs text-gray-400'>{app.description}</span>
               </div>
               <div className='space-x-1'>
