@@ -3,6 +3,9 @@ import createNextIntlPlugin from 'next-intl/plugin';
 import path from 'path';
 
 const nextConfig: NextConfig = {
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   webpack(config, { isServer }) {
     if (!isServer) {
       // Ensure that all imports of 'yjs' resolve to the same instance

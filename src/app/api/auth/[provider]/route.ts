@@ -4,7 +4,7 @@ import { OAuthService } from '@/lib/api'
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { provider: string } } // provider를 required로 지정
+  { params }: { params: { provider: string } }
 ) {
   const { provider } = params
   const url = request.nextUrl
