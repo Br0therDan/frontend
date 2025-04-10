@@ -1,26 +1,25 @@
 # -------------------------
 # 1) 빌드 스테이지 (Builder)
 # -------------------------
-    FROM node:20-slim AS builder
+    FROM node:20-slim AS build-stage
 
     WORKDIR /app
     
     # pnpm 전역 설치
-    RUN npm install -g pnpm
     COPY .npmrc .npmrc
-    # package.json과 pnpm-lock.yaml 복사
-    COPY package.json pnpm-lock.yaml ./
+
+    COPY package.json pnpm-lock.yaml /app/
     
     # 종속성 설치 (잠긴 버전 사용)
     RUN pnpm install --frozen-lockfile
     
     # 나머지 소스 복사
-    COPY . .
+    COPY ./ /app/
     
-    # 빌드 아규먼트로 환경 파일 선택 (기본값: .env.production)
-    ARG ENV_FILE=.env.test
-    # 해당 환경 파일을 .env로 복사
-    COPY ${ENV_FILE} .env
+    # # 빌드 아규먼트로 환경 파일 선택 (기본값: .env.production)
+    # ARG ENV_FILE=.env.test
+    # # 해당 환경 파일을 .env로 복사
+    # COPY ${ENV_FILE} .env
     
     # Next.js 빌드
     RUN pnpm run build
