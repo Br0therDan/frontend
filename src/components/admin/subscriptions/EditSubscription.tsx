@@ -155,7 +155,7 @@ export default function EditSubscription({
                       <SelectContent>
                         {TIERS.map((tier) => (
                           <SelectItem key={tier} value={tier}>
-                            {tier}
+                            {capitalizeFirstLetter(tier)}
                           </SelectItem>
                         ))}
                       </SelectContent>
@@ -183,7 +183,7 @@ export default function EditSubscription({
                       <SelectContent>
                         {STATUSES.map((status) => (
                           <SelectItem key={status} value={status}>
-                            {status}
+                            {capitalizeFirstLetter(status)}
                           </SelectItem>
                         ))}
                       </SelectContent>

@@ -9,6 +9,8 @@ import UserForm from './UserForm'
 import { AdminService } from '@/lib/api'
 import { Badge } from '@/components/ui/badge'
 import DeleteAlert from '@/components/common/DeleteAlert'
+import AddSubscription from '../subscriptions/AddSubscription'
+import { cn } from '@/lib/utils'
 
 export const columns: ColumnDef<UserPublic>[] = [
   {
@@ -68,11 +70,36 @@ export const columns: ColumnDef<UserPublic>[] = [
       const user = row.original
       return (
         <div className='flex items-center gap-2'>
-          {Array.isArray(user?.oauth_accounts)
-            ? user.oauth_accounts
-                .map((account) => capitalizeFirstLetter(account.oauth_name))
-                .join(', ')
-            : 'Local'}
+          {user.oauth_accounts?.map((account) => (
+            <div key={account.oauth_name}>
+              {account.oauth_name === 'google' && (
+                <img
+                  src='/images/google_icon.png'
+                  alt='Google'
+                  className='w-7 h-7'
+                />
+              )}
+              {account.oauth_name === 'kakao' && (
+                <img
+                  src='/images/kakao_icon.png'
+                  alt='Kakao'
+                  className='w-5 h-5'
+                />
+              )}
+              {account.oauth_name === 'naver' && (
+                <img
+                  src='/images/naver_icon.png'
+                  alt='Naver'
+                  className='w-5 h-5'
+                />
+              )}
+            </div>
+          ))}
+          <img
+            src='/images/logo_sq_dark.png'
+            alt='MySingle'
+            className='w-6 h-6'
+          />
         </div>
       )
     },
@@ -83,29 +110,32 @@ export const columns: ColumnDef<UserPublic>[] = [
     cell: ({ row }) => {
       const user = row.original
       return (
-        <div className='flex items-center gap-2'>
+        <div className='flex-col items-center gap-2'>
           {user.subscriptions?.map((subscription) => (
-            <span
+            <div
               key={subscription._id}
               className='text-xs font-medium text-gray-500'
             >
               <Badge
                 variant='outline'
-                className={`text-xs ${
+                className={cn(
+                  'text-xs',
                   subscription.status === 'active'
-                    ? 'bg-green-500 text-white'
-                    : 'bg-gray-500 text-white'
-                }`}
+                    ? 'bg-green-600 text-white'
+                    : subscription.status === 'trial'
+                      ? 'bg-red-500 text-white'
+                      : 'bg-gray-500 text-white'
+                )}
               >
-              {capitalizeFirstLetter(subscription.app_name)} - {capitalizeFirstLetter(subscription.tier)}
+                {capitalizeFirstLetter(subscription.app_name)} :{' '}
+                {capitalizeFirstLetter(subscription.tier)}
               </Badge>
-            </span>
+            </div>
           ))}
         </div>
       )
     },
   },
-
 
   {
     accessorKey: 'role',
@@ -138,17 +168,18 @@ export const columns: ColumnDef<UserPublic>[] = [
               user.is_active ? 'bg-green-500' : 'bg-red-500'
             }`}
           />
-          {user.is_active ? 'Active' : 'Inactive'} 
+          {user.is_active ? 'Active' : 'Inactive'}
           <Badge
-                variant='outline'
-                className={`text-xs ${
-                  user.is_verified
-                    ? 'bg-green-500 text-white'
-                    : 'bg-red-500 text-white'
-                }`}
-              >{user.is_verified ? 'Verfied' : 'Not Verified'}</Badge>
+            variant='outline'
+            className={`text-xs ${
+              user.is_verified
+                ? 'bg-green-600 text-white'
+                : 'bg-red-500 text-white'
+            }`}
+          >
+            {user.is_verified ? 'Verfied' : 'Not Verified'}
+          </Badge>
         </div>
-
       )
     },
   },
@@ -161,17 +192,18 @@ export const columns: ColumnDef<UserPublic>[] = [
       return (
         <div>
           <UserForm mode='edit' user={user} />
+          <AddSubscription user_id={user._id} onClose={() => {}} />
           <DeleteAlert
             id={user._id}
             title='사용자 삭제'
-            description='정말로 사용자를 삭제하시겠습니까?'
+            description={`${user.fullname ? user.fullname : user.email} 사용자를 삭제하시겠습니까?`}
             deleteApi={async () => {
               await AdminService.adminDeleteUser(user._id)
               window.location.reload()
             }}
             onClose={() => {}}
           />
-        </div>        
+        </div>
       )
     },
   },

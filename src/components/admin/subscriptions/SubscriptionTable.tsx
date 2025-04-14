@@ -10,10 +10,10 @@ import { handleApiError } from '@/lib/errorHandler'
 import { toast } from 'sonner'
 
 interface SubscriptionTableProps {
-  appName: string
+  app_name: string
 }
 
-export default function SubscriptionTable( {appName}: SubscriptionTableProps) {
+export default function SubscriptionTable( {app_name}: SubscriptionTableProps) {
   const [subscriptions, setSubscriptions] = useState<SubscriptionPublic[]>([])
   const [loading, setLoading] = useState<boolean>(true)
 
@@ -23,7 +23,7 @@ export default function SubscriptionTable( {appName}: SubscriptionTableProps) {
       try {
         const response = await AdminService.adminReadSubscriptions(
           null,
-          appName
+          app_name
         )
         setSubscriptions(response.data)
       } catch (err) {

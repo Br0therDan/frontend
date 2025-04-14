@@ -11,6 +11,8 @@ import EditSubscription from './EditSubscription'
 import DeleteAlert from '@/components/common/DeleteAlert'
 import { capitalizeFirstLetter } from '@/utils/formatName'
 import { toast } from 'sonner'
+import { cn } from '@/lib/utils'
+import LucideIcons from '@/components/common/Icons'
 
 
 export const columns: ColumnDef<SubscriptionPublic>[] = [
@@ -79,12 +81,20 @@ export const columns: ColumnDef<SubscriptionPublic>[] = [
     },
     cell: ({ cell }) => {
       const appName = cell.getValue() as string
-      return <span className='text-sm'>{capitalizeFirstLetter(appName) }</span>
+      return <div className='flex items-center gap-2 text-sm'><LucideIcons icon={appName} />{capitalizeFirstLetter(appName) }</div>
     }
   },
   {
     accessorKey: 'tier',
     header: '요금제',
+    cell: ({ cell }) => {
+      const tier = cell.getValue() as string
+      return (
+        <span className='text-sm'>
+          {capitalizeFirstLetter(tier)}
+        </span>
+      )
+    },
   },
 
   {
@@ -105,11 +115,16 @@ export const columns: ColumnDef<SubscriptionPublic>[] = [
       return (
         <div className='flex items-center gap-2'>
           <div
-            className={`w-2 h-2 rounded-full ${
-              status === 'active' ? 'bg-green-500' : 'bg-red-500'
-            }`}
+            className={cn(
+              'w-2 h-2 rounded-full',
+              status === 'active'
+                ? 'bg-green-500'
+                : status === 'trial'
+                  ? 'bg-blue-500'
+                  : 'bg-gray-500'
+            )}
           />
-          {status === 'active' ? 'Active' : 'Inactive'}
+          {capitalizeFirstLetter(status)}
         </div>
       )
     },

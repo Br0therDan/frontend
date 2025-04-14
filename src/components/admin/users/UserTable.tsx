@@ -13,10 +13,10 @@ import { handleApiError } from '@/lib/errorHandler'
 import { toast } from 'sonner'
 
 interface UserTableProps {
-  appName: string
+  app_name?: string
 }
 
-export default function UserTable({appName}: UserTableProps) {
+export default function UserTable({app_name}: UserTableProps) {
   const [users, setUsers] = useState<UserPublic[]>([])
   const [loading, setLoading] = useState<boolean>(true)
 
@@ -25,7 +25,7 @@ export default function UserTable({appName}: UserTableProps) {
       setLoading(true)
       try {
         const response = await AdminService.adminReadUsers(
-          appName
+          app_name
         )
         setUsers(response.data)
       } catch (err) {

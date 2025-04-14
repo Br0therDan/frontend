@@ -18,7 +18,7 @@ export default async function UserPage({
         <PageTitle
           title={`${capitalizeFirstLetter(appName)} 사용자 관리`}
         />
-        <UserTable appName={appName} />
+        <UserTable app_name={appName} />
       </div>
       <Footer>
         <UserForm mode='add' />

@@ -13,7 +13,6 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
-
   DialogTrigger,
   DialogFooter,
 } from '@/components/ui/dialog'
@@ -21,7 +20,11 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 
 import { MyButton } from '@/components/common/buttons/submit-button' // Custom ShadCN-based button
-import { SubscriptionCreate, SubscriptionStatus, SubscriptionTier} from '@/client/iam'
+import {
+  SubscriptionCreate,
+  SubscriptionStatus,
+  SubscriptionTier,
+} from '@/client/iam'
 
 import { toast } from 'sonner'
 import { AdminService } from '@/lib/api'
@@ -30,24 +33,43 @@ import { useState } from 'react'
 import Loading from '@/components/common/Loading'
 
 import { Button } from '@/components/ui/button'
-import {  PlusCircle } from 'lucide-react'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { PlusCircle } from 'lucide-react'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import { useApp } from '@/contexts/AppContext'
+import { capitalizeFirstLetter } from '@/utils/formatName'
+import LucideIcons from '@/components/common/Icons'
 
-const TIERS: SubscriptionTier[] = ['free', 'basic', 'premium', 'enterprise'];
-const STATUSES: SubscriptionStatus[] = ['active', 'trial', 'canceled', 'expired', 'none'];
+const TIERS: SubscriptionTier[] = ['free', 'basic', 'premium', 'enterprise']
+const STATUSES: SubscriptionStatus[] = [
+  'active',
+  'trial',
+  'canceled',
+  'expired',
+  'none',
+]
 
+interface SubscriptionFormProps {
+  onClose: () => void
+  user_id: string
+}
 
-export default function AddSubscription() {
+export default function AddSubscription({
+  onClose,
+  user_id,
+}: SubscriptionFormProps) {
   const [loading, setLoading] = useState<boolean>(false)
-  const { activeApp } = useApp()
+  const { activeApp, apps } = useApp()
 
-
-  const methods = useForm<SubscriptionCreate >({
+  const methods = useForm<SubscriptionCreate>({
     mode: 'onBlur',
     criteriaMode: 'all',
-    defaultValues:{
-      user_id: '',
+    defaultValues: {
       status: 'active',
       tier: '',
       duration_days: 0,
@@ -63,19 +85,21 @@ export default function AddSubscription() {
   } = methods
 
   const selectedTier = TIERS.find((tier) => tier === methods.getValues('tier'))
-  const selectedStatus = STATUSES.find((status) => status === methods.getValues('status'))
-
+  const selectedStatus = STATUSES.find(
+    (status) => status === methods.getValues('status')
+  )
 
   const addSubscription = async (data: SubscriptionCreate) => {
     setLoading(true)
     try {
       if (!activeApp) {
-        toast.error("앱이 선택되지 않았습니다.")
+        toast.error('앱이 선택되지 않았습니다.')
         return
       }
-      data.app_id = activeApp?._id
+      data.user_id = user_id
       await AdminService.adminCreateSubscription(data)
-      toast.success("구독 생성 성공.", {
+      onClose()
+      toast.success('구독 생성 성공.', {
         description: '새로운 구독이 생성되었습니다.',
       })
       reset()
@@ -88,12 +112,10 @@ export default function AddSubscription() {
     }
   }
 
-
   const onSubmit: SubmitHandler<SubscriptionCreate> = (data) => {
-      addSubscription(data)
-      window.location.reload()
-    }
-
+    addSubscription(data)
+    window.location.reload()
+  }
 
   if (loading) {
     return <Loading />
@@ -101,38 +123,50 @@ export default function AddSubscription() {
 
   return (
     <FormProvider {...methods}>
-    <Dialog>
-      <DialogTrigger asChild>
-          <Button className='p-2'>
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button variant='ghost' className='p-2' aria-label='Actions'>
             <PlusCircle />
-            구독 추가
           </Button>
-      </DialogTrigger>
-      <DialogContent>
-        <FormProvider {...methods}>
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className='space-y-4'
-            autoComplete='off'
-          >
-            <DialogHeader>
-              <DialogTitle>구독 추가</DialogTitle>
-              {/* <DialogDescription>{capitalizeFirstLetter(currentApp.name)} 구독을 추가합니다.</DialogDescription> */}
-              <DialogDescription> 구독을 추가합니다.</DialogDescription>
-            </DialogHeader>
+        </DialogTrigger>
+        <DialogContent>
+          <FormProvider {...methods}>
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className='space-y-4'
+              autoComplete='off'
+            >
+              <DialogHeader>
+                <DialogTitle>구독 추가</DialogTitle>
+                {/* <DialogDescription>{capitalizeFirstLetter(currentApp.name)} 구독을 추가합니다.</DialogDescription> */}
+                <DialogDescription> 구독을 추가합니다.</DialogDescription>
+              </DialogHeader>
               <div className='grid gap-2'>
-                <Label htmlFor='user_id'>사용자 ID</Label>
-                <Input
-                  id='user_id'
-                  {...register('user_id', {
-                    required: '사용자 ID는 필수입니다.',
-                  })}
-                  type='text'
-                  placeholder='사용자 ID를 입력하세요.'
-                  // disabled
+                <Label htmlFor='app_id'>앱</Label>
+                <Controller
+                  name='app_id'
+                  control={control}
+                  render={({ field }) => (
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={activeApp?._id}
+                    >
+                      <SelectTrigger className='text-sm w-48'>
+                        <SelectValue placeholder='앱 선택' />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {apps.map((app) => (
+                          <SelectItem key={app._id} value={app._id}>
+                            <LucideIcons icon={app.name} />
+                            {capitalizeFirstLetter(app.name)}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  )}  
                 />
-                {errors.user_id && (
-                  <p className='text-red-500 text-xs'>{errors.user_id.message}</p>
+                {errors.app_id && (
+                  <p className='text-red-500 text-xs'>{errors.app_id.message}</p>
                 )}
               </div>
               <div className='grid gap-2'>
@@ -141,14 +175,17 @@ export default function AddSubscription() {
                   name='tier'
                   control={control}
                   render={({ field }) => (
-                    <Select onValueChange={field.onChange} defaultValue={selectedTier} >
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={selectedTier}
+                    >
                       <SelectTrigger className='text-sm w-48'>
                         <SelectValue placeholder='요금제 선택' />
                       </SelectTrigger>
                       <SelectContent>
                         {TIERS.map((tier) => (
                           <SelectItem key={tier} value={tier}>
-                            {tier}
+                            {capitalizeFirstLetter(tier)}
                           </SelectItem>
                         ))}
                       </SelectContent>
@@ -166,14 +203,17 @@ export default function AddSubscription() {
                   name='status'
                   control={control}
                   render={({ field }) => (
-                    <Select onValueChange={field.onChange} defaultValue={selectedStatus} >
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={selectedStatus}
+                    >
                       <SelectTrigger className='text-sm w-48'>
                         <SelectValue placeholder='상태 선택' />
                       </SelectTrigger>
                       <SelectContent>
                         {STATUSES.map((status) => (
                           <SelectItem key={status} value={status}>
-                            {status}
+                            {capitalizeFirstLetter(status)}
                           </SelectItem>
                         ))}
                       </SelectContent>
@@ -181,7 +221,9 @@ export default function AddSubscription() {
                   )}
                 />
                 {errors.status && (
-                  <p className='text-red-500 text-xs'>{errors.status.message}</p>
+                  <p className='text-red-500 text-xs'>
+                    {errors.status.message}
+                  </p>
                 )}
               </div>
 
@@ -203,25 +245,27 @@ export default function AddSubscription() {
                   )}
                 />
                 {errors.duration_days && (
-                  <p className='text-red-500 text-xs'>{errors.duration_days.message}</p>
+                  <p className='text-red-500 text-xs'>
+                    {errors.duration_days.message}
+                  </p>
                 )}
               </div>
 
-            <DialogFooter>
-              <MyButton
-                variant='default'
-                type='submit'
-                disabled={isSubmitting || !isDirty}
-                isLoading={isSubmitting}
-                className='w-full'
-              >
-                구독 추가
-              </MyButton>
-            </DialogFooter>
-          </form>
-        </FormProvider>
-      </DialogContent>
-    </Dialog>
+              <DialogFooter>
+                <MyButton
+                  variant='default'
+                  type='submit'
+                  disabled={isSubmitting || !isDirty}
+                  isLoading={isSubmitting}
+                  className='w-full'
+                >
+                  구독 추가
+                </MyButton>
+              </DialogFooter>
+            </form>
+          </FormProvider>
+        </DialogContent>
+      </Dialog>
     </FormProvider>
   )
 }
