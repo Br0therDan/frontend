@@ -1,33 +1,31 @@
 'use client'
 import React from 'react'
 import { useEffect, useState } from 'react'
-// import AddUser from './AddUser'
-// import EditUser from './EditUser'
 import { columns } from './columns'
-// import Navbar from '@/components/common/Navbar'
 import { AdminService } from '@/lib/api'
-import type { UserPublic } from '@/client/iam'
+import type { SubscriptionPublic } from '@/client/iam'
 import DataTable from '@/components/data_table/DataTable'
 import Loading from '@/components/common/Loading'
 import { handleApiError } from '@/lib/errorHandler'
 import { toast } from 'sonner'
 
-interface UserTableProps {
+interface SubscriptionTableProps {
   appName: string
 }
 
-export default function UserTable({appName}: UserTableProps) {
-  const [users, setUsers] = useState<UserPublic[]>([])
+export default function SubscriptionTable( {appName}: SubscriptionTableProps) {
+  const [subscriptions, setSubscriptions] = useState<SubscriptionPublic[]>([])
   const [loading, setLoading] = useState<boolean>(true)
 
   useEffect(() => {
-    const fetchUsers = async () => {
+    const fetchSubscriptions = async () => {
       setLoading(true)
       try {
-        const response = await AdminService.adminReadUsers(
+        const response = await AdminService.adminReadSubscriptions(
+          null,
           appName
         )
-        setUsers(response.data)
+        setSubscriptions(response.data)
       } catch (err) {
         handleApiError(err, (message) =>
           toast.error(message.title, { description: message.description })
@@ -37,8 +35,8 @@ export default function UserTable({appName}: UserTableProps) {
       }
     }
 
-    fetchUsers()
-  }, [toast])
+    fetchSubscriptions()
+  }, [toast, AdminService])
 
   if (loading) {
     return <Loading />
@@ -46,7 +44,7 @@ export default function UserTable({appName}: UserTableProps) {
 
   return (
     <div className='space-y-2'>
-      <DataTable columns={columns} data={users} />
+      <DataTable columns={columns} data={subscriptions} />
     </div>
   )
 }

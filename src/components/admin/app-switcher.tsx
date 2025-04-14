@@ -107,7 +107,7 @@ export default function AppSwitcher() {
             sideOffset={4}
           >
             <DropdownMenuLabel className='text-xs text-muted-foreground'>
-              Apps
+              {/* Apps */}
             </DropdownMenuLabel>
             {apps.map((app, index) => (
               <DropdownMenuItem
@@ -120,7 +120,7 @@ export default function AppSwitcher() {
                     <LucideIcons icon={app.name} />
                   </div>
                 )}
-                {app.name}
+                {capitalizeFirstLetter(app.name)}
                 <DropdownMenuShortcut>⌘{index + 1}</DropdownMenuShortcut>
               </DropdownMenuItem>
             ))}

@@ -32,6 +32,8 @@ import Loading from '@/components/common/Loading'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { Edit, PlusCircle } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import { useApp } from '@/contexts/AppContext'
 
 interface UserFormProps {
   mode: 'add' | 'edit'
@@ -45,7 +47,8 @@ interface UserForm extends AdminUserCreate {
 export default function UserForm({ mode, user }: UserFormProps) {
   const [loading, setLoading] = useState<boolean>(false)
   const t = useTranslations()
-
+  const router = useRouter()
+  const { activeApp } = useApp()
   const methods = useForm<UserForm>({
     mode: 'onBlur',
     criteriaMode: 'all',
@@ -101,6 +104,7 @@ export default function UserForm({ mode, user }: UserFormProps) {
           description: t('forms.user.edit_success.description'),
         })
       }
+      router.push(`/admin/${activeApp?.name}/users`)
       reset()
     } catch (err) {
       handleApiError(err, (message) =>
@@ -117,6 +121,7 @@ export default function UserForm({ mode, user }: UserFormProps) {
     } else {
       add(data)
     }
+    window.location.reload()
   }
 
   if (loading) {

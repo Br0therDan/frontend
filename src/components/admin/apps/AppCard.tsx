@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import AppForm from '@/components/admin/docs/apps/AppForm'
+import AppForm from '@/components/admin/apps/AppForm'
 import { AppPublic } from '@/client/iam'
 import Loading from '@/components/common/Loading'
 import { handleApiError } from '@/lib/errorHandler'

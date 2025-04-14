@@ -1,15 +1,14 @@
 import React from 'react'
 import { ColumnDef } from '@tanstack/react-table'
-import { ArrowUpDown, Trash2 } from 'lucide-react'
+import { ArrowUpDown } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { UserPublic } from '@/client/iam'
-// import ActionsMenu from '@/components/common/ActionsMenu'
-
 import { Checkbox } from '@/components/ui/checkbox'
-// import { useAuth } from '@/contexts/AuthContext'
 import { capitalizeFirstLetter } from '@/utils/formatName'
 import UserForm from './UserForm'
-// import DeleteAlert from '@/components/common/DeleteAlert'
+import { AdminService } from '@/lib/api'
+import { Badge } from '@/components/ui/badge'
+import DeleteAlert from '@/components/common/DeleteAlert'
 
 export const columns: ColumnDef<UserPublic>[] = [
   {
@@ -42,7 +41,7 @@ export const columns: ColumnDef<UserPublic>[] = [
           variant='ghost'
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
-          Name
+          이름
           <ArrowUpDown className='ml-2 h-4 w-4' />
         </Button>
       )
@@ -56,7 +55,7 @@ export const columns: ColumnDef<UserPublic>[] = [
           variant='ghost'
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
-          Email
+          이메일
           <ArrowUpDown className='ml-2 h-4 w-4' />
         </Button>
       )
@@ -64,7 +63,7 @@ export const columns: ColumnDef<UserPublic>[] = [
   },
   {
     accessorKey: 'oauth_accounts',
-    header: 'Provider',
+    header: 'ID제공자',
     cell: ({ row }) => {
       const user = row.original
       return (
@@ -79,16 +78,38 @@ export const columns: ColumnDef<UserPublic>[] = [
     },
   },
   {
-    accessorKey: 'mobile_phone',
-    header: 'Mobile',
+    accessorKey: 'subscriptions',
+    header: '구독',
+    cell: ({ row }) => {
+      const user = row.original
+      return (
+        <div className='flex items-center gap-2'>
+          {user.subscriptions?.map((subscription) => (
+            <span
+              key={subscription._id}
+              className='text-xs font-medium text-gray-500'
+            >
+              <Badge
+                variant='outline'
+                className={`text-xs ${
+                  subscription.status === 'active'
+                    ? 'bg-green-500 text-white'
+                    : 'bg-gray-500 text-white'
+                }`}
+              >
+              {capitalizeFirstLetter(subscription.app_name)} - {capitalizeFirstLetter(subscription.tier)}
+              </Badge>
+            </span>
+          ))}
+        </div>
+      )
+    },
   },
-  {
-    accessorKey: 'birthday',
-    header: 'Date of Birth',
-  },
+
+
   {
     accessorKey: 'role',
-    header: 'Role',
+    header: '역할',
     cell: ({ row }) => {
       const user = row.original
       return user.is_superuser ? 'Admin' : 'User'
@@ -102,7 +123,7 @@ export const columns: ColumnDef<UserPublic>[] = [
           variant='ghost'
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
-          Status
+          상태
           <ArrowUpDown className='ml-2 h-4 w-4' />
         </Button>
       )
@@ -117,8 +138,17 @@ export const columns: ColumnDef<UserPublic>[] = [
               user.is_active ? 'bg-green-500' : 'bg-red-500'
             }`}
           />
-          {user.is_active ? 'Active' : 'Inactive'}
+          {user.is_active ? 'Active' : 'Inactive'} 
+          <Badge
+                variant='outline'
+                className={`text-xs ${
+                  user.is_verified
+                    ? 'bg-green-500 text-white'
+                    : 'bg-red-500 text-white'
+                }`}
+              >{user.is_verified ? 'Verfied' : 'Not Verified'}</Badge>
         </div>
+
       )
     },
   },
@@ -131,17 +161,16 @@ export const columns: ColumnDef<UserPublic>[] = [
       return (
         <div>
           <UserForm mode='edit' user={user} />
-          <Button variant='ghost' className='p-2' aria-label='Actions'>
-            <Trash2 />
-          </Button>
-
-
-          {/* <DeleteAlert
-            type="User"
-            id={(value as { _id: string })._id || ''}
-            isOpen={deleteOpen}
-            onClose={() => setDeleteOpen(false)}
-          /> */}
+          <DeleteAlert
+            id={user._id}
+            title='사용자 삭제'
+            description='정말로 사용자를 삭제하시겠습니까?'
+            deleteApi={async () => {
+              await AdminService.adminDeleteUser(user._id)
+              window.location.reload()
+            }}
+            onClose={() => {}}
+          />
         </div>        
       )
     },

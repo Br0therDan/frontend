@@ -61,7 +61,7 @@ export const columns: ColumnDef<DocumentPublic>[] = [
         <div className='truncate flex p-3 flex-col space-y-1'>
           <div className='flex items-center gap-2'>
             <Link
-              href={`/admin/${activeApp.name}/docs/${doc._id}`}
+              href={`/admin/${activeApp?.name}/docs/${doc._id}`}
               className='text-xl'
             >
               {doc.title}
@@ -104,7 +104,7 @@ export const columns: ColumnDef<DocumentPublic>[] = [
 
       return (
         <div>
-          <Button variant='ghost' className='p-2' aria-label='Actions' onClick={() => router.push(`/admin/${activeApp.name}/docs/${doc._id}/edit`)}>
+          <Button variant='ghost' className='p-2' aria-label='Actions' onClick={() => router.push(`/admin/${activeApp?.name}/docs/${doc._id}/edit`)}>
             <Edit />
           </Button>
           <Button variant='ghost' className='p-2' aria-label='Actions'>

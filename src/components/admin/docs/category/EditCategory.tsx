@@ -14,7 +14,6 @@ import {
   DialogTitle,
   DialogDescription,
   DialogFooter,
-  DialogOverlay,
   DialogClose,
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
@@ -31,20 +30,15 @@ import { handleApiError } from '@/lib/errorHandler'
 
 import { useTranslations } from 'next-intl'
 import { DocsCategoryPublic, DocsCategoryUpdate } from '@/client/docs'
+import { DialogTrigger } from '@radix-ui/react-dialog'
 
 interface EditCategoryProps {
   category: DocsCategoryPublic
-  isOpen: boolean
-  onClose: () => void
 }
 
 export default function EditCategory({
   category,
-  isOpen,
-  onClose,
 }: EditCategoryProps) {
-  // const { user: currentUser } = useAuth();
-  // const isAdmin = currentUser?.is_superuser === true;
   const [loading, setLoading] = useState(false)
   const t = useTranslations()
   const methods = useForm<DocsCategoryUpdate>({
@@ -77,7 +71,6 @@ export default function EditCategory({
       })
 
       reset()
-      onClose()
     } catch (err) {
       handleApiError(err, (message) =>
         toast.error(message.title, { description: message.description })
@@ -87,10 +80,6 @@ export default function EditCategory({
     }
   }
 
-  const handleCancel = () => {
-    reset()
-    onClose()
-  }
 
   const handleAddSubcategory = () => {
     setValue('subcategories', [...(subcategories || []), ''])
@@ -110,13 +99,12 @@ export default function EditCategory({
 
   return (
     <FormProvider {...methods}>
-      <Dialog
-        open={isOpen}
-        onOpenChange={(open) => {
-          if (!open) onClose()
-        }}
-      >
-        <DialogOverlay />
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button variant='outline' className='w-full'>
+            {t('forms.edit_category.title')}
+          </Button>
+        </DialogTrigger>
         <DialogContent className='max-w-md'>
           <form onSubmit={handleSubmit(onSubmit)}>
             <DialogHeader>
@@ -182,15 +170,6 @@ export default function EditCategory({
             </div>
 
             <DialogFooter className='flex justify-end gap-3 pt-2'>
-              <MyButton
-                variant='outline'
-                onClick={handleCancel}
-                disabled={isSubmitting}
-                className='w-full'
-                type='button'
-              >
-                {t('forms.edit_category.cancel')}
-              </MyButton>
               <MyButton
                 variant='default'
                 type='submit'

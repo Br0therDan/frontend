@@ -1,7 +1,6 @@
 'use client'
 import { useForm } from 'react-hook-form'
 import * as React from 'react'
-import { AdminService, DocsService, PostService } from '@/lib/api'
 import { toast } from 'sonner'
 import {
   AlertDialog,
@@ -13,80 +12,42 @@ import {
 } from '@/components/ui/alert-dialog'
 import { MyButton } from '@/components/common/buttons/submit-button'
 import { handleApiError } from '@/lib/errorHandler'
-
-type TypeKeys = 'User' | 'Translation' | 'Document' | 'Post'
+import {
+  AlertDialogCancel,
+  AlertDialogTrigger,
+} from '@radix-ui/react-alert-dialog'
+import { Button } from '../ui/button'
+import { Trash2 } from 'lucide-react'
 
 interface DeleteProps {
-  type: TypeKeys
   id: string
-  isOpen: boolean
+  title: string
+  description: string
+  deleteApi: (id: string) => Promise<void>
   onClose: () => void
 }
 
-const typeMessages: Record<
-  TypeKeys,
-  { title: string; description: string; success: string; error: string }
-> = {
-  User: {
-    title: 'Delete User',
-    description:
-      'All items associated with this user will also be permanently deleted.',
-    success: 'The user was deleted successfully.',
-    error: 'An error occurred while deleting the user.',
-  },
-  Translation: {
-    title: 'Delete Translation',
-    description: 'This translation will be permanently deleted.',
-    success: 'The translation was deleted successfully.',
-    error: 'An error occurred while deleting the translation.',
-  },
-  Document: {
-    title: 'Delete Document',
-    description: 'This document will be permanently deleted.',
-    success: 'The document was deleted successfully.',
-    error: 'An error occurred while deleting the document.',
-  },
-  Post: {
-    title: 'Delete Posts',
-    description: 'This posts will be permanently deleted.',
-    success: 'The posts was deleted successfully.',
-    error: 'An error occurred while deleting the posts.',
-  },
-}
-
-export default function Delete({ type, id, isOpen, onClose }: DeleteProps) {
+export default function Delete({
+  id,
+  title,
+  description,
+  onClose,
+  deleteApi,
+}: DeleteProps) {
   const cancelRef = React.useRef<HTMLButtonElement | null>(null)
-
   const {
     handleSubmit,
     formState: { isSubmitting },
   } = useForm()
 
   // 타입별로 삭제 처리 로직
-  const deleteEntity = async (id: string) => {
-    switch (type) {
-      // case "Translation":
-      //   await AdminService.adminDeleteTranslation(id);
-      //   break;
-      case 'User':
-        await AdminService.adminDeleteUser(id)
-        break
-
-      case 'Post':
-        await PostService.postsDeletePost(id)
-        break
-      case 'Document':
-        await DocsService.docsDeleteDocument(id)
-        break
-      default:
-        throw new Error(`Unexpected type: ${type}`)
-    }
-  }
 
   const deleteEntityHandler = async (id: string) => {
     try {
-      await deleteEntity(id)
-      toast.success(typeMessages[type].success)
+      await deleteApi(id)
+      toast.success('삭제되었습니다.', {
+        description: '삭제가 완료되었습니다.',
+      })
       onClose()
       window.location.reload()
     } catch (err) {
@@ -101,14 +62,20 @@ export default function Delete({ type, id, isOpen, onClose }: DeleteProps) {
   }
 
   return (
-    <AlertDialog open={isOpen} onOpenChange={onClose}>
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <Button variant='ghost' className='p-2' aria-label='Actions'>
+          <Trash2 />
+        </Button>
+      </AlertDialogTrigger>
       <AlertDialogContent>
         <form onSubmit={handleSubmit(onSubmit)}>
           <AlertDialogHeader>
-            <AlertDialogTitle>{typeMessages[type]?.title}</AlertDialogTitle>
+            <AlertDialogTitle>{title}</AlertDialogTitle>
             <AlertDialogDescription className='text-sm text-muted-foreground mt-2'>
-              <span>{typeMessages[type]?.description}</span>
-              Are you sure? You will not be able to undo this action.
+              <p>{description}</p>
+              이 작업은 취소할 수 없습니다
+              
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter className='space-x-2'>
@@ -117,17 +84,19 @@ export default function Delete({ type, id, isOpen, onClose }: DeleteProps) {
               type='submit'
               isLoading={isSubmitting}
             >
-              Delete
+              삭제
             </MyButton>
-            <MyButton
-              ref={cancelRef}
-              onClick={onClose}
-              disabled={isSubmitting}
-              variant='outline'
-              type='button'
-            >
-              Cancel
-            </MyButton>
+            <AlertDialogCancel>
+              <MyButton
+                ref={cancelRef}
+                onClick={onClose}
+                disabled={isSubmitting}
+                variant='outline'
+                type='button'
+              >
+                취소
+              </MyButton>
+            </AlertDialogCancel>
           </AlertDialogFooter>
         </form>
       </AlertDialogContent>

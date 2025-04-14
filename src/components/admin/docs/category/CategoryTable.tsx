@@ -7,7 +7,7 @@ import { toast } from 'sonner'
 import { CatService } from '@/lib/api'
 import { handleApiError } from '@/lib/errorHandler'
 import { DocsCategoryPublic } from '@/client/docs'
-import { Trash2, UserRoundPen } from 'lucide-react'
+import { Trash2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
 /**
@@ -19,9 +19,9 @@ interface DocsCategoryProps {
 
 export default function DocsCategory({appName}: DocsCategoryProps) {
   const [categories, setCategories] = useState<DocsCategoryPublic[]>([])
-  const [editingCategory, setEditingCategory] =
+  // const [editingCategory, setEditingCategory] =
     useState<DocsCategoryPublic | null>(null)
-  const [isAdding, setIsAdding] = useState(false)
+  // const [isAdding, setIsAdding] = useState(false)
 
   // 카테고리 목록 가져오기
   const fetchCategories = async () => {
@@ -43,15 +43,11 @@ export default function DocsCategory({appName}: DocsCategoryProps) {
     fetchCategories()
   }, [])
 
-  // 카테고리 편집 버튼 클릭 핸들러
-  const handleEditClick = (category: DocsCategoryPublic) => {
-    setEditingCategory(category)
-  }
+  // // 카테고리 편집 버튼 클릭 핸들러
+  // const handleEditClick = (category: DocsCategoryPublic) => {
+  //   setEditingCategory(category)
+  // }
 
-  // 카테고리 추가 버튼 클릭 핸들러
-  const handleAddClick = () => {
-    setIsAdding(true)
-  }
 
   const handleDeleteClick = async (category: DocsCategoryPublic) => {
     try {
@@ -80,13 +76,14 @@ export default function DocsCategory({appName}: DocsCategoryProps) {
               <div className='flex items-center justify-between px-6'>
                 <div className='font-bold'>{category.name}</div>
                 <div className='space-x-2'>
-                  <Button
+                  <EditCategory category={category}/>
+                  {/* <Button
                     variant={'ghost'}
                     onClick={() => handleEditClick(category)}
                     className='text-sm text-blue-500 hover:underline'
                   >
                     <UserRoundPen className='w-4 h-4' />
-                  </Button>
+                  </Button> */}
                   <Button
                     variant={'ghost'}
                     onClick={() => handleDeleteClick(category)}
@@ -114,38 +111,30 @@ export default function DocsCategory({appName}: DocsCategoryProps) {
           ))}
         </ul>
       </div>
+      <AddCategory />
 
-      {/* 카테고리 추가 버튼 */}
-      <div className='flex justify-end'>
-        <Button
-          variant='outline'
-          onClick={handleAddClick}
-        >
-          Add Category
-        </Button>
-      </div>
+
 
       {/* 모달들 */}
-      {isAdding && (
+      {/* {isAdding && (
         <AddCategory
           appName={appName} 
-          isOpen={isAdding}
-          onClose={() => {
-            setIsAdding(false)
-            fetchCategories() // 새로 추가 후 목록 갱신
-          }}
+          // onClose={() => {
+          //   setIsAdding(false)
+          //   fetchCategories() // 새로 추가 후 목록 갱신
+          // }}
         />
       )}
       {editingCategory && (
         <EditCategory
-          isOpen={!!editingCategory}
-          onClose={() => {
-            setEditingCategory(null)
-            fetchCategories() // 수정 후 목록 갱신
-          }}
+          // isOpen={!!editingCategory}
+          // onClose={() => {
+          //   setEditingCategory(null)
+          //   fetchCategories() // 수정 후 목록 갱신
+          // }}
           category={editingCategory}
         />
-      )}
+      )} */}
     </div>
   )
 }

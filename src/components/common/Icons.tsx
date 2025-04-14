@@ -8,7 +8,8 @@ import {
     Globe,
     SquareTerminal,
     Beer,
-    ShipWheel
+    ShipWheel,
+    ShoppingCart
   } from 'lucide-react'
   
   // 문자열(서버에서 오는 logo 필드) -> 실제 Lucide 컴포넌트
@@ -21,6 +22,7 @@ import {
     quant: SquareTerminal,
     homebrew: Beer,
     yacht: ShipWheel,
+    commerce: ShoppingCart
   }
   
   export default function LucideIcons({ icon }: { icon: string }) {

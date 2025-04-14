@@ -20,6 +20,7 @@ import {
   User,
   BookText,
   TerminalSquare,
+  BadgeCheck,
 
 } from 'lucide-react'
 import Link from 'next/link'
@@ -35,6 +36,11 @@ const items = [
     title: 'Users',
     url: '/admin/users',
     icon: User,
+  },
+  {
+    title: 'Subscriptions',
+    url: '/admin/subscriptions',
+    icon: BadgeCheck,
   },
   {
     title: 'Documents',

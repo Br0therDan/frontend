@@ -17,13 +17,7 @@ interface DocsTableProps {
 
 export default function DocsTable({ app_name }: DocsTableProps) {
   const [docs, setDocs] = useState<DocumentPublic[]>([])
-  // const router = useRouter()
   const [loading, setLoading] = useState<boolean>(true)
-  // const { activeApp } = useApp()
-
-  // const handleRoute = (activeApp: string) => {
-  //   router.push(`/admin/${activeApp}/docs/add`)
-  // }
 
   useEffect(() => {
     const fetchDocs = async () => {

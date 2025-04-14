@@ -2,7 +2,7 @@ import React from 'react'
 import { DonutChartComp } from '@/components/services/dashboard/DonutCart'
 import { BarChartComp } from '@/components/services/dashboard/BarChart'
 import PageTitle from '@/components/common/PageTitle'
-import AppsCard from '@/components/admin/docs/apps/AppCard'
+import AppsCard from '@/components/admin/apps/AppCard'
 
 export default async function AdminDashboard() {
   return (
