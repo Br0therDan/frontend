@@ -36,9 +36,7 @@ interface EditCategoryProps {
   category: DocsCategoryPublic
 }
 
-export default function EditCategory({
-  category,
-}: EditCategoryProps) {
+export default function EditCategory({ category }: EditCategoryProps) {
   const [loading, setLoading] = useState(false)
   const t = useTranslations()
   const methods = useForm<DocsCategoryUpdate>({
@@ -79,7 +77,6 @@ export default function EditCategory({
       setLoading(false)
     }
   }
-
 
   const handleAddSubcategory = () => {
     setValue('subcategories', [...(subcategories || []), ''])

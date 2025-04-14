@@ -34,7 +34,6 @@ import { DocsCategoryCreate } from '@/client/docs'
 import { useTranslations } from 'next-intl'
 import { useApp } from '@/contexts/AppContext'
 
-
 export default function AddCategory() {
   const [loading, setLoading] = useState(false)
   const { activeApp } = useApp()
@@ -63,7 +62,7 @@ export default function AddCategory() {
     setLoading(true)
     try {
       if (!activeApp) {
-        toast.error("앱이 선택되지 않았습니다.")
+        toast.error('앱이 선택되지 않았습니다.')
         return
       }
       cat.app_name = activeApp?.name
@@ -80,7 +79,6 @@ export default function AddCategory() {
       setLoading(false)
     }
   }
-
 
   const handleAddSubcategory = () => {
     setValue('subcategories', [...(subcategories || []), ''])
