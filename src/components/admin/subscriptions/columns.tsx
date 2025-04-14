@@ -9,10 +9,12 @@ import { AdminService } from '@/lib/api'
 import { formatDate } from '@/utils/formatDate'
 import EditSubscription from './EditSubscription'
 import DeleteAlert from '@/components/common/DeleteAlert'
-import { capitalizeFirstLetter } from '@/utils/formatName'
+// import { capitalizeFirstLetter } from '@/utils/formatName'
 import { toast } from 'sonner'
 import { cn } from '@/lib/utils'
 import LucideIcons from '@/components/common/Icons'
+import { capitalizeFirstLetter } from '@/utils/formatName'
+// import LucideIcons from '@/components/common/Icons'
 
 
 export const columns: ColumnDef<SubscriptionPublic>[] = [
@@ -51,6 +53,14 @@ export const columns: ColumnDef<SubscriptionPublic>[] = [
         </Button>
       )
     },
+    cell: ({ row }) => {
+      const subscription = row.original
+      return (
+        <div className='flex items-center gap-2'>
+          {subscription.user.fullname}
+        </div>
+      )
+    },
   },
   {
     accessorKey: 'user_email',
@@ -64,6 +74,10 @@ export const columns: ColumnDef<SubscriptionPublic>[] = [
           <ArrowUpDown className='ml-2 h-4 w-4' />
         </Button>
       )
+    },
+    cell: ({ row }) => {
+      const subscription = row.original
+      return <span className='text-sm'>{subscription.user.email}</span>
     },
   },
   {
@@ -79,9 +93,10 @@ export const columns: ColumnDef<SubscriptionPublic>[] = [
         </Button>
       )
     },
-    cell: ({ cell }) => {
-      const appName = cell.getValue() as string
-      return <div className='flex items-center gap-2 text-sm'><LucideIcons icon={appName} />{capitalizeFirstLetter(appName) }</div>
+    cell: ({ row }) => {
+      const subscription = row.original
+
+      return <div className='flex items-center gap-2 text-sm'><LucideIcons icon={subscription.app.name} />{capitalizeFirstLetter(subscription.app.name) }</div>
     }
   },
   {
@@ -91,7 +106,7 @@ export const columns: ColumnDef<SubscriptionPublic>[] = [
       const tier = cell.getValue() as string
       return (
         <span className='text-sm'>
-          {capitalizeFirstLetter(tier)}
+          {capitalizeFirstLetter(tier!)}
         </span>
       )
     },
@@ -124,7 +139,8 @@ export const columns: ColumnDef<SubscriptionPublic>[] = [
                   : 'bg-gray-500'
             )}
           />
-          {capitalizeFirstLetter(status)}
+          {/* {capitalizeFirstLetter(status)} */}
+          {status}
         </div>
       )
     },
@@ -156,20 +172,20 @@ export const columns: ColumnDef<SubscriptionPublic>[] = [
           <EditSubscription 
             onClose={() => {
               window.location.reload()
-              toast.success(`"${subscription.user_name}" 구독이 수정되었습니다.`)
+              toast.success(`"${subscription.user.fullname}" 구독이 수정되었습니다.`)
             }}
             subscription={subscription} 
           />
           <DeleteAlert
             id={subscription._id}
             title='구독 삭제'
-            description={`"${subscription.user_name}" 구독을 정말 삭제하시겠습니까?`}
+            description={`"${subscription.app.name}" 구독을 정말 삭제하시겠습니까?`}
             deleteApi={async () => {
               await AdminService.adminDeleteSubscription(subscription._id)
             }}
             onClose={() => {
               window.location.reload()
-              toast.success(`"${subscription.user_name}" 구독이 삭제되었습니다.`) 
+              toast.success(`"${subscription.app.name}" 구독이 삭제되었습니다.`) 
             }}
           />
         </div>

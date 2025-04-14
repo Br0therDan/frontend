@@ -13,19 +13,15 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
+
   DialogTrigger,
   DialogFooter,
 } from '@/components/ui/dialog'
-// import { Input } from '@/components/ui/input'
+import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 
 import { MyButton } from '@/components/common/buttons/submit-button' // Custom ShadCN-based button
-import {
-  SubscriptionPublic,
-  SubscriptionStatus,
-  SubscriptionTier,
-  SubscriptionUpdate,
-} from '@/client/iam'
+import { SubscriptionPublic, SubscriptionStatus, SubscriptionTier, SubscriptionUpdate} from '@/client/iam'
 
 import { toast } from 'sonner'
 import { AdminService } from '@/lib/api'
@@ -35,49 +31,34 @@ import Loading from '@/components/common/Loading'
 
 import { Button } from '@/components/ui/button'
 import { Edit } from 'lucide-react'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { capitalizeFirstLetter } from '@/utils/formatName'
 import { useRouter } from 'next/navigation'
-import { DatePicker } from '@/components/common/buttons/DatePicker'
 
 interface SubscriptionFormProps {
   onClose: () => void
   subscription: SubscriptionPublic
 }
 
-const TIERS: SubscriptionTier[] = ['free', 'basic', 'premium', 'enterprise']
-const STATUSES: SubscriptionStatus[] = [
-  'active',
-  'trial',
-  'canceled',
-  'expired',
-  'none',
-]
+const TIERS: SubscriptionTier[] = ['free', 'basic', 'premium', 'enterprise'];
+const STATUSES: SubscriptionStatus[] = ['active', 'trial', 'canceled', 'expired', 'none'];
 
-export default function EditSubscription({
-  onClose,
-  subscription,
-}: SubscriptionFormProps) {
+export default function EditSubscription({onClose, subscription }: SubscriptionFormProps) {
   const [loading, setLoading] = useState<boolean>(false)
   const router = useRouter()
-  const methods = useForm<SubscriptionUpdate>({
+  const methods = useForm<SubscriptionUpdate >({
     mode: 'onBlur',
     criteriaMode: 'all',
     defaultValues: {
-      app_id: subscription?.app_id,
-      tier: subscription?.tier,
-      status: subscription?.status,
-      expires_at: subscription?.expires_at,
-    },
+            app_id: subscription?.app._id,
+            tier: subscription?.tier,
+            status: subscription?.status,
+            expires_at: subscription?.expires_at,
+          }
   })
 
   const {
+    register,
     handleSubmit,
     reset,
     control,
@@ -85,20 +66,20 @@ export default function EditSubscription({
   } = methods
 
   const selectedTier = TIERS.find((tier) => tier === subscription?.tier)
-  const selectedStatus = STATUSES.find(
-    (status) => status === subscription?.status
-  )
+  const selectedStatus = STATUSES.find((status) => status === subscription?.status)
+
+
 
   const editSubscription = async (data: SubscriptionUpdate) => {
     setLoading(true)
     try {
-      await AdminService.adminUpdateSubscription(subscription._id, data)
-      onClose()
-      toast.success('구독 수정 성공.', {
-        description: '구독이 수정되었습니다.',
-      })
+        await AdminService.adminUpdateSubscription(subscription._id, data)
+        onClose()
+        toast.success("구독 수정 성공.", {
+          description: '구독이 수정되었습니다.',
+        })
       reset()
-      router.push(`/admin/${subscription.app_name}/subscriptions`)
+      router.push(`/admin/${subscription.app.name}/subscriptions`)
     } catch (err) {
       handleApiError(err, (message) =>
         toast.error(message.title, { description: message.description })
@@ -109,7 +90,7 @@ export default function EditSubscription({
   }
 
   const onSubmit: SubmitHandler<SubscriptionUpdate> = (data) => {
-    editSubscription(data)
+      editSubscription(data)
   }
 
   if (loading) {
@@ -118,44 +99,37 @@ export default function EditSubscription({
 
   return (
     <FormProvider {...methods}>
-      <Dialog>
-        <DialogTrigger asChild>
+    <Dialog>
+      <DialogTrigger asChild>
           <Button variant='ghost' className='p-2' aria-label='Actions'>
             <Edit />
           </Button>
-        </DialogTrigger>
-        <DialogContent>
-          <FormProvider {...methods}>
-            <form
-              onSubmit={handleSubmit(onSubmit)}
-              className='space-y-4'
-              autoComplete='off'
-            >
-              <DialogHeader>
-                <DialogTitle>구독 수정</DialogTitle>
-                <DialogDescription>
-                  {subscription.user_name}의{' '}
-                  {capitalizeFirstLetter(subscription.app_name)} 구독을
-                  수정합니다{' '}
-                </DialogDescription>
-              </DialogHeader>
+      </DialogTrigger>
+      <DialogContent>
+        <FormProvider {...methods}>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className='space-y-4'
+            autoComplete='off'
+          >
+            <DialogHeader>
+              <DialogTitle>구독 수정</DialogTitle>
+              <DialogDescription>{capitalizeFirstLetter(subscription.app.name)} 구독을 수정합니다 </DialogDescription>
+            </DialogHeader>
               <div className='grid gap-2'>
                 <Label htmlFor='tier'>요금제</Label>
                 <Controller
                   name='tier'
                   control={control}
                   render={({ field }) => (
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={selectedTier}
-                    >
+                    <Select onValueChange={field.onChange} defaultValue={selectedTier}>
                       <SelectTrigger className='text-sm w-48'>
                         <SelectValue placeholder='티어 선택' />
                       </SelectTrigger>
                       <SelectContent>
                         {TIERS.map((tier) => (
                           <SelectItem key={tier} value={tier}>
-                            {capitalizeFirstLetter(tier)}
+                            {tier}
                           </SelectItem>
                         ))}
                       </SelectContent>
@@ -173,17 +147,14 @@ export default function EditSubscription({
                   name='status'
                   control={control}
                   render={({ field }) => (
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={selectedStatus}
-                    >
+                    <Select onValueChange={field.onChange} defaultValue={selectedStatus}>
                       <SelectTrigger className='text-sm w-48'>
                         <SelectValue placeholder='상태 선택' />
                       </SelectTrigger>
                       <SelectContent>
                         {STATUSES.map((status) => (
                           <SelectItem key={status} value={status}>
-                            {capitalizeFirstLetter(status)}
+                            {status}
                           </SelectItem>
                         ))}
                       </SelectContent>
@@ -191,9 +162,7 @@ export default function EditSubscription({
                   )}
                 />
                 {errors.status && (
-                  <p className='text-red-500 text-xs'>
-                    {errors.status.message}
-                  </p>
+                  <p className='text-red-500 text-xs'>{errors.status.message}</p>
                 )}
               </div>
               <div className='grid gap-2'>
@@ -201,31 +170,37 @@ export default function EditSubscription({
                 <Controller
                   name='expires_at'
                   control={control}
-                  render={({ field: { value, onChange } }) => (
-                    <DatePicker
-                      date={value!}
-                      setDate={(date) => {
-                        onChange(date)
-                      }}
+                  render={({ field }) => (
+                    <Input
+                      id='expires_at'
+                      {...register('expires_at', {
+                        required: '만료일은 필수입니다.',
+                      })}
+                      type='date'
+                      onChange={(e) => field.onChange(e.target.value)}
+                      defaultValue={subscription?.expires_at}
                     />
                   )}
                 />
+                {errors.expires_at && (
+                  <p className='text-red-500 text-xs'>{errors.expires_at.message}</p>
+                )}
               </div>
-              <DialogFooter>
-                <MyButton
-                  variant='default'
-                  type='submit'
-                  disabled={isSubmitting || !isDirty}
-                  isLoading={isSubmitting}
-                  className='w-full'
-                >
-                  구독 수정
-                </MyButton>
-              </DialogFooter>
-            </form>
-          </FormProvider>
-        </DialogContent>
-      </Dialog>
+            <DialogFooter>
+              <MyButton
+                variant='default'
+                type='submit'
+                disabled={isSubmitting || !isDirty}
+                isLoading={isSubmitting}
+                className='w-full'
+              >
+                구독 수정
+              </MyButton>
+            </DialogFooter>
+          </form>
+        </FormProvider>
+      </DialogContent>
+    </Dialog>
     </FormProvider>
   )
 }

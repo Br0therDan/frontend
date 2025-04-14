@@ -70,6 +70,7 @@ export default function AddSubscription({
     mode: 'onBlur',
     criteriaMode: 'all',
     defaultValues: {
+      app_id: activeApp?._id,
       status: 'active',
       tier: '',
       duration_days: 0,

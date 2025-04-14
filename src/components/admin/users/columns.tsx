@@ -127,7 +127,7 @@ export const columns: ColumnDef<UserPublic>[] = [
                       : 'bg-gray-500 text-white'
                 )}
               >
-                {capitalizeFirstLetter(subscription.app_name)} :{' '}
+                {capitalizeFirstLetter(subscription.app.name)} :{' '}
                 {capitalizeFirstLetter(subscription.tier)}
               </Badge>
             </div>

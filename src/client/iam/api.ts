@@ -120,6 +120,26 @@ export interface AdminUserUpdate {
 	is_superuser?: boolean | null;
 }
 /**
+ *
+ * @export
+ * @interface App
+ */
+export interface App {
+  [x: string]: any;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof App
+	 */
+	id: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof App
+	 */
+	collection: string;
+}
+/**
  * 서비스 생성 요청
  * @export
  * @interface AppCreate
@@ -338,34 +358,16 @@ export interface Subscription {
 	updated_at?: string;
 	/**
 	 *
-	 * @type {string}
+	 * @type {User}
 	 * @memberof Subscription
 	 */
-	user_id: string;
+	user?: User;
 	/**
 	 *
-	 * @type {string}
+	 * @type {App}
 	 * @memberof Subscription
 	 */
-	app_id: string;
-	/**
-	 *
-	 * @type {string}
-	 * @memberof Subscription
-	 */
-	app_name: string;
-	/**
-	 *
-	 * @type {string}
-	 * @memberof Subscription
-	 */
-	user_name: string;
-	/**
-	 *
-	 * @type {string}
-	 * @memberof Subscription
-	 */
-	user_email: string;
+	app: App;
 	/**
 	 *
 	 * @type {SubscriptionStatus}
@@ -438,34 +440,16 @@ export interface SubscriptionPublic {
 	_id: string;
 	/**
 	 *
-	 * @type {string}
+	 * @type {UserPublic}
 	 * @memberof SubscriptionPublic
 	 */
-	user_id: string;
+	user: UserPublic;
 	/**
 	 *
-	 * @type {string}
+	 * @type {AppPublic}
 	 * @memberof SubscriptionPublic
 	 */
-	app_id: string;
-	/**
-	 *
-	 * @type {string}
-	 * @memberof SubscriptionPublic
-	 */
-	user_name: string;
-	/**
-	 *
-	 * @type {string}
-	 * @memberof SubscriptionPublic
-	 */
-	user_email: string;
-	/**
-	 *
-	 * @type {string}
-	 * @memberof SubscriptionPublic
-	 */
-	app_name: string;
+	app: AppPublic;
 	/**
 	 *
 	 * @type {SubscriptionStatus}
@@ -542,7 +526,7 @@ export interface SubscriptionUpdate {
 	 * @type {string}
 	 * @memberof SubscriptionUpdate
 	 */
-	expires_at: string | null;
+	expires_at?: string | null;
 	/**
 	 *
 	 * @type {SubscriptionStatus}
@@ -594,6 +578,44 @@ export interface UpdatePassword {
 	 * @memberof UpdatePassword
 	 */
 	new_password: string;
+}
+/**
+ *
+ * @export
+ * @interface User
+ */
+export interface User {
+	/**
+	 *
+	 * @type {string}
+	 * @memberof User
+	 */
+	id: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof User
+	 */
+	collection: string;
+}
+/**
+ *
+ * @export
+ * @interface UserAnyOf
+ */
+export interface UserAnyOf {
+	/**
+	 *
+	 * @type {string}
+	 * @memberof UserAnyOf
+	 */
+	id: string;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof UserAnyOf
+	 */
+	collection: string;
 }
 /**
  *
