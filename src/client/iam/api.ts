@@ -125,7 +125,6 @@ export interface AdminUserUpdate {
  * @interface App
  */
 export interface App {
-  [x: string]: any;
 	/**
 	 *
 	 * @type {string}

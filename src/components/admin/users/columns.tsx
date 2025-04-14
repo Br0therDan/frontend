@@ -95,11 +95,6 @@ export const columns: ColumnDef<UserPublic>[] = [
               )}
             </div>
           ))}
-          <img
-            src='/images/logo_sq_dark.png'
-            alt='MySingle'
-            className='w-6 h-6'
-          />
         </div>
       )
     },
