@@ -10,6 +10,8 @@ import { formatDate } from '@/utils/formatDate'
 import EditSubscription from './EditSubscription'
 import DeleteAlert from '@/components/common/DeleteAlert'
 import { capitalizeFirstLetter } from '@/utils/formatName'
+import { toast } from 'sonner'
+
 
 export const columns: ColumnDef<SubscriptionPublic>[] = [
   {
@@ -134,21 +136,26 @@ export const columns: ColumnDef<SubscriptionPublic>[] = [
     id: 'actions',
     cell: ({ row }) => {
       const subscription = row.original
-      // const { user: currentUser } = useAuth()
-
       return (
         <div>
-          {/* <SubscriptionForm mode='edit' subscription={subscription} /> */}
-          <EditSubscription subscription={subscription} />
+          <EditSubscription 
+            onClose={() => {
+              window.location.reload()
+              toast.success(`"${subscription.user_name}" 구독이 수정되었습니다.`)
+            }}
+            subscription={subscription} 
+          />
           <DeleteAlert
             id={subscription._id}
             title='구독 삭제'
-            description='정말로 구독을 삭제하시겠습니까?'
+            description={`"${subscription.user_name}" 구독을 정말 삭제하시겠습니까?`}
             deleteApi={async () => {
               await AdminService.adminDeleteSubscription(subscription._id)
-              window.location.reload()
             }}
-            onClose={() => {}}
+            onClose={() => {
+              window.location.reload()
+              toast.success(`"${subscription.user_name}" 구독이 삭제되었습니다.`) 
+            }}
           />
         </div>
       )

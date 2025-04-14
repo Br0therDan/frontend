@@ -34,7 +34,11 @@ import { DocsCategoryCreate } from '@/client/docs'
 import { useTranslations } from 'next-intl'
 import { useApp } from '@/contexts/AppContext'
 
-export default function AddCategory() {
+interface AddCategoryProps {
+  onClose: () => void
+}
+
+export default function AddCategory({onClose}: AddCategoryProps) {
   const [loading, setLoading] = useState(false)
   const { activeApp } = useApp()
   const t = useTranslations()
@@ -67,6 +71,7 @@ export default function AddCategory() {
       }
       cat.app_name = activeApp?.name
       await CatService.categoriesCreateCategory(cat)
+      onClose()
       toast.success(t('forms.create_category.success.title'), {
         description: t('forms.create_category.success.description'),
       })
@@ -96,7 +101,7 @@ export default function AddCategory() {
 
   return (
     <FormProvider {...methods}>
-      <Dialog>
+      <Dialog onOpenChange={onClose}>
         <DialogTrigger asChild>
           <Button variant='outline' className='w-full'>
             {t('forms.create_category.title')}

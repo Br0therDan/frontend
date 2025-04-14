@@ -7,8 +7,7 @@ import { toast } from 'sonner'
 import { CatService } from '@/lib/api'
 import { handleApiError } from '@/lib/errorHandler'
 import { DocsCategoryPublic } from '@/client/docs'
-import { Trash2 } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import DeleteAlert from '@/components/common/DeleteAlert'
 
 /**
  * 카테고리 목록과 서브카테고리를 트리 형태로 보여주는 컴포넌트
@@ -17,13 +16,8 @@ interface DocsCategoryProps {
   appName: string
 }
 
-export default function DocsCategory({appName}: DocsCategoryProps) {
+export default function DocsCategory({ appName }: DocsCategoryProps) {
   const [categories, setCategories] = useState<DocsCategoryPublic[]>([])
-  // const [editingCategory, setEditingCategory] =
-    useState<DocsCategoryPublic | null>(null)
-  // const [isAdding, setIsAdding] = useState(false)
-
-  // 카테고리 목록 가져오기
   const fetchCategories = async () => {
     try {
       const response = await CatService.categoriesReadDocsCategory(appName)
@@ -43,19 +37,11 @@ export default function DocsCategory({appName}: DocsCategoryProps) {
     fetchCategories()
   }, [])
 
-  // // 카테고리 편집 버튼 클릭 핸들러
-  // const handleEditClick = (category: DocsCategoryPublic) => {
-  //   setEditingCategory(category)
-  // }
-
-
-  const handleDeleteClick = async (category: DocsCategoryPublic) => {
+  const handleDeleteClick = async (id: string) => {
     try {
-      await CatService.categoriesDeleteCategory(category._id)
+      await CatService.categoriesDeleteCategory(id)
       fetchCategories()
-      toast.success('Category deleted successfully.', {
-        description: `Category ${category.name} has been deleted.`,
-      })
+      toast.success('카테고리가 삭제되었습니다.')
     } catch (err) {
       handleApiError(err, (message) =>
         toast.error(message.title, { description: message.description })
@@ -76,21 +62,21 @@ export default function DocsCategory({appName}: DocsCategoryProps) {
               <div className='flex items-center justify-between px-6'>
                 <div className='font-bold'>{category.name}</div>
                 <div className='space-x-2'>
-                  <EditCategory category={category}/>
-                  {/* <Button
-                    variant={'ghost'}
-                    onClick={() => handleEditClick(category)}
-                    className='text-sm text-blue-500 hover:underline'
-                  >
-                    <UserRoundPen className='w-4 h-4' />
-                  </Button> */}
-                  <Button
-                    variant={'ghost'}
-                    onClick={() => handleDeleteClick(category)}
-                    className='text-sm text-red-500 hover:underline'
-                  >
-                    <Trash2 className='w-4 h-4' />
-                  </Button>
+                  <EditCategory
+                    category={category}
+                    onClose={() => {
+                      fetchCategories()
+                    }}
+                  />
+                  <DeleteAlert
+                    id={category._id}
+                    title='카테고리 삭제'
+                    description={`"${category.name}" 카테고리를 정말 삭제하시겠습니까?`}
+                    deleteApi={handleDeleteClick}
+                    onClose={() => {
+                      fetchCategories()
+                    }}
+                  />
                 </div>
               </div>
               {/* 서브카테고리 목록 */}
@@ -111,30 +97,11 @@ export default function DocsCategory({appName}: DocsCategoryProps) {
           ))}
         </ul>
       </div>
-      <AddCategory />
-
-
-
-      {/* 모달들 */}
-      {/* {isAdding && (
-        <AddCategory
-          appName={appName} 
-          // onClose={() => {
-          //   setIsAdding(false)
-          //   fetchCategories() // 새로 추가 후 목록 갱신
-          // }}
-        />
-      )}
-      {editingCategory && (
-        <EditCategory
-          // isOpen={!!editingCategory}
-          // onClose={() => {
-          //   setEditingCategory(null)
-          //   fetchCategories() // 수정 후 목록 갱신
-          // }}
-          category={editingCategory}
-        />
-      )} */}
+      <AddCategory
+        onClose={() => {
+          fetchCategories()
+        }}
+      />
     </div>
   )
 }

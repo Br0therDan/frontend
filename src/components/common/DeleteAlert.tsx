@@ -45,11 +45,7 @@ export default function Delete({
   const deleteEntityHandler = async (id: string) => {
     try {
       await deleteApi(id)
-      toast.success('삭제되었습니다.', {
-        description: '삭제가 완료되었습니다.',
-      })
       onClose()
-      window.location.reload()
     } catch (err) {
       handleApiError(err, (message) =>
         toast.error(message.title, { description: message.description })

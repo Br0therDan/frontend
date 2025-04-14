@@ -21,7 +21,7 @@ import { Label } from '@/components/ui/label'
 import { FormMessage } from '@/components/ui/form'
 import { MyButton } from '@/components/common/buttons/submit-button'
 import { CatService } from '@/lib/api'
-import { PlusCircle, Trash2 } from 'lucide-react'
+import { PlusCircle, Trash2, UserRoundPen } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useState } from 'react'
 import Loading from '@/components/common/Loading'
@@ -34,9 +34,10 @@ import { DialogTrigger } from '@radix-ui/react-dialog'
 
 interface EditCategoryProps {
   category: DocsCategoryPublic
+  onClose: () => void
 }
 
-export default function EditCategory({ category }: EditCategoryProps) {
+export default function EditCategory({ category, onClose }: EditCategoryProps) {
   const [loading, setLoading] = useState(false)
   const t = useTranslations()
   const methods = useForm<DocsCategoryUpdate>({
@@ -64,6 +65,7 @@ export default function EditCategory({ category }: EditCategoryProps) {
     setLoading(true)
     try {
       await CatService.categoriesUpdateCategory(category._id, data)
+      onClose()
       toast.success(t('forms.edit_category.success.title'), {
         description: t('forms.edit_category.success.description'),
       })
@@ -96,10 +98,10 @@ export default function EditCategory({ category }: EditCategoryProps) {
 
   return (
     <FormProvider {...methods}>
-      <Dialog>
+      <Dialog onOpenChange={onClose}>
         <DialogTrigger asChild>
-          <Button variant='outline' className='w-full'>
-            {t('forms.edit_category.title')}
+          <Button variant='ghost' className='text-sm  hover:underline'>
+            <UserRoundPen className='w-4 h-4' />
           </Button>
         </DialogTrigger>
         <DialogContent className='max-w-md'>

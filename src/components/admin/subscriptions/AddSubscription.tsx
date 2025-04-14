@@ -34,9 +34,9 @@ import {  PlusCircle } from 'lucide-react'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { useApp } from '@/contexts/AppContext'
 
-
 const TIERS: SubscriptionTier[] = ['free', 'basic', 'premium', 'enterprise'];
 const STATUSES: SubscriptionStatus[] = ['active', 'trial', 'canceled', 'expired', 'none'];
+
 
 export default function AddSubscription() {
   const [loading, setLoading] = useState<boolean>(false)

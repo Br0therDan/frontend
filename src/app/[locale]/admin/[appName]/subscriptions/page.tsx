@@ -17,13 +17,10 @@ export default async function SubscriptionPage({
   return (
     <>
       <div className='flex flex-col h-full p-4 space-y-4 sm:p-8'>
-        <PageTitle
-          title={`${capitalizeFirstLetter(appName)} 구독 관리`}
-        />
+        <PageTitle title={`${capitalizeFirstLetter(appName)} 구독 관리`} />
         <SubscriptionTable appName={appName} />
       </div>
       <Footer>
-        {/* <SubscriptionForm mode='add' app_name={appName} /> */}
         <AddSubscription />
       </Footer>
     </>
