@@ -27,7 +27,7 @@ const AppContext = createContext<AppContextType | undefined>(undefined)
 export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const [loading, setLoading] = useState<boolean>(true)
   const [apps, setApps] = useState<AppPublic[]>([])
-  const [activeApp, setActiveApp] = useState<AppPublic | undefined>(undefined)
+  const [activeApp, setActiveApp] = useState<AppPublic>()
 
   /**
    * 1) apps 목록 가져오기 - "force"가 아닌 이상 쿠키 우선

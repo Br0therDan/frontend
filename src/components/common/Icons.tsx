@@ -22,7 +22,7 @@ import {
     quant: SquareTerminal,
     homebrew: Beer,
     yacht: ShipWheel,
-    commerce: ShoppingCart
+    julyland: ShoppingCart
   }
   
   export default function LucideIcons({ icon }: { icon: string }) {

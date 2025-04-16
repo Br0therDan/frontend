@@ -21,6 +21,7 @@ import {
   BookText,
   TerminalSquare,
   BadgeCheck,
+  ShoppingCart,
 
 } from 'lucide-react'
 import Link from 'next/link'
@@ -41,6 +42,11 @@ const items = [
     title: 'Subscriptions',
     url: '/admin/subscriptions',
     icon: BadgeCheck,
+  },
+  {
+    title: 'Commerce',
+    url: '/admin/commerce',
+    icon: ShoppingCart,
   },
   {
     title: 'Documents',

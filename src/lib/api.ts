@@ -8,8 +8,14 @@ import {
   AppsApi,
   SubscriptionsApi
 } from '@/client/iam'
-import { PostsApi, CategoriesApi } from '@/client/posts'
-import { DocsApi, MediaAssetsApi, CategoriesApi as CatApi } from '@/client/docs'
+import { PostsApi, CategoriesApi as PostCatApi } from '@/client/posts'
+import { DocsApi, MediaAssetsApi, CategoriesApi as DocsCatApi } from '@/client/docs'
+import { 
+  ProductApi, BrandApi, CategoryApi as ProductCatApi, ProductVariantApi,
+  ChannelApi, ListingApi,
+  OrderApi,
+  InventoryApi, InventoryTransactionApi,
+} from '@/client/commerce'
 import {
   AssetsApi,
   BacktestResultsApi,
@@ -47,8 +53,10 @@ const postsConfiguration = createConfig(process.env.NEXT_PUBLIC_POSTS_API_URL!)
 const docsConfiguration = createConfig(process.env.NEXT_PUBLIC_DOCS_API_URL!)
 const locationsConfiguration = createConfig(process.env.NEXT_PUBLIC_LOCATIONS_API_URL!)
 const quantConfiguration = createConfig(process.env.NEXT_PUBLIC_QUANT_API_URL!)
+const commerceConfiguration = createConfig(process.env.NEXT_PUBLIC_COMMERCE_API_URL!)
 
-// ✅ API 서비스 그룹화
+
+// ✅ IAM API
 export const AuthService = new AuthApi(iamConfiguration)
 export const UsersService = new UsersApi(iamConfiguration)
 export const AdminService = new AdminApi(iamConfiguration)
@@ -56,25 +64,40 @@ export const OAuthService = new OAuth2Api(iamConfiguration)
 export const AppsService = new AppsApi(iamConfiguration)
 export const SubscriptionsService = new SubscriptionsApi(iamConfiguration)
 
-
+// ✅ Posts API
 export const PostService = new PostsApi(postsConfiguration)
-export const CategoryService = new CategoriesApi(postsConfiguration)
+export const PostCatService = new PostCatApi(postsConfiguration)
 
+// ✅ Docs API
 export const DocsService = new DocsApi(docsConfiguration)
-export const CatService = new CatApi(docsConfiguration)
+export const CatService = new DocsCatApi(docsConfiguration)
 export const MediaAssetsService = new MediaAssetsApi(docsConfiguration)
 
+// ✅ Locations API
 export const CommunitiesService = new CommunitiesApi(locationsConfiguration)
 export const AlertsService = new AlertsApi(locationsConfiguration)
 export const LocationsService = new LocationsApi(locationsConfiguration)
 export const SafezonesService = new SafezonesApi(locationsConfiguration)
 
+// ✅ Quant API
 export const AssetsService = new AssetsApi(quantConfiguration)
 export const BacktestResultsService = new BacktestResultsApi(quantConfiguration)
 export const BacktestsService = new BacktestsApi(quantConfiguration)
 export const StrategiesService = new StrategiesApi(quantConfiguration)
 export const WatchlistsService = new WatchlistsApi(quantConfiguration)
 export const YahooFinanceService = new YahooFinanceApi(quantConfiguration)
+
+// ✅ Commerce API
+export const ProductService = new ProductApi(commerceConfiguration)
+export const BrandService = new BrandApi(commerceConfiguration)
+export const ProductCategoryService = new ProductCatApi(commerceConfiguration)
+export const ProductVariantService = new ProductVariantApi(commerceConfiguration)
+export const ChannelService = new ChannelApi(commerceConfiguration)
+export const ChannelListingService = new ListingApi(commerceConfiguration)
+export const OrderService = new OrderApi(commerceConfiguration)
+export const InventoryService = new InventoryApi(commerceConfiguration)
+export const InventoryTransactionService = new InventoryTransactionApi(commerceConfiguration)
+
 
 // ✅ 공통 응답 인터페이스
 export interface ApiResponse<T> {

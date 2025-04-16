@@ -7,27 +7,30 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import AppForm from '@/components/admin/apps/AppForm'
-import { AppPublic } from '@/client/iam'
+
+import { Category } from '@/client/commerce'
 import Loading from '@/components/common/Loading'
 import { handleApiError } from '@/lib/errorHandler'
 import { toast } from 'sonner'
-import { AdminService, AppsService } from '@/lib/api'
+import { ProductCategoryService } from '@/lib/api'
 import { Button } from '@/components/ui/button'
 import { Trash2 } from 'lucide-react'
 import { capitalizeFirstLetter } from '@/utils/formatName'
-import LucideIcons from '@/components/common/Icons'
+// import LucideIcons from '@/components/common/Icons'
+import CategoryForm from './CategoryForm'
+import { useApp } from '@/contexts/AppContext'
 
-export default function AppsCard() {
-  const [apps, setApps] = useState<AppPublic[]>([])
+export default function CategoryCard() {
+  const [categorys, setCategorys] = useState<Category[]>([])
   const [loading, setLoading] = useState<boolean>(true)
+  const { activeApp } = useApp()
 
-  // ✅ fetchApps 함수 분리
-  const fetchApps = async () => {
+  // ✅ fetchCategorys 함수 분리
+  const fetchCategorys = async () => {
     setLoading(true)
     try {
-      const response = await AppsService.appsReadApps()
-      setApps(response.data)
+      const response = await ProductCategoryService.categoryReadCategories(activeApp ? activeApp.name : '')
+      setCategorys(response.data)
     } catch (err) {
       handleApiError(err, (message) =>
         toast.error(message.title, { description: message.description })
@@ -38,17 +41,17 @@ export default function AppsCard() {
   }
 
   useEffect(() => {
-    fetchApps()
+    fetchCategorys()
   }, [])
 
-  // ✅ 삭제 후 fetchApps 호출
-  const handleDeleteClick = async (app: AppPublic) => {
+  // ✅ 삭제 후 fetchCategorys 호출
+  const handleDeleteClick = async (category: Category) => {
     try {
-      await AdminService.adminDeleteApp(app._id)
-      toast.success('App deleted successfully.', {
-        description: `App ${app.name} has been deleted.`,
+      await ProductCategoryService.categoryDeleteCategory(category._id!)
+      toast.success('Category deleted successfully.', {
+        description: `Category ${category.name} has been deleted.`,
       })
-      await fetchApps() // 🔄 상태 갱신 추가
+      await fetchCategorys() // 🔄 상태 갱신 추가
     } catch (err) {
       handleApiError(err, (message) =>
         toast.error(message.title, { description: message.description })
@@ -63,29 +66,28 @@ export default function AppsCard() {
   return (
     <Card className='flex flex-col w-[350px]'>
       <CardHeader>
-        <CardTitle className='flex justify-center'>애플리케이션 목록</CardTitle>
+        <CardTitle className='flex justify-center'>제품 카테고리</CardTitle>
       </CardHeader>
 
       <CardContent className='flex-1 w-full '>
         <ul className='space-y-3 max-h-[300px] overflow-y-auto'>
-          {apps.map((app) => (
+          {categorys.map((category) => (
             <li
-              key={app._id}
+              key={category._id}
               className='flex items-center justify-between py-1 space-x-2 border-b'
             >
               <div className='flex-col'>
                 <div className='flex items-center space-x-2'>
-                  <LucideIcons icon={app.name} />
-                  <p className="text-sm">{capitalizeFirstLetter(app.name)}</p>
+                  <p className="text-sm">{capitalizeFirstLetter(category.name)}</p>
                 </div>
-                <span className='text-xs text-gray-400'>{app.description}</span>
+                <span className='text-xs text-gray-400'>{category.description}</span>
               </div>
               <div className='space-x-1'>
-                {/* ✅ AppForm에서 onSuccess 추가 */}
-                <AppForm mode='edit' app={app} onSuccess={fetchApps} />
+                {/* ✅ CategoryForm에서 onSuccess 추가 */}
+                <CategoryForm mode='edit' category={category} onSuccess={fetchCategorys} />
                 <Button
                   variant={'ghost'}
-                  onClick={() => handleDeleteClick(app)}
+                  onClick={() => handleDeleteClick(category)}
                   className='text-sm text-red-500 hover:underline'
                 >
                   <Trash2 className='w-4 h-4' />
@@ -97,8 +99,8 @@ export default function AppsCard() {
       </CardContent>
 
       <CardFooter>
-        {/* ✅ AppForm에서 onSuccess 추가 */}
-        <AppForm mode='add' onSuccess={fetchApps} />
+        {/* ✅ CategoryForm에서 onSuccess 추가 */}
+        <CategoryForm mode='add' onSuccess={fetchCategorys} />
       </CardFooter>
     </Card>
   )

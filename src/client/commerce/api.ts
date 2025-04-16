@@ -69,6 +69,12 @@ export interface Brand {
 	 * @memberof Brand
 	 */
 	logo_url?: string | null;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof Brand
+	 */
+	app_name: string;
 }
 /**
  *
@@ -113,6 +119,37 @@ export interface BrandCreate {
 	 * @memberof BrandCreate
 	 */
 	logo_url?: string | null;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof BrandCreate
+	 */
+	app_name: string;
+}
+/**
+ *
+ * @export
+ * @interface BrandUpdate
+ */
+export interface BrandUpdate {
+	/**
+	 *
+	 * @type {string}
+	 * @memberof BrandUpdate
+	 */
+	name?: string | null;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof BrandUpdate
+	 */
+	description?: string | null;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof BrandUpdate
+	 */
+	logo_url?: string | null;
 }
 /**
  * 카테고리 정보 (트리 구조를 위해 parent를 자기참조 가능) created_at/updated_at이 불필요하다고 가정
@@ -144,6 +181,12 @@ export interface Category {
 	 * @memberof Category
 	 */
 	parent_id?: ParentId | null;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof Category
+	 */
+	app_name: string;
 }
 /**
  *
@@ -188,6 +231,12 @@ export interface CategoryCreate {
 	 * @memberof CategoryCreate
 	 */
 	parent_id?: string | null;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof CategoryCreate
+	 */
+	app_name: string;
 }
 /**
  *
@@ -213,6 +262,12 @@ export interface CategoryUpdate {
 	 * @memberof CategoryUpdate
 	 */
 	parent_id?: string | null;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof CategoryUpdate
+	 */
+	app_name?: string | null;
 }
 /**
  *
@@ -1208,6 +1263,12 @@ export interface SalesChannel {
 	 * @memberof SalesChannel
 	 */
 	channel_code?: string | null;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof SalesChannel
+	 */
+	app_name: string;
 }
 /**
  *
@@ -1233,6 +1294,12 @@ export interface SalesChannelCreate {
 	 * @memberof SalesChannelCreate
 	 */
 	channel_code?: string | null;
+	/**
+	 *
+	 * @type {string}
+	 * @memberof SalesChannelCreate
+	 */
+	app_name: string;
 }
 /**
  *
@@ -1311,10 +1378,10 @@ export interface VariantId {
 }
 
 /**
- * DefaultApi - axios parameter creator
+ * BrandApi - axios parameter creator
  * @export
  */
-export const DefaultApiAxiosParamCreator = function (
+export const BrandApiAxiosParamCreator = function (
 	configuration?: Configuration,
 ) {
 	return {
@@ -1326,13 +1393,13 @@ export const DefaultApiAxiosParamCreator = function (
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		createBrand: async (
+		brandCreateBrand: async (
 			brandCreate: BrandCreate,
 			accessToken?: string | null,
 			options: RawAxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
 			// verify required parameter 'brandCreate' is not null or undefined
-			assertParamExists("createBrand", "brandCreate", brandCreate);
+			assertParamExists("brandCreateBrand", "brandCreate", brandCreate);
 			const localVarPath = `/api/v1/brands/`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1380,6 +1447,642 @@ export const DefaultApiAxiosParamCreator = function (
 			};
 		},
 		/**
+		 * 브랜드 삭제
+		 * @summary Delete Brand
+		 * @param {string} brandId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		brandDeleteBrand: async (
+			brandId: string,
+			accessToken?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'brandId' is not null or undefined
+			assertParamExists("brandDeleteBrand", "brandId", brandId);
+			const localVarPath = `/api/v1/brands/{brand_id}`.replace(
+				`{${"brand_id"}}`,
+				encodeURIComponent(String(brandId)),
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = {
+				method: "DELETE",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * 브랜드 상세 조회
+		 * @summary Read Brand
+		 * @param {string} brandId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		brandReadBrand: async (
+			brandId: string,
+			accessToken?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'brandId' is not null or undefined
+			assertParamExists("brandReadBrand", "brandId", brandId);
+			const localVarPath = `/api/v1/brands/{brand_id}`.replace(
+				`{${"brand_id"}}`,
+				encodeURIComponent(String(brandId)),
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = {
+				method: "GET",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * 브랜드 목록 조회
+		 * @summary Read Brands
+		 * @param {string | null} [appName]
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		brandReadBrands: async (
+			appName?: string | null,
+			accessToken?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			const localVarPath = `/api/v1/brands/`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = {
+				method: "GET",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
+
+			if (appName !== undefined) {
+				localVarQueryParameter["app_name"] = appName;
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * 브랜드 수정
+		 * @summary Update Brand
+		 * @param {string} brandId
+		 * @param {BrandUpdate} brandUpdate
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		brandUpdateBrand: async (
+			brandId: string,
+			brandUpdate: BrandUpdate,
+			accessToken?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'brandId' is not null or undefined
+			assertParamExists("brandUpdateBrand", "brandId", brandId);
+			// verify required parameter 'brandUpdate' is not null or undefined
+			assertParamExists("brandUpdateBrand", "brandUpdate", brandUpdate);
+			const localVarPath = `/api/v1/brands/{brand_id}`.replace(
+				`{${"brand_id"}}`,
+				encodeURIComponent(String(brandId)),
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = {
+				method: "PATCH",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
+
+			localVarHeaderParameter["Content-Type"] = "application/json";
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				brandUpdate,
+				localVarRequestOptions,
+				configuration,
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+	};
+};
+
+/**
+ * BrandApi - functional programming interface
+ * @export
+ */
+export const BrandApiFp = function (configuration?: Configuration) {
+	const localVarAxiosParamCreator = BrandApiAxiosParamCreator(configuration);
+	return {
+		/**
+		 * 신규 브랜드 생성 - 사용자가 소유한 브랜드 중 동일한 이름이 있는지 검사
+		 * @summary Create Brand
+		 * @param {BrandCreate} brandCreate
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async brandCreateBrand(
+			brandCreate: BrandCreate,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Brand>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.brandCreateBrand(
+					brandCreate,
+					accessToken,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["BrandApi.brandCreateBrand"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 브랜드 삭제
+		 * @summary Delete Brand
+		 * @param {string} brandId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async brandDeleteBrand(
+			brandId: string,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Message>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.brandDeleteBrand(
+					brandId,
+					accessToken,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["BrandApi.brandDeleteBrand"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 브랜드 상세 조회
+		 * @summary Read Brand
+		 * @param {string} brandId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async brandReadBrand(
+			brandId: string,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Brand>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.brandReadBrand(
+				brandId,
+				accessToken,
+				options,
+			);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["BrandApi.brandReadBrand"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 브랜드 목록 조회
+		 * @summary Read Brands
+		 * @param {string | null} [appName]
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async brandReadBrands(
+			appName?: string | null,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Brand>>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.brandReadBrands(
+				appName,
+				accessToken,
+				options,
+			);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["BrandApi.brandReadBrands"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 브랜드 수정
+		 * @summary Update Brand
+		 * @param {string} brandId
+		 * @param {BrandUpdate} brandUpdate
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async brandUpdateBrand(
+			brandId: string,
+			brandUpdate: BrandUpdate,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Brand>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.brandUpdateBrand(
+					brandId,
+					brandUpdate,
+					accessToken,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["BrandApi.brandUpdateBrand"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+	};
+};
+
+/**
+ * BrandApi - factory interface
+ * @export
+ */
+export const BrandApiFactory = function (
+	configuration?: Configuration,
+	basePath?: string,
+	axios?: AxiosInstance,
+) {
+	const localVarFp = BrandApiFp(configuration);
+	return {
+		/**
+		 * 신규 브랜드 생성 - 사용자가 소유한 브랜드 중 동일한 이름이 있는지 검사
+		 * @summary Create Brand
+		 * @param {BrandCreate} brandCreate
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		brandCreateBrand(
+			brandCreate: BrandCreate,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<Brand> {
+			return localVarFp
+				.brandCreateBrand(brandCreate, accessToken, options)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 브랜드 삭제
+		 * @summary Delete Brand
+		 * @param {string} brandId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		brandDeleteBrand(
+			brandId: string,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<Message> {
+			return localVarFp
+				.brandDeleteBrand(brandId, accessToken, options)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 브랜드 상세 조회
+		 * @summary Read Brand
+		 * @param {string} brandId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		brandReadBrand(
+			brandId: string,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<Brand> {
+			return localVarFp
+				.brandReadBrand(brandId, accessToken, options)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 브랜드 목록 조회
+		 * @summary Read Brands
+		 * @param {string | null} [appName]
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		brandReadBrands(
+			appName?: string | null,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<Array<Brand>> {
+			return localVarFp
+				.brandReadBrands(appName, accessToken, options)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 브랜드 수정
+		 * @summary Update Brand
+		 * @param {string} brandId
+		 * @param {BrandUpdate} brandUpdate
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		brandUpdateBrand(
+			brandId: string,
+			brandUpdate: BrandUpdate,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<Brand> {
+			return localVarFp
+				.brandUpdateBrand(brandId, brandUpdate, accessToken, options)
+				.then((request) => request(axios, basePath));
+		},
+	};
+};
+
+/**
+ * BrandApi - object-oriented interface
+ * @export
+ * @class BrandApi
+ * @extends {BaseAPI}
+ */
+export class BrandApi extends BaseAPI {
+	/**
+	 * 신규 브랜드 생성 - 사용자가 소유한 브랜드 중 동일한 이름이 있는지 검사
+	 * @summary Create Brand
+	 * @param {BrandCreate} brandCreate
+	 * @param {string | null} [accessToken]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof BrandApi
+	 */
+	public brandCreateBrand(
+		brandCreate: BrandCreate,
+		accessToken?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return BrandApiFp(this.configuration)
+			.brandCreateBrand(brandCreate, accessToken, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
+
+	/**
+	 * 브랜드 삭제
+	 * @summary Delete Brand
+	 * @param {string} brandId
+	 * @param {string | null} [accessToken]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof BrandApi
+	 */
+	public brandDeleteBrand(
+		brandId: string,
+		accessToken?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return BrandApiFp(this.configuration)
+			.brandDeleteBrand(brandId, accessToken, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
+
+	/**
+	 * 브랜드 상세 조회
+	 * @summary Read Brand
+	 * @param {string} brandId
+	 * @param {string | null} [accessToken]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof BrandApi
+	 */
+	public brandReadBrand(
+		brandId: string,
+		accessToken?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return BrandApiFp(this.configuration)
+			.brandReadBrand(brandId, accessToken, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
+
+	/**
+	 * 브랜드 목록 조회
+	 * @summary Read Brands
+	 * @param {string | null} [appName]
+	 * @param {string | null} [accessToken]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof BrandApi
+	 */
+	public brandReadBrands(
+		appName?: string | null,
+		accessToken?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return BrandApiFp(this.configuration)
+			.brandReadBrands(appName, accessToken, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
+
+	/**
+	 * 브랜드 수정
+	 * @summary Update Brand
+	 * @param {string} brandId
+	 * @param {BrandUpdate} brandUpdate
+	 * @param {string | null} [accessToken]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof BrandApi
+	 */
+	public brandUpdateBrand(
+		brandId: string,
+		brandUpdate: BrandUpdate,
+		accessToken?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return BrandApiFp(this.configuration)
+			.brandUpdateBrand(brandId, brandUpdate, accessToken, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
+}
+
+/**
+ * CategoryApi - axios parameter creator
+ * @export
+ */
+export const CategoryApiAxiosParamCreator = function (
+	configuration?: Configuration,
+) {
+	return {
+		/**
 		 * 신규 카테고리 생성 - 사용자가 소유한 카테고리 중 동일한 이름이 있는지 검사 - 부모 카테고리(parent_id)가 있다면, 해당 카테고리가 존재하고 현재 사용자가 소유한 카테고리여야 함
 		 * @summary Create Category
 		 * @param {CategoryCreate} categoryCreate
@@ -1387,13 +2090,17 @@ export const DefaultApiAxiosParamCreator = function (
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		createCategory: async (
+		categoryCreateCategory: async (
 			categoryCreate: CategoryCreate,
 			accessToken?: string | null,
 			options: RawAxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
 			// verify required parameter 'categoryCreate' is not null or undefined
-			assertParamExists("createCategory", "categoryCreate", categoryCreate);
+			assertParamExists(
+				"categoryCreateCategory",
+				"categoryCreate",
+				categoryCreate,
+			);
 			const localVarPath = `/api/v1/categories/`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1441,6 +2148,656 @@ export const DefaultApiAxiosParamCreator = function (
 			};
 		},
 		/**
+		 * 카테고리 삭제
+		 * @summary Delete Category
+		 * @param {string} categoryId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		categoryDeleteCategory: async (
+			categoryId: string,
+			accessToken?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'categoryId' is not null or undefined
+			assertParamExists("categoryDeleteCategory", "categoryId", categoryId);
+			const localVarPath = `/api/v1/categories/{category_id}`.replace(
+				`{${"category_id"}}`,
+				encodeURIComponent(String(categoryId)),
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = {
+				method: "DELETE",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * 카테고리 목록 조회
+		 * @summary Read Categories
+		 * @param {string | null} [appName]
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		categoryReadCategories: async (
+			appName?: string | null,
+			accessToken?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			const localVarPath = `/api/v1/categories/`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = {
+				method: "GET",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
+
+			if (appName !== undefined) {
+				localVarQueryParameter["app_name"] = appName;
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * 카테고리 상세 조회
+		 * @summary Read Category
+		 * @param {string} categoryId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		categoryReadCategory: async (
+			categoryId: string,
+			accessToken?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'categoryId' is not null or undefined
+			assertParamExists("categoryReadCategory", "categoryId", categoryId);
+			const localVarPath = `/api/v1/categories/{category_id}`.replace(
+				`{${"category_id"}}`,
+				encodeURIComponent(String(categoryId)),
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = {
+				method: "GET",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * 카테고리 수정
+		 * @summary Update Category
+		 * @param {string} categoryId
+		 * @param {CategoryUpdate} categoryUpdate
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		categoryUpdateCategory: async (
+			categoryId: string,
+			categoryUpdate: CategoryUpdate,
+			accessToken?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'categoryId' is not null or undefined
+			assertParamExists("categoryUpdateCategory", "categoryId", categoryId);
+			// verify required parameter 'categoryUpdate' is not null or undefined
+			assertParamExists(
+				"categoryUpdateCategory",
+				"categoryUpdate",
+				categoryUpdate,
+			);
+			const localVarPath = `/api/v1/categories/{category_id}`.replace(
+				`{${"category_id"}}`,
+				encodeURIComponent(String(categoryId)),
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = {
+				method: "PATCH",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
+
+			localVarHeaderParameter["Content-Type"] = "application/json";
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				categoryUpdate,
+				localVarRequestOptions,
+				configuration,
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+	};
+};
+
+/**
+ * CategoryApi - functional programming interface
+ * @export
+ */
+export const CategoryApiFp = function (configuration?: Configuration) {
+	const localVarAxiosParamCreator = CategoryApiAxiosParamCreator(configuration);
+	return {
+		/**
+		 * 신규 카테고리 생성 - 사용자가 소유한 카테고리 중 동일한 이름이 있는지 검사 - 부모 카테고리(parent_id)가 있다면, 해당 카테고리가 존재하고 현재 사용자가 소유한 카테고리여야 함
+		 * @summary Create Category
+		 * @param {CategoryCreate} categoryCreate
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async categoryCreateCategory(
+			categoryCreate: CategoryCreate,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Category>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.categoryCreateCategory(
+					categoryCreate,
+					accessToken,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["CategoryApi.categoryCreateCategory"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 카테고리 삭제
+		 * @summary Delete Category
+		 * @param {string} categoryId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async categoryDeleteCategory(
+			categoryId: string,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Message>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.categoryDeleteCategory(
+					categoryId,
+					accessToken,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["CategoryApi.categoryDeleteCategory"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 카테고리 목록 조회
+		 * @summary Read Categories
+		 * @param {string | null} [appName]
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async categoryReadCategories(
+			appName?: string | null,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(
+				axios?: AxiosInstance,
+				basePath?: string,
+			) => AxiosPromise<Array<Category>>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.categoryReadCategories(
+					appName,
+					accessToken,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["CategoryApi.categoryReadCategories"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 카테고리 상세 조회
+		 * @summary Read Category
+		 * @param {string} categoryId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async categoryReadCategory(
+			categoryId: string,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Category>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.categoryReadCategory(
+					categoryId,
+					accessToken,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["CategoryApi.categoryReadCategory"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 카테고리 수정
+		 * @summary Update Category
+		 * @param {string} categoryId
+		 * @param {CategoryUpdate} categoryUpdate
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async categoryUpdateCategory(
+			categoryId: string,
+			categoryUpdate: CategoryUpdate,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Category>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.categoryUpdateCategory(
+					categoryId,
+					categoryUpdate,
+					accessToken,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["CategoryApi.categoryUpdateCategory"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+	};
+};
+
+/**
+ * CategoryApi - factory interface
+ * @export
+ */
+export const CategoryApiFactory = function (
+	configuration?: Configuration,
+	basePath?: string,
+	axios?: AxiosInstance,
+) {
+	const localVarFp = CategoryApiFp(configuration);
+	return {
+		/**
+		 * 신규 카테고리 생성 - 사용자가 소유한 카테고리 중 동일한 이름이 있는지 검사 - 부모 카테고리(parent_id)가 있다면, 해당 카테고리가 존재하고 현재 사용자가 소유한 카테고리여야 함
+		 * @summary Create Category
+		 * @param {CategoryCreate} categoryCreate
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		categoryCreateCategory(
+			categoryCreate: CategoryCreate,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<Category> {
+			return localVarFp
+				.categoryCreateCategory(categoryCreate, accessToken, options)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 카테고리 삭제
+		 * @summary Delete Category
+		 * @param {string} categoryId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		categoryDeleteCategory(
+			categoryId: string,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<Message> {
+			return localVarFp
+				.categoryDeleteCategory(categoryId, accessToken, options)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 카테고리 목록 조회
+		 * @summary Read Categories
+		 * @param {string | null} [appName]
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		categoryReadCategories(
+			appName?: string | null,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<Array<Category>> {
+			return localVarFp
+				.categoryReadCategories(appName, accessToken, options)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 카테고리 상세 조회
+		 * @summary Read Category
+		 * @param {string} categoryId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		categoryReadCategory(
+			categoryId: string,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<Category> {
+			return localVarFp
+				.categoryReadCategory(categoryId, accessToken, options)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 카테고리 수정
+		 * @summary Update Category
+		 * @param {string} categoryId
+		 * @param {CategoryUpdate} categoryUpdate
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		categoryUpdateCategory(
+			categoryId: string,
+			categoryUpdate: CategoryUpdate,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<Category> {
+			return localVarFp
+				.categoryUpdateCategory(
+					categoryId,
+					categoryUpdate,
+					accessToken,
+					options,
+				)
+				.then((request) => request(axios, basePath));
+		},
+	};
+};
+
+/**
+ * CategoryApi - object-oriented interface
+ * @export
+ * @class CategoryApi
+ * @extends {BaseAPI}
+ */
+export class CategoryApi extends BaseAPI {
+	/**
+	 * 신규 카테고리 생성 - 사용자가 소유한 카테고리 중 동일한 이름이 있는지 검사 - 부모 카테고리(parent_id)가 있다면, 해당 카테고리가 존재하고 현재 사용자가 소유한 카테고리여야 함
+	 * @summary Create Category
+	 * @param {CategoryCreate} categoryCreate
+	 * @param {string | null} [accessToken]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof CategoryApi
+	 */
+	public categoryCreateCategory(
+		categoryCreate: CategoryCreate,
+		accessToken?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return CategoryApiFp(this.configuration)
+			.categoryCreateCategory(categoryCreate, accessToken, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
+
+	/**
+	 * 카테고리 삭제
+	 * @summary Delete Category
+	 * @param {string} categoryId
+	 * @param {string | null} [accessToken]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof CategoryApi
+	 */
+	public categoryDeleteCategory(
+		categoryId: string,
+		accessToken?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return CategoryApiFp(this.configuration)
+			.categoryDeleteCategory(categoryId, accessToken, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
+
+	/**
+	 * 카테고리 목록 조회
+	 * @summary Read Categories
+	 * @param {string | null} [appName]
+	 * @param {string | null} [accessToken]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof CategoryApi
+	 */
+	public categoryReadCategories(
+		appName?: string | null,
+		accessToken?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return CategoryApiFp(this.configuration)
+			.categoryReadCategories(appName, accessToken, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
+
+	/**
+	 * 카테고리 상세 조회
+	 * @summary Read Category
+	 * @param {string} categoryId
+	 * @param {string | null} [accessToken]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof CategoryApi
+	 */
+	public categoryReadCategory(
+		categoryId: string,
+		accessToken?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return CategoryApiFp(this.configuration)
+			.categoryReadCategory(categoryId, accessToken, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
+
+	/**
+	 * 카테고리 수정
+	 * @summary Update Category
+	 * @param {string} categoryId
+	 * @param {CategoryUpdate} categoryUpdate
+	 * @param {string | null} [accessToken]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof CategoryApi
+	 */
+	public categoryUpdateCategory(
+		categoryId: string,
+		categoryUpdate: CategoryUpdate,
+		accessToken?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return CategoryApiFp(this.configuration)
+			.categoryUpdateCategory(categoryId, categoryUpdate, accessToken, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
+}
+
+/**
+ * ChannelApi - axios parameter creator
+ * @export
+ */
+export const ChannelApiAxiosParamCreator = function (
+	configuration?: Configuration,
+) {
+	return {
+		/**
 		 * 신규 채널 생성
 		 * @summary Create Channel
 		 * @param {SalesChannelCreate} salesChannelCreate
@@ -1448,14 +2805,14 @@ export const DefaultApiAxiosParamCreator = function (
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		createChannel: async (
+		channelCreateChannel: async (
 			salesChannelCreate: SalesChannelCreate,
 			accessToken?: string | null,
 			options: RawAxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
 			// verify required parameter 'salesChannelCreate' is not null or undefined
 			assertParamExists(
-				"createChannel",
+				"channelCreateChannel",
 				"salesChannelCreate",
 				salesChannelCreate,
 			);
@@ -1506,589 +2863,6 @@ export const DefaultApiAxiosParamCreator = function (
 			};
 		},
 		/**
-		 * 신규 채널 리스팅 생성
-		 * @summary Create Channel Listing
-		 * @param {ChannelListingCreate} channelListingCreate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		createChannelListing: async (
-			channelListingCreate: ChannelListingCreate,
-			accessToken?: string | null,
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			// verify required parameter 'channelListingCreate' is not null or undefined
-			assertParamExists(
-				"createChannelListing",
-				"channelListingCreate",
-				channelListingCreate,
-			);
-			const localVarPath = `/api/v1/listings/`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = {
-				method: "POST",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication OAuth2PasswordBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				"OAuth2PasswordBearer",
-				[],
-				configuration,
-			);
-
-			localVarHeaderParameter["Content-Type"] = "application/json";
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
-			localVarRequestOptions.data = serializeDataIfNeeded(
-				channelListingCreate,
-				localVarRequestOptions,
-				configuration,
-			);
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 * 신규 인벤토리 생성
-		 * @summary Create Inventory
-		 * @param {InventoryCreate} inventoryCreate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		createInventory: async (
-			inventoryCreate: InventoryCreate,
-			accessToken?: string | null,
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			// verify required parameter 'inventoryCreate' is not null or undefined
-			assertParamExists("createInventory", "inventoryCreate", inventoryCreate);
-			const localVarPath = `/api/v1/inventories/`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = {
-				method: "POST",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication OAuth2PasswordBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				"OAuth2PasswordBearer",
-				[],
-				configuration,
-			);
-
-			localVarHeaderParameter["Content-Type"] = "application/json";
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
-			localVarRequestOptions.data = serializeDataIfNeeded(
-				inventoryCreate,
-				localVarRequestOptions,
-				configuration,
-			);
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 * 신규 재고 생성
-		 * @summary Create Invetory Transaction
-		 * @param {string} inventoryId
-		 * @param {InventoryTransactionRequest} inventoryTransactionRequest
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		createInvetoryTransaction: async (
-			inventoryId: string,
-			inventoryTransactionRequest: InventoryTransactionRequest,
-			accessToken?: string | null,
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			// verify required parameter 'inventoryId' is not null or undefined
-			assertParamExists(
-				"createInvetoryTransaction",
-				"inventoryId",
-				inventoryId,
-			);
-			// verify required parameter 'inventoryTransactionRequest' is not null or undefined
-			assertParamExists(
-				"createInvetoryTransaction",
-				"inventoryTransactionRequest",
-				inventoryTransactionRequest,
-			);
-			const localVarPath =
-				`/api/v1/inventories/{inventory_id}/transactions`.replace(
-					`{${"inventory_id"}}`,
-					encodeURIComponent(String(inventoryId)),
-				);
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = {
-				method: "POST",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication OAuth2PasswordBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				"OAuth2PasswordBearer",
-				[],
-				configuration,
-			);
-
-			localVarHeaderParameter["Content-Type"] = "application/json";
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
-			localVarRequestOptions.data = serializeDataIfNeeded(
-				inventoryTransactionRequest,
-				localVarRequestOptions,
-				configuration,
-			);
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 * 신규 주문 생성
-		 * @summary Create Order
-		 * @param {OrderCreate} orderCreate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		createOrder: async (
-			orderCreate: OrderCreate,
-			accessToken?: string | null,
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			// verify required parameter 'orderCreate' is not null or undefined
-			assertParamExists("createOrder", "orderCreate", orderCreate);
-			const localVarPath = `/api/v1/orders/`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = {
-				method: "POST",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication OAuth2PasswordBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				"OAuth2PasswordBearer",
-				[],
-				configuration,
-			);
-
-			localVarHeaderParameter["Content-Type"] = "application/json";
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
-			localVarRequestOptions.data = serializeDataIfNeeded(
-				orderCreate,
-				localVarRequestOptions,
-				configuration,
-			);
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 * 주문에 상품 추가
-		 * @summary Create Order Line Item
-		 * @param {string} orderId
-		 * @param {OrderLineItemCreate} orderLineItemCreate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		createOrderLineItem: async (
-			orderId: string,
-			orderLineItemCreate: OrderLineItemCreate,
-			accessToken?: string | null,
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			// verify required parameter 'orderId' is not null or undefined
-			assertParamExists("createOrderLineItem", "orderId", orderId);
-			// verify required parameter 'orderLineItemCreate' is not null or undefined
-			assertParamExists(
-				"createOrderLineItem",
-				"orderLineItemCreate",
-				orderLineItemCreate,
-			);
-			const localVarPath = `/api/v1/orders/{order_id}/line-items`.replace(
-				`{${"order_id"}}`,
-				encodeURIComponent(String(orderId)),
-			);
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = {
-				method: "POST",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication OAuth2PasswordBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				"OAuth2PasswordBearer",
-				[],
-				configuration,
-			);
-
-			localVarHeaderParameter["Content-Type"] = "application/json";
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
-			localVarRequestOptions.data = serializeDataIfNeeded(
-				orderLineItemCreate,
-				localVarRequestOptions,
-				configuration,
-			);
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 * 신규 상품 생성 - 사용자가 소유한 상품 중 동일한 이름이 있는지 검사
-		 * @summary Create Product
-		 * @param {ProductCreate} productCreate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		createProduct: async (
-			productCreate: ProductCreate,
-			accessToken?: string | null,
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			// verify required parameter 'productCreate' is not null or undefined
-			assertParamExists("createProduct", "productCreate", productCreate);
-			const localVarPath = `/api/v1/products/`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = {
-				method: "POST",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication OAuth2PasswordBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				"OAuth2PasswordBearer",
-				[],
-				configuration,
-			);
-
-			localVarHeaderParameter["Content-Type"] = "application/json";
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
-			localVarRequestOptions.data = serializeDataIfNeeded(
-				productCreate,
-				localVarRequestOptions,
-				configuration,
-			);
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 * 신규 상품 옵션 생성
-		 * @summary Create Product Variant
-		 * @param {string} productId
-		 * @param {ProductVariantCreate} productVariantCreate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		createProductVariant: async (
-			productId: string,
-			productVariantCreate: ProductVariantCreate,
-			accessToken?: string | null,
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			// verify required parameter 'productId' is not null or undefined
-			assertParamExists("createProductVariant", "productId", productId);
-			// verify required parameter 'productVariantCreate' is not null or undefined
-			assertParamExists(
-				"createProductVariant",
-				"productVariantCreate",
-				productVariantCreate,
-			);
-			const localVarPath = `/api/v1/products/{product_id}/variants`.replace(
-				`{${"product_id"}}`,
-				encodeURIComponent(String(productId)),
-			);
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = {
-				method: "POST",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication OAuth2PasswordBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				"OAuth2PasswordBearer",
-				[],
-				configuration,
-			);
-
-			localVarHeaderParameter["Content-Type"] = "application/json";
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
-			localVarRequestOptions.data = serializeDataIfNeeded(
-				productVariantCreate,
-				localVarRequestOptions,
-				configuration,
-			);
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 * 브랜드 삭제
-		 * @summary Delete Brand
-		 * @param {string} brandId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		deleteBrand: async (
-			brandId: string,
-			accessToken?: string | null,
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			// verify required parameter 'brandId' is not null or undefined
-			assertParamExists("deleteBrand", "brandId", brandId);
-			const localVarPath = `/api/v1/brands/{brand_id}`.replace(
-				`{${"brand_id"}}`,
-				encodeURIComponent(String(brandId)),
-			);
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = {
-				method: "DELETE",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication OAuth2PasswordBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				"OAuth2PasswordBearer",
-				[],
-				configuration,
-			);
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 * 카테고리 삭제
-		 * @summary Delete Category
-		 * @param {string} categoryId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		deleteCategory: async (
-			categoryId: string,
-			accessToken?: string | null,
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			// verify required parameter 'categoryId' is not null or undefined
-			assertParamExists("deleteCategory", "categoryId", categoryId);
-			const localVarPath = `/api/v1/categories/{category_id}`.replace(
-				`{${"category_id"}}`,
-				encodeURIComponent(String(categoryId)),
-			);
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = {
-				method: "DELETE",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication OAuth2PasswordBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				"OAuth2PasswordBearer",
-				[],
-				configuration,
-			);
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-		/**
 		 * 채널 삭제
 		 * @summary Delete Channel
 		 * @param {string} channelId
@@ -2096,13 +2870,13 @@ export const DefaultApiAxiosParamCreator = function (
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		deleteChannel: async (
+		channelDeleteChannel: async (
 			channelId: string,
 			accessToken?: string | null,
 			options: RawAxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
 			// verify required parameter 'channelId' is not null or undefined
-			assertParamExists("deleteChannel", "channelId", channelId);
+			assertParamExists("channelDeleteChannel", "channelId", channelId);
 			const localVarPath = `/api/v1/channels/{channel_id}`.replace(
 				`{${"channel_id"}}`,
 				encodeURIComponent(String(channelId)),
@@ -2116,515 +2890,6 @@ export const DefaultApiAxiosParamCreator = function (
 
 			const localVarRequestOptions = {
 				method: "DELETE",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication OAuth2PasswordBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				"OAuth2PasswordBearer",
-				[],
-				configuration,
-			);
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 * 채널 리스팅 삭제
-		 * @summary Delete Channel Listing
-		 * @param {string} channelListingId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		deleteChannelListing: async (
-			channelListingId: string,
-			accessToken?: string | null,
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			// verify required parameter 'channelListingId' is not null or undefined
-			assertParamExists(
-				"deleteChannelListing",
-				"channelListingId",
-				channelListingId,
-			);
-			const localVarPath = `/api/v1/listings/{channel_listing_id}`.replace(
-				`{${"channel_listing_id"}}`,
-				encodeURIComponent(String(channelListingId)),
-			);
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = {
-				method: "DELETE",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication OAuth2PasswordBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				"OAuth2PasswordBearer",
-				[],
-				configuration,
-			);
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 * 인벤토리 삭제
-		 * @summary Delete Inventory
-		 * @param {string} inventoryId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		deleteInventory: async (
-			inventoryId: string,
-			accessToken?: string | null,
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			// verify required parameter 'inventoryId' is not null or undefined
-			assertParamExists("deleteInventory", "inventoryId", inventoryId);
-			const localVarPath = `/api/v1/inventories/{inventory_id}`.replace(
-				`{${"inventory_id"}}`,
-				encodeURIComponent(String(inventoryId)),
-			);
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = {
-				method: "DELETE",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication OAuth2PasswordBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				"OAuth2PasswordBearer",
-				[],
-				configuration,
-			);
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 * 주문의 상품 삭제
-		 * @summary Delete Order Line Item
-		 * @param {string} orderId
-		 * @param {string} lineItemId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		deleteOrderLineItem: async (
-			orderId: string,
-			lineItemId: string,
-			accessToken?: string | null,
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			// verify required parameter 'orderId' is not null or undefined
-			assertParamExists("deleteOrderLineItem", "orderId", orderId);
-			// verify required parameter 'lineItemId' is not null or undefined
-			assertParamExists("deleteOrderLineItem", "lineItemId", lineItemId);
-			const localVarPath = `/api/v1/orders/{order_id}/line-items/{line_item_id}`
-				.replace(`{${"order_id"}}`, encodeURIComponent(String(orderId)))
-				.replace(`{${"line_item_id"}}`, encodeURIComponent(String(lineItemId)));
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = {
-				method: "DELETE",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication OAuth2PasswordBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				"OAuth2PasswordBearer",
-				[],
-				configuration,
-			);
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 * 상품 삭제
-		 * @summary Delete Product
-		 * @param {string} productId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		deleteProduct: async (
-			productId: string,
-			accessToken?: string | null,
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			// verify required parameter 'productId' is not null or undefined
-			assertParamExists("deleteProduct", "productId", productId);
-			const localVarPath = `/api/v1/products/{product_id}`.replace(
-				`{${"product_id"}}`,
-				encodeURIComponent(String(productId)),
-			);
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = {
-				method: "DELETE",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication OAuth2PasswordBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				"OAuth2PasswordBearer",
-				[],
-				configuration,
-			);
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 * 상품 옵션 삭제
-		 * @summary Delete Product Variant
-		 * @param {string} productId
-		 * @param {string} variantId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		deleteProductVariant: async (
-			productId: string,
-			variantId: string,
-			accessToken?: string | null,
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			// verify required parameter 'productId' is not null or undefined
-			assertParamExists("deleteProductVariant", "productId", productId);
-			// verify required parameter 'variantId' is not null or undefined
-			assertParamExists("deleteProductVariant", "variantId", variantId);
-			const localVarPath = `/api/v1/products/{product_id}/variants/{variant_id}`
-				.replace(`{${"product_id"}}`, encodeURIComponent(String(productId)))
-				.replace(`{${"variant_id"}}`, encodeURIComponent(String(variantId)));
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = {
-				method: "DELETE",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication OAuth2PasswordBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				"OAuth2PasswordBearer",
-				[],
-				configuration,
-			);
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 * 브랜드 상세 조회
-		 * @summary Read Brand
-		 * @param {string} brandId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		readBrand: async (
-			brandId: string,
-			accessToken?: string | null,
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			// verify required parameter 'brandId' is not null or undefined
-			assertParamExists("readBrand", "brandId", brandId);
-			const localVarPath = `/api/v1/brands/{brand_id}`.replace(
-				`{${"brand_id"}}`,
-				encodeURIComponent(String(brandId)),
-			);
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = {
-				method: "GET",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication OAuth2PasswordBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				"OAuth2PasswordBearer",
-				[],
-				configuration,
-			);
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 * 브랜드 목록 조회
-		 * @summary Read Brands
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		readBrands: async (
-			accessToken?: string | null,
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			const localVarPath = `/api/v1/brands/`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = {
-				method: "GET",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication OAuth2PasswordBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				"OAuth2PasswordBearer",
-				[],
-				configuration,
-			);
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 * 카테고리 목록 조회
-		 * @summary Read Categories
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		readCategories: async (
-			accessToken?: string | null,
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			const localVarPath = `/api/v1/categories/`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = {
-				method: "GET",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication OAuth2PasswordBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				"OAuth2PasswordBearer",
-				[],
-				configuration,
-			);
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 * 카테고리 상세 조회
-		 * @summary Read Category
-		 * @param {string} categoryId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		readCategory: async (
-			categoryId: string,
-			accessToken?: string | null,
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			// verify required parameter 'categoryId' is not null or undefined
-			assertParamExists("readCategory", "categoryId", categoryId);
-			const localVarPath = `/api/v1/categories/{category_id}`.replace(
-				`{${"category_id"}}`,
-				encodeURIComponent(String(categoryId)),
-			);
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = {
-				method: "GET",
 				...baseOptions,
 				...options,
 			};
@@ -2662,128 +2927,17 @@ export const DefaultApiAxiosParamCreator = function (
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		readChannel: async (
+		channelReadChannel: async (
 			channelId: string,
 			accessToken?: string | null,
 			options: RawAxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
 			// verify required parameter 'channelId' is not null or undefined
-			assertParamExists("readChannel", "channelId", channelId);
+			assertParamExists("channelReadChannel", "channelId", channelId);
 			const localVarPath = `/api/v1/channels/{channel_id}`.replace(
 				`{${"channel_id"}}`,
 				encodeURIComponent(String(channelId)),
 			);
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = {
-				method: "GET",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication OAuth2PasswordBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				"OAuth2PasswordBearer",
-				[],
-				configuration,
-			);
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 * 채널 리스팅 상세 조회
-		 * @summary Read Channel Listing
-		 * @param {string} channelListingId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		readChannelListing: async (
-			channelListingId: string,
-			accessToken?: string | null,
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			// verify required parameter 'channelListingId' is not null or undefined
-			assertParamExists(
-				"readChannelListing",
-				"channelListingId",
-				channelListingId,
-			);
-			const localVarPath = `/api/v1/listings/{channel_listing_id}`.replace(
-				`{${"channel_listing_id"}}`,
-				encodeURIComponent(String(channelListingId)),
-			);
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = {
-				method: "GET",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication OAuth2PasswordBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				"OAuth2PasswordBearer",
-				[],
-				configuration,
-			);
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 * 채널 리스팅 목록 조회
-		 * @summary Read Channel Listings
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		readChannelListings: async (
-			accessToken?: string | null,
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			const localVarPath = `/api/v1/listings/`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
 			let baseOptions;
@@ -2825,11 +2979,13 @@ export const DefaultApiAxiosParamCreator = function (
 		/**
 		 * 채널 목록 조회
 		 * @summary Read Channels
+		 * @param {string | null} [appName]
 		 * @param {string | null} [accessToken]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		readChannels: async (
+		channelReadChannels: async (
+			appName?: string | null,
 			accessToken?: string | null,
 			options: RawAxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
@@ -2858,56 +3014,10 @@ export const DefaultApiAxiosParamCreator = function (
 				configuration,
 			);
 
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 * 인벤토리 목록 조회
-		 * @summary Read Inventories
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		readInventories: async (
-			accessToken?: string | null,
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			const localVarPath = `/api/v1/inventories/`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
+			if (appName !== undefined) {
+				localVarQueryParameter["app_name"] = appName;
 			}
 
-			const localVarRequestOptions = {
-				method: "GET",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication OAuth2PasswordBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				"OAuth2PasswordBearer",
-				[],
-				configuration,
-			);
-
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
 			let headersFromBaseOptions =
 				baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -2916,780 +3026,6 @@ export const DefaultApiAxiosParamCreator = function (
 				...headersFromBaseOptions,
 				...options.headers,
 			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 * 인벤토리 조회
-		 * @summary Read Inventory
-		 * @param {string} inventoryId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		readInventory: async (
-			inventoryId: string,
-			accessToken?: string | null,
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			// verify required parameter 'inventoryId' is not null or undefined
-			assertParamExists("readInventory", "inventoryId", inventoryId);
-			const localVarPath = `/api/v1/inventories/{inventory_id}`.replace(
-				`{${"inventory_id"}}`,
-				encodeURIComponent(String(inventoryId)),
-			);
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = {
-				method: "GET",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication OAuth2PasswordBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				"OAuth2PasswordBearer",
-				[],
-				configuration,
-			);
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 * 재고 거래 내역 상세 조회
-		 * @summary Read Inventory Transaction
-		 * @param {string} inventoryId
-		 * @param {string} transactionId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		readInventoryTransaction: async (
-			inventoryId: string,
-			transactionId: string,
-			accessToken?: string | null,
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			// verify required parameter 'inventoryId' is not null or undefined
-			assertParamExists("readInventoryTransaction", "inventoryId", inventoryId);
-			// verify required parameter 'transactionId' is not null or undefined
-			assertParamExists(
-				"readInventoryTransaction",
-				"transactionId",
-				transactionId,
-			);
-			const localVarPath =
-				`/api/v1/inventories/{inventory_id}/transactions/{transaction_id}`
-					.replace(
-						`{${"inventory_id"}}`,
-						encodeURIComponent(String(inventoryId)),
-					)
-					.replace(
-						`{${"transaction_id"}}`,
-						encodeURIComponent(String(transactionId)),
-					);
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = {
-				method: "GET",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication OAuth2PasswordBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				"OAuth2PasswordBearer",
-				[],
-				configuration,
-			);
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 * 재고 거래 내역 조회
-		 * @summary Read Inventory Transactions
-		 * @param {string} inventoryId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		readInventoryTransactions: async (
-			inventoryId: string,
-			accessToken?: string | null,
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			// verify required parameter 'inventoryId' is not null or undefined
-			assertParamExists(
-				"readInventoryTransactions",
-				"inventoryId",
-				inventoryId,
-			);
-			const localVarPath =
-				`/api/v1/inventories/{inventory_id}/transactions`.replace(
-					`{${"inventory_id"}}`,
-					encodeURIComponent(String(inventoryId)),
-				);
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = {
-				method: "GET",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication OAuth2PasswordBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				"OAuth2PasswordBearer",
-				[],
-				configuration,
-			);
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 * 주문 상세 조회
-		 * @summary Read Order
-		 * @param {string} orderId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		readOrder: async (
-			orderId: string,
-			accessToken?: string | null,
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			// verify required parameter 'orderId' is not null or undefined
-			assertParamExists("readOrder", "orderId", orderId);
-			const localVarPath = `/api/v1/orders/{order_id}`.replace(
-				`{${"order_id"}}`,
-				encodeURIComponent(String(orderId)),
-			);
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = {
-				method: "GET",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication OAuth2PasswordBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				"OAuth2PasswordBearer",
-				[],
-				configuration,
-			);
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 * 주문의 상품 상세 조회
-		 * @summary Read Order Line Item
-		 * @param {string} orderId
-		 * @param {string} lineItemId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		readOrderLineItem: async (
-			orderId: string,
-			lineItemId: string,
-			accessToken?: string | null,
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			// verify required parameter 'orderId' is not null or undefined
-			assertParamExists("readOrderLineItem", "orderId", orderId);
-			// verify required parameter 'lineItemId' is not null or undefined
-			assertParamExists("readOrderLineItem", "lineItemId", lineItemId);
-			const localVarPath = `/api/v1/orders/{order_id}/line-items/{line_item_id}`
-				.replace(`{${"order_id"}}`, encodeURIComponent(String(orderId)))
-				.replace(`{${"line_item_id"}}`, encodeURIComponent(String(lineItemId)));
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = {
-				method: "GET",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication OAuth2PasswordBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				"OAuth2PasswordBearer",
-				[],
-				configuration,
-			);
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 * 주문의 상품 목록 조회
-		 * @summary Read Order Line Items
-		 * @param {string} orderId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		readOrderLineItems: async (
-			orderId: string,
-			accessToken?: string | null,
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			// verify required parameter 'orderId' is not null or undefined
-			assertParamExists("readOrderLineItems", "orderId", orderId);
-			const localVarPath = `/api/v1/orders/{order_id}/line-items`.replace(
-				`{${"order_id"}}`,
-				encodeURIComponent(String(orderId)),
-			);
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = {
-				method: "GET",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication OAuth2PasswordBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				"OAuth2PasswordBearer",
-				[],
-				configuration,
-			);
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 * 주문 목록 조회
-		 * @summary Read Orders
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		readOrders: async (
-			accessToken?: string | null,
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			const localVarPath = `/api/v1/orders/`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = {
-				method: "GET",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication OAuth2PasswordBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				"OAuth2PasswordBearer",
-				[],
-				configuration,
-			);
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 * 상품 상세 조회
-		 * @summary Read Product
-		 * @param {string} productId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		readProduct: async (
-			productId: string,
-			accessToken?: string | null,
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			// verify required parameter 'productId' is not null or undefined
-			assertParamExists("readProduct", "productId", productId);
-			const localVarPath = `/api/v1/products/{product_id}`.replace(
-				`{${"product_id"}}`,
-				encodeURIComponent(String(productId)),
-			);
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = {
-				method: "GET",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication OAuth2PasswordBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				"OAuth2PasswordBearer",
-				[],
-				configuration,
-			);
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 * 상품 옵션 상세 조회
-		 * @summary Read Product Variant
-		 * @param {string} productId
-		 * @param {string} variantId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		readProductVariant: async (
-			productId: string,
-			variantId: string,
-			accessToken?: string | null,
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			// verify required parameter 'productId' is not null or undefined
-			assertParamExists("readProductVariant", "productId", productId);
-			// verify required parameter 'variantId' is not null or undefined
-			assertParamExists("readProductVariant", "variantId", variantId);
-			const localVarPath = `/api/v1/products/{product_id}/variants/{variant_id}`
-				.replace(`{${"product_id"}}`, encodeURIComponent(String(productId)))
-				.replace(`{${"variant_id"}}`, encodeURIComponent(String(variantId)));
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = {
-				method: "GET",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication OAuth2PasswordBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				"OAuth2PasswordBearer",
-				[],
-				configuration,
-			);
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 * 상품 별 옵션 목록 조회
-		 * @summary Read Product Variants
-		 * @param {string} productId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		readProductVariants: async (
-			productId: string,
-			accessToken?: string | null,
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			// verify required parameter 'productId' is not null or undefined
-			assertParamExists("readProductVariants", "productId", productId);
-			const localVarPath = `/api/v1/products/{product_id}/variants`.replace(
-				`{${"product_id"}}`,
-				encodeURIComponent(String(productId)),
-			);
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = {
-				method: "GET",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication OAuth2PasswordBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				"OAuth2PasswordBearer",
-				[],
-				configuration,
-			);
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 * 상품 목록 조회
-		 * @summary Read Products
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		readProducts: async (
-			accessToken?: string | null,
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			const localVarPath = `/api/v1/products/`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = {
-				method: "GET",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication OAuth2PasswordBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				"OAuth2PasswordBearer",
-				[],
-				configuration,
-			);
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 * 브랜드 수정
-		 * @summary Update Brand
-		 * @param {string} brandId
-		 * @param {BrandCreate} brandCreate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		updateBrand: async (
-			brandId: string,
-			brandCreate: BrandCreate,
-			accessToken?: string | null,
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			// verify required parameter 'brandId' is not null or undefined
-			assertParamExists("updateBrand", "brandId", brandId);
-			// verify required parameter 'brandCreate' is not null or undefined
-			assertParamExists("updateBrand", "brandCreate", brandCreate);
-			const localVarPath = `/api/v1/brands/{brand_id}`.replace(
-				`{${"brand_id"}}`,
-				encodeURIComponent(String(brandId)),
-			);
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = {
-				method: "PATCH",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication OAuth2PasswordBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				"OAuth2PasswordBearer",
-				[],
-				configuration,
-			);
-
-			localVarHeaderParameter["Content-Type"] = "application/json";
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
-			localVarRequestOptions.data = serializeDataIfNeeded(
-				brandCreate,
-				localVarRequestOptions,
-				configuration,
-			);
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 * 카테고리 수정
-		 * @summary Update Category
-		 * @param {string} categoryId
-		 * @param {CategoryUpdate} categoryUpdate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		updateCategory: async (
-			categoryId: string,
-			categoryUpdate: CategoryUpdate,
-			accessToken?: string | null,
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			// verify required parameter 'categoryId' is not null or undefined
-			assertParamExists("updateCategory", "categoryId", categoryId);
-			// verify required parameter 'categoryUpdate' is not null or undefined
-			assertParamExists("updateCategory", "categoryUpdate", categoryUpdate);
-			const localVarPath = `/api/v1/categories/{category_id}`.replace(
-				`{${"category_id"}}`,
-				encodeURIComponent(String(categoryId)),
-			);
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = {
-				method: "PATCH",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication OAuth2PasswordBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				"OAuth2PasswordBearer",
-				[],
-				configuration,
-			);
-
-			localVarHeaderParameter["Content-Type"] = "application/json";
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
-			localVarRequestOptions.data = serializeDataIfNeeded(
-				categoryUpdate,
-				localVarRequestOptions,
-				configuration,
-			);
 
 			return {
 				url: toPathString(localVarUrlObj),
@@ -3705,17 +3041,17 @@ export const DefaultApiAxiosParamCreator = function (
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		updateChannel: async (
+		channelUpdateChannel: async (
 			channelId: string,
 			salesChannelUpdate: SalesChannelUpdate,
 			accessToken?: string | null,
 			options: RawAxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
 			// verify required parameter 'channelId' is not null or undefined
-			assertParamExists("updateChannel", "channelId", channelId);
+			assertParamExists("channelUpdateChannel", "channelId", channelId);
 			// verify required parameter 'salesChannelUpdate' is not null or undefined
 			assertParamExists(
-				"updateChannel",
+				"channelUpdateChannel",
 				"salesChannelUpdate",
 				salesChannelUpdate,
 			);
@@ -3768,512 +3104,16 @@ export const DefaultApiAxiosParamCreator = function (
 				options: localVarRequestOptions,
 			};
 		},
-		/**
-		 * 채널 리스팅 정보 수정
-		 * @summary Update Channel Listing
-		 * @param {string} channelListingId
-		 * @param {ChannelListingUpdate} channelListingUpdate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		updateChannelListing: async (
-			channelListingId: string,
-			channelListingUpdate: ChannelListingUpdate,
-			accessToken?: string | null,
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			// verify required parameter 'channelListingId' is not null or undefined
-			assertParamExists(
-				"updateChannelListing",
-				"channelListingId",
-				channelListingId,
-			);
-			// verify required parameter 'channelListingUpdate' is not null or undefined
-			assertParamExists(
-				"updateChannelListing",
-				"channelListingUpdate",
-				channelListingUpdate,
-			);
-			const localVarPath = `/api/v1/listings/{channel_listing_id}`.replace(
-				`{${"channel_listing_id"}}`,
-				encodeURIComponent(String(channelListingId)),
-			);
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = {
-				method: "PUT",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication OAuth2PasswordBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				"OAuth2PasswordBearer",
-				[],
-				configuration,
-			);
-
-			localVarHeaderParameter["Content-Type"] = "application/json";
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
-			localVarRequestOptions.data = serializeDataIfNeeded(
-				channelListingUpdate,
-				localVarRequestOptions,
-				configuration,
-			);
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 * 인벤토리 정보 수정
-		 * @summary Update Inventory
-		 * @param {string} inventoryId
-		 * @param {InventoryUpdate} inventoryUpdate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		updateInventory: async (
-			inventoryId: string,
-			inventoryUpdate: InventoryUpdate,
-			accessToken?: string | null,
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			// verify required parameter 'inventoryId' is not null or undefined
-			assertParamExists("updateInventory", "inventoryId", inventoryId);
-			// verify required parameter 'inventoryUpdate' is not null or undefined
-			assertParamExists("updateInventory", "inventoryUpdate", inventoryUpdate);
-			const localVarPath = `/api/v1/inventories/{inventory_id}`.replace(
-				`{${"inventory_id"}}`,
-				encodeURIComponent(String(inventoryId)),
-			);
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = {
-				method: "PATCH",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication OAuth2PasswordBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				"OAuth2PasswordBearer",
-				[],
-				configuration,
-			);
-
-			localVarHeaderParameter["Content-Type"] = "application/json";
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
-			localVarRequestOptions.data = serializeDataIfNeeded(
-				inventoryUpdate,
-				localVarRequestOptions,
-				configuration,
-			);
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 * 주문 수정
-		 * @summary Update Order
-		 * @param {string} orderId
-		 * @param {OrderUpdate} orderUpdate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		updateOrder: async (
-			orderId: string,
-			orderUpdate: OrderUpdate,
-			accessToken?: string | null,
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			// verify required parameter 'orderId' is not null or undefined
-			assertParamExists("updateOrder", "orderId", orderId);
-			// verify required parameter 'orderUpdate' is not null or undefined
-			assertParamExists("updateOrder", "orderUpdate", orderUpdate);
-			const localVarPath = `/api/v1/orders/{order_id}`.replace(
-				`{${"order_id"}}`,
-				encodeURIComponent(String(orderId)),
-			);
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = {
-				method: "PUT",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication OAuth2PasswordBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				"OAuth2PasswordBearer",
-				[],
-				configuration,
-			);
-
-			localVarHeaderParameter["Content-Type"] = "application/json";
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
-			localVarRequestOptions.data = serializeDataIfNeeded(
-				orderUpdate,
-				localVarRequestOptions,
-				configuration,
-			);
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 * 주문의 상품 수정
-		 * @summary Update Order Line Item
-		 * @param {string} orderId
-		 * @param {string} lineItemId
-		 * @param {OrderLineItemUpdate} orderLineItemUpdate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		updateOrderLineItem: async (
-			orderId: string,
-			lineItemId: string,
-			orderLineItemUpdate: OrderLineItemUpdate,
-			accessToken?: string | null,
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			// verify required parameter 'orderId' is not null or undefined
-			assertParamExists("updateOrderLineItem", "orderId", orderId);
-			// verify required parameter 'lineItemId' is not null or undefined
-			assertParamExists("updateOrderLineItem", "lineItemId", lineItemId);
-			// verify required parameter 'orderLineItemUpdate' is not null or undefined
-			assertParamExists(
-				"updateOrderLineItem",
-				"orderLineItemUpdate",
-				orderLineItemUpdate,
-			);
-			const localVarPath = `/api/v1/orders/{order_id}/line-items/{line_item_id}`
-				.replace(`{${"order_id"}}`, encodeURIComponent(String(orderId)))
-				.replace(`{${"line_item_id"}}`, encodeURIComponent(String(lineItemId)));
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = {
-				method: "PUT",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication OAuth2PasswordBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				"OAuth2PasswordBearer",
-				[],
-				configuration,
-			);
-
-			localVarHeaderParameter["Content-Type"] = "application/json";
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
-			localVarRequestOptions.data = serializeDataIfNeeded(
-				orderLineItemUpdate,
-				localVarRequestOptions,
-				configuration,
-			);
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 * 상품 수정
-		 * @summary Update Product
-		 * @param {string} productId
-		 * @param {ProductUpdate} productUpdate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		updateProduct: async (
-			productId: string,
-			productUpdate: ProductUpdate,
-			accessToken?: string | null,
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			// verify required parameter 'productId' is not null or undefined
-			assertParamExists("updateProduct", "productId", productId);
-			// verify required parameter 'productUpdate' is not null or undefined
-			assertParamExists("updateProduct", "productUpdate", productUpdate);
-			const localVarPath = `/api/v1/products/{product_id}`.replace(
-				`{${"product_id"}}`,
-				encodeURIComponent(String(productId)),
-			);
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = {
-				method: "PATCH",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication OAuth2PasswordBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				"OAuth2PasswordBearer",
-				[],
-				configuration,
-			);
-
-			localVarHeaderParameter["Content-Type"] = "application/json";
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
-			localVarRequestOptions.data = serializeDataIfNeeded(
-				productUpdate,
-				localVarRequestOptions,
-				configuration,
-			);
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 * 상품 옵션 수정
-		 * @summary Update Product Variant
-		 * @param {string} productId
-		 * @param {string} variantId
-		 * @param {ProductVariantUpdate} productVariantUpdate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		updateProductVariant: async (
-			productId: string,
-			variantId: string,
-			productVariantUpdate: ProductVariantUpdate,
-			accessToken?: string | null,
-			options: RawAxiosRequestConfig = {},
-		): Promise<RequestArgs> => {
-			// verify required parameter 'productId' is not null or undefined
-			assertParamExists("updateProductVariant", "productId", productId);
-			// verify required parameter 'variantId' is not null or undefined
-			assertParamExists("updateProductVariant", "variantId", variantId);
-			// verify required parameter 'productVariantUpdate' is not null or undefined
-			assertParamExists(
-				"updateProductVariant",
-				"productVariantUpdate",
-				productVariantUpdate,
-			);
-			const localVarPath = `/api/v1/products/{product_id}/variants/{variant_id}`
-				.replace(`{${"product_id"}}`, encodeURIComponent(String(productId)))
-				.replace(`{${"variant_id"}}`, encodeURIComponent(String(variantId)));
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-
-			const localVarRequestOptions = {
-				method: "PATCH",
-				...baseOptions,
-				...options,
-			};
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication OAuth2PasswordBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				"OAuth2PasswordBearer",
-				[],
-				configuration,
-			);
-
-			localVarHeaderParameter["Content-Type"] = "application/json";
-
-			setSearchParams(localVarUrlObj, localVarQueryParameter);
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			};
-			localVarRequestOptions.data = serializeDataIfNeeded(
-				productVariantUpdate,
-				localVarRequestOptions,
-				configuration,
-			);
-
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			};
-		},
 	};
 };
 
 /**
- * DefaultApi - functional programming interface
+ * ChannelApi - functional programming interface
  * @export
  */
-export const DefaultApiFp = function (configuration?: Configuration) {
-	const localVarAxiosParamCreator = DefaultApiAxiosParamCreator(configuration);
+export const ChannelApiFp = function (configuration?: Configuration) {
+	const localVarAxiosParamCreator = ChannelApiAxiosParamCreator(configuration);
 	return {
-		/**
-		 * 신규 브랜드 생성 - 사용자가 소유한 브랜드 중 동일한 이름이 있는지 검사
-		 * @summary Create Brand
-		 * @param {BrandCreate} brandCreate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async createBrand(
-			brandCreate: BrandCreate,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Brand>
-		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.createBrand(
-				brandCreate,
-				accessToken,
-				options,
-			);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["DefaultApi.createBrand"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 * 신규 카테고리 생성 - 사용자가 소유한 카테고리 중 동일한 이름이 있는지 검사 - 부모 카테고리(parent_id)가 있다면, 해당 카테고리가 존재하고 현재 사용자가 소유한 카테고리여야 함
-		 * @summary Create Category
-		 * @param {CategoryCreate} categoryCreate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async createCategory(
-			categoryCreate: CategoryCreate,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Category>
-		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.createCategory(
-				categoryCreate,
-				accessToken,
-				options,
-			);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["DefaultApi.createCategory"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
 		/**
 		 * 신규 채널 생성
 		 * @summary Create Channel
@@ -4282,334 +3122,22 @@ export const DefaultApiFp = function (configuration?: Configuration) {
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		async createChannel(
+		async channelCreateChannel(
 			salesChannelCreate: SalesChannelCreate,
 			accessToken?: string | null,
 			options?: RawAxiosRequestConfig,
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SalesChannel>
 		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.createChannel(
-				salesChannelCreate,
-				accessToken,
-				options,
-			);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["DefaultApi.createChannel"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 * 신규 채널 리스팅 생성
-		 * @summary Create Channel Listing
-		 * @param {ChannelListingCreate} channelListingCreate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async createChannelListing(
-			channelListingCreate: ChannelListingCreate,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ChannelListing>
-		> {
 			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.createChannelListing(
-					channelListingCreate,
+				await localVarAxiosParamCreator.channelCreateChannel(
+					salesChannelCreate,
 					accessToken,
 					options,
 				);
 			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
 			const localVarOperationServerBasePath =
-				operationServerMap["DefaultApi.createChannelListing"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 * 신규 인벤토리 생성
-		 * @summary Create Inventory
-		 * @param {InventoryCreate} inventoryCreate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async createInventory(
-			inventoryCreate: InventoryCreate,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Inventory>
-		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.createInventory(
-				inventoryCreate,
-				accessToken,
-				options,
-			);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["DefaultApi.createInventory"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 * 신규 재고 생성
-		 * @summary Create Invetory Transaction
-		 * @param {string} inventoryId
-		 * @param {InventoryTransactionRequest} inventoryTransactionRequest
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async createInvetoryTransaction(
-			inventoryId: string,
-			inventoryTransactionRequest: InventoryTransactionRequest,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(
-				axios?: AxiosInstance,
-				basePath?: string,
-			) => AxiosPromise<InventoryTransaction>
-		> {
-			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.createInvetoryTransaction(
-					inventoryId,
-					inventoryTransactionRequest,
-					accessToken,
-					options,
-				);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["DefaultApi.createInvetoryTransaction"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 * 신규 주문 생성
-		 * @summary Create Order
-		 * @param {OrderCreate} orderCreate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async createOrder(
-			orderCreate: OrderCreate,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Order>
-		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.createOrder(
-				orderCreate,
-				accessToken,
-				options,
-			);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["DefaultApi.createOrder"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 * 주문에 상품 추가
-		 * @summary Create Order Line Item
-		 * @param {string} orderId
-		 * @param {OrderLineItemCreate} orderLineItemCreate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async createOrderLineItem(
-			orderId: string,
-			orderLineItemCreate: OrderLineItemCreate,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrderLineItem>
-		> {
-			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.createOrderLineItem(
-					orderId,
-					orderLineItemCreate,
-					accessToken,
-					options,
-				);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["DefaultApi.createOrderLineItem"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 * 신규 상품 생성 - 사용자가 소유한 상품 중 동일한 이름이 있는지 검사
-		 * @summary Create Product
-		 * @param {ProductCreate} productCreate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async createProduct(
-			productCreate: ProductCreate,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Product>
-		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.createProduct(
-				productCreate,
-				accessToken,
-				options,
-			);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["DefaultApi.createProduct"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 * 신규 상품 옵션 생성
-		 * @summary Create Product Variant
-		 * @param {string} productId
-		 * @param {ProductVariantCreate} productVariantCreate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async createProductVariant(
-			productId: string,
-			productVariantCreate: ProductVariantCreate,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProductVariant>
-		> {
-			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.createProductVariant(
-					productId,
-					productVariantCreate,
-					accessToken,
-					options,
-				);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["DefaultApi.createProductVariant"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 * 브랜드 삭제
-		 * @summary Delete Brand
-		 * @param {string} brandId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async deleteBrand(
-			brandId: string,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Message>
-		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.deleteBrand(
-				brandId,
-				accessToken,
-				options,
-			);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["DefaultApi.deleteBrand"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 * 카테고리 삭제
-		 * @summary Delete Category
-		 * @param {string} categoryId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async deleteCategory(
-			categoryId: string,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Message>
-		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.deleteCategory(
-				categoryId,
-				accessToken,
-				options,
-			);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["DefaultApi.deleteCategory"]?.[
+				operationServerMap["ChannelApi.channelCreateChannel"]?.[
 					localVarOperationServerIndex
 				]?.url;
 			return (axios, basePath) =>
@@ -4628,324 +3156,22 @@ export const DefaultApiFp = function (configuration?: Configuration) {
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		async deleteChannel(
+		async channelDeleteChannel(
 			channelId: string,
 			accessToken?: string | null,
 			options?: RawAxiosRequestConfig,
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Message>
 		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.deleteChannel(
-				channelId,
-				accessToken,
-				options,
-			);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["DefaultApi.deleteChannel"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 * 채널 리스팅 삭제
-		 * @summary Delete Channel Listing
-		 * @param {string} channelListingId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async deleteChannelListing(
-			channelListingId: string,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Message>
-		> {
 			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.deleteChannelListing(
-					channelListingId,
+				await localVarAxiosParamCreator.channelDeleteChannel(
+					channelId,
 					accessToken,
 					options,
 				);
 			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
 			const localVarOperationServerBasePath =
-				operationServerMap["DefaultApi.deleteChannelListing"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 * 인벤토리 삭제
-		 * @summary Delete Inventory
-		 * @param {string} inventoryId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async deleteInventory(
-			inventoryId: string,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Message>
-		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.deleteInventory(
-				inventoryId,
-				accessToken,
-				options,
-			);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["DefaultApi.deleteInventory"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 * 주문의 상품 삭제
-		 * @summary Delete Order Line Item
-		 * @param {string} orderId
-		 * @param {string} lineItemId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async deleteOrderLineItem(
-			orderId: string,
-			lineItemId: string,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Message>
-		> {
-			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.deleteOrderLineItem(
-					orderId,
-					lineItemId,
-					accessToken,
-					options,
-				);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["DefaultApi.deleteOrderLineItem"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 * 상품 삭제
-		 * @summary Delete Product
-		 * @param {string} productId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async deleteProduct(
-			productId: string,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Message>
-		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.deleteProduct(
-				productId,
-				accessToken,
-				options,
-			);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["DefaultApi.deleteProduct"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 * 상품 옵션 삭제
-		 * @summary Delete Product Variant
-		 * @param {string} productId
-		 * @param {string} variantId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async deleteProductVariant(
-			productId: string,
-			variantId: string,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Message>
-		> {
-			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.deleteProductVariant(
-					productId,
-					variantId,
-					accessToken,
-					options,
-				);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["DefaultApi.deleteProductVariant"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 * 브랜드 상세 조회
-		 * @summary Read Brand
-		 * @param {string} brandId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async readBrand(
-			brandId: string,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Brand>
-		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.readBrand(
-				brandId,
-				accessToken,
-				options,
-			);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["DefaultApi.readBrand"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 * 브랜드 목록 조회
-		 * @summary Read Brands
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async readBrands(
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Brand>>
-		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.readBrands(
-				accessToken,
-				options,
-			);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["DefaultApi.readBrands"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 * 카테고리 목록 조회
-		 * @summary Read Categories
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async readCategories(
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(
-				axios?: AxiosInstance,
-				basePath?: string,
-			) => AxiosPromise<Array<Category>>
-		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.readCategories(
-				accessToken,
-				options,
-			);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["DefaultApi.readCategories"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 * 카테고리 상세 조회
-		 * @summary Read Category
-		 * @param {string} categoryId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async readCategory(
-			categoryId: string,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Category>
-		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.readCategory(
-				categoryId,
-				accessToken,
-				options,
-			);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["DefaultApi.readCategory"]?.[
+				operationServerMap["ChannelApi.channelDeleteChannel"]?.[
 					localVarOperationServerIndex
 				]?.url;
 			return (axios, basePath) =>
@@ -4964,89 +3190,22 @@ export const DefaultApiFp = function (configuration?: Configuration) {
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		async readChannel(
+		async channelReadChannel(
 			channelId: string,
 			accessToken?: string | null,
 			options?: RawAxiosRequestConfig,
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SalesChannel>
 		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.readChannel(
-				channelId,
-				accessToken,
-				options,
-			);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["DefaultApi.readChannel"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 * 채널 리스팅 상세 조회
-		 * @summary Read Channel Listing
-		 * @param {string} channelListingId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async readChannelListing(
-			channelListingId: string,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ChannelListing>
-		> {
 			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.readChannelListing(
-					channelListingId,
+				await localVarAxiosParamCreator.channelReadChannel(
+					channelId,
 					accessToken,
 					options,
 				);
 			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
 			const localVarOperationServerBasePath =
-				operationServerMap["DefaultApi.readChannelListing"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 * 채널 리스팅 목록 조회
-		 * @summary Read Channel Listings
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async readChannelListings(
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(
-				axios?: AxiosInstance,
-				basePath?: string,
-			) => AxiosPromise<Array<ChannelListing>>
-		> {
-			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.readChannelListings(
-					accessToken,
-					options,
-				);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["DefaultApi.readChannelListings"]?.[
+				operationServerMap["ChannelApi.channelReadChannel"]?.[
 					localVarOperationServerIndex
 				]?.url;
 			return (axios, basePath) =>
@@ -5060,11 +3219,13 @@ export const DefaultApiFp = function (configuration?: Configuration) {
 		/**
 		 * 채널 목록 조회
 		 * @summary Read Channels
+		 * @param {string | null} [appName]
 		 * @param {string | null} [accessToken]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		async readChannels(
+		async channelReadChannels(
+			appName?: string | null,
 			accessToken?: string | null,
 			options?: RawAxiosRequestConfig,
 		): Promise<
@@ -5073,502 +3234,15 @@ export const DefaultApiFp = function (configuration?: Configuration) {
 				basePath?: string,
 			) => AxiosPromise<Array<SalesChannel>>
 		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.readChannels(
-				accessToken,
-				options,
-			);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["DefaultApi.readChannels"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 * 인벤토리 목록 조회
-		 * @summary Read Inventories
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async readInventories(
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(
-				axios?: AxiosInstance,
-				basePath?: string,
-			) => AxiosPromise<Array<Inventory>>
-		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.readInventories(
-				accessToken,
-				options,
-			);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["DefaultApi.readInventories"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 * 인벤토리 조회
-		 * @summary Read Inventory
-		 * @param {string} inventoryId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async readInventory(
-			inventoryId: string,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Inventory>
-		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.readInventory(
-				inventoryId,
-				accessToken,
-				options,
-			);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["DefaultApi.readInventory"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 * 재고 거래 내역 상세 조회
-		 * @summary Read Inventory Transaction
-		 * @param {string} inventoryId
-		 * @param {string} transactionId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async readInventoryTransaction(
-			inventoryId: string,
-			transactionId: string,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(
-				axios?: AxiosInstance,
-				basePath?: string,
-			) => AxiosPromise<InventoryTransaction>
-		> {
 			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.readInventoryTransaction(
-					inventoryId,
-					transactionId,
+				await localVarAxiosParamCreator.channelReadChannels(
+					appName,
 					accessToken,
 					options,
 				);
 			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
 			const localVarOperationServerBasePath =
-				operationServerMap["DefaultApi.readInventoryTransaction"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 * 재고 거래 내역 조회
-		 * @summary Read Inventory Transactions
-		 * @param {string} inventoryId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async readInventoryTransactions(
-			inventoryId: string,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(
-				axios?: AxiosInstance,
-				basePath?: string,
-			) => AxiosPromise<Array<InventoryTransaction>>
-		> {
-			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.readInventoryTransactions(
-					inventoryId,
-					accessToken,
-					options,
-				);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["DefaultApi.readInventoryTransactions"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 * 주문 상세 조회
-		 * @summary Read Order
-		 * @param {string} orderId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async readOrder(
-			orderId: string,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Order>
-		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.readOrder(
-				orderId,
-				accessToken,
-				options,
-			);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["DefaultApi.readOrder"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 * 주문의 상품 상세 조회
-		 * @summary Read Order Line Item
-		 * @param {string} orderId
-		 * @param {string} lineItemId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async readOrderLineItem(
-			orderId: string,
-			lineItemId: string,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrderLineItem>
-		> {
-			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.readOrderLineItem(
-					orderId,
-					lineItemId,
-					accessToken,
-					options,
-				);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["DefaultApi.readOrderLineItem"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 * 주문의 상품 목록 조회
-		 * @summary Read Order Line Items
-		 * @param {string} orderId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async readOrderLineItems(
-			orderId: string,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(
-				axios?: AxiosInstance,
-				basePath?: string,
-			) => AxiosPromise<Array<OrderLineItem>>
-		> {
-			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.readOrderLineItems(
-					orderId,
-					accessToken,
-					options,
-				);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["DefaultApi.readOrderLineItems"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 * 주문 목록 조회
-		 * @summary Read Orders
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async readOrders(
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Order>>
-		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.readOrders(
-				accessToken,
-				options,
-			);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["DefaultApi.readOrders"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 * 상품 상세 조회
-		 * @summary Read Product
-		 * @param {string} productId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async readProduct(
-			productId: string,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Product>
-		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.readProduct(
-				productId,
-				accessToken,
-				options,
-			);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["DefaultApi.readProduct"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 * 상품 옵션 상세 조회
-		 * @summary Read Product Variant
-		 * @param {string} productId
-		 * @param {string} variantId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async readProductVariant(
-			productId: string,
-			variantId: string,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProductVariant>
-		> {
-			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.readProductVariant(
-					productId,
-					variantId,
-					accessToken,
-					options,
-				);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["DefaultApi.readProductVariant"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 * 상품 별 옵션 목록 조회
-		 * @summary Read Product Variants
-		 * @param {string} productId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async readProductVariants(
-			productId: string,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(
-				axios?: AxiosInstance,
-				basePath?: string,
-			) => AxiosPromise<Array<ProductVariant>>
-		> {
-			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.readProductVariants(
-					productId,
-					accessToken,
-					options,
-				);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["DefaultApi.readProductVariants"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 * 상품 목록 조회
-		 * @summary Read Products
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async readProducts(
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Product>>
-		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.readProducts(
-				accessToken,
-				options,
-			);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["DefaultApi.readProducts"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 * 브랜드 수정
-		 * @summary Update Brand
-		 * @param {string} brandId
-		 * @param {BrandCreate} brandCreate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async updateBrand(
-			brandId: string,
-			brandCreate: BrandCreate,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Brand>
-		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.updateBrand(
-				brandId,
-				brandCreate,
-				accessToken,
-				options,
-			);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["DefaultApi.updateBrand"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 * 카테고리 수정
-		 * @summary Update Category
-		 * @param {string} categoryId
-		 * @param {CategoryUpdate} categoryUpdate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async updateCategory(
-			categoryId: string,
-			categoryUpdate: CategoryUpdate,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Category>
-		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.updateCategory(
-				categoryId,
-				categoryUpdate,
-				accessToken,
-				options,
-			);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["DefaultApi.updateCategory"]?.[
+				operationServerMap["ChannelApi.channelReadChannels"]?.[
 					localVarOperationServerIndex
 				]?.url;
 			return (axios, basePath) =>
@@ -5588,7 +3262,7 @@ export const DefaultApiFp = function (configuration?: Configuration) {
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		async updateChannel(
+		async channelUpdateChannel(
 			channelId: string,
 			salesChannelUpdate: SalesChannelUpdate,
 			accessToken?: string | null,
@@ -5596,240 +3270,16 @@ export const DefaultApiFp = function (configuration?: Configuration) {
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SalesChannel>
 		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.updateChannel(
-				channelId,
-				salesChannelUpdate,
-				accessToken,
-				options,
-			);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["DefaultApi.updateChannel"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 * 채널 리스팅 정보 수정
-		 * @summary Update Channel Listing
-		 * @param {string} channelListingId
-		 * @param {ChannelListingUpdate} channelListingUpdate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async updateChannelListing(
-			channelListingId: string,
-			channelListingUpdate: ChannelListingUpdate,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ChannelListing>
-		> {
 			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.updateChannelListing(
-					channelListingId,
-					channelListingUpdate,
+				await localVarAxiosParamCreator.channelUpdateChannel(
+					channelId,
+					salesChannelUpdate,
 					accessToken,
 					options,
 				);
 			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
 			const localVarOperationServerBasePath =
-				operationServerMap["DefaultApi.updateChannelListing"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 * 인벤토리 정보 수정
-		 * @summary Update Inventory
-		 * @param {string} inventoryId
-		 * @param {InventoryUpdate} inventoryUpdate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async updateInventory(
-			inventoryId: string,
-			inventoryUpdate: InventoryUpdate,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Inventory>
-		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.updateInventory(
-				inventoryId,
-				inventoryUpdate,
-				accessToken,
-				options,
-			);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["DefaultApi.updateInventory"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 * 주문 수정
-		 * @summary Update Order
-		 * @param {string} orderId
-		 * @param {OrderUpdate} orderUpdate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async updateOrder(
-			orderId: string,
-			orderUpdate: OrderUpdate,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Order>
-		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.updateOrder(
-				orderId,
-				orderUpdate,
-				accessToken,
-				options,
-			);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["DefaultApi.updateOrder"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 * 주문의 상품 수정
-		 * @summary Update Order Line Item
-		 * @param {string} orderId
-		 * @param {string} lineItemId
-		 * @param {OrderLineItemUpdate} orderLineItemUpdate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async updateOrderLineItem(
-			orderId: string,
-			lineItemId: string,
-			orderLineItemUpdate: OrderLineItemUpdate,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrderLineItem>
-		> {
-			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.updateOrderLineItem(
-					orderId,
-					lineItemId,
-					orderLineItemUpdate,
-					accessToken,
-					options,
-				);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["DefaultApi.updateOrderLineItem"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 * 상품 수정
-		 * @summary Update Product
-		 * @param {string} productId
-		 * @param {ProductUpdate} productUpdate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async updateProduct(
-			productId: string,
-			productUpdate: ProductUpdate,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Product>
-		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.updateProduct(
-				productId,
-				productUpdate,
-				accessToken,
-				options,
-			);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["DefaultApi.updateProduct"]?.[
-					localVarOperationServerIndex
-				]?.url;
-			return (axios, basePath) =>
-				createRequestFunction(
-					localVarAxiosArgs,
-					globalAxios,
-					BASE_PATH,
-					configuration,
-				)(axios, localVarOperationServerBasePath || basePath);
-		},
-		/**
-		 * 상품 옵션 수정
-		 * @summary Update Product Variant
-		 * @param {string} productId
-		 * @param {string} variantId
-		 * @param {ProductVariantUpdate} productVariantUpdate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async updateProductVariant(
-			productId: string,
-			variantId: string,
-			productVariantUpdate: ProductVariantUpdate,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProductVariant>
-		> {
-			const localVarAxiosArgs =
-				await localVarAxiosParamCreator.updateProductVariant(
-					productId,
-					variantId,
-					productVariantUpdate,
-					accessToken,
-					options,
-				);
-			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-			const localVarOperationServerBasePath =
-				operationServerMap["DefaultApi.updateProductVariant"]?.[
+				operationServerMap["ChannelApi.channelUpdateChannel"]?.[
 					localVarOperationServerIndex
 				]?.url;
 			return (axios, basePath) =>
@@ -5844,50 +3294,16 @@ export const DefaultApiFp = function (configuration?: Configuration) {
 };
 
 /**
- * DefaultApi - factory interface
+ * ChannelApi - factory interface
  * @export
  */
-export const DefaultApiFactory = function (
+export const ChannelApiFactory = function (
 	configuration?: Configuration,
 	basePath?: string,
 	axios?: AxiosInstance,
 ) {
-	const localVarFp = DefaultApiFp(configuration);
+	const localVarFp = ChannelApiFp(configuration);
 	return {
-		/**
-		 * 신규 브랜드 생성 - 사용자가 소유한 브랜드 중 동일한 이름이 있는지 검사
-		 * @summary Create Brand
-		 * @param {BrandCreate} brandCreate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		createBrand(
-			brandCreate: BrandCreate,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<Brand> {
-			return localVarFp
-				.createBrand(brandCreate, accessToken, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 * 신규 카테고리 생성 - 사용자가 소유한 카테고리 중 동일한 이름이 있는지 검사 - 부모 카테고리(parent_id)가 있다면, 해당 카테고리가 존재하고 현재 사용자가 소유한 카테고리여야 함
-		 * @summary Create Category
-		 * @param {CategoryCreate} categoryCreate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		createCategory(
-			categoryCreate: CategoryCreate,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<Category> {
-			return localVarFp
-				.createCategory(categoryCreate, accessToken, options)
-				.then((request) => request(axios, basePath));
-		},
 		/**
 		 * 신규 채널 생성
 		 * @summary Create Channel
@@ -5896,182 +3312,13 @@ export const DefaultApiFactory = function (
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		createChannel(
+		channelCreateChannel(
 			salesChannelCreate: SalesChannelCreate,
 			accessToken?: string | null,
 			options?: RawAxiosRequestConfig,
 		): AxiosPromise<SalesChannel> {
 			return localVarFp
-				.createChannel(salesChannelCreate, accessToken, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 * 신규 채널 리스팅 생성
-		 * @summary Create Channel Listing
-		 * @param {ChannelListingCreate} channelListingCreate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		createChannelListing(
-			channelListingCreate: ChannelListingCreate,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<ChannelListing> {
-			return localVarFp
-				.createChannelListing(channelListingCreate, accessToken, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 * 신규 인벤토리 생성
-		 * @summary Create Inventory
-		 * @param {InventoryCreate} inventoryCreate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		createInventory(
-			inventoryCreate: InventoryCreate,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<Inventory> {
-			return localVarFp
-				.createInventory(inventoryCreate, accessToken, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 * 신규 재고 생성
-		 * @summary Create Invetory Transaction
-		 * @param {string} inventoryId
-		 * @param {InventoryTransactionRequest} inventoryTransactionRequest
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		createInvetoryTransaction(
-			inventoryId: string,
-			inventoryTransactionRequest: InventoryTransactionRequest,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<InventoryTransaction> {
-			return localVarFp
-				.createInvetoryTransaction(
-					inventoryId,
-					inventoryTransactionRequest,
-					accessToken,
-					options,
-				)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 * 신규 주문 생성
-		 * @summary Create Order
-		 * @param {OrderCreate} orderCreate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		createOrder(
-			orderCreate: OrderCreate,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<Order> {
-			return localVarFp
-				.createOrder(orderCreate, accessToken, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 * 주문에 상품 추가
-		 * @summary Create Order Line Item
-		 * @param {string} orderId
-		 * @param {OrderLineItemCreate} orderLineItemCreate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		createOrderLineItem(
-			orderId: string,
-			orderLineItemCreate: OrderLineItemCreate,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<OrderLineItem> {
-			return localVarFp
-				.createOrderLineItem(orderId, orderLineItemCreate, accessToken, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 * 신규 상품 생성 - 사용자가 소유한 상품 중 동일한 이름이 있는지 검사
-		 * @summary Create Product
-		 * @param {ProductCreate} productCreate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		createProduct(
-			productCreate: ProductCreate,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<Product> {
-			return localVarFp
-				.createProduct(productCreate, accessToken, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 * 신규 상품 옵션 생성
-		 * @summary Create Product Variant
-		 * @param {string} productId
-		 * @param {ProductVariantCreate} productVariantCreate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		createProductVariant(
-			productId: string,
-			productVariantCreate: ProductVariantCreate,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<ProductVariant> {
-			return localVarFp
-				.createProductVariant(
-					productId,
-					productVariantCreate,
-					accessToken,
-					options,
-				)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 * 브랜드 삭제
-		 * @summary Delete Brand
-		 * @param {string} brandId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		deleteBrand(
-			brandId: string,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<Message> {
-			return localVarFp
-				.deleteBrand(brandId, accessToken, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 * 카테고리 삭제
-		 * @summary Delete Category
-		 * @param {string} categoryId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		deleteCategory(
-			categoryId: string,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<Message> {
-			return localVarFp
-				.deleteCategory(categoryId, accessToken, options)
+				.channelCreateChannel(salesChannelCreate, accessToken, options)
 				.then((request) => request(axios, basePath));
 		},
 		/**
@@ -6082,166 +3329,13 @@ export const DefaultApiFactory = function (
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		deleteChannel(
+		channelDeleteChannel(
 			channelId: string,
 			accessToken?: string | null,
 			options?: RawAxiosRequestConfig,
 		): AxiosPromise<Message> {
 			return localVarFp
-				.deleteChannel(channelId, accessToken, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 * 채널 리스팅 삭제
-		 * @summary Delete Channel Listing
-		 * @param {string} channelListingId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		deleteChannelListing(
-			channelListingId: string,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<Message> {
-			return localVarFp
-				.deleteChannelListing(channelListingId, accessToken, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 * 인벤토리 삭제
-		 * @summary Delete Inventory
-		 * @param {string} inventoryId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		deleteInventory(
-			inventoryId: string,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<Message> {
-			return localVarFp
-				.deleteInventory(inventoryId, accessToken, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 * 주문의 상품 삭제
-		 * @summary Delete Order Line Item
-		 * @param {string} orderId
-		 * @param {string} lineItemId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		deleteOrderLineItem(
-			orderId: string,
-			lineItemId: string,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<Message> {
-			return localVarFp
-				.deleteOrderLineItem(orderId, lineItemId, accessToken, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 * 상품 삭제
-		 * @summary Delete Product
-		 * @param {string} productId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		deleteProduct(
-			productId: string,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<Message> {
-			return localVarFp
-				.deleteProduct(productId, accessToken, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 * 상품 옵션 삭제
-		 * @summary Delete Product Variant
-		 * @param {string} productId
-		 * @param {string} variantId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		deleteProductVariant(
-			productId: string,
-			variantId: string,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<Message> {
-			return localVarFp
-				.deleteProductVariant(productId, variantId, accessToken, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 * 브랜드 상세 조회
-		 * @summary Read Brand
-		 * @param {string} brandId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		readBrand(
-			brandId: string,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<Brand> {
-			return localVarFp
-				.readBrand(brandId, accessToken, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 * 브랜드 목록 조회
-		 * @summary Read Brands
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		readBrands(
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<Array<Brand>> {
-			return localVarFp
-				.readBrands(accessToken, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 * 카테고리 목록 조회
-		 * @summary Read Categories
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		readCategories(
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<Array<Category>> {
-			return localVarFp
-				.readCategories(accessToken, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 * 카테고리 상세 조회
-		 * @summary Read Category
-		 * @param {string} categoryId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		readCategory(
-			categoryId: string,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<Category> {
-			return localVarFp
-				.readCategory(categoryId, accessToken, options)
+				.channelDeleteChannel(channelId, accessToken, options)
 				.then((request) => request(axios, basePath));
 		},
 		/**
@@ -6252,307 +3346,30 @@ export const DefaultApiFactory = function (
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		readChannel(
+		channelReadChannel(
 			channelId: string,
 			accessToken?: string | null,
 			options?: RawAxiosRequestConfig,
 		): AxiosPromise<SalesChannel> {
 			return localVarFp
-				.readChannel(channelId, accessToken, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 * 채널 리스팅 상세 조회
-		 * @summary Read Channel Listing
-		 * @param {string} channelListingId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		readChannelListing(
-			channelListingId: string,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<ChannelListing> {
-			return localVarFp
-				.readChannelListing(channelListingId, accessToken, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 * 채널 리스팅 목록 조회
-		 * @summary Read Channel Listings
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		readChannelListings(
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<Array<ChannelListing>> {
-			return localVarFp
-				.readChannelListings(accessToken, options)
+				.channelReadChannel(channelId, accessToken, options)
 				.then((request) => request(axios, basePath));
 		},
 		/**
 		 * 채널 목록 조회
 		 * @summary Read Channels
+		 * @param {string | null} [appName]
 		 * @param {string | null} [accessToken]
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		readChannels(
+		channelReadChannels(
+			appName?: string | null,
 			accessToken?: string | null,
 			options?: RawAxiosRequestConfig,
 		): AxiosPromise<Array<SalesChannel>> {
 			return localVarFp
-				.readChannels(accessToken, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 * 인벤토리 목록 조회
-		 * @summary Read Inventories
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		readInventories(
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<Array<Inventory>> {
-			return localVarFp
-				.readInventories(accessToken, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 * 인벤토리 조회
-		 * @summary Read Inventory
-		 * @param {string} inventoryId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		readInventory(
-			inventoryId: string,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<Inventory> {
-			return localVarFp
-				.readInventory(inventoryId, accessToken, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 * 재고 거래 내역 상세 조회
-		 * @summary Read Inventory Transaction
-		 * @param {string} inventoryId
-		 * @param {string} transactionId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		readInventoryTransaction(
-			inventoryId: string,
-			transactionId: string,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<InventoryTransaction> {
-			return localVarFp
-				.readInventoryTransaction(
-					inventoryId,
-					transactionId,
-					accessToken,
-					options,
-				)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 * 재고 거래 내역 조회
-		 * @summary Read Inventory Transactions
-		 * @param {string} inventoryId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		readInventoryTransactions(
-			inventoryId: string,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<Array<InventoryTransaction>> {
-			return localVarFp
-				.readInventoryTransactions(inventoryId, accessToken, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 * 주문 상세 조회
-		 * @summary Read Order
-		 * @param {string} orderId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		readOrder(
-			orderId: string,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<Order> {
-			return localVarFp
-				.readOrder(orderId, accessToken, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 * 주문의 상품 상세 조회
-		 * @summary Read Order Line Item
-		 * @param {string} orderId
-		 * @param {string} lineItemId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		readOrderLineItem(
-			orderId: string,
-			lineItemId: string,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<OrderLineItem> {
-			return localVarFp
-				.readOrderLineItem(orderId, lineItemId, accessToken, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 * 주문의 상품 목록 조회
-		 * @summary Read Order Line Items
-		 * @param {string} orderId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		readOrderLineItems(
-			orderId: string,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<Array<OrderLineItem>> {
-			return localVarFp
-				.readOrderLineItems(orderId, accessToken, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 * 주문 목록 조회
-		 * @summary Read Orders
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		readOrders(
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<Array<Order>> {
-			return localVarFp
-				.readOrders(accessToken, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 * 상품 상세 조회
-		 * @summary Read Product
-		 * @param {string} productId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		readProduct(
-			productId: string,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<Product> {
-			return localVarFp
-				.readProduct(productId, accessToken, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 * 상품 옵션 상세 조회
-		 * @summary Read Product Variant
-		 * @param {string} productId
-		 * @param {string} variantId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		readProductVariant(
-			productId: string,
-			variantId: string,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<ProductVariant> {
-			return localVarFp
-				.readProductVariant(productId, variantId, accessToken, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 * 상품 별 옵션 목록 조회
-		 * @summary Read Product Variants
-		 * @param {string} productId
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		readProductVariants(
-			productId: string,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<Array<ProductVariant>> {
-			return localVarFp
-				.readProductVariants(productId, accessToken, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 * 상품 목록 조회
-		 * @summary Read Products
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		readProducts(
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<Array<Product>> {
-			return localVarFp
-				.readProducts(accessToken, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 * 브랜드 수정
-		 * @summary Update Brand
-		 * @param {string} brandId
-		 * @param {BrandCreate} brandCreate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		updateBrand(
-			brandId: string,
-			brandCreate: BrandCreate,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<Brand> {
-			return localVarFp
-				.updateBrand(brandId, brandCreate, accessToken, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 * 카테고리 수정
-		 * @summary Update Category
-		 * @param {string} categoryId
-		 * @param {CategoryUpdate} categoryUpdate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		updateCategory(
-			categoryId: string,
-			categoryUpdate: CategoryUpdate,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<Category> {
-			return localVarFp
-				.updateCategory(categoryId, categoryUpdate, accessToken, options)
+				.channelReadChannels(appName, accessToken, options)
 				.then((request) => request(axios, basePath));
 		},
 		/**
@@ -6564,146 +3381,16 @@ export const DefaultApiFactory = function (
 		 * @param {*} [options] Override http request option.
 		 * @throws {RequiredError}
 		 */
-		updateChannel(
+		channelUpdateChannel(
 			channelId: string,
 			salesChannelUpdate: SalesChannelUpdate,
 			accessToken?: string | null,
 			options?: RawAxiosRequestConfig,
 		): AxiosPromise<SalesChannel> {
 			return localVarFp
-				.updateChannel(channelId, salesChannelUpdate, accessToken, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 * 채널 리스팅 정보 수정
-		 * @summary Update Channel Listing
-		 * @param {string} channelListingId
-		 * @param {ChannelListingUpdate} channelListingUpdate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		updateChannelListing(
-			channelListingId: string,
-			channelListingUpdate: ChannelListingUpdate,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<ChannelListing> {
-			return localVarFp
-				.updateChannelListing(
-					channelListingId,
-					channelListingUpdate,
-					accessToken,
-					options,
-				)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 * 인벤토리 정보 수정
-		 * @summary Update Inventory
-		 * @param {string} inventoryId
-		 * @param {InventoryUpdate} inventoryUpdate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		updateInventory(
-			inventoryId: string,
-			inventoryUpdate: InventoryUpdate,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<Inventory> {
-			return localVarFp
-				.updateInventory(inventoryId, inventoryUpdate, accessToken, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 * 주문 수정
-		 * @summary Update Order
-		 * @param {string} orderId
-		 * @param {OrderUpdate} orderUpdate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		updateOrder(
-			orderId: string,
-			orderUpdate: OrderUpdate,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<Order> {
-			return localVarFp
-				.updateOrder(orderId, orderUpdate, accessToken, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 * 주문의 상품 수정
-		 * @summary Update Order Line Item
-		 * @param {string} orderId
-		 * @param {string} lineItemId
-		 * @param {OrderLineItemUpdate} orderLineItemUpdate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		updateOrderLineItem(
-			orderId: string,
-			lineItemId: string,
-			orderLineItemUpdate: OrderLineItemUpdate,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<OrderLineItem> {
-			return localVarFp
-				.updateOrderLineItem(
-					orderId,
-					lineItemId,
-					orderLineItemUpdate,
-					accessToken,
-					options,
-				)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 * 상품 수정
-		 * @summary Update Product
-		 * @param {string} productId
-		 * @param {ProductUpdate} productUpdate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		updateProduct(
-			productId: string,
-			productUpdate: ProductUpdate,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<Product> {
-			return localVarFp
-				.updateProduct(productId, productUpdate, accessToken, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 * 상품 옵션 수정
-		 * @summary Update Product Variant
-		 * @param {string} productId
-		 * @param {string} variantId
-		 * @param {ProductVariantUpdate} productVariantUpdate
-		 * @param {string | null} [accessToken]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		updateProductVariant(
-			productId: string,
-			variantId: string,
-			productVariantUpdate: ProductVariantUpdate,
-			accessToken?: string | null,
-			options?: RawAxiosRequestConfig,
-		): AxiosPromise<ProductVariant> {
-			return localVarFp
-				.updateProductVariant(
-					productId,
-					variantId,
-					productVariantUpdate,
+				.channelUpdateChannel(
+					channelId,
+					salesChannelUpdate,
 					accessToken,
 					options,
 				)
@@ -6713,50 +3400,12 @@ export const DefaultApiFactory = function (
 };
 
 /**
- * DefaultApi - object-oriented interface
+ * ChannelApi - object-oriented interface
  * @export
- * @class DefaultApi
+ * @class ChannelApi
  * @extends {BaseAPI}
  */
-export class DefaultApi extends BaseAPI {
-	/**
-	 * 신규 브랜드 생성 - 사용자가 소유한 브랜드 중 동일한 이름이 있는지 검사
-	 * @summary Create Brand
-	 * @param {BrandCreate} brandCreate
-	 * @param {string | null} [accessToken]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof DefaultApi
-	 */
-	public createBrand(
-		brandCreate: BrandCreate,
-		accessToken?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
-		return DefaultApiFp(this.configuration)
-			.createBrand(brandCreate, accessToken, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 * 신규 카테고리 생성 - 사용자가 소유한 카테고리 중 동일한 이름이 있는지 검사 - 부모 카테고리(parent_id)가 있다면, 해당 카테고리가 존재하고 현재 사용자가 소유한 카테고리여야 함
-	 * @summary Create Category
-	 * @param {CategoryCreate} categoryCreate
-	 * @param {string | null} [accessToken]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof DefaultApi
-	 */
-	public createCategory(
-		categoryCreate: CategoryCreate,
-		accessToken?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
-		return DefaultApiFp(this.configuration)
-			.createCategory(categoryCreate, accessToken, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
+export class ChannelApi extends BaseAPI {
 	/**
 	 * 신규 채널 생성
 	 * @summary Create Channel
@@ -6764,202 +3413,15 @@ export class DefaultApi extends BaseAPI {
 	 * @param {string | null} [accessToken]
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
-	 * @memberof DefaultApi
+	 * @memberof ChannelApi
 	 */
-	public createChannel(
+	public channelCreateChannel(
 		salesChannelCreate: SalesChannelCreate,
 		accessToken?: string | null,
 		options?: RawAxiosRequestConfig,
 	) {
-		return DefaultApiFp(this.configuration)
-			.createChannel(salesChannelCreate, accessToken, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 * 신규 채널 리스팅 생성
-	 * @summary Create Channel Listing
-	 * @param {ChannelListingCreate} channelListingCreate
-	 * @param {string | null} [accessToken]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof DefaultApi
-	 */
-	public createChannelListing(
-		channelListingCreate: ChannelListingCreate,
-		accessToken?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
-		return DefaultApiFp(this.configuration)
-			.createChannelListing(channelListingCreate, accessToken, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 * 신규 인벤토리 생성
-	 * @summary Create Inventory
-	 * @param {InventoryCreate} inventoryCreate
-	 * @param {string | null} [accessToken]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof DefaultApi
-	 */
-	public createInventory(
-		inventoryCreate: InventoryCreate,
-		accessToken?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
-		return DefaultApiFp(this.configuration)
-			.createInventory(inventoryCreate, accessToken, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 * 신규 재고 생성
-	 * @summary Create Invetory Transaction
-	 * @param {string} inventoryId
-	 * @param {InventoryTransactionRequest} inventoryTransactionRequest
-	 * @param {string | null} [accessToken]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof DefaultApi
-	 */
-	public createInvetoryTransaction(
-		inventoryId: string,
-		inventoryTransactionRequest: InventoryTransactionRequest,
-		accessToken?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
-		return DefaultApiFp(this.configuration)
-			.createInvetoryTransaction(
-				inventoryId,
-				inventoryTransactionRequest,
-				accessToken,
-				options,
-			)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 * 신규 주문 생성
-	 * @summary Create Order
-	 * @param {OrderCreate} orderCreate
-	 * @param {string | null} [accessToken]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof DefaultApi
-	 */
-	public createOrder(
-		orderCreate: OrderCreate,
-		accessToken?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
-		return DefaultApiFp(this.configuration)
-			.createOrder(orderCreate, accessToken, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 * 주문에 상품 추가
-	 * @summary Create Order Line Item
-	 * @param {string} orderId
-	 * @param {OrderLineItemCreate} orderLineItemCreate
-	 * @param {string | null} [accessToken]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof DefaultApi
-	 */
-	public createOrderLineItem(
-		orderId: string,
-		orderLineItemCreate: OrderLineItemCreate,
-		accessToken?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
-		return DefaultApiFp(this.configuration)
-			.createOrderLineItem(orderId, orderLineItemCreate, accessToken, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 * 신규 상품 생성 - 사용자가 소유한 상품 중 동일한 이름이 있는지 검사
-	 * @summary Create Product
-	 * @param {ProductCreate} productCreate
-	 * @param {string | null} [accessToken]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof DefaultApi
-	 */
-	public createProduct(
-		productCreate: ProductCreate,
-		accessToken?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
-		return DefaultApiFp(this.configuration)
-			.createProduct(productCreate, accessToken, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 * 신규 상품 옵션 생성
-	 * @summary Create Product Variant
-	 * @param {string} productId
-	 * @param {ProductVariantCreate} productVariantCreate
-	 * @param {string | null} [accessToken]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof DefaultApi
-	 */
-	public createProductVariant(
-		productId: string,
-		productVariantCreate: ProductVariantCreate,
-		accessToken?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
-		return DefaultApiFp(this.configuration)
-			.createProductVariant(
-				productId,
-				productVariantCreate,
-				accessToken,
-				options,
-			)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 * 브랜드 삭제
-	 * @summary Delete Brand
-	 * @param {string} brandId
-	 * @param {string | null} [accessToken]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof DefaultApi
-	 */
-	public deleteBrand(
-		brandId: string,
-		accessToken?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
-		return DefaultApiFp(this.configuration)
-			.deleteBrand(brandId, accessToken, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 * 카테고리 삭제
-	 * @summary Delete Category
-	 * @param {string} categoryId
-	 * @param {string | null} [accessToken]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof DefaultApi
-	 */
-	public deleteCategory(
-		categoryId: string,
-		accessToken?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
-		return DefaultApiFp(this.configuration)
-			.deleteCategory(categoryId, accessToken, options)
+		return ChannelApiFp(this.configuration)
+			.channelCreateChannel(salesChannelCreate, accessToken, options)
 			.then((request) => request(this.axios, this.basePath));
 	}
 
@@ -6970,186 +3432,15 @@ export class DefaultApi extends BaseAPI {
 	 * @param {string | null} [accessToken]
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
-	 * @memberof DefaultApi
+	 * @memberof ChannelApi
 	 */
-	public deleteChannel(
+	public channelDeleteChannel(
 		channelId: string,
 		accessToken?: string | null,
 		options?: RawAxiosRequestConfig,
 	) {
-		return DefaultApiFp(this.configuration)
-			.deleteChannel(channelId, accessToken, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 * 채널 리스팅 삭제
-	 * @summary Delete Channel Listing
-	 * @param {string} channelListingId
-	 * @param {string | null} [accessToken]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof DefaultApi
-	 */
-	public deleteChannelListing(
-		channelListingId: string,
-		accessToken?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
-		return DefaultApiFp(this.configuration)
-			.deleteChannelListing(channelListingId, accessToken, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 * 인벤토리 삭제
-	 * @summary Delete Inventory
-	 * @param {string} inventoryId
-	 * @param {string | null} [accessToken]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof DefaultApi
-	 */
-	public deleteInventory(
-		inventoryId: string,
-		accessToken?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
-		return DefaultApiFp(this.configuration)
-			.deleteInventory(inventoryId, accessToken, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 * 주문의 상품 삭제
-	 * @summary Delete Order Line Item
-	 * @param {string} orderId
-	 * @param {string} lineItemId
-	 * @param {string | null} [accessToken]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof DefaultApi
-	 */
-	public deleteOrderLineItem(
-		orderId: string,
-		lineItemId: string,
-		accessToken?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
-		return DefaultApiFp(this.configuration)
-			.deleteOrderLineItem(orderId, lineItemId, accessToken, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 * 상품 삭제
-	 * @summary Delete Product
-	 * @param {string} productId
-	 * @param {string | null} [accessToken]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof DefaultApi
-	 */
-	public deleteProduct(
-		productId: string,
-		accessToken?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
-		return DefaultApiFp(this.configuration)
-			.deleteProduct(productId, accessToken, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 * 상품 옵션 삭제
-	 * @summary Delete Product Variant
-	 * @param {string} productId
-	 * @param {string} variantId
-	 * @param {string | null} [accessToken]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof DefaultApi
-	 */
-	public deleteProductVariant(
-		productId: string,
-		variantId: string,
-		accessToken?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
-		return DefaultApiFp(this.configuration)
-			.deleteProductVariant(productId, variantId, accessToken, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 * 브랜드 상세 조회
-	 * @summary Read Brand
-	 * @param {string} brandId
-	 * @param {string | null} [accessToken]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof DefaultApi
-	 */
-	public readBrand(
-		brandId: string,
-		accessToken?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
-		return DefaultApiFp(this.configuration)
-			.readBrand(brandId, accessToken, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 * 브랜드 목록 조회
-	 * @summary Read Brands
-	 * @param {string | null} [accessToken]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof DefaultApi
-	 */
-	public readBrands(
-		accessToken?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
-		return DefaultApiFp(this.configuration)
-			.readBrands(accessToken, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 * 카테고리 목록 조회
-	 * @summary Read Categories
-	 * @param {string | null} [accessToken]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof DefaultApi
-	 */
-	public readCategories(
-		accessToken?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
-		return DefaultApiFp(this.configuration)
-			.readCategories(accessToken, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 * 카테고리 상세 조회
-	 * @summary Read Category
-	 * @param {string} categoryId
-	 * @param {string | null} [accessToken]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof DefaultApi
-	 */
-	public readCategory(
-		categoryId: string,
-		accessToken?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
-		return DefaultApiFp(this.configuration)
-			.readCategory(categoryId, accessToken, options)
+		return ChannelApiFp(this.configuration)
+			.channelDeleteChannel(channelId, accessToken, options)
 			.then((request) => request(this.axios, this.basePath));
 	}
 
@@ -7160,343 +3451,34 @@ export class DefaultApi extends BaseAPI {
 	 * @param {string | null} [accessToken]
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
-	 * @memberof DefaultApi
+	 * @memberof ChannelApi
 	 */
-	public readChannel(
+	public channelReadChannel(
 		channelId: string,
 		accessToken?: string | null,
 		options?: RawAxiosRequestConfig,
 	) {
-		return DefaultApiFp(this.configuration)
-			.readChannel(channelId, accessToken, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 * 채널 리스팅 상세 조회
-	 * @summary Read Channel Listing
-	 * @param {string} channelListingId
-	 * @param {string | null} [accessToken]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof DefaultApi
-	 */
-	public readChannelListing(
-		channelListingId: string,
-		accessToken?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
-		return DefaultApiFp(this.configuration)
-			.readChannelListing(channelListingId, accessToken, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 * 채널 리스팅 목록 조회
-	 * @summary Read Channel Listings
-	 * @param {string | null} [accessToken]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof DefaultApi
-	 */
-	public readChannelListings(
-		accessToken?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
-		return DefaultApiFp(this.configuration)
-			.readChannelListings(accessToken, options)
+		return ChannelApiFp(this.configuration)
+			.channelReadChannel(channelId, accessToken, options)
 			.then((request) => request(this.axios, this.basePath));
 	}
 
 	/**
 	 * 채널 목록 조회
 	 * @summary Read Channels
+	 * @param {string | null} [appName]
 	 * @param {string | null} [accessToken]
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
-	 * @memberof DefaultApi
+	 * @memberof ChannelApi
 	 */
-	public readChannels(
+	public channelReadChannels(
+		appName?: string | null,
 		accessToken?: string | null,
 		options?: RawAxiosRequestConfig,
 	) {
-		return DefaultApiFp(this.configuration)
-			.readChannels(accessToken, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 * 인벤토리 목록 조회
-	 * @summary Read Inventories
-	 * @param {string | null} [accessToken]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof DefaultApi
-	 */
-	public readInventories(
-		accessToken?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
-		return DefaultApiFp(this.configuration)
-			.readInventories(accessToken, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 * 인벤토리 조회
-	 * @summary Read Inventory
-	 * @param {string} inventoryId
-	 * @param {string | null} [accessToken]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof DefaultApi
-	 */
-	public readInventory(
-		inventoryId: string,
-		accessToken?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
-		return DefaultApiFp(this.configuration)
-			.readInventory(inventoryId, accessToken, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 * 재고 거래 내역 상세 조회
-	 * @summary Read Inventory Transaction
-	 * @param {string} inventoryId
-	 * @param {string} transactionId
-	 * @param {string | null} [accessToken]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof DefaultApi
-	 */
-	public readInventoryTransaction(
-		inventoryId: string,
-		transactionId: string,
-		accessToken?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
-		return DefaultApiFp(this.configuration)
-			.readInventoryTransaction(
-				inventoryId,
-				transactionId,
-				accessToken,
-				options,
-			)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 * 재고 거래 내역 조회
-	 * @summary Read Inventory Transactions
-	 * @param {string} inventoryId
-	 * @param {string | null} [accessToken]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof DefaultApi
-	 */
-	public readInventoryTransactions(
-		inventoryId: string,
-		accessToken?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
-		return DefaultApiFp(this.configuration)
-			.readInventoryTransactions(inventoryId, accessToken, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 * 주문 상세 조회
-	 * @summary Read Order
-	 * @param {string} orderId
-	 * @param {string | null} [accessToken]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof DefaultApi
-	 */
-	public readOrder(
-		orderId: string,
-		accessToken?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
-		return DefaultApiFp(this.configuration)
-			.readOrder(orderId, accessToken, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 * 주문의 상품 상세 조회
-	 * @summary Read Order Line Item
-	 * @param {string} orderId
-	 * @param {string} lineItemId
-	 * @param {string | null} [accessToken]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof DefaultApi
-	 */
-	public readOrderLineItem(
-		orderId: string,
-		lineItemId: string,
-		accessToken?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
-		return DefaultApiFp(this.configuration)
-			.readOrderLineItem(orderId, lineItemId, accessToken, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 * 주문의 상품 목록 조회
-	 * @summary Read Order Line Items
-	 * @param {string} orderId
-	 * @param {string | null} [accessToken]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof DefaultApi
-	 */
-	public readOrderLineItems(
-		orderId: string,
-		accessToken?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
-		return DefaultApiFp(this.configuration)
-			.readOrderLineItems(orderId, accessToken, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 * 주문 목록 조회
-	 * @summary Read Orders
-	 * @param {string | null} [accessToken]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof DefaultApi
-	 */
-	public readOrders(
-		accessToken?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
-		return DefaultApiFp(this.configuration)
-			.readOrders(accessToken, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 * 상품 상세 조회
-	 * @summary Read Product
-	 * @param {string} productId
-	 * @param {string | null} [accessToken]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof DefaultApi
-	 */
-	public readProduct(
-		productId: string,
-		accessToken?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
-		return DefaultApiFp(this.configuration)
-			.readProduct(productId, accessToken, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 * 상품 옵션 상세 조회
-	 * @summary Read Product Variant
-	 * @param {string} productId
-	 * @param {string} variantId
-	 * @param {string | null} [accessToken]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof DefaultApi
-	 */
-	public readProductVariant(
-		productId: string,
-		variantId: string,
-		accessToken?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
-		return DefaultApiFp(this.configuration)
-			.readProductVariant(productId, variantId, accessToken, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 * 상품 별 옵션 목록 조회
-	 * @summary Read Product Variants
-	 * @param {string} productId
-	 * @param {string | null} [accessToken]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof DefaultApi
-	 */
-	public readProductVariants(
-		productId: string,
-		accessToken?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
-		return DefaultApiFp(this.configuration)
-			.readProductVariants(productId, accessToken, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 * 상품 목록 조회
-	 * @summary Read Products
-	 * @param {string | null} [accessToken]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof DefaultApi
-	 */
-	public readProducts(
-		accessToken?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
-		return DefaultApiFp(this.configuration)
-			.readProducts(accessToken, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 * 브랜드 수정
-	 * @summary Update Brand
-	 * @param {string} brandId
-	 * @param {BrandCreate} brandCreate
-	 * @param {string | null} [accessToken]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof DefaultApi
-	 */
-	public updateBrand(
-		brandId: string,
-		brandCreate: BrandCreate,
-		accessToken?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
-		return DefaultApiFp(this.configuration)
-			.updateBrand(brandId, brandCreate, accessToken, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 * 카테고리 수정
-	 * @summary Update Category
-	 * @param {string} categoryId
-	 * @param {CategoryUpdate} categoryUpdate
-	 * @param {string | null} [accessToken]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof DefaultApi
-	 */
-	public updateCategory(
-		categoryId: string,
-		categoryUpdate: CategoryUpdate,
-		accessToken?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
-		return DefaultApiFp(this.configuration)
-			.updateCategory(categoryId, categoryUpdate, accessToken, options)
+		return ChannelApiFp(this.configuration)
+			.channelReadChannels(appName, accessToken, options)
 			.then((request) => request(this.axios, this.basePath));
 	}
 
@@ -7508,163 +3490,16 @@ export class DefaultApi extends BaseAPI {
 	 * @param {string | null} [accessToken]
 	 * @param {*} [options] Override http request option.
 	 * @throws {RequiredError}
-	 * @memberof DefaultApi
+	 * @memberof ChannelApi
 	 */
-	public updateChannel(
+	public channelUpdateChannel(
 		channelId: string,
 		salesChannelUpdate: SalesChannelUpdate,
 		accessToken?: string | null,
 		options?: RawAxiosRequestConfig,
 	) {
-		return DefaultApiFp(this.configuration)
-			.updateChannel(channelId, salesChannelUpdate, accessToken, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 * 채널 리스팅 정보 수정
-	 * @summary Update Channel Listing
-	 * @param {string} channelListingId
-	 * @param {ChannelListingUpdate} channelListingUpdate
-	 * @param {string | null} [accessToken]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof DefaultApi
-	 */
-	public updateChannelListing(
-		channelListingId: string,
-		channelListingUpdate: ChannelListingUpdate,
-		accessToken?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
-		return DefaultApiFp(this.configuration)
-			.updateChannelListing(
-				channelListingId,
-				channelListingUpdate,
-				accessToken,
-				options,
-			)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 * 인벤토리 정보 수정
-	 * @summary Update Inventory
-	 * @param {string} inventoryId
-	 * @param {InventoryUpdate} inventoryUpdate
-	 * @param {string | null} [accessToken]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof DefaultApi
-	 */
-	public updateInventory(
-		inventoryId: string,
-		inventoryUpdate: InventoryUpdate,
-		accessToken?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
-		return DefaultApiFp(this.configuration)
-			.updateInventory(inventoryId, inventoryUpdate, accessToken, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 * 주문 수정
-	 * @summary Update Order
-	 * @param {string} orderId
-	 * @param {OrderUpdate} orderUpdate
-	 * @param {string | null} [accessToken]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof DefaultApi
-	 */
-	public updateOrder(
-		orderId: string,
-		orderUpdate: OrderUpdate,
-		accessToken?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
-		return DefaultApiFp(this.configuration)
-			.updateOrder(orderId, orderUpdate, accessToken, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 * 주문의 상품 수정
-	 * @summary Update Order Line Item
-	 * @param {string} orderId
-	 * @param {string} lineItemId
-	 * @param {OrderLineItemUpdate} orderLineItemUpdate
-	 * @param {string | null} [accessToken]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof DefaultApi
-	 */
-	public updateOrderLineItem(
-		orderId: string,
-		lineItemId: string,
-		orderLineItemUpdate: OrderLineItemUpdate,
-		accessToken?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
-		return DefaultApiFp(this.configuration)
-			.updateOrderLineItem(
-				orderId,
-				lineItemId,
-				orderLineItemUpdate,
-				accessToken,
-				options,
-			)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 * 상품 수정
-	 * @summary Update Product
-	 * @param {string} productId
-	 * @param {ProductUpdate} productUpdate
-	 * @param {string | null} [accessToken]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof DefaultApi
-	 */
-	public updateProduct(
-		productId: string,
-		productUpdate: ProductUpdate,
-		accessToken?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
-		return DefaultApiFp(this.configuration)
-			.updateProduct(productId, productUpdate, accessToken, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 * 상품 옵션 수정
-	 * @summary Update Product Variant
-	 * @param {string} productId
-	 * @param {string} variantId
-	 * @param {ProductVariantUpdate} productVariantUpdate
-	 * @param {string | null} [accessToken]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof DefaultApi
-	 */
-	public updateProductVariant(
-		productId: string,
-		variantId: string,
-		productVariantUpdate: ProductVariantUpdate,
-		accessToken?: string | null,
-		options?: RawAxiosRequestConfig,
-	) {
-		return DefaultApiFp(this.configuration)
-			.updateProductVariant(
-				productId,
-				variantId,
-				productVariantUpdate,
-				accessToken,
-				options,
-			)
+		return ChannelApiFp(this.configuration)
+			.channelUpdateChannel(channelId, salesChannelUpdate, accessToken, options)
 			.then((request) => request(this.axios, this.basePath));
 	}
 }
@@ -7800,6 +3635,4761 @@ export class HealthCheckApi extends BaseAPI {
 	public healthCheckHealthCheck(options?: RawAxiosRequestConfig) {
 		return HealthCheckApiFp(this.configuration)
 			.healthCheckHealthCheck(options)
+			.then((request) => request(this.axios, this.basePath));
+	}
+}
+
+/**
+ * InventoryApi - axios parameter creator
+ * @export
+ */
+export const InventoryApiAxiosParamCreator = function (
+	configuration?: Configuration,
+) {
+	return {
+		/**
+		 * 신규 인벤토리 생성
+		 * @summary Create Inventory
+		 * @param {InventoryCreate} inventoryCreate
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		inventoryCreateInventory: async (
+			inventoryCreate: InventoryCreate,
+			accessToken?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'inventoryCreate' is not null or undefined
+			assertParamExists(
+				"inventoryCreateInventory",
+				"inventoryCreate",
+				inventoryCreate,
+			);
+			const localVarPath = `/api/v1/inventories/`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = {
+				method: "POST",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
+
+			localVarHeaderParameter["Content-Type"] = "application/json";
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				inventoryCreate,
+				localVarRequestOptions,
+				configuration,
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * 인벤토리 삭제
+		 * @summary Delete Inventory
+		 * @param {string} inventoryId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		inventoryDeleteInventory: async (
+			inventoryId: string,
+			accessToken?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'inventoryId' is not null or undefined
+			assertParamExists("inventoryDeleteInventory", "inventoryId", inventoryId);
+			const localVarPath = `/api/v1/inventories/{inventory_id}`.replace(
+				`{${"inventory_id"}}`,
+				encodeURIComponent(String(inventoryId)),
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = {
+				method: "DELETE",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * 인벤토리 목록 조회
+		 * @summary Read Inventories
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		inventoryReadInventories: async (
+			accessToken?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			const localVarPath = `/api/v1/inventories/`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = {
+				method: "GET",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * 인벤토리 조회
+		 * @summary Read Inventory
+		 * @param {string} inventoryId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		inventoryReadInventory: async (
+			inventoryId: string,
+			accessToken?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'inventoryId' is not null or undefined
+			assertParamExists("inventoryReadInventory", "inventoryId", inventoryId);
+			const localVarPath = `/api/v1/inventories/{inventory_id}`.replace(
+				`{${"inventory_id"}}`,
+				encodeURIComponent(String(inventoryId)),
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = {
+				method: "GET",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * 인벤토리 정보 수정
+		 * @summary Update Inventory
+		 * @param {string} inventoryId
+		 * @param {InventoryUpdate} inventoryUpdate
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		inventoryUpdateInventory: async (
+			inventoryId: string,
+			inventoryUpdate: InventoryUpdate,
+			accessToken?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'inventoryId' is not null or undefined
+			assertParamExists("inventoryUpdateInventory", "inventoryId", inventoryId);
+			// verify required parameter 'inventoryUpdate' is not null or undefined
+			assertParamExists(
+				"inventoryUpdateInventory",
+				"inventoryUpdate",
+				inventoryUpdate,
+			);
+			const localVarPath = `/api/v1/inventories/{inventory_id}`.replace(
+				`{${"inventory_id"}}`,
+				encodeURIComponent(String(inventoryId)),
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = {
+				method: "PATCH",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
+
+			localVarHeaderParameter["Content-Type"] = "application/json";
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				inventoryUpdate,
+				localVarRequestOptions,
+				configuration,
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+	};
+};
+
+/**
+ * InventoryApi - functional programming interface
+ * @export
+ */
+export const InventoryApiFp = function (configuration?: Configuration) {
+	const localVarAxiosParamCreator =
+		InventoryApiAxiosParamCreator(configuration);
+	return {
+		/**
+		 * 신규 인벤토리 생성
+		 * @summary Create Inventory
+		 * @param {InventoryCreate} inventoryCreate
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async inventoryCreateInventory(
+			inventoryCreate: InventoryCreate,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Inventory>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.inventoryCreateInventory(
+					inventoryCreate,
+					accessToken,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["InventoryApi.inventoryCreateInventory"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 인벤토리 삭제
+		 * @summary Delete Inventory
+		 * @param {string} inventoryId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async inventoryDeleteInventory(
+			inventoryId: string,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Message>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.inventoryDeleteInventory(
+					inventoryId,
+					accessToken,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["InventoryApi.inventoryDeleteInventory"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 인벤토리 목록 조회
+		 * @summary Read Inventories
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async inventoryReadInventories(
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(
+				axios?: AxiosInstance,
+				basePath?: string,
+			) => AxiosPromise<Array<Inventory>>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.inventoryReadInventories(
+					accessToken,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["InventoryApi.inventoryReadInventories"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 인벤토리 조회
+		 * @summary Read Inventory
+		 * @param {string} inventoryId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async inventoryReadInventory(
+			inventoryId: string,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Inventory>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.inventoryReadInventory(
+					inventoryId,
+					accessToken,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["InventoryApi.inventoryReadInventory"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 인벤토리 정보 수정
+		 * @summary Update Inventory
+		 * @param {string} inventoryId
+		 * @param {InventoryUpdate} inventoryUpdate
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async inventoryUpdateInventory(
+			inventoryId: string,
+			inventoryUpdate: InventoryUpdate,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Inventory>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.inventoryUpdateInventory(
+					inventoryId,
+					inventoryUpdate,
+					accessToken,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["InventoryApi.inventoryUpdateInventory"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+	};
+};
+
+/**
+ * InventoryApi - factory interface
+ * @export
+ */
+export const InventoryApiFactory = function (
+	configuration?: Configuration,
+	basePath?: string,
+	axios?: AxiosInstance,
+) {
+	const localVarFp = InventoryApiFp(configuration);
+	return {
+		/**
+		 * 신규 인벤토리 생성
+		 * @summary Create Inventory
+		 * @param {InventoryCreate} inventoryCreate
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		inventoryCreateInventory(
+			inventoryCreate: InventoryCreate,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<Inventory> {
+			return localVarFp
+				.inventoryCreateInventory(inventoryCreate, accessToken, options)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 인벤토리 삭제
+		 * @summary Delete Inventory
+		 * @param {string} inventoryId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		inventoryDeleteInventory(
+			inventoryId: string,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<Message> {
+			return localVarFp
+				.inventoryDeleteInventory(inventoryId, accessToken, options)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 인벤토리 목록 조회
+		 * @summary Read Inventories
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		inventoryReadInventories(
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<Array<Inventory>> {
+			return localVarFp
+				.inventoryReadInventories(accessToken, options)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 인벤토리 조회
+		 * @summary Read Inventory
+		 * @param {string} inventoryId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		inventoryReadInventory(
+			inventoryId: string,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<Inventory> {
+			return localVarFp
+				.inventoryReadInventory(inventoryId, accessToken, options)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 인벤토리 정보 수정
+		 * @summary Update Inventory
+		 * @param {string} inventoryId
+		 * @param {InventoryUpdate} inventoryUpdate
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		inventoryUpdateInventory(
+			inventoryId: string,
+			inventoryUpdate: InventoryUpdate,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<Inventory> {
+			return localVarFp
+				.inventoryUpdateInventory(
+					inventoryId,
+					inventoryUpdate,
+					accessToken,
+					options,
+				)
+				.then((request) => request(axios, basePath));
+		},
+	};
+};
+
+/**
+ * InventoryApi - object-oriented interface
+ * @export
+ * @class InventoryApi
+ * @extends {BaseAPI}
+ */
+export class InventoryApi extends BaseAPI {
+	/**
+	 * 신규 인벤토리 생성
+	 * @summary Create Inventory
+	 * @param {InventoryCreate} inventoryCreate
+	 * @param {string | null} [accessToken]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof InventoryApi
+	 */
+	public inventoryCreateInventory(
+		inventoryCreate: InventoryCreate,
+		accessToken?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return InventoryApiFp(this.configuration)
+			.inventoryCreateInventory(inventoryCreate, accessToken, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
+
+	/**
+	 * 인벤토리 삭제
+	 * @summary Delete Inventory
+	 * @param {string} inventoryId
+	 * @param {string | null} [accessToken]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof InventoryApi
+	 */
+	public inventoryDeleteInventory(
+		inventoryId: string,
+		accessToken?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return InventoryApiFp(this.configuration)
+			.inventoryDeleteInventory(inventoryId, accessToken, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
+
+	/**
+	 * 인벤토리 목록 조회
+	 * @summary Read Inventories
+	 * @param {string | null} [accessToken]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof InventoryApi
+	 */
+	public inventoryReadInventories(
+		accessToken?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return InventoryApiFp(this.configuration)
+			.inventoryReadInventories(accessToken, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
+
+	/**
+	 * 인벤토리 조회
+	 * @summary Read Inventory
+	 * @param {string} inventoryId
+	 * @param {string | null} [accessToken]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof InventoryApi
+	 */
+	public inventoryReadInventory(
+		inventoryId: string,
+		accessToken?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return InventoryApiFp(this.configuration)
+			.inventoryReadInventory(inventoryId, accessToken, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
+
+	/**
+	 * 인벤토리 정보 수정
+	 * @summary Update Inventory
+	 * @param {string} inventoryId
+	 * @param {InventoryUpdate} inventoryUpdate
+	 * @param {string | null} [accessToken]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof InventoryApi
+	 */
+	public inventoryUpdateInventory(
+		inventoryId: string,
+		inventoryUpdate: InventoryUpdate,
+		accessToken?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return InventoryApiFp(this.configuration)
+			.inventoryUpdateInventory(
+				inventoryId,
+				inventoryUpdate,
+				accessToken,
+				options,
+			)
+			.then((request) => request(this.axios, this.basePath));
+	}
+}
+
+/**
+ * InventoryTransactionApi - axios parameter creator
+ * @export
+ */
+export const InventoryTransactionApiAxiosParamCreator = function (
+	configuration?: Configuration,
+) {
+	return {
+		/**
+		 * 신규 재고 생성
+		 * @summary Create Invetory Transaction
+		 * @param {string} inventoryId
+		 * @param {InventoryTransactionRequest} inventoryTransactionRequest
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		inventoryTransactionCreateInvetoryTransaction: async (
+			inventoryId: string,
+			inventoryTransactionRequest: InventoryTransactionRequest,
+			accessToken?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'inventoryId' is not null or undefined
+			assertParamExists(
+				"inventoryTransactionCreateInvetoryTransaction",
+				"inventoryId",
+				inventoryId,
+			);
+			// verify required parameter 'inventoryTransactionRequest' is not null or undefined
+			assertParamExists(
+				"inventoryTransactionCreateInvetoryTransaction",
+				"inventoryTransactionRequest",
+				inventoryTransactionRequest,
+			);
+			const localVarPath =
+				`/api/v1/inventories/{inventory_id}/transactions`.replace(
+					`{${"inventory_id"}}`,
+					encodeURIComponent(String(inventoryId)),
+				);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = {
+				method: "POST",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
+
+			localVarHeaderParameter["Content-Type"] = "application/json";
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				inventoryTransactionRequest,
+				localVarRequestOptions,
+				configuration,
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * 재고 거래 내역 상세 조회
+		 * @summary Read Inventory Transaction
+		 * @param {string} inventoryId
+		 * @param {string} transactionId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		inventoryTransactionReadInventoryTransaction: async (
+			inventoryId: string,
+			transactionId: string,
+			accessToken?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'inventoryId' is not null or undefined
+			assertParamExists(
+				"inventoryTransactionReadInventoryTransaction",
+				"inventoryId",
+				inventoryId,
+			);
+			// verify required parameter 'transactionId' is not null or undefined
+			assertParamExists(
+				"inventoryTransactionReadInventoryTransaction",
+				"transactionId",
+				transactionId,
+			);
+			const localVarPath =
+				`/api/v1/inventories/{inventory_id}/transactions/{transaction_id}`
+					.replace(
+						`{${"inventory_id"}}`,
+						encodeURIComponent(String(inventoryId)),
+					)
+					.replace(
+						`{${"transaction_id"}}`,
+						encodeURIComponent(String(transactionId)),
+					);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = {
+				method: "GET",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * 재고 거래 내역 조회
+		 * @summary Read Inventory Transactions
+		 * @param {string} inventoryId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		inventoryTransactionReadInventoryTransactions: async (
+			inventoryId: string,
+			accessToken?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'inventoryId' is not null or undefined
+			assertParamExists(
+				"inventoryTransactionReadInventoryTransactions",
+				"inventoryId",
+				inventoryId,
+			);
+			const localVarPath =
+				`/api/v1/inventories/{inventory_id}/transactions`.replace(
+					`{${"inventory_id"}}`,
+					encodeURIComponent(String(inventoryId)),
+				);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = {
+				method: "GET",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+	};
+};
+
+/**
+ * InventoryTransactionApi - functional programming interface
+ * @export
+ */
+export const InventoryTransactionApiFp = function (
+	configuration?: Configuration,
+) {
+	const localVarAxiosParamCreator =
+		InventoryTransactionApiAxiosParamCreator(configuration);
+	return {
+		/**
+		 * 신규 재고 생성
+		 * @summary Create Invetory Transaction
+		 * @param {string} inventoryId
+		 * @param {InventoryTransactionRequest} inventoryTransactionRequest
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async inventoryTransactionCreateInvetoryTransaction(
+			inventoryId: string,
+			inventoryTransactionRequest: InventoryTransactionRequest,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(
+				axios?: AxiosInstance,
+				basePath?: string,
+			) => AxiosPromise<InventoryTransaction>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.inventoryTransactionCreateInvetoryTransaction(
+					inventoryId,
+					inventoryTransactionRequest,
+					accessToken,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap[
+					"InventoryTransactionApi.inventoryTransactionCreateInvetoryTransaction"
+				]?.[localVarOperationServerIndex]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 재고 거래 내역 상세 조회
+		 * @summary Read Inventory Transaction
+		 * @param {string} inventoryId
+		 * @param {string} transactionId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async inventoryTransactionReadInventoryTransaction(
+			inventoryId: string,
+			transactionId: string,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(
+				axios?: AxiosInstance,
+				basePath?: string,
+			) => AxiosPromise<InventoryTransaction>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.inventoryTransactionReadInventoryTransaction(
+					inventoryId,
+					transactionId,
+					accessToken,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap[
+					"InventoryTransactionApi.inventoryTransactionReadInventoryTransaction"
+				]?.[localVarOperationServerIndex]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 재고 거래 내역 조회
+		 * @summary Read Inventory Transactions
+		 * @param {string} inventoryId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async inventoryTransactionReadInventoryTransactions(
+			inventoryId: string,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(
+				axios?: AxiosInstance,
+				basePath?: string,
+			) => AxiosPromise<Array<InventoryTransaction>>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.inventoryTransactionReadInventoryTransactions(
+					inventoryId,
+					accessToken,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap[
+					"InventoryTransactionApi.inventoryTransactionReadInventoryTransactions"
+				]?.[localVarOperationServerIndex]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+	};
+};
+
+/**
+ * InventoryTransactionApi - factory interface
+ * @export
+ */
+export const InventoryTransactionApiFactory = function (
+	configuration?: Configuration,
+	basePath?: string,
+	axios?: AxiosInstance,
+) {
+	const localVarFp = InventoryTransactionApiFp(configuration);
+	return {
+		/**
+		 * 신규 재고 생성
+		 * @summary Create Invetory Transaction
+		 * @param {string} inventoryId
+		 * @param {InventoryTransactionRequest} inventoryTransactionRequest
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		inventoryTransactionCreateInvetoryTransaction(
+			inventoryId: string,
+			inventoryTransactionRequest: InventoryTransactionRequest,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<InventoryTransaction> {
+			return localVarFp
+				.inventoryTransactionCreateInvetoryTransaction(
+					inventoryId,
+					inventoryTransactionRequest,
+					accessToken,
+					options,
+				)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 재고 거래 내역 상세 조회
+		 * @summary Read Inventory Transaction
+		 * @param {string} inventoryId
+		 * @param {string} transactionId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		inventoryTransactionReadInventoryTransaction(
+			inventoryId: string,
+			transactionId: string,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<InventoryTransaction> {
+			return localVarFp
+				.inventoryTransactionReadInventoryTransaction(
+					inventoryId,
+					transactionId,
+					accessToken,
+					options,
+				)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 재고 거래 내역 조회
+		 * @summary Read Inventory Transactions
+		 * @param {string} inventoryId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		inventoryTransactionReadInventoryTransactions(
+			inventoryId: string,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<Array<InventoryTransaction>> {
+			return localVarFp
+				.inventoryTransactionReadInventoryTransactions(
+					inventoryId,
+					accessToken,
+					options,
+				)
+				.then((request) => request(axios, basePath));
+		},
+	};
+};
+
+/**
+ * InventoryTransactionApi - object-oriented interface
+ * @export
+ * @class InventoryTransactionApi
+ * @extends {BaseAPI}
+ */
+export class InventoryTransactionApi extends BaseAPI {
+	/**
+	 * 신규 재고 생성
+	 * @summary Create Invetory Transaction
+	 * @param {string} inventoryId
+	 * @param {InventoryTransactionRequest} inventoryTransactionRequest
+	 * @param {string | null} [accessToken]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof InventoryTransactionApi
+	 */
+	public inventoryTransactionCreateInvetoryTransaction(
+		inventoryId: string,
+		inventoryTransactionRequest: InventoryTransactionRequest,
+		accessToken?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return InventoryTransactionApiFp(this.configuration)
+			.inventoryTransactionCreateInvetoryTransaction(
+				inventoryId,
+				inventoryTransactionRequest,
+				accessToken,
+				options,
+			)
+			.then((request) => request(this.axios, this.basePath));
+	}
+
+	/**
+	 * 재고 거래 내역 상세 조회
+	 * @summary Read Inventory Transaction
+	 * @param {string} inventoryId
+	 * @param {string} transactionId
+	 * @param {string | null} [accessToken]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof InventoryTransactionApi
+	 */
+	public inventoryTransactionReadInventoryTransaction(
+		inventoryId: string,
+		transactionId: string,
+		accessToken?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return InventoryTransactionApiFp(this.configuration)
+			.inventoryTransactionReadInventoryTransaction(
+				inventoryId,
+				transactionId,
+				accessToken,
+				options,
+			)
+			.then((request) => request(this.axios, this.basePath));
+	}
+
+	/**
+	 * 재고 거래 내역 조회
+	 * @summary Read Inventory Transactions
+	 * @param {string} inventoryId
+	 * @param {string | null} [accessToken]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof InventoryTransactionApi
+	 */
+	public inventoryTransactionReadInventoryTransactions(
+		inventoryId: string,
+		accessToken?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return InventoryTransactionApiFp(this.configuration)
+			.inventoryTransactionReadInventoryTransactions(
+				inventoryId,
+				accessToken,
+				options,
+			)
+			.then((request) => request(this.axios, this.basePath));
+	}
+}
+
+/**
+ * ListingApi - axios parameter creator
+ * @export
+ */
+export const ListingApiAxiosParamCreator = function (
+	configuration?: Configuration,
+) {
+	return {
+		/**
+		 * 신규 채널 리스팅 생성
+		 * @summary Create Channel Listing
+		 * @param {ChannelListingCreate} channelListingCreate
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		listingCreateChannelListing: async (
+			channelListingCreate: ChannelListingCreate,
+			accessToken?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'channelListingCreate' is not null or undefined
+			assertParamExists(
+				"listingCreateChannelListing",
+				"channelListingCreate",
+				channelListingCreate,
+			);
+			const localVarPath = `/api/v1/listings/`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = {
+				method: "POST",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
+
+			localVarHeaderParameter["Content-Type"] = "application/json";
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				channelListingCreate,
+				localVarRequestOptions,
+				configuration,
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * 채널 리스팅 삭제
+		 * @summary Delete Channel Listing
+		 * @param {string} channelListingId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		listingDeleteChannelListing: async (
+			channelListingId: string,
+			accessToken?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'channelListingId' is not null or undefined
+			assertParamExists(
+				"listingDeleteChannelListing",
+				"channelListingId",
+				channelListingId,
+			);
+			const localVarPath = `/api/v1/listings/{channel_listing_id}`.replace(
+				`{${"channel_listing_id"}}`,
+				encodeURIComponent(String(channelListingId)),
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = {
+				method: "DELETE",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * 채널 리스팅 상세 조회
+		 * @summary Read Channel Listing
+		 * @param {string} channelListingId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		listingReadChannelListing: async (
+			channelListingId: string,
+			accessToken?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'channelListingId' is not null or undefined
+			assertParamExists(
+				"listingReadChannelListing",
+				"channelListingId",
+				channelListingId,
+			);
+			const localVarPath = `/api/v1/listings/{channel_listing_id}`.replace(
+				`{${"channel_listing_id"}}`,
+				encodeURIComponent(String(channelListingId)),
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = {
+				method: "GET",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * 채널 리스팅 목록 조회
+		 * @summary Read Channel Listings
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		listingReadChannelListings: async (
+			accessToken?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			const localVarPath = `/api/v1/listings/`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = {
+				method: "GET",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * 채널 리스팅 정보 수정
+		 * @summary Update Channel Listing
+		 * @param {string} channelListingId
+		 * @param {ChannelListingUpdate} channelListingUpdate
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		listingUpdateChannelListing: async (
+			channelListingId: string,
+			channelListingUpdate: ChannelListingUpdate,
+			accessToken?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'channelListingId' is not null or undefined
+			assertParamExists(
+				"listingUpdateChannelListing",
+				"channelListingId",
+				channelListingId,
+			);
+			// verify required parameter 'channelListingUpdate' is not null or undefined
+			assertParamExists(
+				"listingUpdateChannelListing",
+				"channelListingUpdate",
+				channelListingUpdate,
+			);
+			const localVarPath = `/api/v1/listings/{channel_listing_id}`.replace(
+				`{${"channel_listing_id"}}`,
+				encodeURIComponent(String(channelListingId)),
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = {
+				method: "PUT",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
+
+			localVarHeaderParameter["Content-Type"] = "application/json";
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				channelListingUpdate,
+				localVarRequestOptions,
+				configuration,
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+	};
+};
+
+/**
+ * ListingApi - functional programming interface
+ * @export
+ */
+export const ListingApiFp = function (configuration?: Configuration) {
+	const localVarAxiosParamCreator = ListingApiAxiosParamCreator(configuration);
+	return {
+		/**
+		 * 신규 채널 리스팅 생성
+		 * @summary Create Channel Listing
+		 * @param {ChannelListingCreate} channelListingCreate
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async listingCreateChannelListing(
+			channelListingCreate: ChannelListingCreate,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ChannelListing>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.listingCreateChannelListing(
+					channelListingCreate,
+					accessToken,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["ListingApi.listingCreateChannelListing"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 채널 리스팅 삭제
+		 * @summary Delete Channel Listing
+		 * @param {string} channelListingId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async listingDeleteChannelListing(
+			channelListingId: string,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Message>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.listingDeleteChannelListing(
+					channelListingId,
+					accessToken,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["ListingApi.listingDeleteChannelListing"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 채널 리스팅 상세 조회
+		 * @summary Read Channel Listing
+		 * @param {string} channelListingId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async listingReadChannelListing(
+			channelListingId: string,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ChannelListing>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.listingReadChannelListing(
+					channelListingId,
+					accessToken,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["ListingApi.listingReadChannelListing"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 채널 리스팅 목록 조회
+		 * @summary Read Channel Listings
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async listingReadChannelListings(
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(
+				axios?: AxiosInstance,
+				basePath?: string,
+			) => AxiosPromise<Array<ChannelListing>>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.listingReadChannelListings(
+					accessToken,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["ListingApi.listingReadChannelListings"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 채널 리스팅 정보 수정
+		 * @summary Update Channel Listing
+		 * @param {string} channelListingId
+		 * @param {ChannelListingUpdate} channelListingUpdate
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async listingUpdateChannelListing(
+			channelListingId: string,
+			channelListingUpdate: ChannelListingUpdate,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ChannelListing>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.listingUpdateChannelListing(
+					channelListingId,
+					channelListingUpdate,
+					accessToken,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["ListingApi.listingUpdateChannelListing"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+	};
+};
+
+/**
+ * ListingApi - factory interface
+ * @export
+ */
+export const ListingApiFactory = function (
+	configuration?: Configuration,
+	basePath?: string,
+	axios?: AxiosInstance,
+) {
+	const localVarFp = ListingApiFp(configuration);
+	return {
+		/**
+		 * 신규 채널 리스팅 생성
+		 * @summary Create Channel Listing
+		 * @param {ChannelListingCreate} channelListingCreate
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		listingCreateChannelListing(
+			channelListingCreate: ChannelListingCreate,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<ChannelListing> {
+			return localVarFp
+				.listingCreateChannelListing(channelListingCreate, accessToken, options)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 채널 리스팅 삭제
+		 * @summary Delete Channel Listing
+		 * @param {string} channelListingId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		listingDeleteChannelListing(
+			channelListingId: string,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<Message> {
+			return localVarFp
+				.listingDeleteChannelListing(channelListingId, accessToken, options)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 채널 리스팅 상세 조회
+		 * @summary Read Channel Listing
+		 * @param {string} channelListingId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		listingReadChannelListing(
+			channelListingId: string,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<ChannelListing> {
+			return localVarFp
+				.listingReadChannelListing(channelListingId, accessToken, options)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 채널 리스팅 목록 조회
+		 * @summary Read Channel Listings
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		listingReadChannelListings(
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<Array<ChannelListing>> {
+			return localVarFp
+				.listingReadChannelListings(accessToken, options)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 채널 리스팅 정보 수정
+		 * @summary Update Channel Listing
+		 * @param {string} channelListingId
+		 * @param {ChannelListingUpdate} channelListingUpdate
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		listingUpdateChannelListing(
+			channelListingId: string,
+			channelListingUpdate: ChannelListingUpdate,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<ChannelListing> {
+			return localVarFp
+				.listingUpdateChannelListing(
+					channelListingId,
+					channelListingUpdate,
+					accessToken,
+					options,
+				)
+				.then((request) => request(axios, basePath));
+		},
+	};
+};
+
+/**
+ * ListingApi - object-oriented interface
+ * @export
+ * @class ListingApi
+ * @extends {BaseAPI}
+ */
+export class ListingApi extends BaseAPI {
+	/**
+	 * 신규 채널 리스팅 생성
+	 * @summary Create Channel Listing
+	 * @param {ChannelListingCreate} channelListingCreate
+	 * @param {string | null} [accessToken]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof ListingApi
+	 */
+	public listingCreateChannelListing(
+		channelListingCreate: ChannelListingCreate,
+		accessToken?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return ListingApiFp(this.configuration)
+			.listingCreateChannelListing(channelListingCreate, accessToken, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
+
+	/**
+	 * 채널 리스팅 삭제
+	 * @summary Delete Channel Listing
+	 * @param {string} channelListingId
+	 * @param {string | null} [accessToken]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof ListingApi
+	 */
+	public listingDeleteChannelListing(
+		channelListingId: string,
+		accessToken?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return ListingApiFp(this.configuration)
+			.listingDeleteChannelListing(channelListingId, accessToken, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
+
+	/**
+	 * 채널 리스팅 상세 조회
+	 * @summary Read Channel Listing
+	 * @param {string} channelListingId
+	 * @param {string | null} [accessToken]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof ListingApi
+	 */
+	public listingReadChannelListing(
+		channelListingId: string,
+		accessToken?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return ListingApiFp(this.configuration)
+			.listingReadChannelListing(channelListingId, accessToken, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
+
+	/**
+	 * 채널 리스팅 목록 조회
+	 * @summary Read Channel Listings
+	 * @param {string | null} [accessToken]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof ListingApi
+	 */
+	public listingReadChannelListings(
+		accessToken?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return ListingApiFp(this.configuration)
+			.listingReadChannelListings(accessToken, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
+
+	/**
+	 * 채널 리스팅 정보 수정
+	 * @summary Update Channel Listing
+	 * @param {string} channelListingId
+	 * @param {ChannelListingUpdate} channelListingUpdate
+	 * @param {string | null} [accessToken]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof ListingApi
+	 */
+	public listingUpdateChannelListing(
+		channelListingId: string,
+		channelListingUpdate: ChannelListingUpdate,
+		accessToken?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return ListingApiFp(this.configuration)
+			.listingUpdateChannelListing(
+				channelListingId,
+				channelListingUpdate,
+				accessToken,
+				options,
+			)
+			.then((request) => request(this.axios, this.basePath));
+	}
+}
+
+/**
+ * OrderApi - axios parameter creator
+ * @export
+ */
+export const OrderApiAxiosParamCreator = function (
+	configuration?: Configuration,
+) {
+	return {
+		/**
+		 * 신규 주문 생성
+		 * @summary Create Order
+		 * @param {OrderCreate} orderCreate
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		orderCreateOrder: async (
+			orderCreate: OrderCreate,
+			accessToken?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'orderCreate' is not null or undefined
+			assertParamExists("orderCreateOrder", "orderCreate", orderCreate);
+			const localVarPath = `/api/v1/orders/`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = {
+				method: "POST",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
+
+			localVarHeaderParameter["Content-Type"] = "application/json";
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				orderCreate,
+				localVarRequestOptions,
+				configuration,
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * 주문에 상품 추가
+		 * @summary Create Order Line Item
+		 * @param {string} orderId
+		 * @param {OrderLineItemCreate} orderLineItemCreate
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		orderCreateOrderLineItem: async (
+			orderId: string,
+			orderLineItemCreate: OrderLineItemCreate,
+			accessToken?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'orderId' is not null or undefined
+			assertParamExists("orderCreateOrderLineItem", "orderId", orderId);
+			// verify required parameter 'orderLineItemCreate' is not null or undefined
+			assertParamExists(
+				"orderCreateOrderLineItem",
+				"orderLineItemCreate",
+				orderLineItemCreate,
+			);
+			const localVarPath = `/api/v1/orders/{order_id}/line-items`.replace(
+				`{${"order_id"}}`,
+				encodeURIComponent(String(orderId)),
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = {
+				method: "POST",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
+
+			localVarHeaderParameter["Content-Type"] = "application/json";
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				orderLineItemCreate,
+				localVarRequestOptions,
+				configuration,
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * 주문의 상품 삭제
+		 * @summary Delete Order Line Item
+		 * @param {string} orderId
+		 * @param {string} lineItemId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		orderDeleteOrderLineItem: async (
+			orderId: string,
+			lineItemId: string,
+			accessToken?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'orderId' is not null or undefined
+			assertParamExists("orderDeleteOrderLineItem", "orderId", orderId);
+			// verify required parameter 'lineItemId' is not null or undefined
+			assertParamExists("orderDeleteOrderLineItem", "lineItemId", lineItemId);
+			const localVarPath = `/api/v1/orders/{order_id}/line-items/{line_item_id}`
+				.replace(`{${"order_id"}}`, encodeURIComponent(String(orderId)))
+				.replace(`{${"line_item_id"}}`, encodeURIComponent(String(lineItemId)));
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = {
+				method: "DELETE",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * 주문 상세 조회
+		 * @summary Read Order
+		 * @param {string} orderId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		orderReadOrder: async (
+			orderId: string,
+			accessToken?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'orderId' is not null or undefined
+			assertParamExists("orderReadOrder", "orderId", orderId);
+			const localVarPath = `/api/v1/orders/{order_id}`.replace(
+				`{${"order_id"}}`,
+				encodeURIComponent(String(orderId)),
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = {
+				method: "GET",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * 주문의 상품 상세 조회
+		 * @summary Read Order Line Item
+		 * @param {string} orderId
+		 * @param {string} lineItemId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		orderReadOrderLineItem: async (
+			orderId: string,
+			lineItemId: string,
+			accessToken?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'orderId' is not null or undefined
+			assertParamExists("orderReadOrderLineItem", "orderId", orderId);
+			// verify required parameter 'lineItemId' is not null or undefined
+			assertParamExists("orderReadOrderLineItem", "lineItemId", lineItemId);
+			const localVarPath = `/api/v1/orders/{order_id}/line-items/{line_item_id}`
+				.replace(`{${"order_id"}}`, encodeURIComponent(String(orderId)))
+				.replace(`{${"line_item_id"}}`, encodeURIComponent(String(lineItemId)));
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = {
+				method: "GET",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * 주문의 상품 목록 조회
+		 * @summary Read Order Line Items
+		 * @param {string} orderId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		orderReadOrderLineItems: async (
+			orderId: string,
+			accessToken?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'orderId' is not null or undefined
+			assertParamExists("orderReadOrderLineItems", "orderId", orderId);
+			const localVarPath = `/api/v1/orders/{order_id}/line-items`.replace(
+				`{${"order_id"}}`,
+				encodeURIComponent(String(orderId)),
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = {
+				method: "GET",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * 주문 목록 조회
+		 * @summary Read Orders
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		orderReadOrders: async (
+			accessToken?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			const localVarPath = `/api/v1/orders/`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = {
+				method: "GET",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * 주문 수정
+		 * @summary Update Order
+		 * @param {string} orderId
+		 * @param {OrderUpdate} orderUpdate
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		orderUpdateOrder: async (
+			orderId: string,
+			orderUpdate: OrderUpdate,
+			accessToken?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'orderId' is not null or undefined
+			assertParamExists("orderUpdateOrder", "orderId", orderId);
+			// verify required parameter 'orderUpdate' is not null or undefined
+			assertParamExists("orderUpdateOrder", "orderUpdate", orderUpdate);
+			const localVarPath = `/api/v1/orders/{order_id}`.replace(
+				`{${"order_id"}}`,
+				encodeURIComponent(String(orderId)),
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = {
+				method: "PUT",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
+
+			localVarHeaderParameter["Content-Type"] = "application/json";
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				orderUpdate,
+				localVarRequestOptions,
+				configuration,
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * 주문의 상품 수정
+		 * @summary Update Order Line Item
+		 * @param {string} orderId
+		 * @param {string} lineItemId
+		 * @param {OrderLineItemUpdate} orderLineItemUpdate
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		orderUpdateOrderLineItem: async (
+			orderId: string,
+			lineItemId: string,
+			orderLineItemUpdate: OrderLineItemUpdate,
+			accessToken?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'orderId' is not null or undefined
+			assertParamExists("orderUpdateOrderLineItem", "orderId", orderId);
+			// verify required parameter 'lineItemId' is not null or undefined
+			assertParamExists("orderUpdateOrderLineItem", "lineItemId", lineItemId);
+			// verify required parameter 'orderLineItemUpdate' is not null or undefined
+			assertParamExists(
+				"orderUpdateOrderLineItem",
+				"orderLineItemUpdate",
+				orderLineItemUpdate,
+			);
+			const localVarPath = `/api/v1/orders/{order_id}/line-items/{line_item_id}`
+				.replace(`{${"order_id"}}`, encodeURIComponent(String(orderId)))
+				.replace(`{${"line_item_id"}}`, encodeURIComponent(String(lineItemId)));
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = {
+				method: "PUT",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
+
+			localVarHeaderParameter["Content-Type"] = "application/json";
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				orderLineItemUpdate,
+				localVarRequestOptions,
+				configuration,
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+	};
+};
+
+/**
+ * OrderApi - functional programming interface
+ * @export
+ */
+export const OrderApiFp = function (configuration?: Configuration) {
+	const localVarAxiosParamCreator = OrderApiAxiosParamCreator(configuration);
+	return {
+		/**
+		 * 신규 주문 생성
+		 * @summary Create Order
+		 * @param {OrderCreate} orderCreate
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async orderCreateOrder(
+			orderCreate: OrderCreate,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Order>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.orderCreateOrder(
+					orderCreate,
+					accessToken,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["OrderApi.orderCreateOrder"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 주문에 상품 추가
+		 * @summary Create Order Line Item
+		 * @param {string} orderId
+		 * @param {OrderLineItemCreate} orderLineItemCreate
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async orderCreateOrderLineItem(
+			orderId: string,
+			orderLineItemCreate: OrderLineItemCreate,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrderLineItem>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.orderCreateOrderLineItem(
+					orderId,
+					orderLineItemCreate,
+					accessToken,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["OrderApi.orderCreateOrderLineItem"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 주문의 상품 삭제
+		 * @summary Delete Order Line Item
+		 * @param {string} orderId
+		 * @param {string} lineItemId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async orderDeleteOrderLineItem(
+			orderId: string,
+			lineItemId: string,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Message>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.orderDeleteOrderLineItem(
+					orderId,
+					lineItemId,
+					accessToken,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["OrderApi.orderDeleteOrderLineItem"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 주문 상세 조회
+		 * @summary Read Order
+		 * @param {string} orderId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async orderReadOrder(
+			orderId: string,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Order>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.orderReadOrder(
+				orderId,
+				accessToken,
+				options,
+			);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["OrderApi.orderReadOrder"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 주문의 상품 상세 조회
+		 * @summary Read Order Line Item
+		 * @param {string} orderId
+		 * @param {string} lineItemId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async orderReadOrderLineItem(
+			orderId: string,
+			lineItemId: string,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrderLineItem>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.orderReadOrderLineItem(
+					orderId,
+					lineItemId,
+					accessToken,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["OrderApi.orderReadOrderLineItem"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 주문의 상품 목록 조회
+		 * @summary Read Order Line Items
+		 * @param {string} orderId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async orderReadOrderLineItems(
+			orderId: string,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(
+				axios?: AxiosInstance,
+				basePath?: string,
+			) => AxiosPromise<Array<OrderLineItem>>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.orderReadOrderLineItems(
+					orderId,
+					accessToken,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["OrderApi.orderReadOrderLineItems"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 주문 목록 조회
+		 * @summary Read Orders
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async orderReadOrders(
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Order>>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.orderReadOrders(
+				accessToken,
+				options,
+			);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["OrderApi.orderReadOrders"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 주문 수정
+		 * @summary Update Order
+		 * @param {string} orderId
+		 * @param {OrderUpdate} orderUpdate
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async orderUpdateOrder(
+			orderId: string,
+			orderUpdate: OrderUpdate,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Order>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.orderUpdateOrder(
+					orderId,
+					orderUpdate,
+					accessToken,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["OrderApi.orderUpdateOrder"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 주문의 상품 수정
+		 * @summary Update Order Line Item
+		 * @param {string} orderId
+		 * @param {string} lineItemId
+		 * @param {OrderLineItemUpdate} orderLineItemUpdate
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async orderUpdateOrderLineItem(
+			orderId: string,
+			lineItemId: string,
+			orderLineItemUpdate: OrderLineItemUpdate,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrderLineItem>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.orderUpdateOrderLineItem(
+					orderId,
+					lineItemId,
+					orderLineItemUpdate,
+					accessToken,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["OrderApi.orderUpdateOrderLineItem"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+	};
+};
+
+/**
+ * OrderApi - factory interface
+ * @export
+ */
+export const OrderApiFactory = function (
+	configuration?: Configuration,
+	basePath?: string,
+	axios?: AxiosInstance,
+) {
+	const localVarFp = OrderApiFp(configuration);
+	return {
+		/**
+		 * 신규 주문 생성
+		 * @summary Create Order
+		 * @param {OrderCreate} orderCreate
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		orderCreateOrder(
+			orderCreate: OrderCreate,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<Order> {
+			return localVarFp
+				.orderCreateOrder(orderCreate, accessToken, options)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 주문에 상품 추가
+		 * @summary Create Order Line Item
+		 * @param {string} orderId
+		 * @param {OrderLineItemCreate} orderLineItemCreate
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		orderCreateOrderLineItem(
+			orderId: string,
+			orderLineItemCreate: OrderLineItemCreate,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<OrderLineItem> {
+			return localVarFp
+				.orderCreateOrderLineItem(
+					orderId,
+					orderLineItemCreate,
+					accessToken,
+					options,
+				)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 주문의 상품 삭제
+		 * @summary Delete Order Line Item
+		 * @param {string} orderId
+		 * @param {string} lineItemId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		orderDeleteOrderLineItem(
+			orderId: string,
+			lineItemId: string,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<Message> {
+			return localVarFp
+				.orderDeleteOrderLineItem(orderId, lineItemId, accessToken, options)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 주문 상세 조회
+		 * @summary Read Order
+		 * @param {string} orderId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		orderReadOrder(
+			orderId: string,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<Order> {
+			return localVarFp
+				.orderReadOrder(orderId, accessToken, options)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 주문의 상품 상세 조회
+		 * @summary Read Order Line Item
+		 * @param {string} orderId
+		 * @param {string} lineItemId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		orderReadOrderLineItem(
+			orderId: string,
+			lineItemId: string,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<OrderLineItem> {
+			return localVarFp
+				.orderReadOrderLineItem(orderId, lineItemId, accessToken, options)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 주문의 상품 목록 조회
+		 * @summary Read Order Line Items
+		 * @param {string} orderId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		orderReadOrderLineItems(
+			orderId: string,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<Array<OrderLineItem>> {
+			return localVarFp
+				.orderReadOrderLineItems(orderId, accessToken, options)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 주문 목록 조회
+		 * @summary Read Orders
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		orderReadOrders(
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<Array<Order>> {
+			return localVarFp
+				.orderReadOrders(accessToken, options)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 주문 수정
+		 * @summary Update Order
+		 * @param {string} orderId
+		 * @param {OrderUpdate} orderUpdate
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		orderUpdateOrder(
+			orderId: string,
+			orderUpdate: OrderUpdate,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<Order> {
+			return localVarFp
+				.orderUpdateOrder(orderId, orderUpdate, accessToken, options)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 주문의 상품 수정
+		 * @summary Update Order Line Item
+		 * @param {string} orderId
+		 * @param {string} lineItemId
+		 * @param {OrderLineItemUpdate} orderLineItemUpdate
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		orderUpdateOrderLineItem(
+			orderId: string,
+			lineItemId: string,
+			orderLineItemUpdate: OrderLineItemUpdate,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<OrderLineItem> {
+			return localVarFp
+				.orderUpdateOrderLineItem(
+					orderId,
+					lineItemId,
+					orderLineItemUpdate,
+					accessToken,
+					options,
+				)
+				.then((request) => request(axios, basePath));
+		},
+	};
+};
+
+/**
+ * OrderApi - object-oriented interface
+ * @export
+ * @class OrderApi
+ * @extends {BaseAPI}
+ */
+export class OrderApi extends BaseAPI {
+	/**
+	 * 신규 주문 생성
+	 * @summary Create Order
+	 * @param {OrderCreate} orderCreate
+	 * @param {string | null} [accessToken]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof OrderApi
+	 */
+	public orderCreateOrder(
+		orderCreate: OrderCreate,
+		accessToken?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return OrderApiFp(this.configuration)
+			.orderCreateOrder(orderCreate, accessToken, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
+
+	/**
+	 * 주문에 상품 추가
+	 * @summary Create Order Line Item
+	 * @param {string} orderId
+	 * @param {OrderLineItemCreate} orderLineItemCreate
+	 * @param {string | null} [accessToken]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof OrderApi
+	 */
+	public orderCreateOrderLineItem(
+		orderId: string,
+		orderLineItemCreate: OrderLineItemCreate,
+		accessToken?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return OrderApiFp(this.configuration)
+			.orderCreateOrderLineItem(
+				orderId,
+				orderLineItemCreate,
+				accessToken,
+				options,
+			)
+			.then((request) => request(this.axios, this.basePath));
+	}
+
+	/**
+	 * 주문의 상품 삭제
+	 * @summary Delete Order Line Item
+	 * @param {string} orderId
+	 * @param {string} lineItemId
+	 * @param {string | null} [accessToken]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof OrderApi
+	 */
+	public orderDeleteOrderLineItem(
+		orderId: string,
+		lineItemId: string,
+		accessToken?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return OrderApiFp(this.configuration)
+			.orderDeleteOrderLineItem(orderId, lineItemId, accessToken, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
+
+	/**
+	 * 주문 상세 조회
+	 * @summary Read Order
+	 * @param {string} orderId
+	 * @param {string | null} [accessToken]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof OrderApi
+	 */
+	public orderReadOrder(
+		orderId: string,
+		accessToken?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return OrderApiFp(this.configuration)
+			.orderReadOrder(orderId, accessToken, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
+
+	/**
+	 * 주문의 상품 상세 조회
+	 * @summary Read Order Line Item
+	 * @param {string} orderId
+	 * @param {string} lineItemId
+	 * @param {string | null} [accessToken]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof OrderApi
+	 */
+	public orderReadOrderLineItem(
+		orderId: string,
+		lineItemId: string,
+		accessToken?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return OrderApiFp(this.configuration)
+			.orderReadOrderLineItem(orderId, lineItemId, accessToken, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
+
+	/**
+	 * 주문의 상품 목록 조회
+	 * @summary Read Order Line Items
+	 * @param {string} orderId
+	 * @param {string | null} [accessToken]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof OrderApi
+	 */
+	public orderReadOrderLineItems(
+		orderId: string,
+		accessToken?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return OrderApiFp(this.configuration)
+			.orderReadOrderLineItems(orderId, accessToken, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
+
+	/**
+	 * 주문 목록 조회
+	 * @summary Read Orders
+	 * @param {string | null} [accessToken]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof OrderApi
+	 */
+	public orderReadOrders(
+		accessToken?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return OrderApiFp(this.configuration)
+			.orderReadOrders(accessToken, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
+
+	/**
+	 * 주문 수정
+	 * @summary Update Order
+	 * @param {string} orderId
+	 * @param {OrderUpdate} orderUpdate
+	 * @param {string | null} [accessToken]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof OrderApi
+	 */
+	public orderUpdateOrder(
+		orderId: string,
+		orderUpdate: OrderUpdate,
+		accessToken?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return OrderApiFp(this.configuration)
+			.orderUpdateOrder(orderId, orderUpdate, accessToken, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
+
+	/**
+	 * 주문의 상품 수정
+	 * @summary Update Order Line Item
+	 * @param {string} orderId
+	 * @param {string} lineItemId
+	 * @param {OrderLineItemUpdate} orderLineItemUpdate
+	 * @param {string | null} [accessToken]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof OrderApi
+	 */
+	public orderUpdateOrderLineItem(
+		orderId: string,
+		lineItemId: string,
+		orderLineItemUpdate: OrderLineItemUpdate,
+		accessToken?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return OrderApiFp(this.configuration)
+			.orderUpdateOrderLineItem(
+				orderId,
+				lineItemId,
+				orderLineItemUpdate,
+				accessToken,
+				options,
+			)
+			.then((request) => request(this.axios, this.basePath));
+	}
+}
+
+/**
+ * ProductApi - axios parameter creator
+ * @export
+ */
+export const ProductApiAxiosParamCreator = function (
+	configuration?: Configuration,
+) {
+	return {
+		/**
+		 * 신규 상품 생성 - 사용자가 소유한 상품 중 동일한 이름이 있는지 검사
+		 * @summary Create Product
+		 * @param {ProductCreate} productCreate
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		productCreateProduct: async (
+			productCreate: ProductCreate,
+			accessToken?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'productCreate' is not null or undefined
+			assertParamExists("productCreateProduct", "productCreate", productCreate);
+			const localVarPath = `/api/v1/products/`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = {
+				method: "POST",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
+
+			localVarHeaderParameter["Content-Type"] = "application/json";
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				productCreate,
+				localVarRequestOptions,
+				configuration,
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * 상품 삭제
+		 * @summary Delete Product
+		 * @param {string} productId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		productDeleteProduct: async (
+			productId: string,
+			accessToken?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'productId' is not null or undefined
+			assertParamExists("productDeleteProduct", "productId", productId);
+			const localVarPath = `/api/v1/products/{product_id}`.replace(
+				`{${"product_id"}}`,
+				encodeURIComponent(String(productId)),
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = {
+				method: "DELETE",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * 상품 상세 조회
+		 * @summary Read Product
+		 * @param {string} productId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		productReadProduct: async (
+			productId: string,
+			accessToken?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'productId' is not null or undefined
+			assertParamExists("productReadProduct", "productId", productId);
+			const localVarPath = `/api/v1/products/{product_id}`.replace(
+				`{${"product_id"}}`,
+				encodeURIComponent(String(productId)),
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = {
+				method: "GET",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * 상품 목록 조회
+		 * @summary Read Products
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		productReadProducts: async (
+			accessToken?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			const localVarPath = `/api/v1/products/`;
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = {
+				method: "GET",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * 상품 수정
+		 * @summary Update Product
+		 * @param {string} productId
+		 * @param {ProductUpdate} productUpdate
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		productUpdateProduct: async (
+			productId: string,
+			productUpdate: ProductUpdate,
+			accessToken?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'productId' is not null or undefined
+			assertParamExists("productUpdateProduct", "productId", productId);
+			// verify required parameter 'productUpdate' is not null or undefined
+			assertParamExists("productUpdateProduct", "productUpdate", productUpdate);
+			const localVarPath = `/api/v1/products/{product_id}`.replace(
+				`{${"product_id"}}`,
+				encodeURIComponent(String(productId)),
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = {
+				method: "PATCH",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
+
+			localVarHeaderParameter["Content-Type"] = "application/json";
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				productUpdate,
+				localVarRequestOptions,
+				configuration,
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+	};
+};
+
+/**
+ * ProductApi - functional programming interface
+ * @export
+ */
+export const ProductApiFp = function (configuration?: Configuration) {
+	const localVarAxiosParamCreator = ProductApiAxiosParamCreator(configuration);
+	return {
+		/**
+		 * 신규 상품 생성 - 사용자가 소유한 상품 중 동일한 이름이 있는지 검사
+		 * @summary Create Product
+		 * @param {ProductCreate} productCreate
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async productCreateProduct(
+			productCreate: ProductCreate,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Product>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.productCreateProduct(
+					productCreate,
+					accessToken,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["ProductApi.productCreateProduct"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 상품 삭제
+		 * @summary Delete Product
+		 * @param {string} productId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async productDeleteProduct(
+			productId: string,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Message>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.productDeleteProduct(
+					productId,
+					accessToken,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["ProductApi.productDeleteProduct"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 상품 상세 조회
+		 * @summary Read Product
+		 * @param {string} productId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async productReadProduct(
+			productId: string,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Product>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.productReadProduct(
+					productId,
+					accessToken,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["ProductApi.productReadProduct"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 상품 목록 조회
+		 * @summary Read Products
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async productReadProducts(
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Product>>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.productReadProducts(
+					accessToken,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["ProductApi.productReadProducts"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 상품 수정
+		 * @summary Update Product
+		 * @param {string} productId
+		 * @param {ProductUpdate} productUpdate
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async productUpdateProduct(
+			productId: string,
+			productUpdate: ProductUpdate,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Product>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.productUpdateProduct(
+					productId,
+					productUpdate,
+					accessToken,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap["ProductApi.productUpdateProduct"]?.[
+					localVarOperationServerIndex
+				]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+	};
+};
+
+/**
+ * ProductApi - factory interface
+ * @export
+ */
+export const ProductApiFactory = function (
+	configuration?: Configuration,
+	basePath?: string,
+	axios?: AxiosInstance,
+) {
+	const localVarFp = ProductApiFp(configuration);
+	return {
+		/**
+		 * 신규 상품 생성 - 사용자가 소유한 상품 중 동일한 이름이 있는지 검사
+		 * @summary Create Product
+		 * @param {ProductCreate} productCreate
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		productCreateProduct(
+			productCreate: ProductCreate,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<Product> {
+			return localVarFp
+				.productCreateProduct(productCreate, accessToken, options)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 상품 삭제
+		 * @summary Delete Product
+		 * @param {string} productId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		productDeleteProduct(
+			productId: string,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<Message> {
+			return localVarFp
+				.productDeleteProduct(productId, accessToken, options)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 상품 상세 조회
+		 * @summary Read Product
+		 * @param {string} productId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		productReadProduct(
+			productId: string,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<Product> {
+			return localVarFp
+				.productReadProduct(productId, accessToken, options)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 상품 목록 조회
+		 * @summary Read Products
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		productReadProducts(
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<Array<Product>> {
+			return localVarFp
+				.productReadProducts(accessToken, options)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 상품 수정
+		 * @summary Update Product
+		 * @param {string} productId
+		 * @param {ProductUpdate} productUpdate
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		productUpdateProduct(
+			productId: string,
+			productUpdate: ProductUpdate,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<Product> {
+			return localVarFp
+				.productUpdateProduct(productId, productUpdate, accessToken, options)
+				.then((request) => request(axios, basePath));
+		},
+	};
+};
+
+/**
+ * ProductApi - object-oriented interface
+ * @export
+ * @class ProductApi
+ * @extends {BaseAPI}
+ */
+export class ProductApi extends BaseAPI {
+	/**
+	 * 신규 상품 생성 - 사용자가 소유한 상품 중 동일한 이름이 있는지 검사
+	 * @summary Create Product
+	 * @param {ProductCreate} productCreate
+	 * @param {string | null} [accessToken]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof ProductApi
+	 */
+	public productCreateProduct(
+		productCreate: ProductCreate,
+		accessToken?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return ProductApiFp(this.configuration)
+			.productCreateProduct(productCreate, accessToken, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
+
+	/**
+	 * 상품 삭제
+	 * @summary Delete Product
+	 * @param {string} productId
+	 * @param {string | null} [accessToken]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof ProductApi
+	 */
+	public productDeleteProduct(
+		productId: string,
+		accessToken?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return ProductApiFp(this.configuration)
+			.productDeleteProduct(productId, accessToken, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
+
+	/**
+	 * 상품 상세 조회
+	 * @summary Read Product
+	 * @param {string} productId
+	 * @param {string | null} [accessToken]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof ProductApi
+	 */
+	public productReadProduct(
+		productId: string,
+		accessToken?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return ProductApiFp(this.configuration)
+			.productReadProduct(productId, accessToken, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
+
+	/**
+	 * 상품 목록 조회
+	 * @summary Read Products
+	 * @param {string | null} [accessToken]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof ProductApi
+	 */
+	public productReadProducts(
+		accessToken?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return ProductApiFp(this.configuration)
+			.productReadProducts(accessToken, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
+
+	/**
+	 * 상품 수정
+	 * @summary Update Product
+	 * @param {string} productId
+	 * @param {ProductUpdate} productUpdate
+	 * @param {string | null} [accessToken]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof ProductApi
+	 */
+	public productUpdateProduct(
+		productId: string,
+		productUpdate: ProductUpdate,
+		accessToken?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return ProductApiFp(this.configuration)
+			.productUpdateProduct(productId, productUpdate, accessToken, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
+}
+
+/**
+ * ProductVariantApi - axios parameter creator
+ * @export
+ */
+export const ProductVariantApiAxiosParamCreator = function (
+	configuration?: Configuration,
+) {
+	return {
+		/**
+		 * 신규 상품 옵션 생성
+		 * @summary Create Product Variant
+		 * @param {string} productId
+		 * @param {ProductVariantCreate} productVariantCreate
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		productVariantCreateProductVariant: async (
+			productId: string,
+			productVariantCreate: ProductVariantCreate,
+			accessToken?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'productId' is not null or undefined
+			assertParamExists(
+				"productVariantCreateProductVariant",
+				"productId",
+				productId,
+			);
+			// verify required parameter 'productVariantCreate' is not null or undefined
+			assertParamExists(
+				"productVariantCreateProductVariant",
+				"productVariantCreate",
+				productVariantCreate,
+			);
+			const localVarPath = `/api/v1/products/{product_id}/variants`.replace(
+				`{${"product_id"}}`,
+				encodeURIComponent(String(productId)),
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = {
+				method: "POST",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
+
+			localVarHeaderParameter["Content-Type"] = "application/json";
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				productVariantCreate,
+				localVarRequestOptions,
+				configuration,
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * 상품 옵션 삭제
+		 * @summary Delete Product Variant
+		 * @param {string} productId
+		 * @param {string} variantId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		productVariantDeleteProductVariant: async (
+			productId: string,
+			variantId: string,
+			accessToken?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'productId' is not null or undefined
+			assertParamExists(
+				"productVariantDeleteProductVariant",
+				"productId",
+				productId,
+			);
+			// verify required parameter 'variantId' is not null or undefined
+			assertParamExists(
+				"productVariantDeleteProductVariant",
+				"variantId",
+				variantId,
+			);
+			const localVarPath = `/api/v1/products/{product_id}/variants/{variant_id}`
+				.replace(`{${"product_id"}}`, encodeURIComponent(String(productId)))
+				.replace(`{${"variant_id"}}`, encodeURIComponent(String(variantId)));
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = {
+				method: "DELETE",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * 상품 옵션 상세 조회
+		 * @summary Read Product Variant
+		 * @param {string} productId
+		 * @param {string} variantId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		productVariantReadProductVariant: async (
+			productId: string,
+			variantId: string,
+			accessToken?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'productId' is not null or undefined
+			assertParamExists(
+				"productVariantReadProductVariant",
+				"productId",
+				productId,
+			);
+			// verify required parameter 'variantId' is not null or undefined
+			assertParamExists(
+				"productVariantReadProductVariant",
+				"variantId",
+				variantId,
+			);
+			const localVarPath = `/api/v1/products/{product_id}/variants/{variant_id}`
+				.replace(`{${"product_id"}}`, encodeURIComponent(String(productId)))
+				.replace(`{${"variant_id"}}`, encodeURIComponent(String(variantId)));
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = {
+				method: "GET",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * 상품 별 옵션 목록 조회
+		 * @summary Read Product Variants
+		 * @param {string} productId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		productVariantReadProductVariants: async (
+			productId: string,
+			accessToken?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'productId' is not null or undefined
+			assertParamExists(
+				"productVariantReadProductVariants",
+				"productId",
+				productId,
+			);
+			const localVarPath = `/api/v1/products/{product_id}/variants`.replace(
+				`{${"product_id"}}`,
+				encodeURIComponent(String(productId)),
+			);
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = {
+				method: "GET",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+		/**
+		 * 상품 옵션 수정
+		 * @summary Update Product Variant
+		 * @param {string} productId
+		 * @param {string} variantId
+		 * @param {ProductVariantUpdate} productVariantUpdate
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		productVariantUpdateProductVariant: async (
+			productId: string,
+			variantId: string,
+			productVariantUpdate: ProductVariantUpdate,
+			accessToken?: string | null,
+			options: RawAxiosRequestConfig = {},
+		): Promise<RequestArgs> => {
+			// verify required parameter 'productId' is not null or undefined
+			assertParamExists(
+				"productVariantUpdateProductVariant",
+				"productId",
+				productId,
+			);
+			// verify required parameter 'variantId' is not null or undefined
+			assertParamExists(
+				"productVariantUpdateProductVariant",
+				"variantId",
+				variantId,
+			);
+			// verify required parameter 'productVariantUpdate' is not null or undefined
+			assertParamExists(
+				"productVariantUpdateProductVariant",
+				"productVariantUpdate",
+				productVariantUpdate,
+			);
+			const localVarPath = `/api/v1/products/{product_id}/variants/{variant_id}`
+				.replace(`{${"product_id"}}`, encodeURIComponent(String(productId)))
+				.replace(`{${"variant_id"}}`, encodeURIComponent(String(variantId)));
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+			let baseOptions;
+			if (configuration) {
+				baseOptions = configuration.baseOptions;
+			}
+
+			const localVarRequestOptions = {
+				method: "PATCH",
+				...baseOptions,
+				...options,
+			};
+			const localVarHeaderParameter = {} as any;
+			const localVarQueryParameter = {} as any;
+
+			// authentication OAuth2PasswordBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				"OAuth2PasswordBearer",
+				[],
+				configuration,
+			);
+
+			localVarHeaderParameter["Content-Type"] = "application/json";
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter);
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {};
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			};
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				productVariantUpdate,
+				localVarRequestOptions,
+				configuration,
+			);
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			};
+		},
+	};
+};
+
+/**
+ * ProductVariantApi - functional programming interface
+ * @export
+ */
+export const ProductVariantApiFp = function (configuration?: Configuration) {
+	const localVarAxiosParamCreator =
+		ProductVariantApiAxiosParamCreator(configuration);
+	return {
+		/**
+		 * 신규 상품 옵션 생성
+		 * @summary Create Product Variant
+		 * @param {string} productId
+		 * @param {ProductVariantCreate} productVariantCreate
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async productVariantCreateProductVariant(
+			productId: string,
+			productVariantCreate: ProductVariantCreate,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProductVariant>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.productVariantCreateProductVariant(
+					productId,
+					productVariantCreate,
+					accessToken,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap[
+					"ProductVariantApi.productVariantCreateProductVariant"
+				]?.[localVarOperationServerIndex]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 상품 옵션 삭제
+		 * @summary Delete Product Variant
+		 * @param {string} productId
+		 * @param {string} variantId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async productVariantDeleteProductVariant(
+			productId: string,
+			variantId: string,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Message>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.productVariantDeleteProductVariant(
+					productId,
+					variantId,
+					accessToken,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap[
+					"ProductVariantApi.productVariantDeleteProductVariant"
+				]?.[localVarOperationServerIndex]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 상품 옵션 상세 조회
+		 * @summary Read Product Variant
+		 * @param {string} productId
+		 * @param {string} variantId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async productVariantReadProductVariant(
+			productId: string,
+			variantId: string,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProductVariant>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.productVariantReadProductVariant(
+					productId,
+					variantId,
+					accessToken,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap[
+					"ProductVariantApi.productVariantReadProductVariant"
+				]?.[localVarOperationServerIndex]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 상품 별 옵션 목록 조회
+		 * @summary Read Product Variants
+		 * @param {string} productId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async productVariantReadProductVariants(
+			productId: string,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(
+				axios?: AxiosInstance,
+				basePath?: string,
+			) => AxiosPromise<Array<ProductVariant>>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.productVariantReadProductVariants(
+					productId,
+					accessToken,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap[
+					"ProductVariantApi.productVariantReadProductVariants"
+				]?.[localVarOperationServerIndex]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+		/**
+		 * 상품 옵션 수정
+		 * @summary Update Product Variant
+		 * @param {string} productId
+		 * @param {string} variantId
+		 * @param {ProductVariantUpdate} productVariantUpdate
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async productVariantUpdateProductVariant(
+			productId: string,
+			variantId: string,
+			productVariantUpdate: ProductVariantUpdate,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProductVariant>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.productVariantUpdateProductVariant(
+					productId,
+					variantId,
+					productVariantUpdate,
+					accessToken,
+					options,
+				);
+			const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+			const localVarOperationServerBasePath =
+				operationServerMap[
+					"ProductVariantApi.productVariantUpdateProductVariant"
+				]?.[localVarOperationServerIndex]?.url;
+			return (axios, basePath) =>
+				createRequestFunction(
+					localVarAxiosArgs,
+					globalAxios,
+					BASE_PATH,
+					configuration,
+				)(axios, localVarOperationServerBasePath || basePath);
+		},
+	};
+};
+
+/**
+ * ProductVariantApi - factory interface
+ * @export
+ */
+export const ProductVariantApiFactory = function (
+	configuration?: Configuration,
+	basePath?: string,
+	axios?: AxiosInstance,
+) {
+	const localVarFp = ProductVariantApiFp(configuration);
+	return {
+		/**
+		 * 신규 상품 옵션 생성
+		 * @summary Create Product Variant
+		 * @param {string} productId
+		 * @param {ProductVariantCreate} productVariantCreate
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		productVariantCreateProductVariant(
+			productId: string,
+			productVariantCreate: ProductVariantCreate,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<ProductVariant> {
+			return localVarFp
+				.productVariantCreateProductVariant(
+					productId,
+					productVariantCreate,
+					accessToken,
+					options,
+				)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 상품 옵션 삭제
+		 * @summary Delete Product Variant
+		 * @param {string} productId
+		 * @param {string} variantId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		productVariantDeleteProductVariant(
+			productId: string,
+			variantId: string,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<Message> {
+			return localVarFp
+				.productVariantDeleteProductVariant(
+					productId,
+					variantId,
+					accessToken,
+					options,
+				)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 상품 옵션 상세 조회
+		 * @summary Read Product Variant
+		 * @param {string} productId
+		 * @param {string} variantId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		productVariantReadProductVariant(
+			productId: string,
+			variantId: string,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<ProductVariant> {
+			return localVarFp
+				.productVariantReadProductVariant(
+					productId,
+					variantId,
+					accessToken,
+					options,
+				)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 상품 별 옵션 목록 조회
+		 * @summary Read Product Variants
+		 * @param {string} productId
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		productVariantReadProductVariants(
+			productId: string,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<Array<ProductVariant>> {
+			return localVarFp
+				.productVariantReadProductVariants(productId, accessToken, options)
+				.then((request) => request(axios, basePath));
+		},
+		/**
+		 * 상품 옵션 수정
+		 * @summary Update Product Variant
+		 * @param {string} productId
+		 * @param {string} variantId
+		 * @param {ProductVariantUpdate} productVariantUpdate
+		 * @param {string | null} [accessToken]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		productVariantUpdateProductVariant(
+			productId: string,
+			variantId: string,
+			productVariantUpdate: ProductVariantUpdate,
+			accessToken?: string | null,
+			options?: RawAxiosRequestConfig,
+		): AxiosPromise<ProductVariant> {
+			return localVarFp
+				.productVariantUpdateProductVariant(
+					productId,
+					variantId,
+					productVariantUpdate,
+					accessToken,
+					options,
+				)
+				.then((request) => request(axios, basePath));
+		},
+	};
+};
+
+/**
+ * ProductVariantApi - object-oriented interface
+ * @export
+ * @class ProductVariantApi
+ * @extends {BaseAPI}
+ */
+export class ProductVariantApi extends BaseAPI {
+	/**
+	 * 신규 상품 옵션 생성
+	 * @summary Create Product Variant
+	 * @param {string} productId
+	 * @param {ProductVariantCreate} productVariantCreate
+	 * @param {string | null} [accessToken]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof ProductVariantApi
+	 */
+	public productVariantCreateProductVariant(
+		productId: string,
+		productVariantCreate: ProductVariantCreate,
+		accessToken?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return ProductVariantApiFp(this.configuration)
+			.productVariantCreateProductVariant(
+				productId,
+				productVariantCreate,
+				accessToken,
+				options,
+			)
+			.then((request) => request(this.axios, this.basePath));
+	}
+
+	/**
+	 * 상품 옵션 삭제
+	 * @summary Delete Product Variant
+	 * @param {string} productId
+	 * @param {string} variantId
+	 * @param {string | null} [accessToken]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof ProductVariantApi
+	 */
+	public productVariantDeleteProductVariant(
+		productId: string,
+		variantId: string,
+		accessToken?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return ProductVariantApiFp(this.configuration)
+			.productVariantDeleteProductVariant(
+				productId,
+				variantId,
+				accessToken,
+				options,
+			)
+			.then((request) => request(this.axios, this.basePath));
+	}
+
+	/**
+	 * 상품 옵션 상세 조회
+	 * @summary Read Product Variant
+	 * @param {string} productId
+	 * @param {string} variantId
+	 * @param {string | null} [accessToken]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof ProductVariantApi
+	 */
+	public productVariantReadProductVariant(
+		productId: string,
+		variantId: string,
+		accessToken?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return ProductVariantApiFp(this.configuration)
+			.productVariantReadProductVariant(
+				productId,
+				variantId,
+				accessToken,
+				options,
+			)
+			.then((request) => request(this.axios, this.basePath));
+	}
+
+	/**
+	 * 상품 별 옵션 목록 조회
+	 * @summary Read Product Variants
+	 * @param {string} productId
+	 * @param {string | null} [accessToken]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof ProductVariantApi
+	 */
+	public productVariantReadProductVariants(
+		productId: string,
+		accessToken?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return ProductVariantApiFp(this.configuration)
+			.productVariantReadProductVariants(productId, accessToken, options)
+			.then((request) => request(this.axios, this.basePath));
+	}
+
+	/**
+	 * 상품 옵션 수정
+	 * @summary Update Product Variant
+	 * @param {string} productId
+	 * @param {string} variantId
+	 * @param {ProductVariantUpdate} productVariantUpdate
+	 * @param {string | null} [accessToken]
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof ProductVariantApi
+	 */
+	public productVariantUpdateProductVariant(
+		productId: string,
+		variantId: string,
+		productVariantUpdate: ProductVariantUpdate,
+		accessToken?: string | null,
+		options?: RawAxiosRequestConfig,
+	) {
+		return ProductVariantApiFp(this.configuration)
+			.productVariantUpdateProductVariant(
+				productId,
+				variantId,
+				productVariantUpdate,
+				accessToken,
+				options,
+			)
 			.then((request) => request(this.axios, this.basePath));
 	}
 }
